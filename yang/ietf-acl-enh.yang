@@ -505,7 +505,8 @@ module ietf-acl-enh {
       }
       units "bytes per second";
       description
-        "Indicates a rate-limit for the matched traffic.";
+        "Indicates a rate-limit for the matched traffic.
+        Specifies the rate-limit value in bytes per second";
     }
   }
 }
