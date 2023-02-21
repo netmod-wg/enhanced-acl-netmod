@@ -144,6 +144,18 @@ module ietf-acl-enh {
       when a packet is sent to a particular host that was not expecting it.";
   }
 
+  identity R1 {
+    base tcp-flag;
+    description
+      "The R1 retransmission threshold has been reached.";
+  }
+
+  identity R2 {
+    base tcp-flag;
+    description
+      "The R2 retransmission threshold has been reached.";
+  }
+
   identity ECE {
     base tcp-flag;
     description
@@ -224,22 +236,32 @@ module ietf-acl-enh {
   grouping tcp-flags {
     description
       "Operations on TCP flags.";
-    leaf operator {
-      type operator;
-      default "match";
-      description
-        "How to interpret the TCP flags.";
-    }
-    leaf-list bitmask {
-      type identityref {
-        base tcp-flag;
+    choice mode  {
+      case explicit {
+        leaf operator {
+          type operator;
+          default "match";
+          description
+            "How to interpret the TCP flags.";
+        }
+        leaf-list explicit-tcp-flag {
+          type identityref {
+            base tcp-flag;
+          }
+          description
+            "An explicit list of the TCP flags that are to be matched. .";
+        }
       }
-      description
-        "The bitmask matches the last 4 bits of byte 12
-        and byte 13 of the TCP header.  For clarity, the 4 bits
-        of byte 12 corresponding to the TCP data offset field
-        are not included in any matching. TCP Flags can be used for troubleshooting 
-        purposes or to control how a particular connection is handled";
+      case builtin {
+        leaf bitmask {
+          type uint16;
+          description
+            "The bitmask matches the last 4 bits of byte 12
+            and byte 13 of the TCP header.  For clarity, the 4 bits
+            of byte 12 corresponding to the TCP data offset field
+            are not included in any matching.";
+        }
+      }
     }
   }
 
