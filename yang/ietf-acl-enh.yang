@@ -104,9 +104,9 @@ module ietf-acl-enh {
   identity SYN {
     base tcp-flag;
     description
-      "The synchronization flag is used to establish a three-way handshake 
-      between two hosts. Only the first packet from both the sender and 
-      receiver should have this flag set. The following diagram 
+      "The Synchronize sequence numbers flag is used to establish a three-way 
+      handshake between two hosts. Only the first packet from both the sender 
+      and receiver should have this flag set. The following diagram 
       illustrates a three-way handshake process.";
   }
 
@@ -121,18 +121,18 @@ module ietf-acl-enh {
   identity URG {
     base tcp-flag;
     description
-      "he urgent flag is used to notify the receiver to process 
-      the urgent packets before processing all other packets. 
+      "he Urgent pointer field is significant flag is used to notify the 
+      receiver to process the urgent packets before processing all other packets. 
       The receiver will be notified when all known urgent 
       data has been received.";
     reference
-     "RFC 6093";
+     "RFC 9293";
   }
 
   identity PSH {
     base tcp-flag;
     description
-      "The push flag is similar to the URG flag and tells the 
+      "The Push function flag is similar to the URG flag and tells the 
       receiver to process these packets as they are received 
       instead of buffering them. ";
   }
@@ -140,7 +140,7 @@ module ietf-acl-enh {
   identity RST {
     base tcp-flag;
     description
-      "The reset flag gets sent from the receiver to the sender 
+      "The Reset the connection flag gets sent from the receiver to the sender 
       when a packet is sent to a particular host that was not expecting it.";
   }
 
@@ -148,18 +148,23 @@ module ietf-acl-enh {
     base tcp-flag;
     description
       "The R1 retransmission threshold has been reached.";
+    reference
+     "RFC 9293";
   }
 
   identity R2 {
     base tcp-flag;
     description
       "The R2 retransmission threshold has been reached.";
+    reference
+     "RFC 9293";
   }
 
   identity ECE {
     base tcp-flag;
     description
-      "TThis flag is responsible for indicating if the TCP peer is ECN capable.";
+      "TThis flag is responsible for indicating if the TCP peer is 
+      Explicit Congestion Notification capable.";
     reference
      "RFC 3168";
   }
@@ -169,13 +174,6 @@ module ietf-acl-enh {
     description
       "The congestion window reduced flag is used by the sending 
       host to indicate it received a packet with the ECE flag set. ";
-  }
-
-  identity NS {
-    base tcp-flag;
-    description
-      "he nonce sum flag is still an experimental flag used to help protect
-      against accidental, malicious concealment of packets from the sender.";
   }
 
   typedef operator {
