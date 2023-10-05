@@ -135,13 +135,14 @@ Defined set:
 ## Defined Sets
 
 The augmented ACL structure includes several containers to manage reusable sets of elements that can be matched in an ACL entry.
-Each set is uniquely identified by a name, and can be called from the relevant entry. The following sets are defined:
+Each set is uniquely identified by a name and can be called from the relevant entry. The following sets are defined:
 
 * IPv4 prefix set: It contains a list of IPv4 prefixes. A match will be considered if the IP address (source or destination, depending on the ACL entry) is contained in any of the prefixes.
 * IPv6 prefix set: It contains a list of IPv6 prefixes. A match will be considered if the IP address (source or destination, depending on the ACL entry) is contained in any of the prefixes.
-* Port sets: It contains a list of port numbers to be used in TCP / UDP entries. The ports can be individual port numbers, a range of ports, and an operation.
+* Port sets: It contains a list of port numbers to be used in TCP/UDP entries. The port numbers can be individual port numbers, a range of ports, and an operation.
 * Protocol sets: It contains a list of protocol values. Each protocol can be identified either by a number (e.g., 17) or a name (e.g., UDP).
-* ICMP sets: It contains a list of ICMP types, each of them identified by a type value, optionally the code and the rest of the header.
+* ICMP sets: It contains a list of ICMPv4 or ICMPv6 types, each of them identified by a type value, optionally the code and the rest of the header.
+* Aliases: An alias is defined by a combination of various parameters (e.g., IP prefix, protocol, or port number). Sets of aliases can be defined and referred to in match criteria.
 
 ## TCP Flags Handling
 
@@ -151,32 +152,36 @@ Clients that support both 'flags-bitmask' and 'flags' matching fields MUST NOT s
 
 {{example_4}} shows an example of a request to install a filter to discard incoming TCP messages having all flags unset.
 
-~~~
-  {
-     "ietf-access-control-list:acls": {
-       "acl": [{
-         "name": "tcp-flags-example",
-         "aces": {
-           "ace": [{
-             "name": "null-attack",
-             "matches": {
-               "tcp": {
-                 "acl-enh:flags-bitmask": {
-                   "operator": "not any",
-                   "bitmask": 4095
-                 }
-               }
-             },
-             "actions": {
-               "forwarding": "drop"
-             }
-           }]
+~~~ json
+{
+   "ietf-access-control-list:acls":{
+      "acl":[
+         {
+            "name":"tcp-flags-example",
+            "aces":{
+               "ace":[
+                  {
+                     "name":"null-attack",
+                     "matches":{
+                        "tcp":{
+                           "acl-enh:flags-bitmask":{
+                              "operator":"not any",
+                              "bitmask":4095
+                           }
+                        }
+                     },
+                     "actions":{
+                        "forwarding":"drop"
+                     }
+                  }
+               ]
+            }
          }
-       }]
-     }
+      ]
    }
+}
 ~~~
-{: #example_4 title="Example to Deny TCP Null Attack Messages (Request Body)"}
+{: #example_4 title="Example of an ACL to Deny TCP Null Attack Messages (Request Body)"}
 
 ## Fragments Handling
 
@@ -190,53 +195,52 @@ packets.  The following ACEs are defined (in this order):
 * "drop-all-fragments" ACE: discards all fragments.
 * "allow-dns-packets" ACE: accepts DNS packets destined to 198.51.100.0/24.
 
-
-~~~
+~~~ json
 {
-     "ietf-access-control-list:acls": {
-       "acl": [
+   "ietf-access-control-list:acls":{
+      "acl":[
          {
-           "name": "dns-fragments",
-           "type": "ipv4-acl-type",
-           "aces": {
-             "ace": [
-               {
-                 "name": "drop-all-fragments",
-                 "matches": {
-                   "ipv4": {
-                     "acl-enh:ipv4-fragment": {
-                       "operator": "match",
-                       "type": "isf"
+            "name":"dns-fragments",
+            "type":"ipv4-acl-type",
+            "aces":{
+               "ace":[
+                  {
+                     "name":"drop-all-fragments",
+                     "matches":{
+                        "ipv4":{
+                           "acl-enh:ipv4-fragment":{
+                              "operator":"match",
+                              "type":"isf"
+                           }
+                        }
+                     },
+                     "actions":{
+                        "forwarding":"drop"
                      }
-                   }
-                 },
-                 "actions": {
-                   "forwarding": "drop"
-                 }
-               },
-               {
-                 "name": "allow-dns-packets",
-                 "matches": {
-                   "ipv4": {
-                     "destination-ipv4-network": "198.51.100.0/24"
-                   },
-                   "udp": {
-                     "destination-port": {
-                       "operator": "eq",
-                       "port": 53
+                  },
+                  {
+                     "name":"allow-dns-packets",
+                     "matches":{
+                        "ipv4":{
+                           "destination-ipv4-network":"198.51.100.0/24"
+                        },
+                        "udp":{
+                           "destination-port":{
+                              "operator":"eq",
+                              "port":53
+                           }
+                        },
+                        "actions":{
+                           "forwarding":"accept"
+                        }
                      }
-                   },
-                   "actions": {
-                     "forwarding": "accept"
-                   }
-                 }
-               }
-             ]
-           }
+                  }
+               ]
+            }
          }
-       ]
-     }
+      ]
    }
+}
 ~~~
 {: #example_2 title="Example Illustrating Candidate Filtering of IPv4 Fragmented Packets (Message Body)"}
 
@@ -245,86 +249,90 @@ packets.  The following ACEs are defined (in this order):
 * "drop-all-fragments" ACE: discards all fragments (including atomic fragments). That is, IPv6 packets that include a Fragment header (44) are dropped.
 * "allow-dns-packets" ACE: accepts DNS packets destined to 2001:db8::/32.
 
-~~~
-    {
-     "ietf-access-control-list:acls": {
-       "acl": [
+~~~ json
+{
+   "ietf-access-control-list:acls":{
+      "acl":[
          {
-           "name": "dns-fragments",
-           "type": "ipv6-acl-type",
-           "aces": {
-             "ace": [
-               {
-                 "name": "drop-all-fragments",
-                 "matches": {
-                   "ipv6": {
-                     "acl-enh:ipv6-fragment": {
-                       "operator": "match",
-                       "type": "isf"
+            "name":"dns-fragments",
+            "type":"ipv6-acl-type",
+            "aces":{
+               "ace":[
+                  {
+                     "name":"drop-all-fragments",
+                     "matches":{
+                        "ipv6":{
+                           "acl-enh:ipv6-fragment":{
+                              "operator":"match",
+                              "type":"isf"
+                           }
+                        }
+                     },
+                     "actions":{
+                        "forwarding":"drop"
                      }
-                   }
-                 },
-                 "actions": {
-                   "forwarding": "drop"
-                 }
-               },
-               {
-                 "name": "allow-dns-packets",
-                 "matches": {
-                   "ipv6": {
-                     "destination-ipv6-network": "2001:db8::/32"
-                   },
-                   "udp": {
-                     "destination-port": {
-                       "operator": "eq",
-                       "port": 53
+                  },
+                  {
+                     "name":"allow-dns-packets",
+                     "matches":{
+                        "ipv6":{
+                           "destination-ipv6-network":"2001:db8::/32"
+                        },
+                        "udp":{
+                           "destination-port":{
+                              "operator":"eq",
+                              "port":53
+                           }
+                        }
+                     },
+                     "actions":{
+                        "forwarding":"accept"
                      }
-                   }
-                 },
-                 "actions": {
-                   "forwarding": "accept"
-                 }
-               }
-             ]
-           }
+                  }
+               ]
+            }
          }
-       ]
-     }
+      ]
    }
+}
 ~~~
-{: #example_3 title="Example Illustrating Candidate Filtering of IPv6 Fragmented Packets (Message Body)"}
+{: #example_3 title="An Example Illustrating Filtering of IPv6 Fragmented Packets (Message Body)"}
 
 ## Rate-Limit Traffic
 
 In order to support rate-limiting (see {{ps-rate}}), a new action called "rate-limit" is defined. {{example_5}} shows an ACL example to rate-limit incoming SYNs during a SYN flood attack.
 
-~~~
-  {
-     "ietf-access-control-list:acls": {
-       "acl": [{
-         "name": "tcp-flags-example-with-rate-limit",
-         "aces": {
-           "ace": [{
-             "name": "rate-limit-syn",
-             "matches": {
-               "tcp": {
-                 "acl-enh:flags-bitmask": {
-                   "operator": "match",
-                   "bitmask": 2
-                 }
-               }
-             },
-             "actions": {
-               "forwarding": "accept",
-               "acl-enh:rate-limit": "20.00"
-             }
-           }]
+~~~ json
+{
+   "ietf-access-control-list:acls":{
+      "acl":[
+         {
+            "name":"tcp-flags-example-with-rate-limit",
+            "aces":{
+               "ace":[
+                  {
+                     "name":"rate-limit-syn",
+                     "matches":{
+                        "tcp":{
+                           "acl-enh:flags-bitmask":{
+                              "operator":"match",
+                              "bitmask":2
+                           }
+                        }
+                     },
+                     "actions":{
+                        "forwarding":"accept",
+                        "acl-enh:rate-limit":"20.00"
+                     }
+                  }
+               ]
+            }
          }
-       }]
-     }
+      ]
    }
+}
 ~~~
-{: #example_5 title="Example Rate-Limit Incoming TCP SYNs (Message Body)."}
+{: #example_5 title="An Example of Rate-Limit Incoming TCP SYNs (Message Body)."}
 
 ## ISID Filter
 
@@ -346,34 +354,32 @@ the EVNP-PBB configuration.
 
 {{example_6}} shows an ACL example to illustrate the ISID range filtering.
 
-~~~ ascii-art
-  {
-    "ietf-acces-control-list:acls": {
-          "acl": [
-            {
-              "name": "test",
-              "aces": {
-                "ace": [
+~~~ json
+{
+   "ietf-acces-control-list:acls":{
+      "acl":[
+         {
+            "name":"test",
+            "aces":{
+               "ace":[
                   {
-                    "name": "1",
-                    "matches": {
-                      "ietf-acl-enh:isid-filter": {
-                        "lower-isid": 100,
-                        "upper-isid": 200
-                      }
-                    },
-                    "actions": {
-                      "forwarding": "ietf-acces-control-list:accept"
-                    }
+                     "name":"1",
+                     "matches":{
+                        "ietf-acl-enh:isid-filter":{
+                           "lower-isid":100,
+                           "upper-isid":200
+                        }
+                     },
+                     "actions":{
+                        "forwarding":"ietf-acces-control-list:accept"
+                     }
                   }
-                ]
-              }
+               ]
             }
-          ]
-        }
-      }
-    }
+         }
+      ]
    }
+}
 ~~~
 {: #example_6 title="Example ISID Filter (Message Body)"}
 
@@ -388,32 +394,32 @@ on the network policy applied.
 
 {{example_7}} shows an ACL example to illustrate how to apply a VLAN range filter.
 
-~~~ ascii-art
-  {
-    "ietf-acces-control-list:acls": {
-      "acl": [
-        {
-          "name": "VLAN_FILTER",
-          "aces": {
-            "ace": [
-              {
-                "name": "1",
-                "matches": {
-                  "ietf-acl-enh:vlan-filter": {
-                    "lower-vlan": 10,
-                    "upper-vlan": 20
+~~~ json
+{
+   "ietf-acces-control-list:acls":{
+      "acl":[
+         {
+            "name":"VLAN_FILTER",
+            "aces":{
+               "ace":[
+                  {
+                     "name":"1",
+                     "matches":{
+                        "ietf-acl-enh:vlan-filter":{
+                           "lower-vlan":10,
+                           "upper-vlan":20
+                        }
+                     },
+                     "actions":{
+                        "forwarding":"ietf-acces-control-list:accept"
+                     }
                   }
-                },
-                "actions": {
-                  "forwarding": "ietf-acces-control-list:accept"
-                }
-              }
-            ]
-          }
-        }
+               ]
+            }
+         }
       ]
-    }
    }
+}
 ~~~
 {: #example_7 title="Example of VLAN Filter (Message Body)"}
 
@@ -493,6 +499,10 @@ Some of the readable data nodes in this YANG module may be considered sensitive 
          URI: urn:ietf:params:xml:ns:yang:iana-icmpv6-types
          Registrant Contact: The IESG.
          XML: N/A; the requested URI is an XML namespace.
+
+         URI: urn:ietf:params:xml:ns:yang:iana-ipv6-ext-types
+         Registrant Contact: The IESG.
+         XML: N/A; the requested URI is an XML namespace.
 ~~~
 
 ## YANG Module Name Registrations
@@ -502,23 +512,29 @@ This document requests IANA to register the following YANG modules in
    Parameters" registry.
 
 ~~~
-         name: ietf-acl-enh
-         namespace: urn:ietf:params:xml:ns:yang:ietf-acl-enh
-         maintained by IANA: N
-         prefix: acl-enh
-         reference: RFC XXXX
+    name: ietf-acl-enh
+    namespace: urn:ietf:params:xml:ns:yang:ietf-acl-enh
+    maintained by IANA: N
+    prefix: acl-enh
+    reference: RFC XXXX
 
-         name: iana-icmpv4-types
-         namespace: urn:ietf:params:xml:ns:yang:iana-icmpv4-types
-         maintained by IANA: Y
-         prefix: iana-icmpv4-types
-         reference: RFC XXXX
+    name: iana-icmpv4-types
+    namespace: urn:ietf:params:xml:ns:yang:iana-icmpv4-types
+    maintained by IANA: Y
+    prefix: iana-icmpv4-types
+    reference: RFC XXXX
 
-         name: iana-icmpv6-types
-         namespace: urn:ietf:params:xml:ns:yang:iana-icmpv6-types
-         maintained by IANA: Y
-         prefix: iana-icmpv6-types
-         reference: RFC XXXX
+    name: iana-icmpv6-types
+    namespace: urn:ietf:params:xml:ns:yang:iana-icmpv6-types
+    maintained by IANA: Y
+    prefix: iana-icmpv6-types
+    reference: RFC XXXX
+
+    name: iana-ipv6-ext-types
+    namespace: urn:ietf:params:xml:ns:yang:iana-ipv6-ext-types
+    maintained by IANA: Y
+    prefix: iana-ipv6-eh
+    reference: RFC XXXX
 ~~~
 
 ## Considerations for IANA-Maintained Modules
@@ -646,22 +662,22 @@ NEW:
 ### IPv6 Extension Header Types IANA Module
 
 IANA is requested to create and post
-the initial version of the "iana-ipv6-ext-header-types" YANG module by
+the initial version of the "iana-ipv6-ext-types" YANG module by
 applying the XSLT stylesheet from {{iana-ipv6-ext-template}} to the XML version of
 {{IANA-IPv6}}.
 
 This document defines the initial version of the IANA-maintained
-"iana-ipv6-ext-header-types" YANG module.  The most recent version of the YANG module
+"iana-ipv6-ext-types" YANG module.  The most recent version of the YANG module
 is available from the "YANG Parameters" registry
 {{IANA-YANG-PARAMETERS}}.
 
 IANA is requested to add this note to the registry {{IANA-YANG-PARAMETERS}}:
 
-    New values must not be directly added to the "iana-ipv6-ext-header-types" YANG
+    New values must not be directly added to the "iana-ipv6-ext-types" YANG
     module.  They must instead be added to the "IPv6 Extension Header Types" registry {{IANA-ICMPv6}}.
 
 When a value is added to the "IPv6 Extension Header Types" registry, a new "enum" statement
-must be added to the "iana-ipv6-ext-header-types" YANG module.  The "enum" statement,
+must be added to the "iana-ipv6-ext-types" YANG module.  The "enum" statement,
 and sub-statements thereof, should be defined:
 
 "enum":
@@ -685,13 +701,13 @@ and sub-statements thereof, should be defined:
 
 Unassigned or reserved values are not present in the module.
 
-When the "iana-ipv6-ext-header-types" YANG module is updated, a new "revision"
+When the "iana-ipv6-ext-types" YANG module is updated, a new "revision"
 statement with a unique revision date must be added in front of the
 existing revision statements.
 
 IANA is requested to add this note to the "IPv6 Extension Header Types" registry {{IANA-IPv6}}:
 
-    When this registry is modified, the YANG module "iana-ipv6-ext-header-types"
+    When this registry is modified, the YANG module "iana-ipv6-ext-types"
     [IANA_IPV6_YANG_URL] must be updated as defined in RFCXXXX.
 
 IANA is requested to updated the "Reference" in the "IPv6 Extension Header Types" registry
