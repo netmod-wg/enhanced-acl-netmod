@@ -243,13 +243,13 @@ module ietf-acl-enh {
       bit match {
         position 1;
         description
-          "Match bit.  This is a bitwise match operation defined as
+          "Match bit. This is a bitwise match operation defined as
            '(data & value) == value'.";
       }
       bit any {
         position 2;
         description
-          "Any bit.  This is a match on any of the bits in  bitmask.
+          "Any bit. This is a match on any of the bits in  bitmask.
            It evaluates to 'true' if any of the bits in the value mask
            are set in the data,  i.e., '(data & value) != 0'.";
       }
@@ -742,7 +742,7 @@ grouping mpls-match-parameters-config {
   }
 
   augment "/acl:acls/acl:acl/acl:aces"
-        + "/acl:ace/acl:matches/acl:l3/acl:ipv4" {
+        + "/acl:ace/acl:matches/acl:l3/acl:ipv4/acl:ipv4" {
     description
       "Handle non-initial and initial fragments for IPv4 packets.";
     container ipv4-fragment {
@@ -771,7 +771,7 @@ grouping mpls-match-parameters-config {
   }
 
   augment "/acl:acls/acl:acl/acl:aces"
-        + "/acl:ace/acl:matches/acl:l3/acl:ipv6" {
+        + "/acl:ace/acl:matches/acl:l3/acl:ipv6/acl:ipv6" {
     description
       "Handles non-initial and initial fragments for IPv6 packets.";
     container ipv6-fragment {
