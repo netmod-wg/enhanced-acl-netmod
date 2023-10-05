@@ -533,7 +533,7 @@ This document requests IANA to register the following YANG modules in
     name: iana-ipv6-ext-types
     namespace: urn:ietf:params:xml:ns:yang:iana-ipv6-ext-types
     maintained by IANA: Y
-    prefix: iana-ipv6-eh
+    prefix: iana-ipv6-ext-types
     reference: RFC XXXX
 ~~~
 
