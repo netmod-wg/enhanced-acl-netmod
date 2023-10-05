@@ -1,7 +1,7 @@
 module iana-ipv6-ext-types {
   yang-version 1.1;
   namespace "urn:ietf:params:xml:ns:yang:iana-ipv6-ext-types";
-  prefix ipv6-ext;
+  prefix iana-ipv6-eh;
 
   organization
     "Internet Assigned Numbers Authority (IANA)";
