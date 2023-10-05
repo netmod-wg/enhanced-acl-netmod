@@ -17,7 +17,7 @@ TXT=$(patsubst $(YANGDIR)/%.yang,%-diagram.txt,$(YANG))
 .PHONY: yang-lint yang-gen-diagram yang-clean
 
 pyang-lint: $(STDYANG) $(STDYANGDIR)
-	pyang -V --ietf -p $(YANG_PATH) $(STDYANG)
+	pyang -V --ietf $(OPTIONS) -p $(YANG_PATH) $(STDYANG)
 
 yang-lint: $(STDYANG) $(STDYANGDIR)
 	yanglint --verbose -p $(YANGDIR) -p $(STDYANGDIR)/standard/ietf/RFC/ -p $(STDYANGDIR)/experimental/ietf-extracted-YANG-modules $(STDYANG) -i
