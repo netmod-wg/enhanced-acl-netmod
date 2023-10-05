@@ -56,7 +56,7 @@ RFC 8519 defines a YANG data model for Access Control Lists
 (ACLs). This document discusses a set of extensions that fix many of
 the limitations of the ACL model as initially defined in RFC 8519.
 
-The document also defines IANA-maintained modules for ICMP types.
+The document also defines IANA-maintained modules for ICMP types and IPv6 extension headers.
 
 --- middle
 
@@ -103,9 +103,9 @@ tools such as DDoS mitigation {{?RFC9132}} or BGP Flow Spec {{?RFC8955}}
 {{!RFC8956}}. Therefore, supporting means to easily map to the filtering rules conveyed in
 messages triggered by  these tools is valuable from a network operation standpoint.
 
-The document also defines IANA-maintained modules for ICMP types. The design of the module adheres with the recommendations
-in {{?I-D.boucadair-netmod-rfc8407bis}}. The templates to generate the modules is available at {{template}} and {{v6-template}}. Readers should refer to the IANA
-website [REF_TBC] to retrieve the latest version of the modules. The modules are provided in {{iana-icmp}} and {{iana-icmpv6}} for the users convenience, but that appendix will be removed from the final RFC.
+The document also defines IANA-maintained modules for ICMP types and IPv6 extension headers. The design of the modules adheres to the recommendations
+in {{?I-D.boucadair-netmod-rfc8407bis}}. The templates to generate the modules is available at {{template}}, {{v6-template}}, and {{iana-ipv6-ext-template}}. Readers should refer to the IANA
+websites [REF_TBC], [REF_TBC2], and [REF_TBC3] to retrieve the latest version of the modules. The modules are provided in {{iana-icmp}}, {{iana-icmpv6}}, and {{iana-ipv6-ext}} for the users convenience, but these appendices will be removed from the final RFC.
 
 # Terminology
 
@@ -447,7 +447,7 @@ The structure of the MPLS ACL subtree is shown in {{example_8}}:
 This model imports types from {{!RFC6991}}, {{!RFC8519}}, and {{!RFC8294}}.
 
 ~~~
-<CODE BEGINS> file ietf-acl-enh@2022-10-24.yang
+<CODE BEGINS> file "ietf-acl-enh@2022-10-24.yang"
 
 {::include ./yang/ietf-acl-enh.yang}
 <CODE ENDS>
@@ -721,7 +721,7 @@ NEW:
 ## Initial Version of the The ICMPv4 Types IANA-Maintained Module {#iana-icmp}
 
 ~~~
-<CODE BEGINS> file iana-icmpv4-types@2020-09-25.yang
+<CODE BEGINS> file "iana-icmpv4-types@2020-09-25.yang"
 
 {::include ./yang/iana-icmpv4-types.yang}
 
@@ -743,7 +743,7 @@ NEW:
 ## Initial Version of the The ICMPv4 Types IANA-Maintained Module {#iana-icmpv6}
 
 ~~~
-<CODE BEGINS> file iana-icmpv6-types@2020-09-25.yang
+<CODE BEGINS> file "iana-icmpv6-types@2020-09-25.yang"
 
 {::include ./yang/iana-icmpv6-types.yang}
 
@@ -765,7 +765,7 @@ NEW:
 ## Initial Version of the The ICMPv4 Types IANA-Maintained Module {#iana-ipv6-ext}
 
 ~~~
-<CODE BEGINS> file iana-ipv6-ext-types@2023-09-29.yang
+<CODE BEGINS> file "iana-ipv6-ext-types@2023-09-29.yang"
 
 {::include ./yang/iana-ipv6-ext-types.yang}
 
