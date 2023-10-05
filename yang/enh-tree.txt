@@ -93,20 +93,24 @@ module: ietf-acl-enh
           +--:(operator)
              +--rw operator?     packet-fields:operator
              +--rw isid*         uint16
-  augment /acl:acls/acl:acl/acl:aces/acl:ace/acl:matches/acl:l3/acl:ipv4:
+  augment /acl:acls/acl:acl/acl:aces/acl:ace/acl:matches/acl:l3
+          /acl:ipv4/acl:ipv4:
     +--rw ipv4-fragment
     |  +--rw operator?   operator
     |  +--rw type?       fragment-type
     +--rw source-ipv4-prefix-list?        ipv4-prefix-set-ref
     +--rw destination-ipv4-prefix-list?   ipv4-prefix-set-ref
     +--rw next-header-set?                protocol-set-ref
-  augment /acl:acls/acl:acl/acl:aces/acl:ace/acl:matches/acl:l3/acl:ipv6:
+  augment /acl:acls/acl:acl/acl:aces/acl:ace/acl:matches/acl:l3
+          /acl:ipv6/acl:ipv6:
     +--rw ipv6-fragment
     |  +--rw operator?   operator
     |  +--rw type?       fragment-type
     +--rw source-ipv6-prefix-list?        ipv6-prefix-set-ref
     +--rw destination-ipv6-prefix-list?   ipv6-prefix-set-ref
     +--rw protocol-set?                   protocol-set-ref
+    +--rw extension-header?
+            iana-ipv6-ext-types:ipv6-extension-header-type
   augment /acl:acls/acl:acl/acl:aces/acl:ace/acl:matches/acl:l4/acl:tcp:
     +--rw flags-bitmask
     |  +--rw (mode)?
