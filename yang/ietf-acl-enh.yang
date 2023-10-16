@@ -245,7 +245,8 @@ module ietf-acl-enh {
 
   }
 
-  identity counter-types {
+  identity counter-type {
+
     description
       "Base identity for deriving the Counter actions.";
   }
