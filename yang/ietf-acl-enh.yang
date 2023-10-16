@@ -674,7 +674,8 @@ grouping mpls-match-parameters-config {
         description
           "The type of counter action to be performed.";
       }
-      list counter-names {
+      list counter-name {
+
         when "../counter-type = 'counter-name'" {
           description
             "Name for the counter or variable to update when counter-type 
