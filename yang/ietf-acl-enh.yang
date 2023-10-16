@@ -241,7 +241,8 @@ module ietf-acl-enh {
   identity local-log {
     base log-types;
     description
-      "Local log-file is used to store the acl results.";
+      "A local log is used to record the ACL results.";
+
   }
 
   identity counter-types {
