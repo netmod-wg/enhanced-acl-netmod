@@ -242,20 +242,17 @@ module ietf-acl-enh {
     base log-types;
     description
       "A local log is used to record the ACL results.";
-
   }
 
   identity counter-type {
-
     description
       "Base identity for deriving the Counter actions.";
   }
 
   identity counter-name {
-    base counter-types;
+    base counter-type;
     description
       "Identity for counter name to be updated based on the ACL match actions.";
-
   }
 
   typedef operator {
@@ -669,7 +666,7 @@ grouping mpls-match-parameters-config {
 
       leaf counter-type {
         type identityref {
-          base acl-enh:counter-types;
+          base acl-enh:counter-type;
         }
         description
           "The type of counter action to be performed.";
