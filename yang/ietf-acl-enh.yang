@@ -37,7 +37,8 @@ module ietf-acl-enh {
   }
   import ietf-alarms {
        prefix al;
-       reference "RFC 8632: A YANG Data Model for Alarm Management";
+       reference 
+        "RFC 8632: A YANG Data Model for Alarm Management";
      }
 
   organization
@@ -68,7 +69,7 @@ module ietf-acl-enh {
      This version of this YANG module is part of RFC XXXX; see
      the RFC itself for full legal notices.";
 
-  revision 2022-10-24 {
+  revision 2023-10-24 {
     description
       "Initial revision.";
     reference
@@ -639,12 +640,12 @@ grouping mpls-match-parameters-config {
 
       leaf log-type {
         type identityref {
-          base log-types;
+          base acl-enh:log-types;
         }
         description
           "The type of log action to be performed.";
       }
-      leaf counter-name {
+      leaf log-id {
         when "../log-type = 'local-log'" {
           description
             "Name of the log file updated when type is 'local-log'.";
@@ -661,7 +662,7 @@ grouping mpls-match-parameters-config {
 
       leaf counter-type {
         type identityref {
-          base counter-types;
+          base acl-enh:counter-types;
         }
         description
           "The type of counter action to be performed.";
@@ -670,7 +671,7 @@ grouping mpls-match-parameters-config {
         key counter-name;
         when "../counter-type = 'counter-name'" {
           description
-            "Name for the counter action when counter-type 
+            "Name for the counter or variable to update when counter-type 
             is 'counter-name'.";
         }
         
