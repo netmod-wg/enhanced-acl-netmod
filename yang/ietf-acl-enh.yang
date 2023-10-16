@@ -633,7 +633,7 @@ grouping mpls-match-parameters-config {
     }
   }
 
-    grouping acl-complementary-actions {
+  grouping acl-complementary-actions {
     description
       "Collection of complementary actions for the ACL.";
 
@@ -677,12 +677,14 @@ grouping mpls-match-parameters-config {
             "Name for the counter or variable to update when counter-type 
             is 'counter-name'.";
         }
-        
         leaf counter-name {
           type string;
           description
             "The name of the counter action.";
         }
+        description
+          "List of possible variables or counter names to
+          update based on match critieria.";
       }
     }  
   }
