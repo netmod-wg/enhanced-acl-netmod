@@ -233,6 +233,28 @@ module ietf-acl-enh {
       "Bottom of the label stack.";
   }
 
+  identity log-types {
+    description
+      "Base identity for deriving the Log actions.";
+  }
+
+  identity local-log {
+    base log-types;
+    description
+      "Local log-file is used to store the acl results.";
+  }
+
+  identity counter-types {
+    description
+      "Base identity for deriving the Counter actions.";
+  }
+
+  identity counter-name {
+    base counter-types;
+    description
+      "Counter name updated based on the acl match actions.";
+  }
+
   typedef operator {
     type bits {
       bit not {
@@ -611,6 +633,60 @@ grouping mpls-match-parameters-config {
     }
   }
 
+    grouping acl-complementary-actions {
+    description
+      "Collection of complementary actions for the ACL.";
+
+    container log-action {
+      description
+        "Container for defining log actions.";
+
+      leaf log-type {
+        type identityref {
+          base acl-enh:log-types;
+        }
+        description
+          "The type of log action to be performed.";
+      }
+      leaf log-id {
+        when "../log-type = 'local-log'" {
+          description
+            "Name of the log file updated when type is 'local-log'.";
+        }
+        type string;
+        description
+          "The name of the counter action.";
+      }
+    }
+
+    container counter-action {
+      description
+        "Container for defining counter actions.";
+
+      leaf counter-type {
+        type identityref {
+          base acl-enh:counter-types;
+        }
+        description
+          "The type of counter action to be performed.";
+      }
+      list counter-names {
+        key counter-name;
+        when "../counter-type = 'counter-name'" {
+          description
+            "Name for the counter or variable to update when counter-type 
+            is 'counter-name'.";
+        }
+        
+        leaf counter-name {
+          type string;
+          description
+            "The name of the counter action.";
+        }
+      }
+    }  
+  }
+
   augment "/acl:acls/acl:acl/acl:aces/acl:ace"
         + "/acl:matches" {
     description
@@ -863,7 +939,10 @@ grouping mpls-match-parameters-config {
   augment "/acl:acls/acl:acl/acl:aces"
         + "/acl:ace/acl:actions" {
     description
-      "Rate-limit action.";
+      "Complementary actions including Rate-limit action.";
+
+    uses acl-complementary-actions;
+
     leaf rate-limit {
       when "../acl:forwarding = 'acl:accept'" {
         description
