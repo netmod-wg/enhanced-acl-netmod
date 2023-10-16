@@ -636,7 +636,8 @@ grouping mpls-match-parameters-config {
 
   grouping acl-complementary-actions {
     description
-      "Collection of complementary actions for the ACL.";
+      "Collection of complementary ACL actions.";
+
 
     container log-action {
       description
