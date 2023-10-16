@@ -35,6 +35,10 @@ module ietf-acl-enh {
     reference
       "TBC";
   }
+  import ietf-alarms {
+       prefix al;
+       reference "RFC 8632: A YANG Data Model for Alarm Management";
+     }
 
   organization
     "IETF NETMOD Working Group";
@@ -226,6 +230,28 @@ module ietf-acl-enh {
     base label-position;
     description
       "Bottom of the label stack.";
+  }
+
+  identity log-types {
+    description
+      "Base identity for deriving the Log actions.";
+  }
+
+  identity local-log {
+    base log-types;
+    description
+      "Local log-file is used to store the acl results.";
+  }
+
+  identity counter-types {
+    description
+      "Base identity for deriving the Counter actions.";
+  }
+
+  identity counter-name {
+    base counter-types;
+    description
+      "Counter name updated based on the acl match actions.";
   }
 
   typedef operator {
@@ -603,6 +629,60 @@ grouping mpls-match-parameters-config {
     }
   }
 
+  grouping acl-complementary-actions {
+    description
+      "Collection of complementary actions for the ACL.";
+
+    container log-action {
+      description
+        "Container for defining log actions.";
+
+      leaf log-type {
+        type identityref {
+          base log-types;
+        }
+        description
+          "The type of log action to be performed.";
+      }
+      leaf counter-name {
+        when "../log-type = 'local-log'" {
+          description
+            "Name of the log file updated when type is 'local-log'.";
+        }
+        type string;
+        description
+          "The name of the counter action.";
+      }
+    }
+
+    container counter-action {
+      description
+        "Container for defining counter actions.";
+
+      leaf counter-type {
+        type identityref {
+          base counter-types;
+        }
+        description
+          "The type of counter action to be performed.";
+      }
+      list counter-names {
+        key counter-name;
+        when "../counter-type = 'counter-name'" {
+          description
+            "Name for the counter action when counter-type 
+            is 'counter-name'.";
+        }
+        
+        leaf counter-name {
+          type string;
+          description
+            "The name of the counter action.";
+        }
+      }
+    }  
+  }
+  
   augment "/acl:acls/acl:acl/acl:aces/acl:ace"
         + "/acl:matches" {
     description
@@ -850,7 +930,9 @@ grouping mpls-match-parameters-config {
   augment "/acl:acls/acl:acl/acl:aces"
         + "/acl:ace/acl:actions" {
     description
-      "Rate-limit action.";
+      "Complementary actions inclding Rate-limit action.";
+    uses acl-complementary-actions;
+
     leaf rate-limit {
       when "../acl:forwarding = 'acl:accept'" {
         description
