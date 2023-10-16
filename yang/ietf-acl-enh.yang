@@ -671,23 +671,16 @@ grouping mpls-match-parameters-config {
         description
           "The type of counter action to be performed.";
       }
-      list counter-name {
-
+      leaf-list counter-name {
         when "../counter-type = 'counter-name'" {
           description
             "Name for the counter or variable to update when counter-type 
             is 'counter-name'.";
         }
-        key counter-name;
+        type string;
         description
           "List of possible variables or counter names to
           update based on match critieria.";
-        
-        leaf counter-name {
-          type string;
-          description
-            "The name of the counter action.";
-        }
       }
     }  
   }

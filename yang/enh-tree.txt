@@ -132,7 +132,6 @@ module: ietf-acl-enh
     |  +--rw log-type?   identityref
     |  +--rw log-id?     string
     +--rw counter-action
-    |  +--rw counter-type?    identityref
-    |  +--rw counter-names* [counter-name]
-    |     +--rw counter-name    string
+    |  +--rw counter-type?   identityref
+    |  +--rw counter-name*   string
     +--rw rate-limit?       decimal64
