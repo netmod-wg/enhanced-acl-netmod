@@ -137,12 +137,27 @@ Defined set:
 The augmented ACL structure includes several containers to manage reusable sets of elements that can be matched in an ACL entry.
 Each set is uniquely identified by a name and can be called from the relevant entry. The following sets are defined:
 
-* IPv4 prefix set: It contains a list of IPv4 prefixes. A match will be considered if the IP address (source or destination, depending on the ACL entry) is contained in any of the prefixes.
-* IPv6 prefix set: It contains a list of IPv6 prefixes. A match will be considered if the IP address (source or destination, depending on the ACL entry) is contained in any of the prefixes.
-* Port sets: It contains a list of port numbers to be used in TCP/UDP entries. The port numbers can be individual port numbers, a range of ports, and an operation.
-* Protocol sets: It contains a list of protocol values. Each protocol can be identified either by a number (e.g., 17) or a name (e.g., UDP).
-* ICMP sets: It contains a list of ICMPv4 or ICMPv6 types, each of them identified by a type value, optionally the code and the rest of the header.
-* Aliases: An alias is defined by a combination of various parameters (e.g., IP prefix, protocol, or port number). Sets of aliases can be defined and referred to in match criteria.
+* IPv4 prefix set:
+: It contains a list of IPv4 prefixes. A match will be considered if the IP address (source or destination, depending on the ACL entry) is contained in any of the prefixes.
+
+* IPv6 prefix set:
+: It contains a list of IPv6 prefixes. A match will be considered if the IP address (source or destination, depending on the ACL entry) is contained in any of the prefixes.
+
+* Port sets:
+: It contains a list of port numbers to be used in TCP/UDP entries. The port numbers can be individual port numbers, a range of ports, and an operation.
+
+* Protocol sets:
+: It contains a list of protocol values. Each protocol can be identified either by a number (e.g., 17) or a name (e.g., UDP).
+
+* ICMP sets:
+: It contains a list of ICMPv4 or ICMPv6 types, each of them identified by a type value, optionally the code and the rest of the header.
+
+* Aliases:
+: An alias is defined by a combination of various parameters (e.g., IP prefix, protocol, port number, or VLAN). Sets of aliases can be defined and referred to in match criteria.
+
+## IPv6 Extension Headers
+
+The module can be used to manage ACLs that require matching against IPv6 extension headers. To that aim, a new IANA-maintained module is defined in in this document.
 
 ## TCP Flags Handling
 
@@ -298,31 +313,64 @@ packets.  The following ACEs are defined (in this order):
 ~~~
 {: #example_3 title="An Example Illustrating Filtering of IPv6 Fragmented Packets (Message Body)"}
 
-## Rate-Limit Traffic
+## Payload-based Filtering
 
-In order to support rate-limiting (see {{ps-rate}}), a new action called "rate-limit" is defined. {{example_5}} shows an ACL example to rate-limit incoming SYNs during a SYN flood attack.
+Some transport protocols use existing protocols (e.g., TCP or UDP) as substrate. The match criteria for such protocols may rely upon the 'protocol' under 'l3', TCP/UDP match criteria, part of the TCP/UDP payload, or a combination thereof. A new feature, called "match-on-payload", is defined in the document.
+
+## Match MPLS Headers
+
+The ACL model can be used to create rules to match MPLS fields on a packet. The MPLS headers defined in {{!RFC3032}} and {{!RFC5462}} contains the following fields:
+
+- Traffic Class: 3 bits 'EXP' renamed to 'Traffic Class Field."
+- Label Value: A 20-bit field that carries the actual value of the MPLS Label.
+- TTL: An eight-bit field that is used to encode a time-to-live value.
+
+The structure of the MPLS ACL subtree is shown in {{example_8}}:
+
+~~~
+  augment /acl:acls/acl:acl/acl:aces/acl:ace/acl:matches:
+    ...
+    +--rw (mpls)?
+       +--:(mpls-values)
+          +--rw mpls-values {match-on-mpls}?
+             +--rw traffic-class?       uint8
+             +--rw label-position       identityref
+             +--rw upper-label-range?   uint32
+             +--rw lower-label-range?   uint32
+             +--rw label-block-name     string
+             +--rw ttl-value?           uint8
+~~~
+{: #example_8 title="MPLS Header Match Subtree"}
+
+## VLAN Filter
+
+Being able to filter all packets that are bridged within a VLAN or that
+are routed into or out of a bridge domain is part of the VPN control
+requirements derived of the EVPN definition done in {{!RFC7209}}.
+So, all packets that are bridged within a VLAN or that are routed into or
+out of a VLAN can be captured, forwarded, translated or discarded based
+on the network policy applied.
+
+{{example_7}} shows an ACL example to illustrate how to apply a VLAN range filter.
 
 ~~~ json
 {
-   "ietf-access-control-list:acls":{
+   "ietf-acces-control-list:acls":{
       "acl":[
          {
-            "name":"tcp-flags-example-with-rate-limit",
+            "name":"VLAN_FILTER",
             "aces":{
                "ace":[
                   {
-                     "name":"rate-limit-syn",
+                     "name":"1",
                      "matches":{
-                        "tcp":{
-                           "acl-enh:flags-bitmask":{
-                              "operator":"match",
-                              "bitmask":2
-                           }
+                        "ietf-acl-enh:vlan-filter":{
+                           "lower-vlan":10,
+                           "upper-vlan":20
                         }
                      },
                      "actions":{
-                        "forwarding":"accept",
-                        "acl-enh:rate-limit":"20.00"
+                        "forwarding":"ietf-acces-control-list:accept"
                      }
                   }
                ]
@@ -332,7 +380,7 @@ In order to support rate-limiting (see {{ps-rate}}), a new action called "rate-l
    }
 }
 ~~~
-{: #example_5 title="An Example of Rate-Limit Incoming TCP SYNs (Message Body)."}
+{: #example_7 title="Example of VLAN Filter (Message Body)"}
 
 ## ISID Filter
 
@@ -383,35 +431,31 @@ the EVNP-PBB configuration.
 ~~~
 {: #example_6 title="Example ISID Filter (Message Body)"}
 
-## VLAN Filter
+## Additional Actions
 
-Being able to filter all packets that are bridged within a VLAN or that
-are routed into or out of a bridge domain is part of the VPN control
-requirements derived of the EVPN definition done in {{!RFC7209}}.
-So, all packets that are bridged within a VLAN or that are routed into or
-out of a VLAN can be captured, forwarded, translated or discarded based
-on the network policy applied.
-
-{{example_7}} shows an ACL example to illustrate how to apply a VLAN range filter.
+In order to support rate-limiting (see {{ps-rate}}), a new action called "rate-limit" is defined. {{example_5}} shows an ACL example to rate-limit incoming SYNs during a SYN flood attack.
 
 ~~~ json
 {
-   "ietf-acces-control-list:acls":{
+   "ietf-access-control-list:acls":{
       "acl":[
          {
-            "name":"VLAN_FILTER",
+            "name":"tcp-flags-example-with-rate-limit",
             "aces":{
                "ace":[
                   {
-                     "name":"1",
+                     "name":"rate-limit-syn",
                      "matches":{
-                        "ietf-acl-enh:vlan-filter":{
-                           "lower-vlan":10,
-                           "upper-vlan":20
+                        "tcp":{
+                           "acl-enh:flags-bitmask":{
+                              "operator":"match",
+                              "bitmask":2
+                           }
                         }
                      },
                      "actions":{
-                        "forwarding":"ietf-acces-control-list:accept"
+                        "forwarding":"accept",
+                        "acl-enh:rate-limit":"20.00"
                      }
                   }
                ]
@@ -421,32 +465,9 @@ on the network policy applied.
    }
 }
 ~~~
-{: #example_7 title="Example of VLAN Filter (Message Body)"}
+{: #example_5 title="An Example of Rate-Limit Incoming TCP SYNs (Message Body)."}
 
-## Match MPLS Headers
-
-The ACL models can be used to create rules to match MPLS fields on a packet. The MPLS headers defined in {{!RFC3032}} and {{!RFC5462}} contains the following fields:
-
-- Traffic Class: 3 bits 'EXP' renamed to 'Traffic Class Field."
-- Label Value: A 20-bit field that carries the actual value of the MPLS Label.
-- TTL: An eight-bit field that is used to encode a time-to-live value.
-
-The structure of the MPLS ACL subtree is shown in {{example_8}}:
-
-~~~
-  augment /acl:acls/acl:acl/acl:aces/acl:ace/acl:matches:
-    ...
-    +--rw (mpls)?
-       +--:(mpls-values)
-          +--rw mpls-values {match-on-mpls}?
-             +--rw traffic-class?       uint8
-             +--rw label-position       identityref
-             +--rw upper-label-range?   uint32
-             +--rw lower-label-range?   uint32
-             +--rw label-block-name     string
-             +--rw ttl-value?           uint8
-~~~
-{: #example_8 title="MPLS Header Match Subtree"}
+Also, the model supports new actions to complement existing ones: Log ('log-action') and write a counter ('counter-action'). The current version of the module supports only local actions.
 
 # Enhanced ACL YANG Module
 
@@ -454,7 +475,6 @@ This model imports types from {{!RFC6991}}, {{!RFC8519}}, and {{!RFC8294}}.
 
 ~~~
 <CODE BEGINS> file "ietf-acl-enh@2022-10-24.yang"
-
 {::include ./yang/ietf-acl-enh.yang}
 <CODE ENDS>
 ~~~
@@ -553,8 +573,7 @@ is available from the "YANG Parameters" registry
 
 IANA is requested to add this note to the registry {{IANA-YANG-PARAMETERS}}:
 
-    New values must not be directly added to the "iana-icmpv4-types" YANG
-    module.  They must instead be added to the "ICMP Type Numbers" registry {{IANA-ICMPv4}}.
+> New values must not be directly added to the "iana-icmpv4-types" YANG module.  They must instead be added to the "ICMP Type Numbers" registry {{IANA-ICMPv4}}.
 
 When a value is added to the "ICMP Type Numbers" registry, a new "enum" statement
 must be added to the "iana-icmpv4-types" YANG module.  The "enum" statement,
@@ -613,8 +632,7 @@ is available from the "YANG Parameters" registry
 
 IANA is requested to add this note to the registry {{IANA-YANG-PARAMETERS}}:
 
-    New values must not be directly added to the "iana-icmpv6-types" YANG
-    module.  They must instead be added to the "ICMPv6 "type" Numbers" registry {{IANA-ICMPv6}}.
+> New values must not be directly added to the "iana-icmpv6-types" YANG module. They must instead be added to the "ICMPv6 "type" Numbers" registry {{IANA-ICMPv6}}.
 
 When a value is added to the "ICMPv6 "type" Numbers" registry, a new "enum" statement
 must be added to the "iana-icmpv6-types" YANG module.  The "enum" statement,
@@ -673,8 +691,7 @@ is available from the "YANG Parameters" registry
 
 IANA is requested to add this note to the registry {{IANA-YANG-PARAMETERS}}:
 
-    New values must not be directly added to the "iana-ipv6-ext-types" YANG
-    module.  They must instead be added to the "IPv6 Extension Header Types" registry {{IANA-ICMPv6}}.
+> New values must not be directly added to the "iana-ipv6-ext-types" YANG module.  They must instead be added to the "IPv6 Extension Header Types" registry {{IANA-ICMPv6}}.
 
 When a value is added to the "IPv6 Extension Header Types" registry, a new "enum" statement
 must be added to the "iana-ipv6-ext-types" YANG module.  The "enum" statement,
@@ -894,15 +911,22 @@ The same approach as the one discussed for IP prefixes can be generalized by int
 
 The defined sets are reusable definitions across several ACLs. Each category is modelled in YANG as a list of parameters related to the class it represents. The following sets can be considered:
 
--  Prefix sets: Used to create lists of IPv4 or IPv6 prefixes.
--  Protocol sets: Used to create a list of protocols.
--  Port number sets: Used to create lists of TCP or UDP port values
+-  Prefix sets:
+: Used to create lists of IPv4 or IPv6 prefixes.
+
+-  Protocol sets:
+: Used to create a list of protocols.
+
+-  Port number sets:
+:  Used to create lists of TCP or UDP port values
       (or any other transport protocol that makes uses of port numbers).
       The identity of the protocols is identified by the protocol set, if
       present.  Otherwise, a set applies to any protocol.
--  ICMP sets: Uses to create lists of ICMP-based filters. This applies only when the protocol is set to ICMP or ICMPv6.
 
-Aliases may also be considered to manage resources that are identified by a combination of various parameters (e.g., prefix, protocol, port number, or FQDN).
+-  ICMP sets:
+: Uses to create lists of ICMP-based filters. This applies only when the protocol is set to ICMP or ICMPv6.
+
+Aliases may also be considered to manage resources that are identified by a combination of various parameters (e.g., prefix, protocol, port number, FQDN, or VLAN IDs).
 Note that some aliases can be provided by decomposing them into separate sets.
 
 ## Bind ACLs to Devices, Not Only Interfaces
