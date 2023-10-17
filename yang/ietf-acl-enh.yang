@@ -652,7 +652,7 @@ grouping mpls-match-parameters-config {
           "The type of log action to be performed.";
       }
       leaf log-id {
-        when "../log-type = 'local-log'" {
+        when "../log-type = 'acl-enh:local-log'" {
           description
             "Name of the log file updated when type is 'local-log'.";
         }
@@ -674,7 +674,7 @@ grouping mpls-match-parameters-config {
           "The type of counter action to be performed.";
       }
       leaf-list counter-name {
-        when "../counter-type = 'counter-name'" {
+        when "../counter-type = 'acl-enh:counter-name'" {
           description
             "Name for the counter or variable to update when counter-type 
             is 'counter-name'.";
