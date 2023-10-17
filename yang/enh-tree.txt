@@ -128,4 +128,10 @@ module: ietf-acl-enh
     +--rw icmpv4-set?   icmpv4-type-set-ref
     +--rw icmpv6-set?   icmpv6-type-set-ref
   augment /acl:acls/acl:acl/acl:aces/acl:ace/acl:actions:
-    +--rw rate-limit?   decimal64
+    +--rw log-action
+    |  +--rw log-type?   identityref
+    |  +--rw log-id?     string
+    +--rw counter-action
+    |  +--rw counter-type?   identityref
+    |  +--rw counter-name*   string
+    +--rw rate-limit?       decimal64
