@@ -252,7 +252,9 @@ module ietf-acl-enh {
   identity counter-name {
     base counter-type;
     description
-      "Identity for counter name to be updated based on the ACL match actions.";
+      "Identity for counter name to be updated based on
+        the ACL match actions.";
+
   }
 
   typedef operator {
