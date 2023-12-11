@@ -28,17 +28,20 @@ module ietf-acl-enh {
   import iana-icmpv4-types { 
     prefix iana-icmpv4-types;
     reference
-      "TBC";
+      "RFC XXXX: Extensions to the Access Control Lists (ACLs)
+                 YANG Model";
   }
   import iana-icmpv6-types { 
     prefix iana-icmpv6-types;
     reference
-      "TBC";
+      "RFC XXXX: Extensions to the Access Control Lists (ACLs)
+                 YANG Model";
   }
   import iana-ipv6-ext-types { 
     prefix iana-ipv6-ext-types;
     reference
-      "TBC";
+      "RFC XXXX: Extensions to the Access Control Lists (ACLs)
+                 YANG Model";
   }
 
   organization
