@@ -107,6 +107,17 @@ The document also defines IANA-maintained modules for ICMP types and IPv6 extens
 in {{?I-D.boucadair-netmod-rfc8407bis}}. The templates to generate the modules is available at {{template}}, {{v6-template}}, and {{iana-ipv6-ext-template}}. Readers should refer to the IANA
 websites [REF_TBC], [REF_TBC2], and [REF_TBC3] to retrieve the latest version of the modules. The modules are provided in {{iana-icmp}}, {{iana-icmpv6}}, and {{iana-ipv6-ext}} for the users convenience, but these appendices will be removed from the final RFC.
 
+## Editorial Note (To be removed by RFC Editor)
+
+Note to the RFC Editor: This section is to be removed prior to publication.
+
+This document contains placeholder values that need to be replaced with finalized values at the time of publication. This note summarizes all of the substitutions that are needed. No other RFC Editor instructions are specified elsewhere in this document.
+
+Please apply the following replacements:
+
+XXXX --> the assigned RFC number for this draft
+2022-10-24 --> the actual date of the publication of this document
+
 # Terminology
 
 {::boilerplate bcp14-tagged}
