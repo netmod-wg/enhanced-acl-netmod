@@ -40,7 +40,7 @@ module iana-icmpv6-types {
     "Internet Control Message Protocol version 6 (ICMPv6) Parameters
      (https://www.iana.org/assignments/icmpv6-parameters/)";
 
-  revision 2020-09-25 {
+  revision 2023-04-28 {
     description
       "Current revision as of the revision date specified in the XML
        representation of the registry page.";
