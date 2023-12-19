@@ -104,8 +104,27 @@ tools such as DDoS mitigation {{?RFC9132}} or BGP Flow Spec {{?RFC8955}}
 messages triggered by  these tools is valuable from a network operation standpoint.
 
 The document also defines IANA-maintained modules for ICMP types and IPv6 extension headers. The design of the modules adheres to the recommendations
-in {{?I-D.boucadair-netmod-rfc8407bis}}. The templates to generate the modules is available at {{template}}, {{v6-template}}, and {{iana-ipv6-ext-template}}. Readers should refer to the IANA
-websites [REF_TBC], [REF_TBC2], and [REF_TBC3] to retrieve the latest version of the modules. The modules are provided in {{iana-icmp}}, {{iana-icmpv6}}, and {{iana-ipv6-ext}} for the users convenience, but these appendices will be removed from the final RFC.
+in {{?I-D.ietf-netmod-rfc8407bis}}. The templates to generate the modules is available at {{template}}, {{v6-template}}, and {{iana-ipv6-ext-template}}. Readers should refer to the IANA
+websites [IANA_ICMPv4_YANG_URL], [IANA_ICMPv6_YANG_URL], and [IANA_IPV6_YANG_URL] to retrieve the latest version of the modules.
+
+## Editorial Note (To be removed by RFC Editor)
+
+Note to the RFC Editor: This section is to be removed prior to publication.
+
+This document contains placeholder values that need to be replaced with finalized values at the time of publication. This note summarizes all of the substitutions that are needed.
+
+(1) Please apply the following replacements:
+
+XXXX --> the assigned RFC number for this I-D
+2022-10-24 --> the actual date of the publication of this document
+
+(2) The modules are provided in {{iana-icmp}}, {{iana-icmpv6}}, and {{iana-ipv6-ext}} for the users convenience before publication as RFC. Please removed these appendices from the final RFC.
+
+(3) Please update  the following references:
+
+   * IANA_ICMPv4_YANG_URL --> The URL to retrieve the latest version of the IANA-maintained ICMPv4 module.
+   * IANA_ICMPv6_YANG_URL --> The URL to retrieve the latest version of the IANA-maintained ICMPv6 module.
+   * IANA_IPV6_YANG_URL --> The URL to retrieve the latest version of the IPv6 Extension Header Types IANA module.
 
 # Terminology
 
