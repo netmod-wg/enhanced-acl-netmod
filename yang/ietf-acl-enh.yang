@@ -249,7 +249,7 @@ module ietf-acl-enh {
 
   identity counter-type {
     description
-      "Base identity for deriving the Counter actions.";
+      "Base identity for deriving the counter actions.";
   }
 
   identity counter-name {
@@ -655,7 +655,8 @@ grouping mpls-match-parameters-config {
           "The type of log action to be performed.";
       }
       leaf log-id {
-        when "../log-type = 'acl-enh:local-log'" {
+        when "derived-from-or-self(../log-type, "
+           + "'acl-enh:local-log')" {
           description
             "Name of the log file updated when type is 'local-log'.";
         }
@@ -677,7 +678,8 @@ grouping mpls-match-parameters-config {
           "The type of counter action to be performed.";
       }
       leaf-list counter-name {
-        when "../counter-type = 'acl-enh:counter-name'" {
+        when "derived-from-or-self(../counter-type, "
+           + "'acl-enh:counter-name')" {
           description
             "Name for the counter or variable to update when counter-type 
             is 'counter-name'.";
