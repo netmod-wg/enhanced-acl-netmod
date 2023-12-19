@@ -634,7 +634,7 @@ existing revision statements.
 IANA is requested to add this note to "ICMP Type Numbers" {{IANA-ICMPv4}}:
 
     When this registry is modified, the YANG module "iana-icmpv4-types"
-    [IANA_ICMPv4_YANG_URL] must be updated as defined in RFCXXXX.
+    [IANA_ICMPv4_YANG_URL] must be updated as defined in RFC XXXX.
 
 IANA is requested to updated the "Reference" in the "ICMP Type Numbers" registry
 as follows:
@@ -643,7 +643,7 @@ OLD:
 : {{?RFC2780}}
 
 NEW:
-: {{?RFC2780}}[This_Document]
+: {{?RFC2780}}[RFCXXXX]
 
 ### ICMPv6 Types IANA Module
 
@@ -693,7 +693,7 @@ existing revision statements.
 IANA is requested to add this note to "ICMPv6 "type" Numbers" {{IANA-ICMPv6}}:
 
     When this registry is modified, the YANG module "iana-icmpv6-types"
-    [IANA_ICMPv6_YANG_URL] must be updated as defined in RFCXXXX.
+    [IANA_ICMPv6_YANG_URL] must be updated as defined in RFC XXXX.
 
 IANA is requested to updated the "Reference" in the "ICMPv6 "type" Numbers" registry
 as follows:
@@ -702,7 +702,7 @@ OLD:
 : {{?RFC4443}}
 
 NEW:
-: {{?RFC4443}}[This_Document]
+: {{?RFC4443}}[RFCXXXX]
 
 ### IPv6 Extension Header Types IANA Module
 
@@ -752,7 +752,7 @@ existing revision statements.
 IANA is requested to add this note to the "IPv6 Extension Header Types" registry {{IANA-IPv6}}:
 
     When this registry is modified, the YANG module "iana-ipv6-ext-types"
-    [IANA_IPV6_YANG_URL] must be updated as defined in RFCXXXX.
+    [IANA_IPV6_YANG_URL] must be updated as defined in RFC XXXX.
 
 IANA is requested to updated the "Reference" in the "IPv6 Extension Header Types" registry
 as follows:
@@ -761,7 +761,7 @@ OLD:
 : {{?RFC2780}}{{?RFC5237}}{{?RFC7045}}
 
 NEW:
-: {{?RFC2780}}{{?RFC5237}}{{?RFC7045}}[This_Document]
+: {{?RFC2780}}{{?RFC5237}}{{?RFC7045}}[RFCXXXX]
 
 
 --- back
@@ -1023,9 +1023,9 @@ The ACLs could be used to create rules to match MPLS fields on a packet. {{!RFC8
 
 Many thanks to Jon Shallow and Miguel Cros for the review and comments to the document, including prior to publishing the document.
 
-Thanks to Qiufang Ma, Victor Lopez, and Joe Clarke for the comments and suggestions.
+Thanks to Qiufang Ma, Victor Lopez, Joe Clarke, and Mahesh Jethanandani for the comments and suggestions.
 
-The IANA-maintained models were generated using an XSLT stylesheet from the 'iana-yang' project (https://github.com/llhotka/iana-yang).
+The IANA-maintained modules were generated using an XSLT stylesheet from the 'iana-yang' project (https://github.com/llhotka/iana-yang).
 
 This work is partially supported by the European Commission under   Horizon 2020 Secured autonomic traffic management for a Tera of SDN
  flows (Teraflow) project (grant agreement number 101015857).
