@@ -493,11 +493,19 @@ The Network Configuration Access Control Model (NACM) {{!RFC8341}} provides the 
 
 There are a number of data nodes defined in this YANG module that are writable/creatable/deletable (i.e., config true, which is the default). These data nodes may be considered sensitive or vulnerable in some network environments. Write operations (e.g., edit-config) to these data nodes without proper protection can have a negative effect on network operations. These are the subtrees and data nodes and their sensitivity/vulnerability:
 
-- TBC
+ 'defined-sets' and 'aliases':
+ : These lists specify a setf of sets and aliases. Simialr to {{!RFC8519}}, unauthorized write access to these
+      list can allow intruders to modify the entries so as to permit
+      traffic that should not be permitted, or deny traffic that should
+      be permitted.  The former may result in a DoS attack, or
+      compromise a device.  The latter may result in a DoS attack.
 
 Some of the readable data nodes in this YANG module may be considered sensitive or vulnerable in some network environments. It is thus important to control read access (e.g., via get, get-config, or notification) to these data nodes. These are the subtrees and data nodes and their sensitivity/vulnerability:
 
-- TBC
+ 'defined-sets' and 'aliases':
+ : Unauthorized read access of these lists will allow
+   an attacker to identify the actual resources that are bound
+   to ACLs.
 
 
 # IANA Considerations
