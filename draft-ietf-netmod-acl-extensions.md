@@ -66,11 +66,8 @@ The document also defines IANA-maintained modules for ICMP types and IPv6 extens
 user-ordered set of filtering rules. The model targets the
 configuration of the filtering behavior of a device. However, the
 model structure, as defined in {{!RFC8519}}, suffers from a set of limitations. This
-document describes these limitations and proposes an enhanced ACL
-structure. The YANG module in this document is solely based
-on augmentations to the ACL YANG module defined in {{!RFC8519}}.
-
-The motivation of such enhanced ACL structure is discussed in detail in {{ps}}.
+document describes these limitations and specifies an enhanced ACL
+structure ({{sec-module}}). The motivation of such enhanced ACL structure is discussed in detail in {{ps}}.
 
 When managing ACLs, it is common for network operators to group
 match elements in pre-defined sets. The consolidation into group matches
@@ -81,7 +78,7 @@ individual Access Control Entries (ACEs) for each IP address (or prefix). In
 doing so, implementations would optimize the performance of matching
 lists vs multiple rules matching.
 
-The enhanced ACL structure is also meant to facilitate the management of
+The enhanced ACL structure ({{sec-module}}) is also meant to facilitate the management of
 network operators. Instead of entering the IP address or port number
 literals, using user-named lists decouples the creation of the rule
 from the management of the sets. Hence, it is possible to remove/add
@@ -89,7 +86,7 @@ from the management of the sets. Hence, it is possible to remove/add
 
 In addition, the notion of Access Control List (ACL) and defined sets
  is generalized so that it is not device-specific as per {{!RFC8519}}.  ACLs
- and defined sets may be defined at network / administrative domain level
+ and defined sets may be defined at network/administrative domain level
  and associated to devices. This approach facilitates the reusability across multiple
   network elements. For example, managing the IP prefix sets from a network
    level makes it easier to maintain by the security groups.
@@ -103,9 +100,12 @@ tools such as DDoS mitigation {{?RFC9132}} or BGP Flow Spec {{?RFC8955}}
 {{!RFC8956}}. Therefore, supporting means to easily map to the filtering rules conveyed in
 messages triggered by  these tools is valuable from a network operation standpoint.
 
+The enhanced ACL module ({{sec-module}}) conforms to the Network
+Management Datastore Architecture (NMDA) defined in {{!RFC8342}}.
+
 The document also defines IANA-maintained modules for ICMP types and IPv6 extension headers. The design of the modules adheres to the recommendations
 in {{?I-D.ietf-netmod-rfc8407bis}}. The templates to generate the modules is available at {{template}}, {{v6-template}}, and {{iana-ipv6-ext-template}}. Readers should refer to the IANA
-websites [IANA_ICMPv4_YANG_URL], [IANA_ICMPv6_YANG_URL], and [IANA_IPV6_YANG_URL] to retrieve the latest version of the modules.
+websites "IANA_ICMPv4_YANG_URL", "IANA_ICMPv6_YANG_URL", and "IANA_IPV6_YANG_URL" to retrieve the latest version of these IANA-maintained modules.
 
 ## Editorial Note (To be removed by RFC Editor)
 
@@ -488,7 +488,7 @@ In order to support rate-limiting (see {{ps-rate}}), a new action called "rate-l
 
 Also, the model supports new actions to complement existing ones: Log ('log-action') and write a counter ('counter-action'). The current version of the module supports only local actions.
 
-# Enhanced ACL YANG Module
+# Enhanced ACL YANG Module {#sec-module}
 
 This model imports types from {{!RFC6991}}, {{!RFC8519}}, and {{!RFC8294}}.
 
