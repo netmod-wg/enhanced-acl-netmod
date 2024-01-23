@@ -830,6 +830,12 @@ grouping mpls-match-parameters-config {
     description
       "Handle non-initial and initial fragments for IPv4 packets.";
     container ipv4-fragment {
+      must "not(/acl:acls/acl:acl/acl:aces"
+         + "/acl:ace/acl:matches/acl:l3/acl:ipv4/acl:flags)" {
+        error-message
+          "Either flags or fragment should be provided, but not
+           both.";
+      }
       description
         "Indicates how to handle IPv4 fragments.";
       uses fragment-fields;
@@ -891,6 +897,12 @@ grouping mpls-match-parameters-config {
     description
       "Handles TCP flags and port sets.";
     container flags-bitmask {
+      must "not(/acl:acls/acl:acl/acl:aces/acl:ace/acl:matches"
+         + "/acl:l4/acl:tcp/acl:flags)" {
+        error-message
+          "Either flags or flags-bitmask should be provided, but not
+           both.";
+      }
       description
         "Indicates how to handle TCP flags.";
       uses tcp-flags;
