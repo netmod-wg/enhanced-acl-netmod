@@ -182,7 +182,7 @@ The module can be used to manage ACLs that require matching against IPv6 extensi
 
 The augmented ACL structure includes a new leaf 'flags-bitmask' to better handle flags.
 
-Clients that support both 'flags-bitmask' and 'flags' matching fields MUST NOT set these fields in the same request. Note that it is RECOMMENDED to use 'flags-bitmask'
+Clients that support both 'flags-bitmask' and 'flags' matching fields MUST NOT set these fields in the same request.
 
 {{example_4}} shows an example of a request to install a filter to discard incoming TCP messages having all flags unset.
 
