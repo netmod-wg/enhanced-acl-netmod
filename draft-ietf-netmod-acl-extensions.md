@@ -118,7 +118,7 @@ This document contains placeholder values that need to be replaced with finalize
 XXXX --> the assigned RFC number for this I-D
 2022-10-24 --> the actual date of the publication of this document
 
-(2) The modules are provided in {{iana-icmp}}, {{iana-icmpv6}}, and {{iana-ipv6-ext}} for the users convenience before publication as RFC. Please removed these appendices from the final RFC.
+(2) The modules are provided in {{iana-icmp}}, {{iana-icmpv6}}, and {{iana-ipv6-ext}} for the users convenience before publication as RFC. Please remove these appendices from the final RFC.
 
 (3) Please update  the following references:
 
@@ -182,7 +182,7 @@ The module can be used to manage ACLs that require matching against IPv6 extensi
 
 The augmented ACL structure includes a new leaf 'flags-bitmask' to better handle flags.
 
-Clients that support both 'flags-bitmask' and 'flags' matching fields MUST NOT set these fields in the same request.
+Clients that support both 'flags-bitmask' and 'flags' matching fields MUST NOT set these fields in the same request. Note that it is RECOMMENDED to use 'flags-bitmask'
 
 {{example_4}} shows an example of a request to install a filter to discard incoming TCP messages having all flags unset.
 
@@ -513,7 +513,7 @@ The Network Configuration Access Control Model (NACM) {{!RFC8341}} provides the 
 There are a number of data nodes defined in this YANG module that are writable/creatable/deletable (i.e., config true, which is the default). These data nodes may be considered sensitive or vulnerable in some network environments. Write operations (e.g., edit-config) to these data nodes without proper protection can have a negative effect on network operations. These are the subtrees and data nodes and their sensitivity/vulnerability:
 
  'defined-sets' and 'aliases':
- : These lists specify a setf of sets and aliases. Simialr to {{!RFC8519}}, unauthorized write access to these
+ : These lists specify a set of sets and aliases. Similar to {{!RFC8519}}, unauthorized write access to these
       list can allow intruders to modify the entries so as to permit
       traffic that should not be permitted, or deny traffic that should
       be permitted.  The former may result in a DoS attack, or
@@ -800,7 +800,7 @@ NEW:
 <CODE ENDS>
 ~~~
 
-## Initial Version of the The ICMPv4 Types IANA-Maintained Module {#iana-icmpv6}
+## Initial Version of the The ICMPv6 Types IANA-Maintained Module {#iana-icmpv6}
 
 ~~~
 <CODE BEGINS> file "iana-icmpv6-types@2020-09-25.yang"
@@ -936,7 +936,7 @@ Such a configuration is suboptimal for both:
 
 The same approach as the one discussed for IP prefixes can be generalized by introducing the concept of "aliases" or "defined sets".
 
-The defined sets are reusable definitions across several ACLs. Each category is modelled in YANG as a list of parameters related to the class it represents. The following sets can be considered:
+The defined sets are reusable definitions across several ACLs. Each category is modeled in YANG as a list of parameters related to the class it represents. The following sets can be considered:
 
 -  Prefix sets:
 : Used to create lists of IPv4 or IPv6 prefixes.
