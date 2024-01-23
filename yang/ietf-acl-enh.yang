@@ -832,6 +832,12 @@ grouping mpls-match-parameters-config {
     container ipv4-fragment {
       description
         "Indicates how to handle IPv4 fragments.";
+      must "not(/acl:acls/acl:acl/acl:aces"
+         + "/acl:ace/acl:matches/acl:l3/acl:ipv4/acl:flags)" {
+        error-message
+          "Either flags or fragment should be provided, but not
+           both.";
+      }
       uses fragment-fields;
     }
     leaf source-ipv4-prefix-list {
@@ -893,6 +899,12 @@ grouping mpls-match-parameters-config {
     container flags-bitmask {
       description
         "Indicates how to handle TCP flags.";
+      must "not(/acl:acls/acl:acl/acl:aces/acl:ace/acl:matches"
+         + "/acl:l4/acl:tcp/acl:flags)" {
+        error-message
+          "Either flags or flags-bitmask should be provided, but not
+           both.";
+      }
       uses tcp-flags;
     }
     leaf source-tcp-port-set {
