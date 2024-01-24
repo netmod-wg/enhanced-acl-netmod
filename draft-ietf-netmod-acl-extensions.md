@@ -993,7 +993,7 @@ packets.  The following ACEs are defined (in this order):
 ~~~
 {: #example_6 title="Example ISID Filter (Message Body)"}
 
-# Rate-Limit
+## Rate-Limit
 
 {{example_5}} shows an ACL example to rate-limit incoming SYNs during a SYN flood attack.
 
