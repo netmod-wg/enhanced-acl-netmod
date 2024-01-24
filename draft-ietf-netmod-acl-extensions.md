@@ -184,13 +184,13 @@ The module can be used to manage ACLs that require matching against IPv6 extensi
 
 ## TCP Flags Handling
 
-The augmented ACL structure ({{enh-acl}}) includes a new leaf 'flags-bitmask' to better handle TCP flags {{!RFC9293}}.
+The augmented ACL structure ({{enh-acl-tree}}) includes a new leaf 'flags-bitmask' to better handle TCP flags {{!RFC9293}}.
 
 Clients that support both 'flags-bitmask' and 'flags' matching fields MUST NOT set these fields in the same request.
 
 ## Fragments Handling
 
-The augmented ACL structure ({{enh-acl}}) includes a new leaf 'fragment' to better handle fragments.
+The augmented ACL structure ({{enh-acl-tree}}) includes a new leaf 'fragment' to better handle fragments.
 
 Clients that support both 'fragment' and 'flags' matching fields MUST NOT set these fields in the same request.
 
@@ -206,7 +206,7 @@ The enhanced ACL module can be used to create rules to match against MPLS fields
 - Label Value: A 20-bit field that carries the actual value of the MPLS Label.
 - TTL: An eight-bit field that is used to encode a time-to-live value.
 
-The augmented ACL structure ({{enh-acl}}) allows an operator to configure ACLs that match based upon the following data nodes:
+The augmented ACL structure ({{enh-acl-tree}}) allows an operator to configure ACLs that match based upon the following data nodes:
 
 * "traffic-class"
 * "label-position" (e.g., top, bottom)
