@@ -822,7 +822,7 @@ NEW:
 <CODE ENDS>
 ~~~
 
-## Initial Version of the The ICMPv6 Types IANA-Maintained Module {#iana-ipv6-ext}
+## Initial Version of The IPv6 Extension Header Types IANA-Maintained Module {#iana-ipv6-ext}
 
 ~~~
 <CODE BEGINS> file "iana-ipv6-ext-types@2023-04-28.yang"
