@@ -206,7 +206,7 @@ The enhanced ACL module can be used to create rules to match against MPLS fields
 - Label Value: A 20-bit field that carries the actual value of the MPLS Label.
 - TTL: An eight-bit field that is used to encode a time-to-live value.
 
-The augmented ACL structure ({{enh-acl}}) includes data nodes to match based on the following 
+The augmented ACL structure ({{enh-acl}}) allows an operator to configure ACLs that match based upon the following data nodes:
 
 * "traffic-class"
 * "label-position" (e.g., top, bottom)
