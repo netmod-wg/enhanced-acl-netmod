@@ -52,7 +52,11 @@ informative:
 
    IEEE-802-1ah:
               title: "IEEE Standard for Local and metropolitan area networks -- Virtual Bridged Local Area Networks Amendment 7: Provider Backbone Bridges"
+              date: August 2008
               target: https://standards.ieee.org/standard/802_1ah-2008.html
+              author:
+              -
+                name: IEEE
 
 --- abstract
 
