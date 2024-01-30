@@ -1,0 +1,46 @@
+  grouping tcp-flags:
+    +-- (mode)?
+       +--:(explicit)
+       |  +-- operator?            operator
+       |  +-- explicit-tcp-flag*   identityref
+       +--:(builtin)
+          +-- bitmask?             uint16
+  grouping fragment-fields:
+    +-- operator?   operator
+    +-- type?       fragment-type
+  grouping mpls-match-parameters-config:
+    +-- traffic-class?       uint8
+    +-- label-position?      identityref
+    +-- upper-label-range?   rt-types:mpls-label
+    +-- lower-label-range?   rt-types:mpls-label
+    +-- label-block-name?    string
+    +-- ttl-value?           uint8
+  grouping payload:
+    +-- offset?       identityref
+    +-- offset-end?   uint64
+    +-- operator?     operator
+    +-- prefix?       binary
+  grouping alias:
+    +-- vlan*         uint16
+    +-- prefix*       inet:ip-prefix
+    +-- port-range* [lower-port]
+    |  +-- lower-port    inet:port-number
+    |  +-- upper-port?   inet:port-number
+    +-- protocol*     uint8
+    +-- fqdn*         inet:domain-name
+    +-- uri*          inet:uri
+  grouping icmpv4-header-fields:
+    +-- type?             iana-icmpv4-types:icmpv4-type
+    +-- code?             uint8
+    +-- rest-of-header?   binary
+  grouping icmpv6-header-fields:
+    +-- type?             iana-icmpv6-types:icmpv6-type
+    +-- code?             uint8
+    +-- rest-of-header?   binary
+  grouping acl-complementary-actions:
+    +-- log-action
+    |  +-- log-type?   identityref
+    |  +-- log-id?     string
+    +-- counter-action
+       +-- counter-type?   identityref
+       +-- counter-name*   string
