@@ -152,12 +152,19 @@ Defined set:
 
 ## Tree Structure
 
-{{enh-acl-tree}} shows the full enhanced ACL tree:
+{{enh-acl-tree}} shows the full tree of the enhanced ACL module ({{sec-module}}):
 
 ~~~
 {::include ./yang/enh-tree.txt}
 ~~~
-{: #enh-acl-tree title="Enhanced ACL tree"}
+{: #enh-acl-tree title="Enhanced ACL Tree Structure"}
+
+{{enh-acl-grp}} shows the reusable groupings that are defined in the enhanced ACL module:
+
+~~~
+{::include ./yang/groupings.txt}
+~~~
+{: #enh-acl-grp title="Enhanced ACL Groupings"}
 
 ## Defined Sets
 
@@ -202,7 +209,7 @@ Clients that support both 'fragment' and 'flags' matching fields MUST NOT set th
 
 Some transport protocols use existing protocols (e.g., TCP or UDP) as substrate. The match criteria for such protocols may rely upon the 'protocol' under 'l3', TCP/UDP match criteria, part of the TCP/UDP payload, or a combination thereof. A new feature, called "match-on-payload", is defined in the document. This can be used, for example, for QUIC {{?RFC9000}} or for tunneling protocols.
 
-## Match MPLS Headers
+## Match on MPLS Headers
 
 The enhanced ACL module can be used to create rules to match against MPLS fields of a packet. The MPLS header defined in {{!RFC3032}} and {{!RFC5462}} contains the following fields:
 
@@ -219,7 +226,7 @@ The augmented ACL structure ({{enh-acl-tree}}) allows an operator to configure A
 * "label-block-name"
 * "ttl-value"
 
-## VLAN Filter
+## VLAN Filtering
 
 Being able to filter all packets that are bridged within a VLAN or that
 are routed into or out of a bridge domain is part of the VPN control
@@ -228,7 +235,7 @@ All packets that are bridged within a VLAN or that are routed into or
 out of a VLAN can be captured, forwarded, translated, or discarded based
 on the network policy.
 
-## ISID Filter
+## Instance Service Identifier (I-SID) Filtering
 
 Provider backbone bridging (PBB) was originally defined as Virtual
 Bridged Local Area Networks {{IEEE-802-1ah}}
@@ -248,7 +255,7 @@ the EVNP-PBB configuration.
 
 ## Additional Actions
 
-In order to support rate-limiting (see {{ps-rate}}), a new action called "rate-limit" is defined. Also, the model supports new actions to complement existing ones: Log ('log-action') and write a counter ('counter-action'). The current version of the module supports only local actions.
+In order to support rate-limiting (see {{ps-rate}}), a new action called "rate-limit" is defined. Also, the model supports new actions to complement existing ones: Log ('log-action') and write a counter ('counter-action'). The version of the module defined in this document supports only local actions.
 
 # Enhanced ACL YANG Module {#sec-module}
 
