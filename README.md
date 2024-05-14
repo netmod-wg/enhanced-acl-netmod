@@ -2,16 +2,16 @@
 
 This is the working area for the IETF [NETMOD Working Group](https://datatracker.ietf.org/wg/netmod/documents/) Internet-Draft, "Extensions to the Access Control Lists (ACLs) YANG Model".
 
-* [Editor's Copy](https://boucadair.github.io/enhanced-acl-netmod/#go.draft-ietf-netmod-acl-extensions.html)
+* [Editor's Copy](https://netmod-wg.github.io/enhanced-acl-netmod/#go.draft-ietf-netmod-acl-extensions.html)
 * [Datatracker Page](https://datatracker.ietf.org/doc/draft-ietf-netmod-acl-extensions)
 * [Working Group Draft](https://datatracker.ietf.org/doc/html/draft-ietf-netmod-acl-extensions)
-* [Compare Editor's Copy to Working Group Draft](https://boucadair.github.io/enhanced-acl-netmod/#go.draft-ietf-netmod-acl-extensions.diff)
+* [Compare Editor's Copy to Working Group Draft](https://netmod-wg.github.io/enhanced-acl-netmod/#go.draft-ietf-netmod-acl-extensions.diff)
 
 
 ## Contributing
 
 See the
-[guidelines for contributions](https://github.com/boucadair/enhanced-acl-netmod/blob/main/CONTRIBUTING.md).
+[guidelines for contributions](https://github.com/netmod-wg/enhanced-acl-netmod/blob/main/CONTRIBUTING.md).
 
 Contributions can be made by creating pull requests.
 The GitHub interface supports creating pull requests using the Edit (✏) button.
