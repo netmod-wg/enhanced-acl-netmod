@@ -22,8 +22,8 @@ author:
     email: oscar.gonzalezdedios@telefonica.com
  -
     fullname: Samier Barguil
-    organization: Telefonica
-    email: samier.barguilgiraldo.ext@telefonica.com
+    organization: Nokia
+    email: samier.barguil_giraldo@nokia.com
  -
     fullname: Mohamed Boucadair
     organization: Orange
