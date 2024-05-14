@@ -315,7 +315,7 @@ Table of Contents
    Figure 2 shows the reusable groupings that are defined in the
    enhanced ACL module:
 
-    grouping tcp-flags:
+     grouping tcp-flags:
        +-- (mode)?
           +--:(explicit)
           |  +-- operator?            operator
@@ -361,6 +361,58 @@ Table of Contents
        +-- counter-action
           +-- counter-type?   identityref
           +-- counter-name*   string
+     grouping ipv4-prefix-sets:
+       +-- prefix-set* [name]
+          +-- name           string
+          +-- description?   string
+          +-- prefix*        inet:ipv4-prefix
+     grouping ipv6-prefix-sets:
+       +-- prefix-set* [name]
+          +-- name           string
+          +-- description?   string
+          +-- prefix*        inet:ipv6-prefix
+     grouping port-sets:
+       +-- port-set* [name]
+          +-- name    string
+          +-- port* [id]
+             +-- id?                             string
+             +-- (port)?
+                +--:(port-range-or-operator)
+                   +-- port-range-or-operator
+                      +---u packet-fields:port-range-or-operator
+     grouping protocol-sets:
+       +-- protocol-set* [name]
+          +-- name        string
+          +-- protocol*   union
+     grouping icmpv4-type-sets:
+       +-- set* [name]
+          +-- name           string
+          +-- icmpv4-type* [type]
+             +---u icmpv4-header-fields
+     grouping icmpv6-type-sets:
+       +-- set* [name]
+          +-- name           string
+          +-- icmpv6-type* [type]
+             +---u icmpv6-header-fields
+     grouping aliases:
+       +-- alias* [name]
+          +-- name     string
+          +---u alias
+     grouping defined-sets:
+       +-- ipv4-prefix-sets
+       |  +---u ipv4-prefix-sets
+       +-- ipv6-prefix-sets
+       |  +---u ipv6-prefix-sets
+       +-- port-sets
+       |  +---u port-sets
+       +-- protocol-sets
+       |  +---u protocol-sets
+       +-- icmpv4-type-sets
+       |  +---u icmpv4-type-sets
+       +-- icmpv6-type-sets
+       |  +---u icmpv6-type-sets
+       +-- aliases
+          +---u aliases
 
                       Figure 2: Enhanced ACL Groupings
 
