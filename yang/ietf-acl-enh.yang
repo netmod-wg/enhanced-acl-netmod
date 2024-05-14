@@ -20,24 +20,24 @@ module ietf-acl-enh {
       "RFC 8519: YANG Data Model for Network Access
                  Control Lists (ACLs), Section 4.2";
   }
-  import ietf-routing-types { 
+  import ietf-routing-types {
     prefix rt-types;
     reference
       "RFC 8294: Common YANG Data Types for the Routing Area";
   }
-  import iana-icmpv4-types { 
+  import iana-icmpv4-types {
     prefix iana-icmpv4-types;
     reference
       "RFC XXXX: Extensions to the Access Control Lists (ACLs)
                  YANG Model";
   }
-  import iana-icmpv6-types { 
+  import iana-icmpv6-types {
     prefix iana-icmpv6-types;
     reference
       "RFC XXXX: Extensions to the Access Control Lists (ACLs)
                  YANG Model";
   }
-  import iana-ipv6-ext-types { 
+  import iana-ipv6-ext-types {
     prefix iana-ipv6-ext-types;
     reference
       "RFC XXXX: Extensions to the Access Control Lists (ACLs)
@@ -257,7 +257,6 @@ module ietf-acl-enh {
     description
       "Identity for counter name to be updated based on
         the ACL match actions.";
-
   }
 
   typedef operator {
@@ -277,7 +276,7 @@ module ietf-acl-enh {
         position 2;
         description
           "Any bit. This is a match on any of the bits in  bitmask.
-           It evaluates to 'true' if any of the bits in the 
+           It evaluates to 'true' if any of the bits in the
            value mask are set in the data,  i.e.,
            '(data & value) != 0'.";
       }
@@ -408,8 +407,8 @@ module ietf-acl-enh {
              corresponding to the TCP data offset field are not
              included in any matching.";
           reference
-           "RFC 9293: Transmission Control Protocol (TCP),
-                      Section 3.1";
+            "RFC 9293: Transmission Control Protocol (TCP),
+                       Section 3.1";
         }
       }
     }
@@ -431,64 +430,58 @@ module ietf-acl-enh {
     }
   }
 
-grouping mpls-match-parameters-config {
-  description
-    "Parameters for the configuration of MPLS match rules.";
-
-  leaf traffic-class {
-    type uint8 {
-      range "0..7";
-    }
+  grouping mpls-match-parameters-config {
     description
-      "The value of the MPLS traffic class (TC) bits,
-       formerly known as the EXP bits.";
-  }
-
-  leaf label-position {
-    type identityref {
-      base label-position;
+      "Parameters for the configuration of MPLS match rules.";
+    leaf traffic-class {
+      type uint8 {
+        range "0..7";
+      }
+      description
+        "The value of the MPLS traffic class (TC) bits,
+         formerly known as the EXP bits.";
     }
-    description 
-      "Position of the label";
-  }
-
-  leaf upper-label-range {
-    type rt-types:mpls-label;
-    description 
-      "Match MPLS label value on the MPLS header.
-       The usage of this field indicated the upper 
-       range value in the top of the stack.
-       This label value does not include the
-       encodings of Traffic Class and TTL.";
-     reference
-       "RFC 3032: MPLS Label Stack Encoding";
-  }
-    
-  leaf lower-label-range {
-    type rt-types:mpls-label;
-    description 
-      "Match MPLS label value on the MPLS header.
-       The usage of this field indicated the lower 
-       range value in the top of the stack. 
-       This label value does not include the
-       encodings of Traffic Class and TTL.";
-     reference
-       "RFC 3032: MPLS Label Stack Encoding";
-  }
-
-  leaf label-block-name {
-    type string;
-    description 
-    "Reference to a label block predefiend in the
-     implementation.";
-  }
-    
-  leaf ttl-value {
-    type uint8;
-    description 
-      "Time-to-live MPLS packet value match.";
-    reference
-      "RFC 3032: MPLS Label Stack Encoding";
+    leaf label-position {
+      type identityref {
+        base label-position;
+      }
+      description
+        "Position of the label";
+    }
+    leaf upper-label-range {
+      type rt-types:mpls-label;
+      description
+        "Match MPLS label value on the MPLS header.
+         The usage of this field indicated the upper
+         range value in the top of the stack.
+         This label value does not include the
+         encodings of Traffic Class and TTL.";
+      reference
+        "RFC 3032: MPLS Label Stack Encoding";
+    }
+    leaf lower-label-range {
+      type rt-types:mpls-label;
+      description
+        "Match MPLS label value on the MPLS header.
+         The usage of this field indicated the lower
+         range value in the top of the stack.
+         This label value does not include the
+         encodings of Traffic Class and TTL.";
+      reference
+        "RFC 3032: MPLS Label Stack Encoding";
+    }
+    leaf label-block-name {
+      type string;
+      description
+        "Reference to a label block predefiend in the
+         implementation.";
+    }
+    leaf ttl-value {
+      type uint8;
+      description
+        "Time-to-live MPLS packet value match.";
+      reference
+        "RFC 3032: MPLS Label Stack Encoding";
     }
   }
 
@@ -500,7 +493,7 @@ grouping mpls-match-parameters-config {
         base offset-type;
       }
       description
-        "Indicates the payload offset. This will indicate  
+        "Indicates the payload offset. This will indicate
          the position of the data in packet to use for
          the match.";
     }
@@ -529,8 +522,8 @@ grouping mpls-match-parameters-config {
       "Specifies an alias.";
     leaf-list vlan {
       type uint16;
-        description
-          "VLAN of the alias.";
+      description
+        "VLAN of the alias.";
     }
     leaf-list prefix {
       type inet:ip-prefix;
@@ -643,12 +636,9 @@ grouping mpls-match-parameters-config {
   grouping acl-complementary-actions {
     description
       "Collection of complementary ACL actions.";
-
-
     container log-action {
       description
         "Container for defining log actions.";
-
       leaf log-type {
         type identityref {
           base acl-enh:log-types;
@@ -667,11 +657,9 @@ grouping mpls-match-parameters-config {
           "The name of the counter action.";
       }
     }
-
     container counter-action {
       description
         "Container for defining counter actions.";
-
       leaf counter-type {
         type identityref {
           base acl-enh:counter-type;
@@ -683,15 +671,15 @@ grouping mpls-match-parameters-config {
         when "derived-from-or-self(../counter-type, "
            + "'acl-enh:counter-name')" {
           description
-            "Name for the counter or variable to update when  
-            'counter-type' is 'counter-name'.";
+            "Name for the counter or variable to update when
+             'counter-type' is 'counter-name'.";
         }
         type string;
         description
           "List of possible variables or counter names to
-          update based on match critieria.";
+           update based on match critieria.";
       }
-    }  
+    }
   }
 
   augment "/acl:acls/acl:acl/acl:aces/acl:ace"
@@ -718,16 +706,16 @@ grouping mpls-match-parameters-config {
       }
     }
     choice mpls {
-      container mpls-values {
-        if-feature "match-on-mpls";
-        uses mpls-match-parameters-config;
-        description
-          "Provides the rule set that matches MPLS headers.";
-      }
       description
         "Matches against MPLS headers, for example, label
-         values";          
-    } 
+         values";
+      container mpls-values {
+        if-feature "match-on-mpls";
+        description
+          "Provides the rule set that matches MPLS headers.";
+        uses mpls-match-parameters-config;
+      }
+    }
   }
 
   augment "/acl:acls/acl:acl/acl:aces"
@@ -833,7 +821,7 @@ grouping mpls-match-parameters-config {
     description
       "Handle non-initial and initial fragments for IPv4 packets.";
     container ipv4-fragment {
-      must "not(../acl:flags)" {
+      must 'not(../acl:flags)' {
         error-message
           "Either flags or fragment should be provided, but not
            both.";
@@ -888,9 +876,9 @@ grouping mpls-match-parameters-config {
         "A reference to a protocol set to match the protocol field.";
     }
     leaf extension-header {
-       type iana-ipv6-ext-types:ipv6-extension-header-type;
-       description
-         "IPv6 extension header value."; 
+      type iana-ipv6-ext-types:ipv6-extension-header-type;
+      description
+        "IPv6 extension header value.";
     }
   }
 
@@ -899,7 +887,7 @@ grouping mpls-match-parameters-config {
     description
       "Handles TCP flags and port sets.";
     container flags-bitmask {
-      must "not(../acl:flags)" {
+      must 'not(../acl:flags)' {
         error-message
           "Either flags or flags-bitmask should be provided, but not
            both.";
@@ -958,9 +946,7 @@ grouping mpls-match-parameters-config {
         + "/acl:ace/acl:actions" {
     description
       "Complementary actions including Rate-limit action.";
-
     uses acl-complementary-actions;
-
     leaf rate-limit {
       when "../acl:forwarding = 'acl:accept'" {
         description
@@ -974,7 +960,6 @@ grouping mpls-match-parameters-config {
         "Indicates a rate-limit for the matched traffic.";
     }
   }
-
 
   container defined-sets {
     description
@@ -1081,7 +1066,7 @@ grouping mpls-match-parameters-config {
         leaf name {
           type string;
           description
-            "Name of the protocols set -- this is used as a 
+            "Name of the protocols set -- this is used as a
              label to reference the set in match conditions.";
         }
         leaf-list protocol {
@@ -1106,7 +1091,7 @@ grouping mpls-match-parameters-config {
         leaf name {
           type string;
           description
-            "Name of the ICMPv4 type set -- this is used as a label 
+            "Name of the ICMPv4 type set -- this is used as a label
              to reference the set in match conditions.";
         }
         list icmpv4-type {
@@ -1117,7 +1102,7 @@ grouping mpls-match-parameters-config {
         }
       }
     }
-  container icmpv6-type-sets {
+    container icmpv6-type-sets {
       description
         "Data definitions for a list of ICMPv6 types which can be
          matched in policies.";
@@ -1128,7 +1113,7 @@ grouping mpls-match-parameters-config {
         leaf name {
           type string;
           description
-            "Name of the ICMPv6 type set -- this is used as a label 
+            "Name of the ICMPv6 type set -- this is used as a label
              to reference the set in match conditions.";
         }
         list icmpv6-type {
