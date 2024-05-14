@@ -376,7 +376,7 @@ Table of Contents
        +-- port-set* [name]
           +-- name    string
           +-- port* [id]
-             +-- id?                             string
+             +-- id                              string
              +-- (port)?
                 +--:(port-range-or-operator)
                    +-- port-range-or-operator
