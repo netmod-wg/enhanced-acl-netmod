@@ -3,9 +3,10 @@
 
 
 netmod                                                     O. G. D. Dios
-Internet-Draft                                                S. Barguil
-Intended status: Standards Track                              Telefonica
-Expires: 15 November 2024                                   M. Boucadair
+Internet-Draft                                                Telefonica
+Intended status: Standards Track                              S. Barguil
+Expires: 15 November 2024                                          Nokia
+                                                            M. Boucadair
                                                                   Orange
                                                                    Q. Wu
                                                                   Huawei
@@ -242,44 +243,10 @@ Table of Contents
    Figure 1 shows the full tree of the enhanced ACL module (Section 4):
 
    module: ietf-acl-enh
-     +--rw defined-sets
-     |  +--rw ipv4-prefix-sets
-     |  |  +--rw prefix-set* [name]
-     |  |     +--rw name           string
-     |  |     +--rw description?   string
-     |  |     +--rw prefix*        inet:ipv4-prefix
-     |  +--rw ipv6-prefix-sets
-     |  |  +--rw prefix-set* [name]
-     |  |     +--rw name           string
-     |  |     +--rw description?   string
-     |  |     +--rw prefix*        inet:ipv6-prefix
-     |  +--rw port-sets
-     |  |  +--rw port-set* [name]
-     |  |     +--rw name    string
-     |  |     +--rw port* [id]
-     |  |        +--rw id                              string
-     |  |        +--rw (port)?
-     |  |           +--:(port-range-or-operator)
-     |  |              +--rw port-range-or-operator
-     |  |                 +---u packet-fields:port-range-or-operator
-     |  +--rw protocol-sets
-     |  |  +--rw protocol-set* [name]
-     |  |     +--rw name        string
-     |  |     +--rw protocol*   union
-     |  +--rw icmpv4-type-sets
-     |  |  +--rw set* [name]
-     |  |     +--rw name           string
-     |  |     +--rw icmpv4-type* [type]
-     |  |        +---u icmpv4-header-fields
-     |  +--rw icmpv6-type-sets
-     |     +--rw set* [name]
-     |        +--rw name           string
-     |        +--rw icmpv6-type* [type]
-     |           +---u icmpv6-header-fields
-     +--rw aliases
-        +--rw alias* [name]
-           +--rw name     string
-           +---u alias
+
+     augment /acl:acls:
+       +--rw defined-sets
+          +---u defined-sets
      augment /acl:acls/acl:acl/acl:aces/acl:ace/acl:matches:
        +--rw (payload)?
        |  +--:(prefix-pattern)
@@ -349,7 +316,7 @@ Table of Contents
    Figure 2 shows the reusable groupings that are defined in the
    enhanced ACL module:
 
-    grouping tcp-flags:
+     grouping tcp-flags:
        +-- (mode)?
           +--:(explicit)
           |  +-- operator?            operator
@@ -395,6 +362,58 @@ Table of Contents
        +-- counter-action
           +-- counter-type?   identityref
           +-- counter-name*   string
+     grouping ipv4-prefix-sets:
+       +-- prefix-set* [name]
+          +-- name           string
+          +-- description?   string
+          +-- prefix*        inet:ipv4-prefix
+     grouping ipv6-prefix-sets:
+       +-- prefix-set* [name]
+          +-- name           string
+          +-- description?   string
+          +-- prefix*        inet:ipv6-prefix
+     grouping port-sets:
+       +-- port-set* [name]
+          +-- name    string
+          +-- port* [id]
+             +-- id?                             string
+             +-- (port)?
+                +--:(port-range-or-operator)
+                   +-- port-range-or-operator
+                      +---u packet-fields:port-range-or-operator
+     grouping protocol-sets:
+       +-- protocol-set* [name]
+          +-- name        string
+          +-- protocol*   union
+     grouping icmpv4-type-sets:
+       +-- set* [name]
+          +-- name           string
+          +-- icmpv4-type* [type]
+             +---u icmpv4-header-fields
+     grouping icmpv6-type-sets:
+       +-- set* [name]
+          +-- name           string
+          +-- icmpv6-type* [type]
+             +---u icmpv6-header-fields
+     grouping aliases:
+       +-- alias* [name]
+          +-- name     string
+          +---u alias
+     grouping defined-sets:
+       +-- ipv4-prefix-sets
+       |  +---u ipv4-prefix-sets
+       +-- ipv6-prefix-sets
+       |  +---u ipv6-prefix-sets
+       +-- port-sets
+       |  +---u port-sets
+       +-- protocol-sets
+       |  +---u protocol-sets
+       +-- icmpv4-type-sets
+       |  +---u icmpv4-type-sets
+       +-- icmpv6-type-sets
+       |  +---u icmpv6-type-sets
+       +-- aliases
+          +---u aliases
 
                       Figure 2: Enhanced ACL Groupings
 
@@ -1444,6 +1463,17 @@ Table of Contents
        }
      }
 
+     augment "/acl:acls" {
+       description
+         "predefined sets.";
+       container defined-sets {
+         description
+           "Predefined sets of attributes used in policy match
+            statements.";
+         uses defined-sets;
+       }
+     }
+
      augment "/acl:acls/acl:acl/acl:aces/acl:ace"
            + "/acl:matches" {
        description
@@ -1720,17 +1750,6 @@ Table of Contents
          units "bytes per second";
          description
            "Indicates a rate-limit for the matched traffic.";
-       }
-     }
-
-     augment "/acl:acls" {
-       description
-         "predefined sets.";
-       container defined-sets {
-         description
-           "Predefined sets of attributes used in policy match
-            statements.";
-         uses defined-sets;
        }
      }
    }
@@ -3727,8 +3746,8 @@ Authors' Addresses
 
 
    Samier Barguil
-   Telefonica
-   Email: samier.barguilgiraldo.ext@telefonica.com
+   Nokia
+   Email: samier.barguil_giraldo@nokia.com
 
 
    Mohamed Boucadair

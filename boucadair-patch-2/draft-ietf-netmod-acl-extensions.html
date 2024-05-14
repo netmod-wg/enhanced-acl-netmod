@@ -1062,7 +1062,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
 </div>
 <div class="author">
       <div class="author-name">S. Barguil</div>
-<div class="org">Telefonica</div>
+<div class="org">Nokia</div>
 </div>
 <div class="author">
       <div class="author-name">M. Boucadair</div>
@@ -1427,44 +1427,10 @@ The meaning of the symbols in the tree diagrams is defined in
           <div class="alignLeft art-text artwork" id="section-3.1-2.1">
 <pre>
 module: ietf-acl-enh
-  +--rw defined-sets
-  |  +--rw ipv4-prefix-sets
-  |  |  +--rw prefix-set* [name]
-  |  |     +--rw name           string
-  |  |     +--rw description?   string
-  |  |     +--rw prefix*        inet:ipv4-prefix
-  |  +--rw ipv6-prefix-sets
-  |  |  +--rw prefix-set* [name]
-  |  |     +--rw name           string
-  |  |     +--rw description?   string
-  |  |     +--rw prefix*        inet:ipv6-prefix
-  |  +--rw port-sets
-  |  |  +--rw port-set* [name]
-  |  |     +--rw name    string
-  |  |     +--rw port* [id]
-  |  |        +--rw id                              string
-  |  |        +--rw (port)?
-  |  |           +--:(port-range-or-operator)
-  |  |              +--rw port-range-or-operator
-  |  |                 +---u packet-fields:port-range-or-operator
-  |  +--rw protocol-sets
-  |  |  +--rw protocol-set* [name]
-  |  |     +--rw name        string
-  |  |     +--rw protocol*   union
-  |  +--rw icmpv4-type-sets
-  |  |  +--rw set* [name]
-  |  |     +--rw name           string
-  |  |     +--rw icmpv4-type* [type]
-  |  |        +---u icmpv4-header-fields
-  |  +--rw icmpv6-type-sets
-  |     +--rw set* [name]
-  |        +--rw name           string
-  |        +--rw icmpv6-type* [type]
-  |           +---u icmpv6-header-fields
-  +--rw aliases
-     +--rw alias* [name]
-        +--rw name     string
-        +---u alias
+
+  augment /acl:acls:
+    +--rw defined-sets
+       +---u defined-sets
   augment /acl:acls/acl:acl/acl:aces/acl:ace/acl:matches:
     +--rw (payload)?
     |  +--:(prefix-pattern)
@@ -1539,7 +1505,7 @@ module: ietf-acl-enh
 <figure id="figure-2">
           <div class="alignLeft art-text artwork" id="section-3.1-4.1">
 <pre>
- grouping tcp-flags:
+  grouping tcp-flags:
     +-- (mode)?
        +--:(explicit)
        |  +-- operator?            operator
@@ -1585,6 +1551,58 @@ module: ietf-acl-enh
     +-- counter-action
        +-- counter-type?   identityref
        +-- counter-name*   string
+  grouping ipv4-prefix-sets:
+    +-- prefix-set* [name]
+       +-- name           string
+       +-- description?   string
+       +-- prefix*        inet:ipv4-prefix
+  grouping ipv6-prefix-sets:
+    +-- prefix-set* [name]
+       +-- name           string
+       +-- description?   string
+       +-- prefix*        inet:ipv6-prefix
+  grouping port-sets:
+    +-- port-set* [name]
+       +-- name    string
+       +-- port* [id]
+          +-- id?                             string
+          +-- (port)?
+             +--:(port-range-or-operator)
+                +-- port-range-or-operator
+                   +---u packet-fields:port-range-or-operator
+  grouping protocol-sets:
+    +-- protocol-set* [name]
+       +-- name        string
+       +-- protocol*   union
+  grouping icmpv4-type-sets:
+    +-- set* [name]
+       +-- name           string
+       +-- icmpv4-type* [type]
+          +---u icmpv4-header-fields
+  grouping icmpv6-type-sets:
+    +-- set* [name]
+       +-- name           string
+       +-- icmpv6-type* [type]
+          +---u icmpv6-header-fields
+  grouping aliases:
+    +-- alias* [name]
+       +-- name     string
+       +---u alias
+  grouping defined-sets:
+    +-- ipv4-prefix-sets
+    |  +---u ipv4-prefix-sets
+    +-- ipv6-prefix-sets
+    |  +---u ipv6-prefix-sets
+    +-- port-sets
+    |  +---u port-sets
+    +-- protocol-sets
+    |  +---u protocol-sets
+    +-- icmpv4-type-sets
+    |  +---u icmpv4-type-sets
+    +-- icmpv6-type-sets
+    |  +---u icmpv6-type-sets
+    +-- aliases
+       +---u aliases
 </pre>
 </div>
 <figcaption><a href="#figure-2" class="selfRef">Figure 2</a>:
@@ -2696,6 +2714,17 @@ module ietf-acl-enh {
     }
   }
 
+  augment "/acl:acls" {
+    description
+      "predefined sets.";
+    container defined-sets {
+      description
+        "Predefined sets of attributes used in policy match
+         statements.";
+      uses defined-sets;
+    }
+  }
+
   augment "/acl:acls/acl:acl/acl:aces/acl:ace"
         + "/acl:matches" {
     description
@@ -2972,17 +3001,6 @@ module ietf-acl-enh {
       units "bytes per second";
       description
         "Indicates a rate-limit for the matched traffic.";
-    }
-  }
-
-  augment "/acl:acls" {
-    description
-      "predefined sets.";
-    container defined-sets {
-      description
-        "Predefined sets of attributes used in policy match
-         statements.";
-      uses defined-sets;
     }
   }
 }
@@ -5249,10 +5267,10 @@ packets.  The following ACEs are defined (in this order):<a href="#appendix-E.2-
 </address>
 <address class="vcard">
         <div dir="auto" class="left"><span class="fn nameRole">Samier Barguil</span></div>
-<div dir="auto" class="left"><span class="org">Telefonica</span></div>
+<div dir="auto" class="left"><span class="org">Nokia</span></div>
 <div class="email">
 <span>Email:</span>
-<a href="mailto:samier.barguilgiraldo.ext@telefonica.com" class="email">samier.barguilgiraldo.ext@telefonica.com</a>
+<a href="mailto:samier.barguil_giraldo@nokia.com" class="email">samier.barguil_giraldo@nokia.com</a>
 </div>
 </address>
 <address class="vcard">
