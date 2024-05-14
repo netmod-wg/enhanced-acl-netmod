@@ -5,11 +5,11 @@
 netmod                                                     O. G. D. Dios
 Internet-Draft                                                S. Barguil
 Intended status: Standards Track                              Telefonica
-Expires: 2 August 2024                                      M. Boucadair
+Expires: 15 November 2024                                   M. Boucadair
                                                                   Orange
                                                                    Q. Wu
                                                                   Huawei
-                                                         30 January 2024
+                                                             14 May 2024
 
 
         Extensions to the Access Control Lists (ACLs) YANG Model
@@ -50,7 +50,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 2 August 2024.
+   This Internet-Draft will expire on 15 November 2024.
 
 Copyright Notice
 
@@ -97,13 +97,11 @@ Table of Contents
    Appendix A.  ICMPv4 Types
      A.1.  XSLT Template to Generate The ICMPv4 Types IANA-Maintained
            Module
-     A.2.  Initial Version of the The ICMPv4 Types IANA-Maintained
-           Module
+     A.2.  Initial Version of the ICMPv4 Types IANA-Maintained Module
    Appendix B.  ICMPv6 Types
-     B.1.  XSLT Template to Generate The ICMPv6 Types IANA-Maintained
+     B.1.  XSLT Template to Generate the ICMPv6 Types IANA-Maintained
            Module
-     B.2.  Initial Version of the The ICMPv6 Types IANA-Maintained
-           Module
+     B.2.  Initial Version of the ICMPv6 Types IANA-Maintained Module
    Appendix C.  IPv6 Extension Header Types
      C.1.  XSLT Template to Generate The IPv6 Extension Header Types
            IANA-Maintained Module
@@ -2059,12 +2057,12 @@ Table of Contents
 7.2.  Informative References
 
    [I-D.ietf-netmod-rfc8407bis]
-              Boucadair, M. and Q. Wu, "Guidelines for Authors and
-              Reviewers of Documents Containing YANG Data Models", Work
-              in Progress, Internet-Draft, draft-ietf-netmod-rfc8407bis-
-              06, 18 December 2023,
+              Bierman, A., Boucadair, M., and Q. Wu, "Guidelines for
+              Authors and Reviewers of Documents Containing YANG Data
+              Models", Work in Progress, Internet-Draft, draft-ietf-
+              netmod-rfc8407bis-11, 18 April 2024,
               <https://datatracker.ietf.org/doc/html/draft-ietf-netmod-
-              rfc8407bis-06>.
+              rfc8407bis-11>.
 
    [IANA-ICMPv4]
               "ICMP Type Numbers", n.d.,
@@ -2207,7 +2205,7 @@ A.1.  XSLT Template to Generate The ICMPv4 Types IANA-Maintained Module
    </stylesheet>
    <CODE ENDS>
 
-A.2.  Initial Version of the The ICMPv4 Types IANA-Maintained Module
+A.2.  Initial Version of the ICMPv4 Types IANA-Maintained Module
 
    <CODE BEGINS> file "iana-icmpv4-types@2020-09-25.yang"
    module iana-icmpv4-types {
@@ -2532,7 +2530,7 @@ A.2.  Initial Version of the The ICMPv4 Types IANA-Maintained Module
 
 Appendix B.  ICMPv6 Types
 
-B.1.  XSLT Template to Generate The ICMPv6 Types IANA-Maintained Module
+B.1.  XSLT Template to Generate the ICMPv6 Types IANA-Maintained Module
 
    <CODE BEGINS>
    <?xml version="1.0" encoding="utf-8"?>
@@ -2613,7 +2611,7 @@ B.1.  XSLT Template to Generate The ICMPv6 Types IANA-Maintained Module
    </stylesheet>
    <CODE ENDS>
 
-B.2.  Initial Version of the The ICMPv6 Types IANA-Maintained Module
+B.2.  Initial Version of the ICMPv6 Types IANA-Maintained Module
 
    <CODE BEGINS> file "iana-icmpv6-types@2020-09-25.yang"
    module iana-icmpv6-types {
@@ -3046,7 +3044,7 @@ C.1.  XSLT Template to Generate The IPv6 Extension Header Types IANA-
 C.2.  Initial Version of The IPv6 Extension Header Types IANA-Maintained
       Module
 
-   <CODE BEGINS> file "iana-ipv6-ext-types@2023-04-28.yang"
+   <CODE BEGINS> file "iana-ipv6-ext-types@2023-09-29.yang"
    module iana-ipv6-ext-types {
      yang-version 1.1;
      namespace "urn:ietf:params:xml:ns:yang:iana-ipv6-ext-types";
@@ -3568,7 +3566,7 @@ E.3.  VLAN Filtering
    filter.
 
    {
-      "ietf-acces-control-list:acls":{
+      "ietf-access-control-list:acls":{
          "acl":[
             {
                "name":"VLAN_FILTER",
@@ -3583,7 +3581,7 @@ E.3.  VLAN Filtering
                            }
                         },
                         "actions":{
-                           "forwarding":"ietf-acces-control-list:accept"
+                           "forwarding":"ietf-access-control-list:accept"
                         }
                      }
                   ]
@@ -3600,7 +3598,7 @@ E.4.  ISID Filtering
    Figure 8 shows an ACL example to illustrate the ISID range filtering.
 
    {
-      "ietf-acces-control-list:acls":{
+      "ietf-access-control-list:acls":{
          "acl":[
             {
                "name":"test",
@@ -3615,7 +3613,7 @@ E.4.  ISID Filtering
                            }
                         },
                         "actions":{
-                           "forwarding":"ietf-acces-control-list:accept"
+                           "forwarding":"ietf-access-control-list:accept"
                         }
                      }
                   ]
@@ -3643,7 +3641,7 @@ E.5.  Rate-Limit
                         "name":"rate-limit-syn",
                         "matches":{
                            "tcp":{
-                              "acl-enh:flags-bitmask":{
+                              "ietf-acl-enh:flags-bitmask":{
                                  "operator":"match",
                                  "bitmask":2
                               }
@@ -3651,7 +3649,7 @@ E.5.  Rate-Limit
                         },
                         "actions":{
                            "forwarding":"accept",
-                           "acl-enh:rate-limit":"20.00"
+                           "ietf-acl-enh:rate-limit":"20.00"
                         }
                      }
                   ]
