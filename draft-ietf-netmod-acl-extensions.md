@@ -181,7 +181,7 @@ Defined set:
 ## Defined Sets
 
 The augmented ACL structure includes several containers to manage reusable sets of elements that can be matched in an ACL entry.
-Each set is uniquely identified by a name and can be called from the relevant entry. The following sets are defined:
+Each set is uniquely identified by a name and can be called from the relevant entry. The following sets are defined ({{enh-acl-tree}}):
 
 * IPv4 prefix set:
 : It contains a list of IPv4 prefixes. A match will be considered if the IP address (source or destination, depending on the ACL entry) is contained in any of the prefixes.
@@ -190,7 +190,7 @@ Each set is uniquely identified by a name and can be called from the relevant en
 : It contains a list of IPv6 prefixes. A match will be considered if the IP address (source or destination, depending on the ACL entry) is contained in any of the prefixes.
 
 * Port sets:
-: It contains a list of port numbers to be used in TCP/UDP entries. The port numbers can be individual port numbers, a range of ports, and an operation.
+: It contains a list of port numbers to be used in TCP/UDP entries. The port numbers can be individual port numbers, a range of port numbers, and an operation.
 
 * Protocol sets:
 : It contains a list of protocol values. Each protocol can be identified either by a number (e.g., 17) or a name (e.g., UDP).
@@ -203,7 +203,7 @@ Each set is uniquely identified by a name and can be called from the relevant en
 
 ## IPv6 Extension Headers
 
-The module can be used to manage ACLs that require matching against IPv6 extension headers. To that aim, a new IANA-maintained module for IPv6 extension header types is defined in this document.
+The module can be used to manage ACLs that require matching against IPv6 extension headers {{!RFC8200}}. To that aim, a new IANA-maintained module for IPv6 extension header types "iana-ipv6-ext-types" is defined in this document.
 
 ## TCP Flags Handling
 
@@ -219,30 +219,32 @@ Clients that support both 'ipv4-fragment' and 'flags' matching fields MUST NOT s
 
 ## Payload-based Filtering
 
-Some transport protocols use existing protocols (e.g., TCP or UDP) as substrate. The match criteria for such protocols may rely upon the 'protocol' under 'l3', TCP/UDP match criteria, part of the TCP/UDP payload, or a combination thereof. A new feature, called "match-on-payload", is defined in the document. This can be used, for example, for QUIC {{?RFC9000}} or for tunneling protocols.
+Some transport protocols use existing protocols (e.g., TCP or UDP) as substrate. The match criteria for such protocols may rely upon the 'protocol' under 'l3', TCP/UDP match criteria, part of the TCP/UDP payload, or a combination thereof.
+
+A new feature, called "match-on-payload", is defined in the document. This can be used, for example, for QUIC {{?RFC9000}} or for tunneling protocols.
 
 ## Match on MPLS Headers
 
-The enhanced ACL module can be used to create rules to match against MPLS fields of a packet. The MPLS header defined in {{!RFC3032}} and {{!RFC5462}} contains the following fields:
+The enhanced ACL module ({{sec-module}}) can be used to create rules to match against MPLS fields of a packet. The MPLS header defined in {{!RFC3032}} and {{!RFC5462}} contains the following fields:
 
-- Traffic Class: 3 bits 'EXP' renamed to 'Traffic Class Field."
+- Traffic Class: 3 bits 'EXP' renamed to "Traffic Class" field.
 - Label Value: A 20-bit field that carries the actual value of the MPLS Label.
-- TTL: An eight-bit field that is used to encode a time-to-live value.
+- TTL: An 8-bit field that is used to encode a time-to-live (TTL) value.
 
 The augmented ACL structure ({{enh-acl-tree}}) allows an operator to configure ACLs that match based upon the following data nodes:
 
-* "traffic-class"
-* "label-position" (e.g., top, bottom)
-* "upper-label-range"
-* "lower-label-range"
-* "label-block-name"
-* "ttl-value"
+* 'traffic-class'
+* 'label-position' (e.g., top or bottom)
+* 'upper-label-range'
+* 'lower-label-range'
+* 'label-block-name'
+* 'ttl-value'
 
 ## VLAN Filtering
 
 Being able to filter all packets that are bridged within a VLAN or that
 are routed into or out of a bridge domain is part of the VPN control
-requirements derived of the EVPN definition in {{!RFC7209}}.
+requirements for Ethernet VPN (EVPN) {{!RFC7209}}.
 All packets that are bridged within a VLAN or that are routed into or
 out of a VLAN can be captured, forwarded, translated, or discarded based
 on the network policy.
@@ -267,7 +269,7 @@ the EVNP-PBB configuration.
 
 ## Additional Actions
 
-In order to support rate-limiting (see {{ps-rate}}), a new action called "rate-limit" is defined. Also, the model supports new actions to complement existing ones: Log ('log-action') and write a counter ('counter-action'). The version of the module defined in this document supports only local actions.
+In order to support rate-limiting (see {{ps-rate}}), a new action called 'rate-limit' is defined in this document. Also, the "ietf-acl-enh" module supports new actions to complement existing ones: Log ('log-action') and write a counter ('counter-action'). The version of the module defined in this document supports only local actions.
 
 # Enhanced ACL YANG Module {#sec-module}
 
@@ -293,7 +295,7 @@ The Network Configuration Access Control Model (NACM) {{!RFC8341}} provides the 
 
 There are a number of data nodes defined in this YANG module that are writable/creatable/deletable (i.e., config true, which is the default). These data nodes may be considered sensitive or vulnerable in some network environments. Write operations (e.g., edit-config) to these data nodes without proper protection can have a negative effect on network operations. These are the subtrees and data nodes and their sensitivity/vulnerability:
 
- 'defined-sets' and 'aliases':
+ 'defined-sets':
  : These lists specify a set of sets and aliases. Similar to {{!RFC8519}}, unauthorized write access to these
       list can allow intruders to modify the entries so as to permit
       traffic that should not be permitted, or deny traffic that should
@@ -302,7 +304,7 @@ There are a number of data nodes defined in this YANG module that are writable/c
 
 Some of the readable data nodes in this YANG module may be considered sensitive or vulnerable in some network environments. It is thus important to control read access (e.g., via get, get-config, or notification) to these data nodes. These are the subtrees and data nodes and their sensitivity/vulnerability:
 
- 'defined-sets' and 'aliases':
+ 'defined-sets':
  : Unauthorized read access of these lists will allow
    an attacker to identify the actual resources that are bound
    to ACLs.
@@ -719,19 +721,19 @@ The same approach as the one discussed for IP prefixes can be generalized by int
 
 The defined sets are reusable definitions across several ACLs. Each category is modeled in YANG as a list of parameters related to the class it represents. The following sets can be considered:
 
--  Prefix sets:
+Prefix sets:
 : Used to create lists of IPv4 or IPv6 prefixes.
 
--  Protocol sets:
+Protocol sets:
 : Used to create a list of protocols.
 
--  Port number sets:
+Port number sets:
 :  Used to create lists of TCP or UDP port values
       (or any other transport protocol that makes uses of port numbers).
       The identity of the protocols is identified by the protocol set, if
       present.  Otherwise, a set applies to any protocol.
 
--  ICMP sets:
+ICMP sets:
 : Uses to create lists of ICMP-based filters. This applies only when the protocol is set to ICMP or ICMPv6.
 
 Aliases may also be considered to manage resources that are identified by a combination of various parameters (e.g., prefix, protocol, port number, FQDN, or VLAN IDs).
@@ -802,9 +804,9 @@ The ACLs could be used to create rules to match MPLS fields on a packet. {{!RFC8
 
 # Examples {#sec-examples}
 
-This section provides a few examples to illustrate the use of the enhanced ACL module.
+This section provides a few examples to illustrate the use of the enhanced ACL module ("ietf-acl-enh").
 
-{{example_4}} shows an example of a request to install a filter to discard incoming TCP messages having all flags unset.
+{{example_4}} shows an example of the message body of a request to install a filter to discard incoming TCP messages having all flags unset.
 
 ## TCP Flags Handling
 
