@@ -184,8 +184,8 @@ Table of Contents
    recommendations in [I-D.ietf-netmod-rfc8407bis].  The templates to
    generate the modules are available in Appendix A.1, Appendix B.1, and
    Appendix C.1.  Readers should refer to the IANA websites
-   "IANA_ICMPv4_YANG_URL", "IANA_ICMPv6_YANG_URL", and
-   "IANA_IPV6_YANG_URL" to retrieve the latest version of these IANA-
+   [IANA_ICMPv4_YANG_URL], [IANA_ICMPv6_YANG_URL], and
+   [IANA_IPV6_YANG_URL] to retrieve the latest version of these IANA-
    maintained modules.
 
 1.1.  Editorial Note (To be removed by RFC Editor)
@@ -232,9 +232,9 @@ Table of Contents
    In addition to the terms defined in [RFC8519], this document makes
    use of the following term:
 
-   Defined set: :Refers to reusable description of one or multiple
-   information elements (e.g., IP address, IP prefix, port number, or
-   ICMP type).
+   Defined set:  Refers to reusable description of one or multiple
+      information elements (e.g., IP address, IP prefix, port number, or
+      ICMP type).
 
 3.  Overall Structure of The Enhanced ACL Module
 
@@ -376,7 +376,7 @@ Table of Contents
        +-- port-set* [name]
           +-- name    string
           +-- port* [id]
-             +-- id?                             string
+             +-- id                              string
              +-- (port)?
                 +--:(port-range-or-operator)
                    +-- port-range-or-operator
@@ -422,7 +422,7 @@ Table of Contents
    The augmented ACL structure includes several containers to manage
    reusable sets of elements that can be matched in an ACL entry.  Each
    set is uniquely identified by a name and can be called from the
-   relevant entry.  The following sets are defined:
+   relevant entry.  The following sets are defined (Figure 1):
 
    *  IPv4 prefix set:  It contains a list of IPv4 prefixes.  A match
          will be considered if the IP address (source or destination,
@@ -436,7 +436,7 @@ Table of Contents
 
    *  Port sets:  It contains a list of port numbers to be used in TCP/
          UDP entries.  The port numbers can be individual port numbers,
-         a range of ports, and an operation.
+         a range of port numbers, and an operation.
 
    *  Protocol sets:  It contains a list of protocol values.  Each
          protocol can be identified either by a number (e.g., 17) or a
@@ -454,8 +454,9 @@ Table of Contents
 3.3.  IPv6 Extension Headers
 
    The module can be used to manage ACLs that require matching against
-   IPv6 extension headers.  To that aim, a new IANA-maintained module
-   for IPv6 extension header types is defined in this document.
+   IPv6 extension headers [RFC8200].  To that aim, a new IANA-maintained
+   module for IPv6 extension header types "iana-ipv6-ext-types" is
+   defined in this document.
 
 3.4.  TCP Flags Handling
 
@@ -478,47 +479,49 @@ Table of Contents
    Some transport protocols use existing protocols (e.g., TCP or UDP) as
    substrate.  The match criteria for such protocols may rely upon the
    'protocol' under 'l3', TCP/UDP match criteria, part of the TCP/UDP
-   payload, or a combination thereof.  A new feature, called "match-on-
-   payload", is defined in the document.  This can be used, for example,
-   for QUIC [RFC9000] or for tunneling protocols.
+   payload, or a combination thereof.
+
+   A new feature, called "match-on-payload", is defined in the document.
+   This can be used, for example, for QUIC [RFC9000] or for tunneling
+   protocols.
 
 3.7.  Match on MPLS Headers
 
-   The enhanced ACL module can be used to create rules to match against
-   MPLS fields of a packet.  The MPLS header defined in [RFC3032] and
-   [RFC5462] contains the following fields:
+   The enhanced ACL module (Section 4) can be used to create rules to
+   match against MPLS fields of a packet.  The MPLS header defined in
+   [RFC3032] and [RFC5462] contains the following fields:
 
-   *  Traffic Class: 3 bits 'EXP' renamed to 'Traffic Class Field."
+   *  Traffic Class: 3 bits 'EXP' renamed to "Traffic Class" field.
 
    *  Label Value: A 20-bit field that carries the actual value of the
       MPLS Label.
 
-   *  TTL: An eight-bit field that is used to encode a time-to-live
+   *  TTL: An 8-bit field that is used to encode a time-to-live (TTL)
       value.
 
    The augmented ACL structure (Figure 1) allows an operator to
    configure ACLs that match based upon the following data nodes:
 
-   *  "traffic-class"
+   *  'traffic-class'
 
-   *  "label-position" (e.g., top, bottom)
+   *  'label-position' (e.g., top or bottom)
 
-   *  "upper-label-range"
+   *  'upper-label-range'
 
-   *  "lower-label-range"
+   *  'lower-label-range'
 
-   *  "label-block-name"
+   *  'label-block-name'
 
-   *  "ttl-value"
+   *  'ttl-value'
 
 3.8.  VLAN Filtering
 
    Being able to filter all packets that are bridged within a VLAN or
    that are routed into or out of a bridge domain is part of the VPN
-   control requirements derived of the EVPN definition in [RFC7209].
-   All packets that are bridged within a VLAN or that are routed into or
-   out of a VLAN can be captured, forwarded, translated, or discarded
-   based on the network policy.
+   control requirements for Ethernet VPN (EVPN) [RFC7209].  All packets
+   that are bridged within a VLAN or that are routed into or out of a
+   VLAN can be captured, forwarded, translated, or discarded based on
+   the network policy.
 
 3.9.  Instance Service Identifier (I-SID) Filtering
 
@@ -541,10 +544,10 @@ Table of Contents
 3.10.  Additional Actions
 
    In order to support rate-limiting (see Appendix D.6), a new action
-   called "rate-limit" is defined.  Also, the model supports new actions
-   to complement existing ones: Log ('log-action') and write a counter
-   ('counter-action').  The version of the module defined in this
-   document supports only local actions.
+   called 'rate-limit' is defined in this document.  Also, the "ietf-
+   acl-enh" module supports new actions to complement existing ones: Log
+   ('log-action') and write a counter ('counter-action').  The version
+   of the module defined in this document supports only local actions.
 
 4.  Enhanced ACL YANG Module
 
@@ -606,7 +609,7 @@ Table of Contents
         Author:   Mohamed Boucadair
                   mailto:mohamed.boucadair@orange.com
         Author:   Samier Barguil
-                  mailto:samier.barguilgiraldo.ext@telefonica.com
+                  mailto:samier.barguil_giraldo@nokia.com
         Author:   Oscar Gonzalez de Dios
                   mailto:oscar.gonzalezdedios@telefonica.com";
      description
@@ -1778,12 +1781,12 @@ Table of Contents
    effect on network operations.  These are the subtrees and data nodes
    and their sensitivity/vulnerability:
 
-   'defined-sets' and 'aliases':  These lists specify a set of sets and
-      aliases.  Similar to [RFC8519], unauthorized write access to these
-      list can allow intruders to modify the entries so as to permit
-      traffic that should not be permitted, or deny traffic that should
-      be permitted.  The former may result in a DoS attack, or
-      compromise a device.  The latter may result in a DoS attack.
+   'defined-sets':  These lists specify a set of sets and aliases.
+      Similar to [RFC8519], unauthorized write access to these list can
+      allow intruders to modify the entries so as to permit traffic that
+      should not be permitted, or deny traffic that should be permitted.
+      The former may result in a DoS attack, or compromise a device.
+      The latter may result in a DoS attack.
 
    Some of the readable data nodes in this YANG module may be considered
    sensitive or vulnerable in some network environments.  It is thus
@@ -1791,9 +1794,9 @@ Table of Contents
    notification) to these data nodes.  These are the subtrees and data
    nodes and their sensitivity/vulnerability:
 
-   'defined-sets' and 'aliases':  Unauthorized read access of these
-      lists will allow an attacker to identify the actual resources that
-      are bound to ACLs.
+   'defined-sets':  Unauthorized read access of these lists will allow
+      an attacker to identify the actual resources that are bound to
+      ACLs.
 
 6.  IANA Considerations
 
@@ -2083,6 +2086,11 @@ Table of Contents
               2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174,
               May 2017, <https://www.rfc-editor.org/rfc/rfc8174>.
 
+   [RFC8200]  Deering, S. and R. Hinden, "Internet Protocol, Version 6
+              (IPv6) Specification", STD 86, RFC 8200,
+              DOI 10.17487/RFC8200, July 2017,
+              <https://www.rfc-editor.org/rfc/rfc8200>.
+
    [RFC8294]  Liu, X., Qu, Y., Lindem, A., Hopps, C., and L. Berger,
               "Common YANG Data Types for the Routing Area", RFC 8294,
               DOI 10.17487/RFC8294, December 2017,
@@ -2144,6 +2152,21 @@ Table of Contents
    [IANA-YANG-PARAMETERS]
               "YANG Parameters", n.d.,
               <https://www.iana.org/assignments/yang-parameters>.
+
+   [IANA_ICMPv4_YANG_URL]
+              "iana-icmpv6-types YANG Module", n.d.,
+              <https://www.iana.org/assignments/icmpv6-parameters/iana-
+              icmpv6-types.xhtml>.
+
+   [IANA_ICMPv6_YANG_URL]
+              "iana-icmpv4-types YANG Module", n.d.,
+              <https://www.iana.org/assignments/icmp-parameters/iana-
+              ipv6-ext-types.xhtml>.
+
+   [IANA_IPV6_YANG_URL]
+              "iana-ipv6-ext-types YANG Module", n.d.,
+              <https://www.iana.org/assignments/ipv6-parameters/iana-
+              icmpv6-types.xhtml>.
 
    [IEEE-802-1ah]
               IEEE, "IEEE Standard for Local and metropolitan area
@@ -3361,18 +3384,17 @@ D.2.  Manageability: Impossibility to Use Aliases or Defined Sets
    category is modeled in YANG as a list of parameters related to the
    class it represents.  The following sets can be considered:
 
-   *  Prefix sets:  Used to create lists of IPv4 or IPv6 prefixes.
+   Prefix sets:  Used to create lists of IPv4 or IPv6 prefixes.
 
-   *  Protocol sets:  Used to create a list of protocols.
+   Protocol sets:  Used to create a list of protocols.
 
-   *  Port number sets:  Used to create lists of TCP or UDP port values
-         (or any other transport protocol that makes uses of port
-         numbers).  The identity of the protocols is identified by the
-         protocol set, if present.  Otherwise, a set applies to any
-         protocol.
+   Port number sets:  Used to create lists of TCP or UDP port values (or
+      any other transport protocol that makes uses of port numbers).
+      The identity of the protocols is identified by the protocol set,
+      if present.  Otherwise, a set applies to any protocol.
 
-   *  ICMP sets:  Uses to create lists of ICMP-based filters.  This
-         applies only when the protocol is set to ICMP or ICMPv6.
+   ICMP sets:  Uses to create lists of ICMP-based filters.  This applies
+      only when the protocol is set to ICMP or ICMPv6.
 
    Aliases may also be considered to manage resources that are
    identified by a combination of various parameters (e.g., prefix,
@@ -3463,10 +3485,10 @@ D.9.  Match MPLS Headers
 Appendix E.  Examples
 
    This section provides a few examples to illustrate the use of the
-   enhanced ACL module.
+   enhanced ACL module ("ietf-acl-enh").
 
-   Figure 4 shows an example of a request to install a filter to discard
-   incoming TCP messages having all flags unset.
+   Figure 4 shows an example of the message body of a request to install
+   a filter to discard incoming TCP messages having all flags unset.
 
 E.1.  TCP Flags Handling
 
