@@ -547,7 +547,7 @@ NEW:
 <CODE ENDS>
 ~~~
 
-## Initial Version of the The ICMPv4 Types IANA-Maintained Module {#iana-icmp}
+## Initial Version of the ICMPv4 Types IANA-Maintained Module {#iana-icmp}
 
 ~~~
 <CODE BEGINS> file "iana-icmpv4-types@2020-09-25.yang"
@@ -559,7 +559,7 @@ NEW:
 
 # ICMPv6 Types
 
-## XSLT Template to Generate The ICMPv6 Types IANA-Maintained Module {#v6-template}
+## XSLT Template to Generate the ICMPv6 Types IANA-Maintained Module {#v6-template}
 
 ~~~
 <CODE BEGINS>
@@ -569,7 +569,7 @@ NEW:
 <CODE ENDS>
 ~~~
 
-## Initial Version of the The ICMPv6 Types IANA-Maintained Module {#iana-icmpv6}
+## Initial Version of the ICMPv6 Types IANA-Maintained Module {#iana-icmpv6}
 
 ~~~
 <CODE BEGINS> file "iana-icmpv6-types@2020-09-25.yang"
@@ -594,7 +594,7 @@ NEW:
 ## Initial Version of The IPv6 Extension Header Types IANA-Maintained Module {#iana-ipv6-ext}
 
 ~~~
-<CODE BEGINS> file "iana-ipv6-ext-types@2023-04-28.yang"
+<CODE BEGINS> file "iana-ipv6-ext-types@2023-09-29.yang"
 
 {::include ./yang/iana-ipv6-ext-types.yang}
 
@@ -944,7 +944,7 @@ packets.  The following ACEs are defined (in this order):
 
 ~~~ json
 {
-   "ietf-acces-control-list:acls":{
+   "ietf-access-control-list:acls":{
       "acl":[
          {
             "name":"VLAN_FILTER",
@@ -959,7 +959,7 @@ packets.  The following ACEs are defined (in this order):
                         }
                      },
                      "actions":{
-                        "forwarding":"ietf-acces-control-list:accept"
+                        "forwarding":"ietf-access-control-list:accept"
                      }
                   }
                ]
@@ -977,7 +977,7 @@ packets.  The following ACEs are defined (in this order):
 
 ~~~ json
 {
-   "ietf-acces-control-list:acls":{
+   "ietf-access-control-list:acls":{
       "acl":[
          {
             "name":"test",
@@ -992,7 +992,7 @@ packets.  The following ACEs are defined (in this order):
                         }
                      },
                      "actions":{
-                        "forwarding":"ietf-acces-control-list:accept"
+                        "forwarding":"ietf-access-control-list:accept"
                      }
                   }
                ]
@@ -1020,7 +1020,7 @@ packets.  The following ACEs are defined (in this order):
                      "name":"rate-limit-syn",
                      "matches":{
                         "tcp":{
-                           "acl-enh:flags-bitmask":{
+                           "ietf-acl-enh:flags-bitmask":{
                               "operator":"match",
                               "bitmask":2
                            }
@@ -1028,7 +1028,7 @@ packets.  The following ACEs are defined (in this order):
                      },
                      "actions":{
                         "forwarding":"accept",
-                        "acl-enh:rate-limit":"20.00"
+                        "ietf-acl-enh:rate-limit":"20.00"
                      }
                   }
                ]
