@@ -184,8 +184,8 @@ Table of Contents
    recommendations in [I-D.ietf-netmod-rfc8407bis].  The templates to
    generate the modules are available in Appendix A.1, Appendix B.1, and
    Appendix C.1.  Readers should refer to the IANA websites
-   "IANA_ICMPv4_YANG_URL", "IANA_ICMPv6_YANG_URL", and
-   "IANA_IPV6_YANG_URL" to retrieve the latest version of these IANA-
+   [IANA_ICMPv4_YANG_URL], [IANA_ICMPv6_YANG_URL], and
+   [IANA_IPV6_YANG_URL] to retrieve the latest version of these IANA-
    maintained modules.
 
 1.1.  Editorial Note (To be removed by RFC Editor)
@@ -232,9 +232,9 @@ Table of Contents
    In addition to the terms defined in [RFC8519], this document makes
    use of the following term:
 
-   Defined set: :Refers to reusable description of one or multiple
-   information elements (e.g., IP address, IP prefix, port number, or
-   ICMP type).
+   Defined set:  Refers to reusable description of one or multiple
+      information elements (e.g., IP address, IP prefix, port number, or
+      ICMP type).
 
 3.  Overall Structure of The Enhanced ACL Module
 
@@ -2144,6 +2144,21 @@ Table of Contents
    [IANA-YANG-PARAMETERS]
               "YANG Parameters", n.d.,
               <https://www.iana.org/assignments/yang-parameters>.
+
+   [IANA_ICMPv4_YANG_URL]
+              "iana-icmpv6-types YANG Module", n.d.,
+              <https://www.iana.org/assignments/icmpv6-parameters/iana-
+              icmpv6-types.xhtml>.
+
+   [IANA_ICMPv6_YANG_URL]
+              "iana-icmpv4-types YANG Module", n.d.,
+              <https://www.iana.org/assignments/icmp-parameters/iana-
+              ipv6-ext-types.xhtml>.
+
+   [IANA_IPV6_YANG_URL]
+              "iana-ipv6-ext-types YANG Module", n.d.,
+              <https://www.iana.org/assignments/ipv6-parameters/iana-
+              icmpv6-types.xhtml>.
 
    [IEEE-802-1ah]
               IEEE, "IEEE Standard for Local and metropolitan area

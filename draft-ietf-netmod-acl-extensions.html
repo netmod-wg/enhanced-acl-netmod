@@ -1366,7 +1366,7 @@ messages triggered by  these tools is valuable from a network operation standpoi
 Management Datastore Architecture (NMDA) defined in <span>[<a href="#RFC8342" class="cite xref">RFC8342</a>]</span>.<a href="#section-1-7" class="pilcrow">¶</a></p>
 <p id="section-1-8">A set of examples to illustrate the use of the enhanced ACL module are provided in <a href="#sec-examples" class="auto internal xref">Appendix E</a>.<a href="#section-1-8" class="pilcrow">¶</a></p>
 <p id="section-1-9">The document also defines IANA-maintained modules for ICMP types and IPv6 extension headers. The design of the modules adheres to the recommendations
-in <span>[<a href="#I-D.ietf-netmod-rfc8407bis" class="cite xref">I-D.ietf-netmod-rfc8407bis</a>]</span>. The templates to generate the modules are available in <a href="#template" class="auto internal xref">Appendix A.1</a>, <a href="#v6-template" class="auto internal xref">Appendix B.1</a>, and <a href="#iana-ipv6-ext-template" class="auto internal xref">Appendix C.1</a>. Readers should refer to the IANA websites "IANA_ICMPv4_YANG_URL", "IANA_ICMPv6_YANG_URL", and "IANA_IPV6_YANG_URL" to retrieve the latest version of these IANA-maintained modules.<a href="#section-1-9" class="pilcrow">¶</a></p>
+in <span>[<a href="#I-D.ietf-netmod-rfc8407bis" class="cite xref">I-D.ietf-netmod-rfc8407bis</a>]</span>. The templates to generate the modules are available in <a href="#template" class="auto internal xref">Appendix A.1</a>, <a href="#v6-template" class="auto internal xref">Appendix B.1</a>, and <a href="#iana-ipv6-ext-template" class="auto internal xref">Appendix C.1</a>. Readers should refer to the IANA websites <span>[<a href="#IANA_ICMPv4_YANG_URL" class="cite xref">IANA_ICMPv4_YANG_URL</a>]</span>, <span>[<a href="#IANA_ICMPv6_YANG_URL" class="cite xref">IANA_ICMPv6_YANG_URL</a>]</span>, and <span>[<a href="#IANA_IPV6_YANG_URL" class="cite xref">IANA_IPV6_YANG_URL</a>]</span> to retrieve the latest version of these IANA-maintained modules.<a href="#section-1-9" class="pilcrow">¶</a></p>
 <div id="editorial-note-to-be-removed-by-rfc-editor">
 <section id="section-1.1">
         <h3 id="name-editorial-note-to-be-remove">
@@ -1407,8 +1407,13 @@ appear in all capitals, as shown here.<a href="#section-2-1" class="pilcrow">¶<
 The meaning of the symbols in the tree diagrams is defined in
 <span>[<a href="#RFC8340" class="cite xref">RFC8340</a>]</span>.<a href="#section-2-2" class="pilcrow">¶</a></p>
 <p id="section-2-3">In addition to the terms defined in <span>[<a href="#RFC8519" class="cite xref">RFC8519</a>]</span>, this document makes use of the following term:<a href="#section-2-3" class="pilcrow">¶</a></p>
-<p id="section-2-4">Defined set:
-:Refers to reusable description of one or multiple information elements (e.g., IP address, IP prefix, port number, or ICMP type).<a href="#section-2-4" class="pilcrow">¶</a></p>
+<span class="break"></span><dl class="dlParallel" id="section-2-4">
+        <dt id="section-2-4.1">Defined set:</dt>
+        <dd style="margin-left: 1.5em" id="section-2-4.2">
+          <p id="section-2-4.2.1">Refers to reusable description of one or multiple information elements (e.g., IP address, IP prefix, port number, or ICMP type).<a href="#section-2-4.2.1" class="pilcrow">¶</a></p>
+</dd>
+      <dd class="break"></dd>
+</dl>
 </section>
 </div>
 <div id="overall-structure-of-the-enhanced-acl-module">
@@ -3487,6 +3492,18 @@ as follows:<a href="#section-6.3.3-11" class="pilcrow">¶</a></p>
 <dt id="IANA-YANG-PARAMETERS">[IANA-YANG-PARAMETERS]</dt>
         <dd>
 <span class="refTitle">"YANG Parameters"</span>, <span>n.d.</span>, <span>&lt;<a href="https://www.iana.org/assignments/yang-parameters">https://www.iana.org/assignments/yang-parameters</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="IANA_ICMPv4_YANG_URL">[IANA_ICMPv4_YANG_URL]</dt>
+        <dd>
+<span class="refTitle">"iana-icmpv6-types YANG Module"</span>, <span>n.d.</span>, <span>&lt;<a href="https://www.iana.org/assignments/icmpv6-parameters/iana-icmpv6-types.xhtml">https://www.iana.org/assignments/icmpv6-parameters/iana-icmpv6-types.xhtml</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="IANA_ICMPv6_YANG_URL">[IANA_ICMPv6_YANG_URL]</dt>
+        <dd>
+<span class="refTitle">"iana-icmpv4-types YANG Module"</span>, <span>n.d.</span>, <span>&lt;<a href="https://www.iana.org/assignments/icmp-parameters/iana-ipv6-ext-types.xhtml">https://www.iana.org/assignments/icmp-parameters/iana-ipv6-ext-types.xhtml</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="IANA_IPV6_YANG_URL">[IANA_IPV6_YANG_URL]</dt>
+        <dd>
+<span class="refTitle">"iana-ipv6-ext-types YANG Module"</span>, <span>n.d.</span>, <span>&lt;<a href="https://www.iana.org/assignments/ipv6-parameters/iana-icmpv6-types.xhtml">https://www.iana.org/assignments/ipv6-parameters/iana-icmpv6-types.xhtml</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="IEEE-802-1ah">[IEEE-802-1ah]</dt>
         <dd>
