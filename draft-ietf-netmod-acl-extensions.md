@@ -195,15 +195,15 @@ The module can be used to manage ACLs that require matching against IPv6 extensi
 
 ## TCP Flags Handling
 
-The augmented ACL structure ({{enh-acl-tree}}) includes a new leaf 'flags-bitmask' to better handle TCP flags {{!RFC9293}}.
+The augmented ACL structure ({{enh-acl-tree}}) includes a new container 'flags-bitmask' to better handle TCP flags {{!RFC9293}}.
 
 Clients that support both 'flags-bitmask' and 'flags' matching fields MUST NOT set these fields in the same request.
 
 ## Fragments Handling
 
-The augmented ACL structure ({{enh-acl-tree}}) includes a new leaf 'fragment' to better handle fragments.
+The augmented ACL structure ({{enh-acl-tree}}) includes new leafs 'ipv4-fragment' and 'ipv6-fragment' to better handle fragments.
 
-Clients that support both 'fragment' and 'flags' matching fields MUST NOT set these fields in the same request.
+Clients that support both 'ipv4-fragment' and 'flags' matching fields MUST NOT set these fields in the same request.
 
 ## Payload-based Filtering
 
