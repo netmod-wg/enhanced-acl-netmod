@@ -1,42 +1,8 @@
 module: ietf-acl-enh
-  +--rw defined-sets
-  |  +--rw ipv4-prefix-sets
-  |  |  +--rw prefix-set* [name]
-  |  |     +--rw name           string
-  |  |     +--rw description?   string
-  |  |     +--rw prefix*        inet:ipv4-prefix
-  |  +--rw ipv6-prefix-sets
-  |  |  +--rw prefix-set* [name]
-  |  |     +--rw name           string
-  |  |     +--rw description?   string
-  |  |     +--rw prefix*        inet:ipv6-prefix
-  |  +--rw port-sets
-  |  |  +--rw port-set* [name]
-  |  |     +--rw name    string
-  |  |     +--rw port* [id]
-  |  |        +--rw id                              string
-  |  |        +--rw (port)?
-  |  |           +--:(port-range-or-operator)
-  |  |              +--rw port-range-or-operator
-  |  |                 +---u packet-fields:port-range-or-operator
-  |  +--rw protocol-sets
-  |  |  +--rw protocol-set* [name]
-  |  |     +--rw name        string
-  |  |     +--rw protocol*   union
-  |  +--rw icmpv4-type-sets
-  |  |  +--rw set* [name]
-  |  |     +--rw name           string
-  |  |     +--rw icmpv4-type* [type]
-  |  |        +---u icmpv4-header-fields
-  |  +--rw icmpv6-type-sets
-  |     +--rw set* [name]
-  |        +--rw name           string
-  |        +--rw icmpv6-type* [type]
-  |           +---u icmpv6-header-fields
-  +--rw aliases
-     +--rw alias* [name]
-        +--rw name     string
-        +---u alias
+
+  augment /acl:acls:
+    +--rw defined-sets
+       +---u defined-sets
   augment /acl:acls/acl:acl/acl:aces/acl:ace/acl:matches:
     +--rw (payload)?
     |  +--:(prefix-pattern)
