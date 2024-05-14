@@ -446,7 +446,7 @@ module ietf-acl-enh {
         base label-position;
       }
       description
-        "Position of the label";
+        "Position of the label.";
     }
     leaf upper-label-range {
       type rt-types:mpls-label;
@@ -1115,7 +1115,7 @@ module ietf-acl-enh {
             "Name of the ICMPv6 type set -- this is used as a label
              to reference the set in match conditions.";
         }
-        list icmpv4-type {
+        list icmpv6-type {
           key "type";
           description
             "Includes a list of ICMPv6 types.";
