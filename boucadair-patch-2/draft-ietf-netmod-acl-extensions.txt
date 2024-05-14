@@ -267,20 +267,19 @@ Table of Contents
      |  |     +--rw name        string
      |  |     +--rw protocol*   union
      |  +--rw icmpv4-type-sets
-     |  |  +--rw icmpv4-type-set* [name]
-     |  |     +--rw name     string
-     |  |     +--rw types* [type]
+     |  |  +--rw set* [name]
+     |  |     +--rw name           string
+     |  |     +--rw icmpv4-type* [type]
      |  |        +---u icmpv4-header-fields
      |  +--rw icmpv6-type-sets
-     |     +--rw icmpv6-type-set* [name]
-     |        +--rw name     string
-     |        +--rw types* [type]
+     |     +--rw set* [name]
+     |        +--rw name           string
+     |        +--rw icmpv6-type* [type]
      |           +---u icmpv6-header-fields
      +--rw aliases
         +--rw alias* [name]
            +--rw name     string
            +---u alias
-
      augment /acl:acls/acl:acl/acl:aces/acl:ace/acl:matches:
        +--rw (payload)?
        |  +--:(prefix-pattern)
@@ -888,7 +887,7 @@ Table of Contents
      typedef icmpv4-type-set-ref {
        type leafref {
          path "/acl-enh:defined-sets/acl-enh:icmpv4-type-sets"
-            + "/acl-enh:icmpv4-type-set/acl-enh:name";
+            + "/acl-enh:set/acl-enh:name";
        }
        description
          "Defines a reference to an ICMPv4 type set.";
@@ -897,7 +896,7 @@ Table of Contents
      typedef icmpv6-type-set-ref {
        type leafref {
          path "/acl-enh:defined-sets/acl-enh:icmpv6-type-sets"
-            + "/acl-enh:icmpv6-type-set/acl-enh:name";
+            + "/acl-enh:set/acl-enh:name";
        }
        description
          "Defines a reference to an ICMPv6 type set.";
@@ -1611,7 +1610,6 @@ Table of Contents
              }
              description
                "Value of the protocol set.";
-             //Check if we can reuse an IANA-maintained module
            }
          }
        }
@@ -1619,10 +1617,10 @@ Table of Contents
          description
            "Data definitions for a list of ICMPv4 types which can be
             matched in policies.";
-         list icmpv4-type-set {
+         list set {
            key "name";
            description
-             "List of ICMP type set definitions.";
+             "List of ICMPv4 type set definitions.";
            leaf name {
              type string;
              description
@@ -1641,7 +1639,7 @@ Table of Contents
          description
            "Data definitions for a list of ICMPv6 types which can be
             matched in policies.";
-         list icmpv6-type-set {
+         list set {
            key "name";
            description
              "List of ICMP type set definitions.";
@@ -1651,7 +1649,7 @@ Table of Contents
                "Name of the ICMPv6 type set -- this is used as a label
                 to reference the set in match conditions.";
            }
-           list icmpv6-type {
+           list icmpv4-type {
              key "type";
              description
                "Includes a list of ICMPv6 types.";
