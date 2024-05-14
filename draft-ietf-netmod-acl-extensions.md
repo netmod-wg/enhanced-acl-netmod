@@ -50,6 +50,18 @@ informative:
               title: "IPv6 Extension Header Types"
               target: https://www.iana.org/assignments/ipv6-parameters/ipv6-parameters.xhtml
 
+   IANA_ICMPv4_YANG_URL:
+              title: "iana-icmpv6-types YANG Module"
+              target: https://www.iana.org/assignments/icmpv6-parameters/iana-icmpv6-types.xhtml
+
+   IANA_ICMPv6_YANG_URL:
+              title: "iana-icmpv4-types YANG Module"
+              target: https://www.iana.org/assignments/icmp-parameters/iana-ipv6-ext-types.xhtml
+
+   IANA_IPV6_YANG_URL:
+              title: "iana-ipv6-ext-types YANG Module"
+              target: https://www.iana.org/assignments/ipv6-parameters/iana-icmpv6-types.xhtml
+
    IEEE-802-1ah:
               title: "IEEE Standard for Local and metropolitan area networks -- Virtual Bridged Local Area Networks Amendment 7: Provider Backbone Bridges"
               date: August 2008
@@ -114,7 +126,7 @@ Management Datastore Architecture (NMDA) defined in {{!RFC8342}}.
 A set of examples to illustrate the use of the enhanced ACL module are provided in {{sec-examples}}.
 
 The document also defines IANA-maintained modules for ICMP types and IPv6 extension headers. The design of the modules adheres to the recommendations
-in {{?I-D.ietf-netmod-rfc8407bis}}. The templates to generate the modules are available in {{template}}, {{v6-template}}, and {{iana-ipv6-ext-template}}. Readers should refer to the IANA websites "IANA_ICMPv4_YANG_URL", "IANA_ICMPv6_YANG_URL", and "IANA_IPV6_YANG_URL" to retrieve the latest version of these IANA-maintained modules.
+in {{?I-D.ietf-netmod-rfc8407bis}}. The templates to generate the modules are available in {{template}}, {{v6-template}}, and {{iana-ipv6-ext-template}}. Readers should refer to the IANA websites {{IANA_ICMPv4_YANG_URL}}, {{IANA_ICMPv6_YANG_URL}}, and {{IANA_IPV6_YANG_URL}} to retrieve the latest version of these IANA-maintained modules.
 
 ## Editorial Note (To be removed by RFC Editor)
 
@@ -146,7 +158,7 @@ The meaning of the symbols in the tree diagrams is defined in
 In addition to the terms defined in {{!RFC8519}}, this document makes use of the following term:
 
 Defined set:
-:Refers to reusable description of one or multiple information elements (e.g., IP address, IP prefix, port number, or ICMP type).
+: Refers to reusable description of one or multiple information elements (e.g., IP address, IP prefix, port number, or ICMP type).
 
 # Overall Structure of The Enhanced ACL Module
 
