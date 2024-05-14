@@ -1671,7 +1671,7 @@ Each set is uniquely identified by a name and can be called from the relevant en
         <h3 id="name-tcp-flags-handling">
 <a href="#section-3.4" class="section-number selfRef">3.4. </a><a href="#name-tcp-flags-handling" class="section-name selfRef">TCP Flags Handling</a>
         </h3>
-<p id="section-3.4-1">The augmented ACL structure (<a href="#enh-acl-tree" class="auto internal xref">Figure 1</a>) includes a new leaf 'flags-bitmask' to better handle TCP flags <span>[<a href="#RFC9293" class="cite xref">RFC9293</a>]</span>.<a href="#section-3.4-1" class="pilcrow">¶</a></p>
+<p id="section-3.4-1">The augmented ACL structure (<a href="#enh-acl-tree" class="auto internal xref">Figure 1</a>) includes a new container 'flags-bitmask' to better handle TCP flags <span>[<a href="#RFC9293" class="cite xref">RFC9293</a>]</span>.<a href="#section-3.4-1" class="pilcrow">¶</a></p>
 <p id="section-3.4-2">Clients that support both 'flags-bitmask' and 'flags' matching fields <span class="bcp14">MUST NOT</span> set these fields in the same request.<a href="#section-3.4-2" class="pilcrow">¶</a></p>
 </section>
 </div>
@@ -1680,8 +1680,8 @@ Each set is uniquely identified by a name and can be called from the relevant en
         <h3 id="name-fragments-handling">
 <a href="#section-3.5" class="section-number selfRef">3.5. </a><a href="#name-fragments-handling" class="section-name selfRef">Fragments Handling</a>
         </h3>
-<p id="section-3.5-1">The augmented ACL structure (<a href="#enh-acl-tree" class="auto internal xref">Figure 1</a>) includes a new leaf 'fragment' to better handle fragments.<a href="#section-3.5-1" class="pilcrow">¶</a></p>
-<p id="section-3.5-2">Clients that support both 'fragment' and 'flags' matching fields <span class="bcp14">MUST NOT</span> set these fields in the same request.<a href="#section-3.5-2" class="pilcrow">¶</a></p>
+<p id="section-3.5-1">The augmented ACL structure (<a href="#enh-acl-tree" class="auto internal xref">Figure 1</a>) includes new leafs 'ipv4-fragment' and 'ipv6-fragment' to better handle fragments.<a href="#section-3.5-1" class="pilcrow">¶</a></p>
+<p id="section-3.5-2">Clients that support both 'ipv4-fragment' and 'flags' matching fields <span class="bcp14">MUST NOT</span> set these fields in the same request.<a href="#section-3.5-2" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="payload-based-filtering">

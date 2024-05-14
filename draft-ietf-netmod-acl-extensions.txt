@@ -440,19 +440,19 @@ Table of Contents
 
 3.4.  TCP Flags Handling
 
-   The augmented ACL structure (Figure 1) includes a new leaf 'flags-
-   bitmask' to better handle TCP flags [RFC9293].
+   The augmented ACL structure (Figure 1) includes a new container
+   'flags-bitmask' to better handle TCP flags [RFC9293].
 
    Clients that support both 'flags-bitmask' and 'flags' matching fields
    MUST NOT set these fields in the same request.
 
 3.5.  Fragments Handling
 
-   The augmented ACL structure (Figure 1) includes a new leaf 'fragment'
-   to better handle fragments.
+   The augmented ACL structure (Figure 1) includes new leafs
+   'ipv4-fragment' and 'ipv6-fragment' to better handle fragments.
 
-   Clients that support both 'fragment' and 'flags' matching fields MUST
-   NOT set these fields in the same request.
+   Clients that support both 'ipv4-fragment' and 'flags' matching fields
+   MUST NOT set these fields in the same request.
 
 3.6.  Payload-based Filtering
 
