@@ -910,6 +910,17 @@ module ietf-acl-enh {
     }
   }
 
+  augment "/acl:acls" {
+    description
+      "predefined sets.";
+    container defined-sets {
+      description
+        "Predefined sets of attributes used in policy match
+         statements.";
+      uses defined-sets;
+    }
+  }
+
   augment "/acl:acls/acl:acl/acl:aces/acl:ace"
         + "/acl:matches" {
     description
@@ -1186,17 +1197,6 @@ module ietf-acl-enh {
       units "bytes per second";
       description
         "Indicates a rate-limit for the matched traffic.";
-    }
-  }
-
-  augment "/acl:acls" {
-    description
-      "predefined sets.";
-    container defined-sets {
-      description
-        "Predefined sets of attributes used in policy match
-         statements.";
-      uses defined-sets;
     }
   }
 }
