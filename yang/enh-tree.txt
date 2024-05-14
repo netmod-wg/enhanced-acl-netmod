@@ -24,20 +24,19 @@ module: ietf-acl-enh
   |  |     +--rw name        string
   |  |     +--rw protocol*   union
   |  +--rw icmpv4-type-sets
-  |  |  +--rw icmpv4-type-set* [name]
-  |  |     +--rw name     string
-  |  |     +--rw types* [type]
+  |  |  +--rw set* [name]
+  |  |     +--rw name           string
+  |  |     +--rw icmpv4-type* [type]
   |  |        +---u icmpv4-header-fields
   |  +--rw icmpv6-type-sets
-  |     +--rw icmpv6-type-set* [name]
-  |        +--rw name     string
-  |        +--rw types* [type]
+  |     +--rw set* [name]
+  |        +--rw name           string
+  |        +--rw icmpv6-type* [type]
   |           +---u icmpv6-header-fields
   +--rw aliases
      +--rw alias* [name]
         +--rw name     string
         +---u alias
-
   augment /acl:acls/acl:acl/acl:aces/acl:ace/acl:matches:
     +--rw (payload)?
     |  +--:(prefix-pattern)
