@@ -792,7 +792,6 @@ Table of Contents
        description
          "Identity for counter name to be updated based on
            the ACL match actions.";
-
      }
 
      typedef operator {
@@ -943,8 +942,8 @@ Table of Contents
                 corresponding to the TCP data offset field are not
                 included in any matching.";
              reference
-              "RFC 9293: Transmission Control Protocol (TCP),
-                         Section 3.1";
+               "RFC 9293: Transmission Control Protocol (TCP),
+                          Section 3.1";
            }
          }
        }
@@ -966,64 +965,58 @@ Table of Contents
        }
      }
 
-   grouping mpls-match-parameters-config {
-     description
-       "Parameters for the configuration of MPLS match rules.";
-
-     leaf traffic-class {
-       type uint8 {
-         range "0..7";
+     grouping mpls-match-parameters-config {
+       description
+         "Parameters for the configuration of MPLS match rules.";
+       leaf traffic-class {
+         type uint8 {
+           range "0..7";
+         }
+         description
+           "The value of the MPLS traffic class (TC) bits,
+            formerly known as the EXP bits.";
        }
-       description
-         "The value of the MPLS traffic class (TC) bits,
-          formerly known as the EXP bits.";
-     }
-
-     leaf label-position {
-       type identityref {
-         base label-position;
+       leaf label-position {
+         type identityref {
+           base label-position;
+         }
+         description
+           "Position of the label";
        }
-       description
-         "Position of the label";
-     }
-
-     leaf upper-label-range {
-       type rt-types:mpls-label;
-       description
-         "Match MPLS label value on the MPLS header.
-          The usage of this field indicated the upper
-          range value in the top of the stack.
-          This label value does not include the
-          encodings of Traffic Class and TTL.";
-        reference
-          "RFC 3032: MPLS Label Stack Encoding";
-     }
-
-     leaf lower-label-range {
-       type rt-types:mpls-label;
-       description
-         "Match MPLS label value on the MPLS header.
-          The usage of this field indicated the lower
-          range value in the top of the stack.
-          This label value does not include the
-          encodings of Traffic Class and TTL.";
-        reference
-          "RFC 3032: MPLS Label Stack Encoding";
-     }
-
-     leaf label-block-name {
-       type string;
-       description
-       "Reference to a label block predefiend in the
-        implementation.";
-     }
-
-     leaf ttl-value {
-       type uint8;
-       description
-         "Time-to-live MPLS packet value match.";
-       reference
-         "RFC 3032: MPLS Label Stack Encoding";
+       leaf upper-label-range {
+         type rt-types:mpls-label;
+         description
+           "Match MPLS label value on the MPLS header.
+            The usage of this field indicated the upper
+            range value in the top of the stack.
+            This label value does not include the
+            encodings of Traffic Class and TTL.";
+         reference
+           "RFC 3032: MPLS Label Stack Encoding";
+       }
+       leaf lower-label-range {
+         type rt-types:mpls-label;
+         description
+           "Match MPLS label value on the MPLS header.
+            The usage of this field indicated the lower
+            range value in the top of the stack.
+            This label value does not include the
+            encodings of Traffic Class and TTL.";
+         reference
+           "RFC 3032: MPLS Label Stack Encoding";
+       }
+       leaf label-block-name {
+         type string;
+         description
+           "Reference to a label block predefiend in the
+            implementation.";
+       }
+       leaf ttl-value {
+         type uint8;
+         description
+           "Time-to-live MPLS packet value match.";
+         reference
+           "RFC 3032: MPLS Label Stack Encoding";
        }
      }
 
@@ -1064,8 +1057,8 @@ Table of Contents
          "Specifies an alias.";
        leaf-list vlan {
          type uint16;
-           description
-             "VLAN of the alias.";
+         description
+           "VLAN of the alias.";
        }
        leaf-list prefix {
          type inet:ip-prefix;
@@ -1178,12 +1171,9 @@ Table of Contents
      grouping acl-complementary-actions {
        description
          "Collection of complementary ACL actions.";
-
-
        container log-action {
          description
            "Container for defining log actions.";
-
          leaf log-type {
            type identityref {
              base acl-enh:log-types;
@@ -1202,11 +1192,9 @@ Table of Contents
              "The name of the counter action.";
          }
        }
-
        container counter-action {
          description
            "Container for defining counter actions.";
-
          leaf counter-type {
            type identityref {
              base acl-enh:counter-type;
@@ -1219,12 +1207,12 @@ Table of Contents
               + "'acl-enh:counter-name')" {
              description
                "Name for the counter or variable to update when
-               'counter-type' is 'counter-name'.";
+                'counter-type' is 'counter-name'.";
            }
            type string;
            description
              "List of possible variables or counter names to
-             update based on match critieria.";
+              update based on match critieria.";
          }
        }
      }
@@ -1253,15 +1241,15 @@ Table of Contents
          }
        }
        choice mpls {
-         container mpls-values {
-           if-feature "match-on-mpls";
-           uses mpls-match-parameters-config;
-           description
-             "Provides the rule set that matches MPLS headers.";
-         }
          description
            "Matches against MPLS headers, for example, label
             values";
+         container mpls-values {
+           if-feature "match-on-mpls";
+           description
+             "Provides the rule set that matches MPLS headers.";
+           uses mpls-match-parameters-config;
+         }
        }
      }
 
@@ -1368,7 +1356,7 @@ Table of Contents
        description
          "Handle non-initial and initial fragments for IPv4 packets.";
        container ipv4-fragment {
-         must "not(../acl:flags)" {
+         must 'not(../acl:flags)' {
            error-message
              "Either flags or fragment should be provided, but not
               both.";
@@ -1423,9 +1411,9 @@ Table of Contents
            "A reference to a protocol set to match the protocol field.";
        }
        leaf extension-header {
-          type iana-ipv6-ext-types:ipv6-extension-header-type;
-          description
-            "IPv6 extension header value.";
+         type iana-ipv6-ext-types:ipv6-extension-header-type;
+         description
+           "IPv6 extension header value.";
        }
      }
 
@@ -1434,7 +1422,7 @@ Table of Contents
        description
          "Handles TCP flags and port sets.";
        container flags-bitmask {
-         must "not(../acl:flags)" {
+         must 'not(../acl:flags)' {
            error-message
              "Either flags or flags-bitmask should be provided, but not
               both.";
@@ -1493,9 +1481,7 @@ Table of Contents
            + "/acl:ace/acl:actions" {
        description
          "Complementary actions including Rate-limit action.";
-
        uses acl-complementary-actions;
-
        leaf rate-limit {
          when "../acl:forwarding = 'acl:accept'" {
            description
@@ -1509,7 +1495,6 @@ Table of Contents
            "Indicates a rate-limit for the matched traffic.";
        }
      }
-
 
      container defined-sets {
        description
@@ -1652,7 +1637,7 @@ Table of Contents
            }
          }
        }
-     container icmpv6-type-sets {
+       container icmpv6-type-sets {
          description
            "Data definitions for a list of ICMPv6 types which can be
             matched in policies.";
