@@ -349,7 +349,7 @@ Table of Contents
    Figure 2 shows the reusable groupings that are defined in the
    enhanced ACL module:
 
-     grouping tcp-flags:
+    grouping tcp-flags:
        +-- (mode)?
           +--:(explicit)
           |  +-- operator?            operator
