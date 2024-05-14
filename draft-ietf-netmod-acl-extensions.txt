@@ -3,9 +3,10 @@
 
 
 netmod                                                     O. G. D. Dios
-Internet-Draft                                                S. Barguil
-Intended status: Standards Track                              Telefonica
-Expires: 15 November 2024                                   M. Boucadair
+Internet-Draft                                                Telefonica
+Intended status: Standards Track                              S. Barguil
+Expires: 15 November 2024                                          Nokia
+                                                            M. Boucadair
                                                                   Orange
                                                                    Q. Wu
                                                                   Huawei
@@ -3745,8 +3746,8 @@ Authors' Addresses
 
 
    Samier Barguil
-   Telefonica
-   Email: samier.barguilgiraldo.ext@telefonica.com
+   Nokia
+   Email: samier.barguil_giraldo@nokia.com
 
 
    Mohamed Boucadair
