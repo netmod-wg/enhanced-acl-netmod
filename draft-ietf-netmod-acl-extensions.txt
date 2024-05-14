@@ -1410,6 +1410,17 @@ Table of Contents
        }
      }
 
+     augment "/acl:acls" {
+       description
+         "predefined sets.";
+       container defined-sets {
+         description
+           "Predefined sets of attributes used in policy match
+            statements.";
+         uses defined-sets;
+       }
+     }
+
      augment "/acl:acls/acl:acl/acl:aces/acl:ace"
            + "/acl:matches" {
        description
@@ -1686,17 +1697,6 @@ Table of Contents
          units "bytes per second";
          description
            "Indicates a rate-limit for the matched traffic.";
-       }
-     }
-
-     augment "/acl:acls" {
-       description
-         "predefined sets.";
-       container defined-sets {
-         description
-           "Predefined sets of attributes used in policy match
-            statements.";
-         uses defined-sets;
        }
      }
    }
