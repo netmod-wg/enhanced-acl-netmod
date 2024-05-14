@@ -316,7 +316,7 @@ module ietf-acl-enh {
 
   typedef ipv4-prefix-set-ref {
     type leafref {
-      path "/acl-enh:defined-sets/acl-enh:ipv4-prefix-sets"
+      path "/acl:acls/acl-enh:defined-sets/acl-enh:ipv4-prefix-sets"
          + "/acl-enh:prefix-set/acl-enh:name";
     }
     description
@@ -325,7 +325,7 @@ module ietf-acl-enh {
 
   typedef ipv6-prefix-set-ref {
     type leafref {
-      path "/acl-enh:defined-sets/acl-enh:ipv6-prefix-sets"
+      path "/acl:acls/acl-enh:defined-sets/acl-enh:ipv6-prefix-sets"
          + "/acl-enh:prefix-set/acl-enh:name";
     }
     description
@@ -334,7 +334,7 @@ module ietf-acl-enh {
 
   typedef port-set-ref {
     type leafref {
-      path "/acl-enh:defined-sets/acl-enh:port-sets"
+      path "/acl:acls/acl-enh:defined-sets/acl-enh:port-sets"
          + "/acl-enh:port-set/acl-enh:name";
     }
     description
@@ -343,7 +343,7 @@ module ietf-acl-enh {
 
   typedef protocol-set-ref {
     type leafref {
-      path "/acl-enh:defined-sets/acl-enh:protocol-sets"
+      path "/acl:acls/acl-enh:defined-sets/acl-enh:protocol-sets"
          + "/acl-enh:protocol-set/acl-enh:name";
     }
     description
@@ -352,7 +352,7 @@ module ietf-acl-enh {
 
   typedef icmpv4-type-set-ref {
     type leafref {
-      path "/acl-enh:defined-sets/acl-enh:icmpv4-type-sets"
+      path "/acl:acls/acl-enh:defined-sets/acl-enh:icmpv4-type-sets"
          + "/acl-enh:set/acl-enh:name";
     }
     description
@@ -361,7 +361,7 @@ module ietf-acl-enh {
 
   typedef icmpv6-type-set-ref {
     type leafref {
-      path "/acl-enh:defined-sets/acl-enh:icmpv6-type-sets"
+      path "/acl:acls/acl-enh:defined-sets/acl-enh:icmpv6-type-sets"
          + "/acl-enh:set/acl-enh:name";
     }
     description
@@ -370,7 +370,8 @@ module ietf-acl-enh {
 
   typedef alias-ref {
     type leafref {
-      path "/acl-enh:aliases/acl-enh:alias/acl-enh:name";
+      path "/acl:acls/acl-enh:defined-sets/acl-enh:aliases"
+         + "/acl-enh:alias/acl-enh:name";
     }
     description
       "Defines a reference to an alias.";
@@ -682,6 +683,233 @@ module ietf-acl-enh {
     }
   }
 
+  grouping ipv4-prefix-sets {
+    description
+      "Data definitions for a list of IPv4 prefixes
+       prefixes which are matched as part of a policy.";
+    list prefix-set {
+      key "name";
+      description
+        "List of the defined prefix sets.";
+      leaf name {
+        type string;
+        description
+          "Name of the prefix set -- this is used as a label to
+           reference the set in match conditions.";
+      }
+      leaf description {
+        type string;
+        description
+          "Defined Set description.";
+      }
+      leaf-list prefix {
+        type inet:ipv4-prefix;
+        description
+          "List of IPv4 prefixes to be used in match
+           conditions.";
+      }
+    }
+  }
+
+  grouping ipv6-prefix-sets {
+    description
+      "Data definitions for a list of IPv6 prefixes which are
+       matched as part of a policy.";
+    list prefix-set {
+      key "name";
+      description
+        "List of the defined prefix sets.";
+      leaf name {
+        type string;
+        description
+          "Name of the prefix set -- this is used as a label to
+           reference the set in match conditions.";
+      }
+      leaf description {
+        type string;
+        description
+          "A textual description of the prefix list.";
+      }
+      leaf-list prefix {
+        type inet:ipv6-prefix;
+        description
+          "List of IPv6 prefixes to be used in match conditions.";
+      }
+    }
+  }
+
+  grouping port-sets {
+    description
+      "Data definitions for a list of ports which can
+       be matched in policies.";
+    list port-set {
+      key "name";
+      description
+        "List of port set definitions.";
+      leaf name {
+        type string;
+        description
+          "Name of the port set -- this is used as a label to
+           reference the set in match conditions.";
+      }
+      list port {
+        key "id";
+        description
+          "Port numbers along with the operator on which to
+           match.";
+        leaf id {
+          type string;
+          description
+            "Identifier of the list of port numbers.";
+        }
+        choice port {
+          description
+            "Choice of specifying the port number or referring to a
+             group of port numbers.";
+          container port-range-or-operator {
+            description
+              "Indicates a set of ports.";
+            uses packet-fields:port-range-or-operator;
+          }
+        }
+      }
+    }
+  }
+
+  grouping protocol-sets {
+    description
+      "Data definitions for a list of protocols which can be
+       matched in policies.";
+    list protocol-set {
+      key "name";
+      description
+        "List of protocol set definitions.";
+      leaf name {
+        type string;
+        description
+          "Name of the protocols set -- this is used as a
+           label to reference the set in match conditions.";
+      }
+      leaf-list protocol {
+        type union {
+          type uint8;
+          type string;
+        }
+        description
+          "Value of the protocol set.";
+      }
+    }
+  }
+
+  grouping icmpv4-type-sets {
+    description
+      "Data definitions for a list of ICMPv4 types which can be
+       matched in policies.";
+    list set {
+      key "name";
+      description
+        "List of ICMPv4 type set definitions.";
+      leaf name {
+        type string;
+        description
+          "Name of the ICMPv4 type set -- this is used as a label
+           to reference the set in match conditions.";
+      }
+      list icmpv4-type {
+        key "type";
+        description
+          "Includes a list of ICMPv4 types.";
+        uses icmpv4-header-fields;
+      }
+    }
+  }
+
+  grouping icmpv6-type-sets {
+    description
+      "Data definitions for a list of ICMPv6 types which can be
+       matched in policies.";
+    list set {
+      key "name";
+      description
+        "List of ICMP type set definitions.";
+      leaf name {
+        type string;
+        description
+          "Name of the ICMPv6 type set -- this is used as a label
+           to reference the set in match conditions.";
+      }
+      list icmpv6-type {
+        key "type";
+        description
+          "Includes a list of ICMPv6 types.";
+        uses icmpv6-header-fields;
+      }
+    }
+  }
+
+  grouping aliases {
+    description
+      "Grpuing for a set of aliases.";
+    list alias {
+      key "name";
+      description
+        "List of aliases.";
+      leaf name {
+        type string;
+        description
+          "The name of the alias.";
+      }
+      uses alias;
+    }
+  }
+
+  grouping defined-sets {
+    description
+      "Predefined sets of attributes used in policy match
+       statements.";
+    container ipv4-prefix-sets {
+      description
+        "Data definitions for a list of IPv4 or IPv6
+         prefixes which are matched as part of a policy.";
+      uses ipv4-prefix-sets;
+    }
+    container ipv6-prefix-sets {
+      description
+        "Data definitions for a list of IPv6 prefixes which are
+         matched as part of a policy.";
+      uses ipv6-prefix-sets;
+    }
+    container port-sets {
+      description
+        "Data definitions for a list of ports which can
+         be matched in policies.";
+      uses port-sets;
+    }
+    container protocol-sets {
+      description
+        "Data definitions for a list of protocols which can be
+         matched in policies.";
+      uses protocol-sets;
+    }
+    container icmpv4-type-sets {
+      description
+        "Data definitions for a list of ICMPv4 types which can be
+         matched in policies.";
+      uses icmpv4-type-sets;
+    }
+    container icmpv6-type-sets {
+      description
+        "Data definitions for a list of ICMPv6 types which can be
+         matched in policies.";
+      uses icmpv6-type-sets;
+    }
+    container aliases {
+      description
+        "Top-level container for aliases.";
+      uses aliases;
+    }
+  }
+
   augment "/acl:acls/acl:acl/acl:aces/acl:ace"
         + "/acl:matches" {
     description
@@ -961,182 +1189,14 @@ module ietf-acl-enh {
     }
   }
 
-  container defined-sets {
+  augment "/acl:acls" {
     description
-      "Predefined sets of attributes used in policy match
-       statements.";
-    container ipv4-prefix-sets {
+      "predefined sets.";
+    container defined-sets {
       description
-        "Data definitions for a list of IPv4 or IPv6
-         prefixes which are matched as part of a policy.";
-      list prefix-set {
-        key "name";
-        description
-          "List of the defined prefix sets.";
-        leaf name {
-          type string;
-          description
-            "Name of the prefix set -- this is used as a label to
-             reference the set in match conditions.";
-        }
-        leaf description {
-          type string;
-          description
-            "Defined Set description.";
-        }
-        leaf-list prefix {
-          type inet:ipv4-prefix;
-          description
-            "List of IPv4 prefixes to be used in match
-             conditions.";
-        }
-      }
-    }
-    container ipv6-prefix-sets {
-      description
-        "Data definitions for a list of IPv6 prefixes which are
-         matched as part of a policy.";
-      list prefix-set {
-        key "name";
-        description
-          "List of the defined prefix sets.";
-        leaf name {
-          type string;
-          description
-            "Name of the prefix set -- this is used as a label to
-             reference the set in match conditions.";
-        }
-        leaf description {
-          type string;
-          description
-            "A textual description of the prefix list.";
-        }
-        leaf-list prefix {
-          type inet:ipv6-prefix;
-          description
-            "List of IPv6 prefixes to be used in match conditions.";
-        }
-      }
-    }
-    container port-sets {
-      description
-        "Data definitions for a list of ports which can
-         be matched in policies.";
-      list port-set {
-        key "name";
-        description
-          "List of port set definitions.";
-        leaf name {
-          type string;
-          description
-            "Name of the port set -- this is used as a label to
-             reference the set in match conditions.";
-        }
-        list port {
-          key "id";
-          description
-            "Port numbers along with the operator on which to
-             match.";
-          leaf id {
-            type string;
-            description
-              "Identifier of the list of port numbers.";
-          }
-          choice port {
-            description
-              "Choice of specifying the port number or referring to a
-               group of port numbers.";
-            container port-range-or-operator {
-              description
-                "Indicates a set of ports.";
-              uses packet-fields:port-range-or-operator;
-            }
-          }
-        }
-      }
-    }
-    container protocol-sets {
-      description
-        "Data definitions for a list of protocols which can be
-         matched in policies.";
-      list protocol-set {
-        key "name";
-        description
-          "List of protocol set definitions.";
-        leaf name {
-          type string;
-          description
-            "Name of the protocols set -- this is used as a
-             label to reference the set in match conditions.";
-        }
-        leaf-list protocol {
-          type union {
-            type uint8;
-            type string;
-          }
-          description
-            "Value of the protocol set.";
-        }
-      }
-    }
-    container icmpv4-type-sets {
-      description
-        "Data definitions for a list of ICMPv4 types which can be
-         matched in policies.";
-      list set {
-        key "name";
-        description
-          "List of ICMPv4 type set definitions.";
-        leaf name {
-          type string;
-          description
-            "Name of the ICMPv4 type set -- this is used as a label
-             to reference the set in match conditions.";
-        }
-        list icmpv4-type {
-          key "type";
-          description
-            "Includes a list of ICMPv4 types.";
-          uses icmpv4-header-fields;
-        }
-      }
-    }
-    container icmpv6-type-sets {
-      description
-        "Data definitions for a list of ICMPv6 types which can be
-         matched in policies.";
-      list set {
-        key "name";
-        description
-          "List of ICMP type set definitions.";
-        leaf name {
-          type string;
-          description
-            "Name of the ICMPv6 type set -- this is used as a label
-             to reference the set in match conditions.";
-        }
-        list icmpv6-type {
-          key "type";
-          description
-            "Includes a list of ICMPv6 types.";
-          uses icmpv6-header-fields;
-        }
-      }
-    }
-  }
-  container aliases {
-    description
-      "Top-level container for aliases.";
-    list alias {
-      key "name";
-      description
-        "List of aliases.";
-      leaf name {
-        type string;
-        description
-          "The name of the alias.";
-      }
-      uses alias;
+        "Predefined sets of attributes used in policy match
+         statements.";
+      uses defined-sets;
     }
   }
 }
