@@ -59,7 +59,7 @@ module ietf-acl-enh {
   description
     "This module contains YANG definitions for enhanced ACLs.
 
-     Copyright (c) 2023 IETF Trust and the persons identified as
+     Copyright (c) 2024 IETF Trust and the persons identified as
      authors of the code. All rights reserved.
 
      Redistribution and use in source and binary forms, with or
@@ -1109,7 +1109,7 @@ grouping mpls-match-parameters-config {
             "Name of the ICMPv4 type set -- this is used as a label 
              to reference the set in match conditions.";
         }
-        list types {
+        list icmpv4-type {
           key "type";
           description
             "Includes a list of ICMPv4 types.";
@@ -1131,7 +1131,7 @@ grouping mpls-match-parameters-config {
             "Name of the ICMPv6 type set -- this is used as a label 
              to reference the set in match conditions.";
         }
-        list types {
+        list icmpv6-type {
           key "type";
           description
             "Includes a list of ICMPv6 types.";
@@ -1139,10 +1139,10 @@ grouping mpls-match-parameters-config {
         }
       }
     }
-}
+  }
   container aliases {
     description
-      "Top-levl container for aliases.";
+      "Top-level container for aliases.";
     list alias {
       key "name";
       description
