@@ -1622,7 +1622,7 @@ module: ietf-acl-enh
 <a href="#section-3.2" class="section-number selfRef">3.2. </a><a href="#name-defined-sets" class="section-name selfRef">Defined Sets</a>
         </h3>
 <p id="section-3.2-1">The augmented ACL structure includes several containers to manage reusable sets of elements that can be matched in an ACL entry.
-Each set is uniquely identified by a name and can be called from the relevant entry. The following sets are defined:<a href="#section-3.2-1" class="pilcrow">¶</a></p>
+Each set is uniquely identified by a name and can be called from the relevant entry. The following sets are defined (<a href="#enh-acl-tree" class="auto internal xref">Figure 1</a>):<a href="#section-3.2-1" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-3.2-2.1">
             <span class="break"></span><dl class="dlParallel" id="section-3.2-2.1.1">
@@ -1646,7 +1646,7 @@ Each set is uniquely identified by a name and can be called from the relevant en
             <span class="break"></span><dl class="dlParallel" id="section-3.2-2.3.1">
               <dt id="section-3.2-2.3.1.1">Port sets:</dt>
               <dd style="margin-left: 1.5em" id="section-3.2-2.3.1.2">
-                <p id="section-3.2-2.3.1.2.1">It contains a list of port numbers to be used in TCP/UDP entries. The port numbers can be individual port numbers, a range of ports, and an operation.<a href="#section-3.2-2.3.1.2.1" class="pilcrow">¶</a></p>
+                <p id="section-3.2-2.3.1.2.1">It contains a list of port numbers to be used in TCP/UDP entries. The port numbers can be individual port numbers, a range of port numbers, and an operation.<a href="#section-3.2-2.3.1.2.1" class="pilcrow">¶</a></p>
 </dd>
             <dd class="break"></dd>
 </dl>
@@ -1686,7 +1686,7 @@ Each set is uniquely identified by a name and can be called from the relevant en
         <h3 id="name-ipv6-extension-headers">
 <a href="#section-3.3" class="section-number selfRef">3.3. </a><a href="#name-ipv6-extension-headers" class="section-name selfRef">IPv6 Extension Headers</a>
         </h3>
-<p id="section-3.3-1">The module can be used to manage ACLs that require matching against IPv6 extension headers. To that aim, a new IANA-maintained module for IPv6 extension header types is defined in this document.<a href="#section-3.3-1" class="pilcrow">¶</a></p>
+<p id="section-3.3-1">The module can be used to manage ACLs that require matching against IPv6 extension headers <span>[<a href="#RFC8200" class="cite xref">RFC8200</a>]</span>. To that aim, a new IANA-maintained module for IPv6 extension header types "iana-ipv6-ext-types" is defined in this document.<a href="#section-3.3-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="tcp-flags-handling">
@@ -1712,7 +1712,8 @@ Each set is uniquely identified by a name and can be called from the relevant en
         <h3 id="name-payload-based-filtering">
 <a href="#section-3.6" class="section-number selfRef">3.6. </a><a href="#name-payload-based-filtering" class="section-name selfRef">Payload-based Filtering</a>
         </h3>
-<p id="section-3.6-1">Some transport protocols use existing protocols (e.g., TCP or UDP) as substrate. The match criteria for such protocols may rely upon the 'protocol' under 'l3', TCP/UDP match criteria, part of the TCP/UDP payload, or a combination thereof. A new feature, called "match-on-payload", is defined in the document. This can be used, for example, for QUIC <span>[<a href="#RFC9000" class="cite xref">RFC9000</a>]</span> or for tunneling protocols.<a href="#section-3.6-1" class="pilcrow">¶</a></p>
+<p id="section-3.6-1">Some transport protocols use existing protocols (e.g., TCP or UDP) as substrate. The match criteria for such protocols may rely upon the 'protocol' under 'l3', TCP/UDP match criteria, part of the TCP/UDP payload, or a combination thereof.<a href="#section-3.6-1" class="pilcrow">¶</a></p>
+<p id="section-3.6-2">A new feature, called "match-on-payload", is defined in the document. This can be used, for example, for QUIC <span>[<a href="#RFC9000" class="cite xref">RFC9000</a>]</span> or for tunneling protocols.<a href="#section-3.6-2" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="match-on-mpls-headers">
@@ -1720,37 +1721,37 @@ Each set is uniquely identified by a name and can be called from the relevant en
         <h3 id="name-match-on-mpls-headers">
 <a href="#section-3.7" class="section-number selfRef">3.7. </a><a href="#name-match-on-mpls-headers" class="section-name selfRef">Match on MPLS Headers</a>
         </h3>
-<p id="section-3.7-1">The enhanced ACL module can be used to create rules to match against MPLS fields of a packet. The MPLS header defined in <span>[<a href="#RFC3032" class="cite xref">RFC3032</a>]</span> and <span>[<a href="#RFC5462" class="cite xref">RFC5462</a>]</span> contains the following fields:<a href="#section-3.7-1" class="pilcrow">¶</a></p>
+<p id="section-3.7-1">The enhanced ACL module (<a href="#sec-module" class="auto internal xref">Section 4</a>) can be used to create rules to match against MPLS fields of a packet. The MPLS header defined in <span>[<a href="#RFC3032" class="cite xref">RFC3032</a>]</span> and <span>[<a href="#RFC5462" class="cite xref">RFC5462</a>]</span> contains the following fields:<a href="#section-3.7-1" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-3.7-2.1">
-            <p id="section-3.7-2.1.1">Traffic Class: 3 bits 'EXP' renamed to 'Traffic Class Field."<a href="#section-3.7-2.1.1" class="pilcrow">¶</a></p>
+            <p id="section-3.7-2.1.1">Traffic Class: 3 bits 'EXP' renamed to "Traffic Class" field.<a href="#section-3.7-2.1.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-3.7-2.2">
             <p id="section-3.7-2.2.1">Label Value: A 20-bit field that carries the actual value of the MPLS Label.<a href="#section-3.7-2.2.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-3.7-2.3">
-            <p id="section-3.7-2.3.1">TTL: An eight-bit field that is used to encode a time-to-live value.<a href="#section-3.7-2.3.1" class="pilcrow">¶</a></p>
+            <p id="section-3.7-2.3.1">TTL: An 8-bit field that is used to encode a time-to-live (TTL) value.<a href="#section-3.7-2.3.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
 <p id="section-3.7-3">The augmented ACL structure (<a href="#enh-acl-tree" class="auto internal xref">Figure 1</a>) allows an operator to configure ACLs that match based upon the following data nodes:<a href="#section-3.7-3" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-3.7-4.1">
-            <p id="section-3.7-4.1.1">"traffic-class"<a href="#section-3.7-4.1.1" class="pilcrow">¶</a></p>
+            <p id="section-3.7-4.1.1">'traffic-class'<a href="#section-3.7-4.1.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-3.7-4.2">
-            <p id="section-3.7-4.2.1">"label-position" (e.g., top, bottom)<a href="#section-3.7-4.2.1" class="pilcrow">¶</a></p>
+            <p id="section-3.7-4.2.1">'label-position' (e.g., top or bottom)<a href="#section-3.7-4.2.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-3.7-4.3">
-            <p id="section-3.7-4.3.1">"upper-label-range"<a href="#section-3.7-4.3.1" class="pilcrow">¶</a></p>
+            <p id="section-3.7-4.3.1">'upper-label-range'<a href="#section-3.7-4.3.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-3.7-4.4">
-            <p id="section-3.7-4.4.1">"lower-label-range"<a href="#section-3.7-4.4.1" class="pilcrow">¶</a></p>
+            <p id="section-3.7-4.4.1">'lower-label-range'<a href="#section-3.7-4.4.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-3.7-4.5">
-            <p id="section-3.7-4.5.1">"label-block-name"<a href="#section-3.7-4.5.1" class="pilcrow">¶</a></p>
+            <p id="section-3.7-4.5.1">'label-block-name'<a href="#section-3.7-4.5.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-3.7-4.6">
-            <p id="section-3.7-4.6.1">"ttl-value"<a href="#section-3.7-4.6.1" class="pilcrow">¶</a></p>
+            <p id="section-3.7-4.6.1">'ttl-value'<a href="#section-3.7-4.6.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
 </section>
@@ -1762,7 +1763,7 @@ Each set is uniquely identified by a name and can be called from the relevant en
         </h3>
 <p id="section-3.8-1">Being able to filter all packets that are bridged within a VLAN or that
 are routed into or out of a bridge domain is part of the VPN control
-requirements derived of the EVPN definition in <span>[<a href="#RFC7209" class="cite xref">RFC7209</a>]</span>.
+requirements for Ethernet VPN (EVPN) <span>[<a href="#RFC7209" class="cite xref">RFC7209</a>]</span>.
 All packets that are bridged within a VLAN or that are routed into or
 out of a VLAN can be captured, forwarded, translated, or discarded based
 on the network policy.<a href="#section-3.8-1" class="pilcrow">¶</a></p>
@@ -1793,7 +1794,7 @@ the EVNP-PBB configuration.<a href="#section-3.9-3" class="pilcrow">¶</a></p>
         <h3 id="name-additional-actions">
 <a href="#section-3.10" class="section-number selfRef">3.10. </a><a href="#name-additional-actions" class="section-name selfRef">Additional Actions</a>
         </h3>
-<p id="section-3.10-1">In order to support rate-limiting (see <a href="#ps-rate" class="auto internal xref">Appendix D.6</a>), a new action called "rate-limit" is defined. Also, the model supports new actions to complement existing ones: Log ('log-action') and write a counter ('counter-action'). The version of the module defined in this document supports only local actions.<a href="#section-3.10-1" class="pilcrow">¶</a></p>
+<p id="section-3.10-1">In order to support rate-limiting (see <a href="#ps-rate" class="auto internal xref">Appendix D.6</a>), a new action called 'rate-limit' is defined in this document. Also, the "ietf-acl-enh" module supports new actions to complement existing ones: Log ('log-action') and write a counter ('counter-action'). The version of the module defined in this document supports only local actions.<a href="#section-3.10-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
@@ -3029,7 +3030,7 @@ module ietf-acl-enh {
 <p id="section-5-2">The Network Configuration Access Control Model (NACM) <span>[<a href="#RFC8341" class="cite xref">RFC8341</a>]</span> provides the means to restrict access for particular NETCONF or RESTCONF users to a preconfigured subset of all available NETCONF or RESTCONF protocol operations and content.<a href="#section-5-2" class="pilcrow">¶</a></p>
 <p id="section-5-3">There are a number of data nodes defined in this YANG module that are writable/creatable/deletable (i.e., config true, which is the default). These data nodes may be considered sensitive or vulnerable in some network environments. Write operations (e.g., edit-config) to these data nodes without proper protection can have a negative effect on network operations. These are the subtrees and data nodes and their sensitivity/vulnerability:<a href="#section-5-3" class="pilcrow">¶</a></p>
 <span class="break"></span><dl class="dlParallel" id="section-5-4">
-        <dt id="section-5-4.1">'defined-sets' and 'aliases':</dt>
+        <dt id="section-5-4.1">'defined-sets':</dt>
         <dd style="margin-left: 1.5em" id="section-5-4.2">
           <p id="section-5-4.2.1">These lists specify a set of sets and aliases. Similar to <span>[<a href="#RFC8519" class="cite xref">RFC8519</a>]</span>, unauthorized write access to these
    list can allow intruders to modify the entries so as to permit
@@ -3041,7 +3042,7 @@ module ietf-acl-enh {
 </dl>
 <p id="section-5-5">Some of the readable data nodes in this YANG module may be considered sensitive or vulnerable in some network environments. It is thus important to control read access (e.g., via get, get-config, or notification) to these data nodes. These are the subtrees and data nodes and their sensitivity/vulnerability:<a href="#section-5-5" class="pilcrow">¶</a></p>
 <span class="break"></span><dl class="dlParallel" id="section-5-6">
-        <dt id="section-5-6.1">'defined-sets' and 'aliases':</dt>
+        <dt id="section-5-6.1">'defined-sets':</dt>
         <dd style="margin-left: 1.5em" id="section-5-6.2">
           <p id="section-5-6.2.1">Unauthorized read access of these lists will allow
 an attacker to identify the actual resources that are bound
@@ -3435,6 +3436,10 @@ as follows:<a href="#section-6.3.3-11" class="pilcrow">¶</a></p>
 <dt id="RFC8174">[RFC8174]</dt>
         <dd>
 <span class="refAuthor">Leiba, B.</span>, <span class="refTitle">"Ambiguity of Uppercase vs Lowercase in RFC 2119 Key Words"</span>, <span class="seriesInfo">BCP 14</span>, <span class="seriesInfo">RFC 8174</span>, <span class="seriesInfo">DOI 10.17487/RFC8174</span>, <time datetime="2017-05" class="refDate">May 2017</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc8174">https://www.rfc-editor.org/rfc/rfc8174</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC8200">[RFC8200]</dt>
+        <dd>
+<span class="refAuthor">Deering, S.</span> and <span class="refAuthor">R. Hinden</span>, <span class="refTitle">"Internet Protocol, Version 6 (IPv6) Specification"</span>, <span class="seriesInfo">STD 86</span>, <span class="seriesInfo">RFC 8200</span>, <span class="seriesInfo">DOI 10.17487/RFC8200</span>, <time datetime="2017-07" class="refDate">July 2017</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc8200">https://www.rfc-editor.org/rfc/rfc8200</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="RFC8294">[RFC8294]</dt>
         <dd>
@@ -4794,47 +4799,31 @@ maintain it locally.<a href="#appendix-D.1-6.2.1" class="pilcrow">¶</a></p>
         </h3>
 <p id="appendix-D.2-1">The same approach as the one discussed for IP prefixes can be generalized by introducing the concept of "aliases" or "defined sets".<a href="#appendix-D.2-1" class="pilcrow">¶</a></p>
 <p id="appendix-D.2-2">The defined sets are reusable definitions across several ACLs. Each category is modeled in YANG as a list of parameters related to the class it represents. The following sets can be considered:<a href="#appendix-D.2-2" class="pilcrow">¶</a></p>
-<ul class="normal">
-<li class="normal" id="appendix-D.2-3.1">
-            <span class="break"></span><dl class="dlParallel" id="appendix-D.2-3.1.1">
-              <dt id="appendix-D.2-3.1.1.1">Prefix sets:</dt>
-              <dd style="margin-left: 1.5em" id="appendix-D.2-3.1.1.2">
-                <p id="appendix-D.2-3.1.1.2.1">Used to create lists of IPv4 or IPv6 prefixes.<a href="#appendix-D.2-3.1.1.2.1" class="pilcrow">¶</a></p>
+<span class="break"></span><dl class="dlParallel" id="appendix-D.2-3">
+          <dt id="appendix-D.2-3.1">Prefix sets:</dt>
+          <dd style="margin-left: 1.5em" id="appendix-D.2-3.2">
+            <p id="appendix-D.2-3.2.1">Used to create lists of IPv4 or IPv6 prefixes.<a href="#appendix-D.2-3.2.1" class="pilcrow">¶</a></p>
 </dd>
-            <dd class="break"></dd>
-</dl>
-</li>
-          <li class="normal" id="appendix-D.2-3.2">
-            <span class="break"></span><dl class="dlParallel" id="appendix-D.2-3.2.1">
-              <dt id="appendix-D.2-3.2.1.1">Protocol sets:</dt>
-              <dd style="margin-left: 1.5em" id="appendix-D.2-3.2.1.2">
-                <p id="appendix-D.2-3.2.1.2.1">Used to create a list of protocols.<a href="#appendix-D.2-3.2.1.2.1" class="pilcrow">¶</a></p>
+          <dd class="break"></dd>
+<dt id="appendix-D.2-3.3">Protocol sets:</dt>
+          <dd style="margin-left: 1.5em" id="appendix-D.2-3.4">
+            <p id="appendix-D.2-3.4.1">Used to create a list of protocols.<a href="#appendix-D.2-3.4.1" class="pilcrow">¶</a></p>
 </dd>
-            <dd class="break"></dd>
-</dl>
-</li>
-          <li class="normal" id="appendix-D.2-3.3">
-            <span class="break"></span><dl class="dlParallel" id="appendix-D.2-3.3.1">
-              <dt id="appendix-D.2-3.3.1.1">Port number sets:</dt>
-              <dd style="margin-left: 1.5em" id="appendix-D.2-3.3.1.2">
-                <p id="appendix-D.2-3.3.1.2.1">Used to create lists of TCP or UDP port values
-(or any other transport protocol that makes uses of port numbers).
-The identity of the protocols is identified by the protocol set, if
-present.  Otherwise, a set applies to any protocol.<a href="#appendix-D.2-3.3.1.2.1" class="pilcrow">¶</a></p>
+          <dd class="break"></dd>
+<dt id="appendix-D.2-3.5">Port number sets:</dt>
+          <dd style="margin-left: 1.5em" id="appendix-D.2-3.6">
+            <p id="appendix-D.2-3.6.1">Used to create lists of TCP or UDP port values
+   (or any other transport protocol that makes uses of port numbers).
+   The identity of the protocols is identified by the protocol set, if
+   present.  Otherwise, a set applies to any protocol.<a href="#appendix-D.2-3.6.1" class="pilcrow">¶</a></p>
 </dd>
-            <dd class="break"></dd>
-</dl>
-</li>
-          <li class="normal" id="appendix-D.2-3.4">
-            <span class="break"></span><dl class="dlParallel" id="appendix-D.2-3.4.1">
-              <dt id="appendix-D.2-3.4.1.1">ICMP sets:</dt>
-              <dd style="margin-left: 1.5em" id="appendix-D.2-3.4.1.2">
-                <p id="appendix-D.2-3.4.1.2.1">Uses to create lists of ICMP-based filters. This applies only when the protocol is set to ICMP or ICMPv6.<a href="#appendix-D.2-3.4.1.2.1" class="pilcrow">¶</a></p>
+          <dd class="break"></dd>
+<dt id="appendix-D.2-3.7">ICMP sets:</dt>
+          <dd style="margin-left: 1.5em" id="appendix-D.2-3.8">
+            <p id="appendix-D.2-3.8.1">Uses to create lists of ICMP-based filters. This applies only when the protocol is set to ICMP or ICMPv6.<a href="#appendix-D.2-3.8.1" class="pilcrow">¶</a></p>
 </dd>
-            <dd class="break"></dd>
+        <dd class="break"></dd>
 </dl>
-</li>
-        </ul>
 <p id="appendix-D.2-4">Aliases may also be considered to manage resources that are identified by a combination of various parameters (e.g., prefix, protocol, port number, FQDN, or VLAN IDs).
 Note that some aliases can be provided by decomposing them into separate sets.<a href="#appendix-D.2-4" class="pilcrow">¶</a></p>
 </section>
@@ -4941,8 +4930,8 @@ logical infrastructure.<a href="#appendix-D.8-3.4.1" class="pilcrow">¶</a></p>
       <h2 id="name-examples">
 <a href="#appendix-E" class="section-number selfRef">Appendix E. </a><a href="#name-examples" class="section-name selfRef">Examples</a>
       </h2>
-<p id="appendix-E-1">This section provides a few examples to illustrate the use of the enhanced ACL module.<a href="#appendix-E-1" class="pilcrow">¶</a></p>
-<p id="appendix-E-2"><a href="#example_4" class="auto internal xref">Figure 4</a> shows an example of a request to install a filter to discard incoming TCP messages having all flags unset.<a href="#appendix-E-2" class="pilcrow">¶</a></p>
+<p id="appendix-E-1">This section provides a few examples to illustrate the use of the enhanced ACL module ("ietf-acl-enh").<a href="#appendix-E-1" class="pilcrow">¶</a></p>
+<p id="appendix-E-2"><a href="#example_4" class="auto internal xref">Figure 4</a> shows an example of the message body of a request to install a filter to discard incoming TCP messages having all flags unset.<a href="#appendix-E-2" class="pilcrow">¶</a></p>
 <div id="tcp-flags-handling-1">
 <section id="appendix-E.1">
         <h3 id="name-tcp-flags-handling-2">
