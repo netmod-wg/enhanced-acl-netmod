@@ -380,16 +380,15 @@ module ietf-acl-enh {
   grouping tcp-flags {
     description
       "Operations on TCP flags.";
+    leaf operator {
+      type operator;
+      description
+        "How to interpret the TCP flags.";
+    }
     choice mode {
       description
         "Choice of how flags are indicated.";
       case explicit {
-        leaf operator {
-          type operator;
-          default "match";
-          description
-            "How to interpret the TCP flags.";
-        }
         leaf-list explicit-tcp-flag {
           type identityref {
             base tcp-flag;
