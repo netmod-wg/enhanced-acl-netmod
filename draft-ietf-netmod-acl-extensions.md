@@ -137,7 +137,7 @@ This document contains placeholder values that need to be replaced with finalize
 (1) Please apply the following replacements:
 
 XXXX --> the assigned RFC number for this I-D
-2022-10-24 --> the actual date of the publication of this document
+2024-05-16 --> the actual date of the publication of this document
 
 (2) The modules are provided in {{iana-icmp}}, {{iana-icmpv6}}, and {{iana-ipv6-ext}} for the users convenience before publication as RFC. Please remove these appendices from the final RFC.
 
@@ -276,7 +276,7 @@ In order to support rate-limiting (see {{ps-rate}}), a new action called 'rate-l
 This model imports types from {{!RFC6991}}, {{!RFC8519}}, and {{!RFC8294}}.
 
 ~~~
-<CODE BEGINS> file "ietf-acl-enh@2022-10-24.yang"
+<CODE BEGINS> file "ietf-acl-enh@2024-05-16.yang"
 {::include-fold ./yang/ietf-acl-enh.yang}
 <CODE ENDS>
 ~~~
@@ -586,7 +586,7 @@ NEW:
 ## Initial Version of the ICMPv6 Types IANA-Maintained Module {#iana-icmpv6}
 
 ~~~
-<CODE BEGINS> file "iana-icmpv6-types@2020-09-25.yang"
+<CODE BEGINS> file "iana-icmpv6-types@2023-04-28.yang"
 
 {::include ./yang/iana-icmpv6-types.yang}
 
