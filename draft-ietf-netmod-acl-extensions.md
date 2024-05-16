@@ -823,6 +823,7 @@ This section provides a few examples to illustrate the use of the enhanced ACL m
                      "matches":{
                         "tcp":{
                            "ietf-acl-enh:flags-bitmask":{
+                              "operator":"not any",
                               "bitmask":4095
                            }
                         }
@@ -1034,6 +1035,7 @@ packets.  The following ACEs are defined (in this order):
                      "matches":{
                         "tcp":{
                            "ietf-acl-enh:flags-bitmask":{
+                              "operator":"match",
                               "bitmask":2
                            }
                         }
