@@ -183,23 +183,25 @@ Defined set:
 The augmented ACL structure includes several containers to manage reusable sets of elements that can be matched in an ACL entry.
 Each set is uniquely identified by a name and can be called from the relevant entry. The following sets are defined ({{enh-acl-tree}}):
 
-* IPv4 prefix set:
-: It contains a list of IPv4 prefixes. A match will be considered if the IP address (source or destination, depending on the ACL entry) is contained in any of the prefixes.
+IPv4 prefix sets:
+: An IPv4 prefix set contains a list of IPv4 prefixes. A match will be considered if the IP address (source or destination, depending on the ACL entry) is contained in any of the prefixes in the set.
 
-* IPv6 prefix set:
-: It contains a list of IPv6 prefixes. A match will be considered if the IP address (source or destination, depending on the ACL entry) is contained in any of the prefixes.
+IPv6 prefix sets:
+: An IPv6 prefix contains a list of IPv6 prefixes. A match will be considered if the IP address (source or destination, depending on the ACL entry) is contained in any of the prefixes in the set.
 
-* Port sets:
-: It contains a list of port numbers to be used in TCP/UDP entries. The port numbers can be individual port numbers, a range of port numbers, and an operation.
+Port sets:
+: A port set contains a list of port numbers to be used in transpot protocol entries (e.g., TCP and UDP).
+: The port numbers can be individual port numbers, a range of port numbers, and an operation.
 
-* Protocol sets:
-: It contains a list of protocol values. Each protocol can be identified either by a number (e.g., 17) or a name (e.g., UDP).
+Protocol sets:
+: A protocol set contains a list of protocol values. Each protocol can be identified either by a number (e.g., 17) or a name (e.g., UDP).
 
-* ICMP sets:
-: It contains a list of ICMPv4 {{!RFC0792}} or ICMPv6 {{!RFC4443}} types, each of them identified by a type value, optionally the code and the rest of the header.
+ICMP sets:
+: An ICMP set contains a list of ICMPv4 {{!RFC0792}} or ICMPv6 {{!RFC4443}} types, each of them identified by a type value, optionally the code and the rest of the header.
+: New IANA-maintained modules for ICMP types are defined in this document.
 
-* Aliases:
-: An alias is defined by a combination of various parameters (e.g., IP prefix, protocol, port number, or VLAN). Sets of aliases can be defined and referred to in match criteria.
+Aliases:
+: An alias is defined by a combination of various parameters (e.g., IP prefix, protocol, port number, or VLAN). Sets of aliases can be defined and referred to in ACL match criteria.
 
 ## IPv6 Extension Headers
 
@@ -209,27 +211,27 @@ The module can be used to manage ACLs that require matching against IPv6 extensi
 
 The augmented ACL structure ({{enh-acl-tree}}) includes a new container 'flags-bitmask' to better handle TCP flags {{!RFC9293}}.
 
-Clients that support both 'flags-bitmask' and 'flags' matching fields MUST NOT set these fields in the same request.
+Clients that support both 'flags-bitmask' and 'flags' {{!RFC8519}} matching fields MUST NOT set these fields in the same request.
 
 ## Fragments Handling
 
 The augmented ACL structure ({{enh-acl-tree}}) includes new leafs 'ipv4-fragment' and 'ipv6-fragment' to better handle fragments.
 
-Clients that support both 'ipv4-fragment' and 'flags' matching fields MUST NOT set these fields in the same request.
+Clients that support both 'ipv4-fragment' and 'flags' {{!RFC8519}} matching fields MUST NOT set these fields in the same request.
 
 ## Payload-based Filtering
 
 Some transport protocols use existing protocols (e.g., TCP or UDP) as substrate. The match criteria for such protocols may rely upon the 'protocol' under 'l3', TCP/UDP match criteria, part of the TCP/UDP payload, or a combination thereof.
 
-A new feature, called "match-on-payload", is defined in the document. This can be used, for example, for QUIC {{?RFC9000}} or for tunneling protocols.
+A new feature, called 'match-on-payload', is defined in the document. This can be used, for example, for QUIC {{?RFC9000}} or for tunneling protocols.
 
 ## Match on MPLS Headers
 
 The enhanced ACL module ({{sec-module}}) can be used to create rules to match against MPLS fields of a packet. The MPLS header defined in {{!RFC3032}} and {{!RFC5462}} contains the following fields:
 
-- Traffic Class: 3 bits 'EXP' renamed to "Traffic Class" field.
-- Label Value: A 20-bit field that carries the actual value of the MPLS Label.
-- TTL: An 8-bit field that is used to encode a time-to-live (TTL) value.
+- Traffic Class: The 3-bit "Exp" field {{!RFC3032}} which is renamed to "Traffic Class field" ("TC field") {{!RFC5462}}.
+- Label Value: A 20-bit field that carries the actual value of the MPLS label.
+- TTL: A 8-bit field used to encode Time to Live (TTL) value.
 
 The augmented ACL structure ({{enh-acl-tree}}) allows an operator to configure ACLs that match based upon the following data nodes:
 
@@ -309,11 +311,11 @@ Some of the readable data nodes in the "ietf-acl-enh" YANG module may be conside
    an attacker to identify the actual resources that are bound
    to ACLs.
 
-   The YANG modules "iana-icmpv4-types", "iana-icmpv6-types", and "iana-ipv6-ext-types defines" a set of types. These nodes are intended to be reused by other YANG
-   modules. Each of these modules by itself does not expose any data nodes that
-   are writable, data nodes that contain read-only state, or RPCs.
-   As such, there are no additional security issues related to
-   these YANG modules that need to be considered.
+The YANG modules "iana-icmpv4-types", "iana-icmpv6-types", and "iana-ipv6-ext-types defines" a set of types. These nodes are intended to be reused by other YANG
+modules. Each of these modules by itself does not expose any data nodes that
+are writable, data nodes that contain read-only state, or RPCs.
+As such, there are no additional security issues related to
+these YANG modules that need to be considered.
 
 # IANA Considerations
 
@@ -323,21 +325,21 @@ Some of the readable data nodes in the "ietf-acl-enh" YANG module may be conside
    subregistry within the "IETF XML Registry" {{!RFC3688}}:
 
 ~~~
-         URI: urn:ietf:params:xml:ns:yang:ietf-acl-enh
-         Registrant Contact: The IESG.
-         XML: N/A; the requested URI is an XML namespace.
+URI: urn:ietf:params:xml:ns:yang:ietf-acl-enh
+Registrant Contact: The IESG.
+XML: N/A; the requested URI is an XML namespace.
 
-         URI: urn:ietf:params:xml:ns:yang:iana-icmpv4-types
-         Registrant Contact: The IESG.
-         XML: N/A; the requested URI is an XML namespace.
+URI: urn:ietf:params:xml:ns:yang:iana-icmpv4-types
+Registrant Contact: The IESG.
+XML: N/A; the requested URI is an XML namespace.
 
-         URI: urn:ietf:params:xml:ns:yang:iana-icmpv6-types
-         Registrant Contact: The IESG.
-         XML: N/A; the requested URI is an XML namespace.
+URI: urn:ietf:params:xml:ns:yang:iana-icmpv6-types
+Registrant Contact: The IESG.
+XML: N/A; the requested URI is an XML namespace.
 
-         URI: urn:ietf:params:xml:ns:yang:iana-ipv6-ext-types
-         Registrant Contact: The IESG.
-         XML: N/A; the requested URI is an XML namespace.
+URI: urn:ietf:params:xml:ns:yang:iana-ipv6-ext-types
+Registrant Contact: The IESG.
+XML: N/A; the requested URI is an XML namespace.
 ~~~
 
 ## YANG Module Name Registrations
@@ -347,29 +349,29 @@ This document requests IANA to register the following YANG modules in
    Parameters" registry.
 
 ~~~
-    name: ietf-acl-enh
-    namespace: urn:ietf:params:xml:ns:yang:ietf-acl-enh
-    maintained by IANA: N
-    prefix: acl-enh
-    reference: RFC XXXX
+name: ietf-acl-enh
+namespace: urn:ietf:params:xml:ns:yang:ietf-acl-enh
+maintained by IANA: N
+prefix: acl-enh
+reference: RFC XXXX
 
-    name: iana-icmpv4-types
-    namespace: urn:ietf:params:xml:ns:yang:iana-icmpv4-types
-    maintained by IANA: Y
-    prefix: iana-icmpv4-types
-    reference: RFC XXXX
+name: iana-icmpv4-types
+namespace: urn:ietf:params:xml:ns:yang:iana-icmpv4-types
+maintained by IANA: Y
+prefix: iana-icmpv4-types
+reference: RFC XXXX
 
-    name: iana-icmpv6-types
-    namespace: urn:ietf:params:xml:ns:yang:iana-icmpv6-types
-    maintained by IANA: Y
-    prefix: iana-icmpv6-types
-    reference: RFC XXXX
+name: iana-icmpv6-types
+namespace: urn:ietf:params:xml:ns:yang:iana-icmpv6-types
+maintained by IANA: Y
+prefix: iana-icmpv6-types
+reference: RFC XXXX
 
-    name: iana-ipv6-ext-types
-    namespace: urn:ietf:params:xml:ns:yang:iana-ipv6-ext-types
-    maintained by IANA: Y
-    prefix: iana-ipv6-ext-types
-    reference: RFC XXXX
+name: iana-ipv6-ext-types
+namespace: urn:ietf:params:xml:ns:yang:iana-ipv6-ext-types
+maintained by IANA: Y
+prefix: iana-ipv6-ext-types
+reference: RFC XXXX
 ~~~
 
 ## Considerations for IANA-Maintained Modules
