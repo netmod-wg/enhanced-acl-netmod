@@ -293,7 +293,7 @@ The YANG modules specified in this document define a schema for data
 
 The Network Configuration Access Control Model (NACM) {{!RFC8341}} provides the means to restrict access for particular NETCONF or RESTCONF users to a preconfigured subset of all available NETCONF or RESTCONF protocol operations and content.
 
-There are a number of data nodes defined in this YANG module that are writable/creatable/deletable (i.e., config true, which is the default). These data nodes may be considered sensitive or vulnerable in some network environments. Write operations (e.g., edit-config) to these data nodes without proper protection can have a negative effect on network operations. These are the subtrees and data nodes and their sensitivity/vulnerability:
+There are a number of data nodes defined in the "ietf-acl-enh" YANG module that are writable/creatable/deletable (i.e., config true, which is the default). These data nodes may be considered sensitive or vulnerable in some network environments. Write operations (e.g., edit-config) to these data nodes without proper protection can have a negative effect on network operations. These are the subtrees and data nodes and their sensitivity/vulnerability:
 
  'defined-sets':
  : These lists specify a set of sets and aliases. Similar to {{!RFC8519}}, unauthorized write access to these
@@ -302,13 +302,18 @@ There are a number of data nodes defined in this YANG module that are writable/c
       be permitted.  The former may result in a DoS attack, or
       compromise a device.  The latter may result in a DoS attack.
 
-Some of the readable data nodes in this YANG module may be considered sensitive or vulnerable in some network environments. It is thus important to control read access (e.g., via get, get-config, or notification) to these data nodes. These are the subtrees and data nodes and their sensitivity/vulnerability:
+Some of the readable data nodes in the "ietf-acl-enh" YANG module may be considered sensitive or vulnerable in some network environments. It is thus important to control read access (e.g., via get, get-config, or notification) to these data nodes. These are the subtrees and data nodes and their sensitivity/vulnerability:
 
  'defined-sets':
  : Unauthorized read access of these lists will allow
    an attacker to identify the actual resources that are bound
    to ACLs.
 
+   The YANG modules "iana-icmpv4-types", "iana-icmpv6-types", and "iana-ipv6-ext-types defines" a set of types. These nodes are intended to be reused by other YANG
+   modules. Each of these modules by itself does not expose any data nodes that
+   are writable, data nodes that contain read-only state, or RPCs.
+   As such, there are no additional security issues related to
+   these YANG modules that need to be considered.
 
 # IANA Considerations
 
