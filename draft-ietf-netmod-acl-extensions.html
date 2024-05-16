@@ -1629,62 +1629,48 @@ module: ietf-acl-enh
         </h3>
 <p id="section-3.2-1">The augmented ACL structure includes several containers to manage reusable sets of elements that can be matched in an ACL entry.
 Each set is uniquely identified by a name and can be called from the relevant entry. The following sets are defined (<a href="#enh-acl-tree" class="auto internal xref">Figure 1</a>):<a href="#section-3.2-1" class="pilcrow">¶</a></p>
-<ul class="normal">
-<li class="normal" id="section-3.2-2.1">
-            <span class="break"></span><dl class="dlParallel" id="section-3.2-2.1.1">
-              <dt id="section-3.2-2.1.1.1">IPv4 prefix set:</dt>
-              <dd style="margin-left: 1.5em" id="section-3.2-2.1.1.2">
-                <p id="section-3.2-2.1.1.2.1">It contains a list of IPv4 prefixes. A match will be considered if the IP address (source or destination, depending on the ACL entry) is contained in any of the prefixes.<a href="#section-3.2-2.1.1.2.1" class="pilcrow">¶</a></p>
+<span class="break"></span><dl class="dlParallel" id="section-3.2-2">
+          <dt id="section-3.2-2.1">IPv4 prefix sets:</dt>
+          <dd style="margin-left: 1.5em" id="section-3.2-2.2">
+            <p id="section-3.2-2.2.1">An IPv4 prefix set contains a list of IPv4 prefixes. A match will be considered if the IP address (source or destination, depending on the ACL entry) is contained in any of the prefixes in the set.<a href="#section-3.2-2.2.1" class="pilcrow">¶</a></p>
 </dd>
-            <dd class="break"></dd>
-</dl>
-</li>
-          <li class="normal" id="section-3.2-2.2">
-            <span class="break"></span><dl class="dlParallel" id="section-3.2-2.2.1">
-              <dt id="section-3.2-2.2.1.1">IPv6 prefix set:</dt>
-              <dd style="margin-left: 1.5em" id="section-3.2-2.2.1.2">
-                <p id="section-3.2-2.2.1.2.1">It contains a list of IPv6 prefixes. A match will be considered if the IP address (source or destination, depending on the ACL entry) is contained in any of the prefixes.<a href="#section-3.2-2.2.1.2.1" class="pilcrow">¶</a></p>
+          <dd class="break"></dd>
+<dt id="section-3.2-2.3">IPv6 prefix sets:</dt>
+          <dd style="margin-left: 1.5em" id="section-3.2-2.4">
+            <p id="section-3.2-2.4.1">An IPv6 prefix contains a list of IPv6 prefixes. A match will be considered if the IP address (source or destination, depending on the ACL entry) is contained in any of the prefixes in the set.<a href="#section-3.2-2.4.1" class="pilcrow">¶</a></p>
 </dd>
-            <dd class="break"></dd>
-</dl>
-</li>
-          <li class="normal" id="section-3.2-2.3">
-            <span class="break"></span><dl class="dlParallel" id="section-3.2-2.3.1">
-              <dt id="section-3.2-2.3.1.1">Port sets:</dt>
-              <dd style="margin-left: 1.5em" id="section-3.2-2.3.1.2">
-                <p id="section-3.2-2.3.1.2.1">It contains a list of port numbers to be used in TCP/UDP entries. The port numbers can be individual port numbers, a range of port numbers, and an operation.<a href="#section-3.2-2.3.1.2.1" class="pilcrow">¶</a></p>
+          <dd class="break"></dd>
+<dt id="section-3.2-2.5">Port sets:</dt>
+          <dd style="margin-left: 1.5em" id="section-3.2-2.6">
+            <p id="section-3.2-2.6.1">A port set contains a list of port numbers to be used in transpot protocol entries (e.g., TCP and UDP).<a href="#section-3.2-2.6.1" class="pilcrow">¶</a></p>
 </dd>
-            <dd class="break"></dd>
-</dl>
-</li>
-          <li class="normal" id="section-3.2-2.4">
-            <span class="break"></span><dl class="dlParallel" id="section-3.2-2.4.1">
-              <dt id="section-3.2-2.4.1.1">Protocol sets:</dt>
-              <dd style="margin-left: 1.5em" id="section-3.2-2.4.1.2">
-                <p id="section-3.2-2.4.1.2.1">It contains a list of protocol values. Each protocol can be identified either by a number (e.g., 17) or a name (e.g., UDP).<a href="#section-3.2-2.4.1.2.1" class="pilcrow">¶</a></p>
+          <dd class="break"></dd>
+<dt id="section-3.2-2.7"></dt>
+          <dd style="margin-left: 1.5em" id="section-3.2-2.8">
+            <p id="section-3.2-2.8.1">The port numbers can be individual port numbers, a range of port numbers, and an operation.<a href="#section-3.2-2.8.1" class="pilcrow">¶</a></p>
 </dd>
-            <dd class="break"></dd>
-</dl>
-</li>
-          <li class="normal" id="section-3.2-2.5">
-            <span class="break"></span><dl class="dlParallel" id="section-3.2-2.5.1">
-              <dt id="section-3.2-2.5.1.1">ICMP sets:</dt>
-              <dd style="margin-left: 1.5em" id="section-3.2-2.5.1.2">
-                <p id="section-3.2-2.5.1.2.1">It contains a list of ICMPv4 <span>[<a href="#RFC0792" class="cite xref">RFC0792</a>]</span> or ICMPv6 <span>[<a href="#RFC4443" class="cite xref">RFC4443</a>]</span> types, each of them identified by a type value, optionally the code and the rest of the header.<a href="#section-3.2-2.5.1.2.1" class="pilcrow">¶</a></p>
+          <dd class="break"></dd>
+<dt id="section-3.2-2.9">Protocol sets:</dt>
+          <dd style="margin-left: 1.5em" id="section-3.2-2.10">
+            <p id="section-3.2-2.10.1">A protocol set contains a list of protocol values. Each protocol can be identified either by a number (e.g., 17) or a name (e.g., UDP).<a href="#section-3.2-2.10.1" class="pilcrow">¶</a></p>
 </dd>
-            <dd class="break"></dd>
-</dl>
-</li>
-          <li class="normal" id="section-3.2-2.6">
-            <span class="break"></span><dl class="dlParallel" id="section-3.2-2.6.1">
-              <dt id="section-3.2-2.6.1.1">Aliases:</dt>
-              <dd style="margin-left: 1.5em" id="section-3.2-2.6.1.2">
-                <p id="section-3.2-2.6.1.2.1">An alias is defined by a combination of various parameters (e.g., IP prefix, protocol, port number, or VLAN). Sets of aliases can be defined and referred to in match criteria.<a href="#section-3.2-2.6.1.2.1" class="pilcrow">¶</a></p>
+          <dd class="break"></dd>
+<dt id="section-3.2-2.11">ICMP sets:</dt>
+          <dd style="margin-left: 1.5em" id="section-3.2-2.12">
+            <p id="section-3.2-2.12.1">An ICMP set contains a list of ICMPv4 <span>[<a href="#RFC0792" class="cite xref">RFC0792</a>]</span> or ICMPv6 <span>[<a href="#RFC4443" class="cite xref">RFC4443</a>]</span> types, each of them identified by a type value, optionally the code and the rest of the header.<a href="#section-3.2-2.12.1" class="pilcrow">¶</a></p>
 </dd>
-            <dd class="break"></dd>
+          <dd class="break"></dd>
+<dt id="section-3.2-2.13"></dt>
+          <dd style="margin-left: 1.5em" id="section-3.2-2.14">
+            <p id="section-3.2-2.14.1">New IANA-maintained modules for ICMP types are defined in this document.<a href="#section-3.2-2.14.1" class="pilcrow">¶</a></p>
+</dd>
+          <dd class="break"></dd>
+<dt id="section-3.2-2.15">Aliases:</dt>
+          <dd style="margin-left: 1.5em" id="section-3.2-2.16">
+            <p id="section-3.2-2.16.1">An alias is defined by a combination of various parameters (e.g., IP prefix, protocol, port number, or VLAN). Sets of aliases can be defined and referred to in ACL match criteria.<a href="#section-3.2-2.16.1" class="pilcrow">¶</a></p>
+</dd>
+        <dd class="break"></dd>
 </dl>
-</li>
-        </ul>
 </section>
 </div>
 <div id="ipv6-extension-headers">
@@ -1701,7 +1687,7 @@ Each set is uniquely identified by a name and can be called from the relevant en
 <a href="#section-3.4" class="section-number selfRef">3.4. </a><a href="#name-tcp-flags-handling" class="section-name selfRef">TCP Flags Handling</a>
         </h3>
 <p id="section-3.4-1">The augmented ACL structure (<a href="#enh-acl-tree" class="auto internal xref">Figure 1</a>) includes a new container 'flags-bitmask' to better handle TCP flags <span>[<a href="#RFC9293" class="cite xref">RFC9293</a>]</span>.<a href="#section-3.4-1" class="pilcrow">¶</a></p>
-<p id="section-3.4-2">Clients that support both 'flags-bitmask' and 'flags' matching fields <span class="bcp14">MUST NOT</span> set these fields in the same request.<a href="#section-3.4-2" class="pilcrow">¶</a></p>
+<p id="section-3.4-2">Clients that support both 'flags-bitmask' and 'flags' <span>[<a href="#RFC8519" class="cite xref">RFC8519</a>]</span> matching fields <span class="bcp14">MUST NOT</span> set these fields in the same request.<a href="#section-3.4-2" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="fragments-handling">
@@ -1710,7 +1696,7 @@ Each set is uniquely identified by a name and can be called from the relevant en
 <a href="#section-3.5" class="section-number selfRef">3.5. </a><a href="#name-fragments-handling" class="section-name selfRef">Fragments Handling</a>
         </h3>
 <p id="section-3.5-1">The augmented ACL structure (<a href="#enh-acl-tree" class="auto internal xref">Figure 1</a>) includes new leafs 'ipv4-fragment' and 'ipv6-fragment' to better handle fragments.<a href="#section-3.5-1" class="pilcrow">¶</a></p>
-<p id="section-3.5-2">Clients that support both 'ipv4-fragment' and 'flags' matching fields <span class="bcp14">MUST NOT</span> set these fields in the same request.<a href="#section-3.5-2" class="pilcrow">¶</a></p>
+<p id="section-3.5-2">Clients that support both 'ipv4-fragment' and 'flags' <span>[<a href="#RFC8519" class="cite xref">RFC8519</a>]</span> matching fields <span class="bcp14">MUST NOT</span> set these fields in the same request.<a href="#section-3.5-2" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="payload-based-filtering">
@@ -1719,7 +1705,7 @@ Each set is uniquely identified by a name and can be called from the relevant en
 <a href="#section-3.6" class="section-number selfRef">3.6. </a><a href="#name-payload-based-filtering" class="section-name selfRef">Payload-based Filtering</a>
         </h3>
 <p id="section-3.6-1">Some transport protocols use existing protocols (e.g., TCP or UDP) as substrate. The match criteria for such protocols may rely upon the 'protocol' under 'l3', TCP/UDP match criteria, part of the TCP/UDP payload, or a combination thereof.<a href="#section-3.6-1" class="pilcrow">¶</a></p>
-<p id="section-3.6-2">A new feature, called "match-on-payload", is defined in the document. This can be used, for example, for QUIC <span>[<a href="#RFC9000" class="cite xref">RFC9000</a>]</span> or for tunneling protocols.<a href="#section-3.6-2" class="pilcrow">¶</a></p>
+<p id="section-3.6-2">A new feature, called 'match-on-payload', is defined in the document. This can be used, for example, for QUIC <span>[<a href="#RFC9000" class="cite xref">RFC9000</a>]</span> or for tunneling protocols.<a href="#section-3.6-2" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="match-on-mpls-headers">
@@ -1730,13 +1716,13 @@ Each set is uniquely identified by a name and can be called from the relevant en
 <p id="section-3.7-1">The enhanced ACL module (<a href="#sec-module" class="auto internal xref">Section 4</a>) can be used to create rules to match against MPLS fields of a packet. The MPLS header defined in <span>[<a href="#RFC3032" class="cite xref">RFC3032</a>]</span> and <span>[<a href="#RFC5462" class="cite xref">RFC5462</a>]</span> contains the following fields:<a href="#section-3.7-1" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-3.7-2.1">
-            <p id="section-3.7-2.1.1">Traffic Class: 3 bits 'EXP' renamed to "Traffic Class" field.<a href="#section-3.7-2.1.1" class="pilcrow">¶</a></p>
+            <p id="section-3.7-2.1.1">Traffic Class: The 3-bit "Exp" field <span>[<a href="#RFC3032" class="cite xref">RFC3032</a>]</span> which is renamed to "Traffic Class field" ("TC field") <span>[<a href="#RFC5462" class="cite xref">RFC5462</a>]</span>.<a href="#section-3.7-2.1.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-3.7-2.2">
-            <p id="section-3.7-2.2.1">Label Value: A 20-bit field that carries the actual value of the MPLS Label.<a href="#section-3.7-2.2.1" class="pilcrow">¶</a></p>
+            <p id="section-3.7-2.2.1">Label Value: A 20-bit field that carries the actual value of the MPLS label.<a href="#section-3.7-2.2.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-3.7-2.3">
-            <p id="section-3.7-2.3.1">TTL: An 8-bit field that is used to encode a time-to-live (TTL) value.<a href="#section-3.7-2.3.1" class="pilcrow">¶</a></p>
+            <p id="section-3.7-2.3.1">TTL: A 8-bit field used to encode Time to Live (TTL) value.<a href="#section-3.7-2.3.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
 <p id="section-3.7-3">The augmented ACL structure (<a href="#enh-acl-tree" class="auto internal xref">Figure 1</a>) allows an operator to configure ACLs that match based upon the following data nodes:<a href="#section-3.7-3" class="pilcrow">¶</a></p>
@@ -3052,14 +3038,14 @@ module ietf-acl-enh {
           <p id="section-5-6.2.1">Unauthorized read access of these lists will allow
 an attacker to identify the actual resources that are bound
 to ACLs.<a href="#section-5-6.2.1" class="pilcrow">¶</a></p>
-<p id="section-5-6.2.2">The YANG modules "iana-icmpv4-types", "iana-icmpv6-types", and "iana-ipv6-ext-types defines" a set of types. These nodes are intended to be reused by other YANG
-modules. Each of these modules by itself does not expose any data nodes that
-are writable, data nodes that contain read-only state, or RPCs.
-As such, there are no additional security issues related to
-these YANG modules that need to be considered.<a href="#section-5-6.2.2" class="pilcrow">¶</a></p>
 </dd>
       <dd class="break"></dd>
 </dl>
+<p id="section-5-7">The YANG modules "iana-icmpv4-types", "iana-icmpv6-types", and "iana-ipv6-ext-types defines" a set of types. These nodes are intended to be reused by other YANG
+modules. Each of these modules by itself does not expose any data nodes that
+are writable, data nodes that contain read-only state, or RPCs.
+As such, there are no additional security issues related to
+these YANG modules that need to be considered.<a href="#section-5-7" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="iana-considerations">
@@ -3076,21 +3062,21 @@ these YANG modules that need to be considered.<a href="#section-5-6.2.2" class="
    subregistry within the "IETF XML Registry" <span>[<a href="#RFC3688" class="cite xref">RFC3688</a>]</span>:<a href="#section-6.1-1" class="pilcrow">¶</a></p>
 <div class="alignLeft art-text artwork" id="section-6.1-2">
 <pre>
-         URI: urn:ietf:params:xml:ns:yang:ietf-acl-enh
-         Registrant Contact: The IESG.
-         XML: N/A; the requested URI is an XML namespace.
+URI: urn:ietf:params:xml:ns:yang:ietf-acl-enh
+Registrant Contact: The IESG.
+XML: N/A; the requested URI is an XML namespace.
 
-         URI: urn:ietf:params:xml:ns:yang:iana-icmpv4-types
-         Registrant Contact: The IESG.
-         XML: N/A; the requested URI is an XML namespace.
+URI: urn:ietf:params:xml:ns:yang:iana-icmpv4-types
+Registrant Contact: The IESG.
+XML: N/A; the requested URI is an XML namespace.
 
-         URI: urn:ietf:params:xml:ns:yang:iana-icmpv6-types
-         Registrant Contact: The IESG.
-         XML: N/A; the requested URI is an XML namespace.
+URI: urn:ietf:params:xml:ns:yang:iana-icmpv6-types
+Registrant Contact: The IESG.
+XML: N/A; the requested URI is an XML namespace.
 
-         URI: urn:ietf:params:xml:ns:yang:iana-ipv6-ext-types
-         Registrant Contact: The IESG.
-         XML: N/A; the requested URI is an XML namespace.
+URI: urn:ietf:params:xml:ns:yang:iana-ipv6-ext-types
+Registrant Contact: The IESG.
+XML: N/A; the requested URI is an XML namespace.
 </pre><a href="#section-6.1-2" class="pilcrow">¶</a>
 </div>
 </section>
@@ -3105,29 +3091,29 @@ these YANG modules that need to be considered.<a href="#section-5-6.2.2" class="
    Parameters" registry.<a href="#section-6.2-1" class="pilcrow">¶</a></p>
 <div class="alignLeft art-text artwork" id="section-6.2-2">
 <pre>
-    name: ietf-acl-enh
-    namespace: urn:ietf:params:xml:ns:yang:ietf-acl-enh
-    maintained by IANA: N
-    prefix: acl-enh
-    reference: RFC XXXX
+name: ietf-acl-enh
+namespace: urn:ietf:params:xml:ns:yang:ietf-acl-enh
+maintained by IANA: N
+prefix: acl-enh
+reference: RFC XXXX
 
-    name: iana-icmpv4-types
-    namespace: urn:ietf:params:xml:ns:yang:iana-icmpv4-types
-    maintained by IANA: Y
-    prefix: iana-icmpv4-types
-    reference: RFC XXXX
+name: iana-icmpv4-types
+namespace: urn:ietf:params:xml:ns:yang:iana-icmpv4-types
+maintained by IANA: Y
+prefix: iana-icmpv4-types
+reference: RFC XXXX
 
-    name: iana-icmpv6-types
-    namespace: urn:ietf:params:xml:ns:yang:iana-icmpv6-types
-    maintained by IANA: Y
-    prefix: iana-icmpv6-types
-    reference: RFC XXXX
+name: iana-icmpv6-types
+namespace: urn:ietf:params:xml:ns:yang:iana-icmpv6-types
+maintained by IANA: Y
+prefix: iana-icmpv6-types
+reference: RFC XXXX
 
-    name: iana-ipv6-ext-types
-    namespace: urn:ietf:params:xml:ns:yang:iana-ipv6-ext-types
-    maintained by IANA: Y
-    prefix: iana-ipv6-ext-types
-    reference: RFC XXXX
+name: iana-ipv6-ext-types
+namespace: urn:ietf:params:xml:ns:yang:iana-ipv6-ext-types
+maintained by IANA: Y
+prefix: iana-ipv6-ext-types
+reference: RFC XXXX
 </pre><a href="#section-6.2-2" class="pilcrow">¶</a>
 </div>
 </section>
