@@ -199,7 +199,7 @@ Table of Contents
 
    (1) Please apply the following replacements:
 
-   XXXX --> the assigned RFC number for this I-D 2022-10-24 --> the
+   XXXX --> the assigned RFC number for this I-D 2024-05-16 --> the
    actual date of the publication of this document
 
    (2) The modules are provided in Appendix A.2, Appendix B.2, and
@@ -553,7 +553,7 @@ Table of Contents
 
    This model imports types from [RFC6991], [RFC8519], and [RFC8294].
 
-   <CODE BEGINS> file "ietf-acl-enh@2022-10-24.yang"
+   <CODE BEGINS> file "ietf-acl-enh@2024-05-16.yang"
    module ietf-acl-enh {
      yang-version 1.1;
      namespace "urn:ietf:params:xml:ns:yang:ietf-acl-enh";
@@ -2697,7 +2697,7 @@ B.1.  XSLT Template to Generate the ICMPv6 Types IANA-Maintained Module
 
 B.2.  Initial Version of the ICMPv6 Types IANA-Maintained Module
 
-   <CODE BEGINS> file "iana-icmpv6-types@2020-09-25.yang"
+   <CODE BEGINS> file "iana-icmpv6-types@2023-04-28.yang"
    module iana-icmpv6-types {
      yang-version 1.1;
      namespace "urn:ietf:params:xml:ns:yang:iana-icmpv6-types";
