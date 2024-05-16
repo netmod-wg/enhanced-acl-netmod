@@ -5,12 +5,12 @@
 netmod                                                     O. G. D. Dios
 Internet-Draft                                                Telefonica
 Intended status: Standards Track                              S. Barguil
-Expires: 15 November 2024                                          Nokia
+Expires: 17 November 2024                                          Nokia
                                                             M. Boucadair
                                                                   Orange
                                                                    Q. Wu
                                                                   Huawei
-                                                             14 May 2024
+                                                             16 May 2024
 
 
         Extensions to the Access Control Lists (ACLs) YANG Model
@@ -51,7 +51,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 15 November 2024.
+   This Internet-Draft will expire on 17 November 2024.
 
 Copyright Notice
 
@@ -3503,8 +3503,7 @@ E.1.  TCP Flags Handling
                         "name":"null-attack",
                         "matches":{
                            "tcp":{
-                              "acl-enh:flags-bitmask":{
-                                 "operator":"not any",
+                              "ietf-acl-enh:flags-bitmask":{
                                  "bitmask":4095
                               }
                            }
@@ -3546,7 +3545,7 @@ E.2.  Fragments Handling
                         "name":"drop-all-fragments",
                         "matches":{
                            "ipv4":{
-                              "acl-enh:ipv4-fragment":{
+                              "ietf-acl-enh:ipv4-fragment":{
                                  "operator":"match",
                                  "type":"isf"
                               }
@@ -3567,10 +3566,10 @@ E.2.  Fragments Handling
                                  "operator":"eq",
                                  "port":53
                               }
-                           },
-                           "actions":{
-                              "forwarding":"accept"
                            }
+                        },
+                        "actions":{
+                           "forwarding":"accept"
                         }
                      }
                   ]
@@ -3607,7 +3606,7 @@ E.2.  Fragments Handling
                         "name":"drop-all-fragments",
                         "matches":{
                            "ipv6":{
-                              "acl-enh:ipv6-fragment":{
+                              "ietf-acl-enh:ipv6-fragment":{
                                  "operator":"match",
                                  "type":"isf"
                               }
@@ -3726,7 +3725,6 @@ E.5.  Rate-Limit
                         "matches":{
                            "tcp":{
                               "ietf-acl-enh:flags-bitmask":{
-                                 "operator":"match",
                                  "bitmask":2
                               }
                            }
