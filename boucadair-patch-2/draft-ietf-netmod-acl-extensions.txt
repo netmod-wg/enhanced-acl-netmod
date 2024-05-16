@@ -317,9 +317,9 @@ Table of Contents
    enhanced ACL module:
 
      grouping tcp-flags:
+       +--rw operator?                  operator
        +-- (mode)?
           +--:(explicit)
-          |  +-- operator?            operator
           |  +-- explicit-tcp-flag*   identityref
           +--:(builtin)
              +-- bitmask?             uint16
