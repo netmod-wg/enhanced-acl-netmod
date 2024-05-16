@@ -1511,9 +1511,9 @@ module: ietf-acl-enh
           <div class="alignLeft art-text artwork" id="section-3.1-4.1">
 <pre>
   grouping tcp-flags:
+    +--rw operator?                  operator
     +-- (mode)?
        +--:(explicit)
-       |  +-- operator?            operator
        |  +-- explicit-tcp-flag*   identityref
        +--:(builtin)
           +-- bitmask?             uint16
@@ -2190,16 +2190,15 @@ module ietf-acl-enh {
   grouping tcp-flags {
     description
       "Operations on TCP flags.";
+    leaf operator {
+      type operator;
+      description
+        "How to interpret the TCP flags.";
+    }
     choice mode {
       description
         "Choice of how flags are indicated.";
       case explicit {
-        leaf operator {
-          type operator;
-          default "match";
-          description
-            "How to interpret the TCP flags.";
-        }
         leaf-list explicit-tcp-flag {
           type identityref {
             base tcp-flag;
