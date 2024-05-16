@@ -136,8 +136,8 @@ This document contains placeholder values that need to be replaced with finalize
 
 (1) Please apply the following replacements:
 
-XXXX --> the assigned RFC number for this I-D
-2024-05-16 --> the actual date of the publication of this document
+  * XXXX --> the assigned RFC number for this I-D
+  * 2024-05-16 --> the actual date of the publication of this document
 
 (2) The modules are provided in {{iana-icmp}}, {{iana-icmpv6}}, and {{iana-ipv6-ext}} for the users convenience before publication as RFC. Please remove these appendices from the final RFC.
 
