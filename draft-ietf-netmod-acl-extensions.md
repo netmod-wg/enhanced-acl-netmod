@@ -822,8 +822,7 @@ This section provides a few examples to illustrate the use of the enhanced ACL m
                      "name":"null-attack",
                      "matches":{
                         "tcp":{
-                           "acl-enh:flags-bitmask":{
-                              "operator":"not any",
+                           "ietf-acl-enh:flags-bitmask":{
                               "bitmask":4095
                            }
                         }
@@ -862,7 +861,7 @@ packets.  The following ACEs are defined (in this order):
                      "name":"drop-all-fragments",
                      "matches":{
                         "ipv4":{
-                           "acl-enh:ipv4-fragment":{
+                           "ietf-acl-enh:ipv4-fragment":{
                               "operator":"match",
                               "type":"isf"
                            }
@@ -883,10 +882,10 @@ packets.  The following ACEs are defined (in this order):
                               "operator":"eq",
                               "port":53
                            }
-                        },
-                        "actions":{
-                           "forwarding":"accept"
                         }
+                     },
+                     "actions":{
+                        "forwarding":"accept"
                      }
                   }
                ]
@@ -916,7 +915,7 @@ packets.  The following ACEs are defined (in this order):
                      "name":"drop-all-fragments",
                      "matches":{
                         "ipv6":{
-                           "acl-enh:ipv6-fragment":{
+                           "ietf-acl-enh:ipv6-fragment":{
                               "operator":"match",
                               "type":"isf"
                            }
@@ -1035,7 +1034,6 @@ packets.  The following ACEs are defined (in this order):
                      "matches":{
                         "tcp":{
                            "ietf-acl-enh:flags-bitmask":{
-                              "operator":"match",
                               "bitmask":2
                            }
                         }
