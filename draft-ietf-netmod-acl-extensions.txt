@@ -3504,6 +3504,7 @@ E.1.  TCP Flags Handling
                         "matches":{
                            "tcp":{
                               "ietf-acl-enh:flags-bitmask":{
+                                 "operator":"not any",
                                  "bitmask":4095
                               }
                            }
@@ -3725,6 +3726,7 @@ E.5.  Rate-Limit
                         "matches":{
                            "tcp":{
                               "ietf-acl-enh:flags-bitmask":{
+                                 "operator":"match",
                                  "bitmask":2
                               }
                            }
