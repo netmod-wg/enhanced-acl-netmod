@@ -92,7 +92,7 @@ module ietf-acl-enh {
 
   feature match-on-isid-filter {
     description
-      "Match based on a ISID range of vlan list is supported.";
+      "Match based on an I-SID range of VLAN list is supported.";
   }
 
   feature match-on-alias {
@@ -524,6 +524,8 @@ module ietf-acl-enh {
       type uint16;
       description
         "VLAN of the alias.";
+      reference
+        "IEEE Std 802.1Q: Bridges and Bridged Networks";
     }
     leaf-list prefix {
       type inet:ip-prefix;
@@ -959,7 +961,7 @@ module ietf-acl-enh {
   augment "/acl:acls/acl:acl/acl:aces"
         + "/acl:ace/acl:matches/acl:l2" {
     description
-      "Adds a match type based on MAC VLAN and ISID filters.";
+      "Adds a match type based on MAC VLAN and I-SID filters.";
     container vlan-filter {
       if-feature "match-on-vlan-filter";
       description
@@ -983,13 +985,13 @@ module ietf-acl-enh {
             }
             mandatory true;
             description
-              "Lower boundary for a vlan.";
+              "Lower boundary for a VLAN.";
           }
           leaf upper-vlan {
             type uint16;
             mandatory true;
             description
-              "Upper boundary for a vlan.";
+              "Upper boundary for a VLAN.";
           }
         }
         case operator {
@@ -997,13 +999,15 @@ module ietf-acl-enh {
             type packet-fields:operator;
             default "eq";
             description
-              "Operator to be applied on the vlan below.";
+              "Operator to be applied on the VLAN below.";
           }
           leaf-list vlan {
             type uint16;
             description
               "VLAN number along with the operator on which to
                match.";
+            reference
+              "IEEE Std 802.1Q: Bridges and Bridged Networks";
           }
         }
       }
@@ -1011,12 +1015,12 @@ module ietf-acl-enh {
     container isid-filter {
       if-feature "match-on-isid-filter";
       description
-        "Indicates how to handle ISID filters.
+        "Indicates how to handle I-SID filters.
          The I-component is responsible for mapping customer
-         Ethernet traffic to the appropriate ISID.";
+         Ethernet traffic to the appropriate I-SID.";
       choice isid-type {
         description
-          "ISID definition from range or operator.";
+          "I-SID definition from range or operator.";
         case range {
           leaf lower-isid {
             type uint16;
@@ -1027,13 +1031,13 @@ module ietf-acl-enh {
             }
             mandatory true;
             description
-              "Lower boundary for a ISID.";
+              "Lower boundary for an I-SID.";
           }
           leaf upper-isid {
             type uint16;
             mandatory true;
             description
-              "Upper boundary for a ISID.";
+              "Upper boundary for an I-SID.";
           }
         }
         case operator {
@@ -1041,13 +1045,15 @@ module ietf-acl-enh {
             type packet-fields:operator;
             default "eq";
             description
-              "Operator to be applied on the ISID below.";
+              "Operator to be applied on the I-SID below.";
           }
           leaf-list isid {
             type uint16;
             description
-              "ISID number along with the operator on which to
+              "I-SID number along with the operator on which to
                match.";
+            reference
+              "IEEE 802.1ah: Provider Backbone Bridges"
           }
         }
       }
