@@ -5,12 +5,12 @@
 netmod                                                     O. G. D. Dios
 Internet-Draft                                                Telefonica
 Intended status: Standards Track                              S. Barguil
-Expires: 17 November 2024                                          Nokia
+Expires: 25 November 2024                                          Nokia
                                                             M. Boucadair
                                                                   Orange
                                                                    Q. Wu
                                                                   Huawei
-                                                             16 May 2024
+                                                             24 May 2024
 
 
         Extensions to the Access Control Lists (ACLs) YANG Model
@@ -51,7 +51,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 17 November 2024.
+   This Internet-Draft will expire on 25 November 2024.
 
 Copyright Notice
 
@@ -199,8 +199,9 @@ Table of Contents
 
    (1) Please apply the following replacements:
 
-   XXXX --> the assigned RFC number for this I-D 2022-10-24 --> the
-   actual date of the publication of this document
+   *  XXXX --> the assigned RFC number for this I-D
+
+   *  2024-05-16 --> the actual date of the publication of this document
 
    (2) The modules are provided in Appendix A.2, Appendix B.2, and
    Appendix C.2 for the users convenience before publication as RFC.
@@ -424,32 +425,37 @@ Table of Contents
    set is uniquely identified by a name and can be called from the
    relevant entry.  The following sets are defined (Figure 1):
 
-   *  IPv4 prefix set:  It contains a list of IPv4 prefixes.  A match
-         will be considered if the IP address (source or destination,
-         depending on the ACL entry) is contained in any of the
-         prefixes.
+   IPv4 prefix sets:  An IPv4 prefix set contains a list of IPv4
+      prefixes.  A match will be considered if the IP address (source or
+      destination, depending on the ACL entry) is contained in any of
+      the prefixes in the set.
 
-   *  IPv6 prefix set:  It contains a list of IPv6 prefixes.  A match
-         will be considered if the IP address (source or destination,
-         depending on the ACL entry) is contained in any of the
-         prefixes.
+   IPv6 prefix sets:  An IPv6 prefix contains a list of IPv6 prefixes.
+      A match will be considered if the IP address (source or
+      destination, depending on the ACL entry) is contained in any of
+      the prefixes in the set.
 
-   *  Port sets:  It contains a list of port numbers to be used in TCP/
-         UDP entries.  The port numbers can be individual port numbers,
-         a range of port numbers, and an operation.
+   Port sets:  A port set contains a list of port numbers to be used in
+      transpot protocol entries (e.g., TCP and UDP).
 
-   *  Protocol sets:  It contains a list of protocol values.  Each
-         protocol can be identified either by a number (e.g., 17) or a
-         name (e.g., UDP).
+      The port numbers can be individual port numbers, a range of port
+      numbers, and an operation.
 
-   *  ICMP sets:  It contains a list of ICMPv4 [RFC0792] or ICMPv6
-         [RFC4443] types, each of them identified by a type value,
-         optionally the code and the rest of the header.
+   Protocol sets:  A protocol set contains a list of protocol values.
+      Each protocol can be identified either by a number (e.g., 17) or a
+      name (e.g., UDP).
 
-   *  Aliases:  An alias is defined by a combination of various
-         parameters (e.g., IP prefix, protocol, port number, or VLAN).
-         Sets of aliases can be defined and referred to in match
-         criteria.
+   ICMP sets:  An ICMP set contains a list of ICMPv4 [RFC0792] or ICMPv6
+      [RFC4443] types, each of them identified by a type value,
+      optionally the code and the rest of the header.
+
+      New IANA-maintained modules for ICMP types are defined in this
+      document.
+
+   Aliases:  An alias is defined by a combination of various parameters
+      (e.g., IP prefix, protocol, port number, or VLAN [IEEE802.1Qcp]).
+      Sets of aliases can be defined and referred to in ACL match
+      criteria.
 
 3.3.  IPv6 Extension Headers
 
@@ -463,16 +469,16 @@ Table of Contents
    The augmented ACL structure (Figure 1) includes a new container
    'flags-bitmask' to better handle TCP flags [RFC9293].
 
-   Clients that support both 'flags-bitmask' and 'flags' matching fields
-   MUST NOT set these fields in the same request.
+   Clients that support both 'flags-bitmask' and 'flags' [RFC8519]
+   matching fields MUST NOT set these fields in the same request.
 
 3.5.  Fragments Handling
 
    The augmented ACL structure (Figure 1) includes new leafs
    'ipv4-fragment' and 'ipv6-fragment' to better handle fragments.
 
-   Clients that support both 'ipv4-fragment' and 'flags' matching fields
-   MUST NOT set these fields in the same request.
+   Clients that support both 'ipv4-fragment' and 'flags' [RFC8519]
+   matching fields MUST NOT set these fields in the same request.
 
 3.6.  Payload-based Filtering
 
@@ -481,7 +487,7 @@ Table of Contents
    'protocol' under 'l3', TCP/UDP match criteria, part of the TCP/UDP
    payload, or a combination thereof.
 
-   A new feature, called "match-on-payload", is defined in the document.
+   A new feature, called 'match-on-payload', is defined in the document.
    This can be used, for example, for QUIC [RFC9000] or for tunneling
    protocols.
 
@@ -491,13 +497,13 @@ Table of Contents
    match against MPLS fields of a packet.  The MPLS header defined in
    [RFC3032] and [RFC5462] contains the following fields:
 
-   *  Traffic Class: 3 bits 'EXP' renamed to "Traffic Class" field.
+   *  Traffic Class: The 3-bit "Exp" field [RFC3032] which is renamed to
+      "Traffic Class field" ("TC field") [RFC5462].
 
    *  Label Value: A 20-bit field that carries the actual value of the
-      MPLS Label.
+      MPLS label.
 
-   *  TTL: An 8-bit field that is used to encode a time-to-live (TTL)
-      value.
+   *  TTL: A 8-bit field used to encode Time to Live (TTL) value.
 
    The augmented ACL structure (Figure 1) allows an operator to
    configure ACLs that match based upon the following data nodes:
@@ -553,7 +559,7 @@ Table of Contents
 
    This model imports types from [RFC6991], [RFC8519], and [RFC8294].
 
-   <CODE BEGINS> file "ietf-acl-enh@2022-10-24.yang"
+   <CODE BEGINS> file "ietf-acl-enh@2024-05-16.yang"
    module ietf-acl-enh {
      yang-version 1.1;
      namespace "urn:ietf:params:xml:ns:yang:ietf-acl-enh";
@@ -628,7 +634,7 @@ Table of Contents
         This version of this YANG module is part of RFC XXXX; see
         the RFC itself for full legal notices.";
 
-     revision 2022-10-24 {
+     revision 2024-05-16 {
        description
          "Initial revision.";
        reference
@@ -648,7 +654,7 @@ Table of Contents
 
      feature match-on-isid-filter {
        description
-         "Match based on a ISID range of vlan list is supported.";
+         "Match based on an I-SID range of VLAN list is supported.";
      }
 
      feature match-on-alias {
@@ -1080,6 +1086,8 @@ Table of Contents
          type uint16;
          description
            "VLAN of the alias.";
+         reference
+           "IEEE Std 802.1Q: Bridges and Bridged Networks";
        }
        leaf-list prefix {
          type inet:ip-prefix;
@@ -1515,7 +1523,7 @@ Table of Contents
      augment "/acl:acls/acl:acl/acl:aces"
            + "/acl:ace/acl:matches/acl:l2" {
        description
-         "Adds a match type based on MAC VLAN and ISID filters.";
+         "Adds a match type based on MAC VLAN and I-SID filters.";
        container vlan-filter {
          if-feature "match-on-vlan-filter";
          description
@@ -1539,13 +1547,13 @@ Table of Contents
                }
                mandatory true;
                description
-                 "Lower boundary for a vlan.";
+                 "Lower boundary for a VLAN.";
              }
              leaf upper-vlan {
                type uint16;
                mandatory true;
                description
-                 "Upper boundary for a vlan.";
+                 "Upper boundary for a VLAN.";
              }
            }
            case operator {
@@ -1553,13 +1561,15 @@ Table of Contents
                type packet-fields:operator;
                default "eq";
                description
-                 "Operator to be applied on the vlan below.";
+                 "Operator to be applied on the VLAN below.";
              }
              leaf-list vlan {
                type uint16;
                description
                  "VLAN number along with the operator on which to
                   match.";
+               reference
+                 "IEEE Std 802.1Q: Bridges and Bridged Networks";
              }
            }
          }
@@ -1567,12 +1577,12 @@ Table of Contents
        container isid-filter {
          if-feature "match-on-isid-filter";
          description
-           "Indicates how to handle ISID filters.
+           "Indicates how to handle I-SID filters.
             The I-component is responsible for mapping customer
-            Ethernet traffic to the appropriate ISID.";
+            Ethernet traffic to the appropriate I-SID.";
          choice isid-type {
            description
-             "ISID definition from range or operator.";
+             "I-SID definition from range or operator.";
            case range {
              leaf lower-isid {
                type uint16;
@@ -1583,13 +1593,13 @@ Table of Contents
                }
                mandatory true;
                description
-                 "Lower boundary for a ISID.";
+                 "Lower boundary for an I-SID.";
              }
              leaf upper-isid {
                type uint16;
                mandatory true;
                description
-                 "Upper boundary for a ISID.";
+                 "Upper boundary for an I-SID.";
              }
            }
            case operator {
@@ -1597,13 +1607,15 @@ Table of Contents
                type packet-fields:operator;
                default "eq";
                description
-                 "Operator to be applied on the ISID below.";
+                 "Operator to be applied on the I-SID below.";
              }
              leaf-list isid {
                type uint16;
                description
-                 "ISID number along with the operator on which to
+                 "I-SID number along with the operator on which to
                   match.";
+               reference
+                 "IEEE 802.1ah: Provider Backbone Bridges";
              }
            }
          }
@@ -1772,13 +1784,13 @@ Table of Contents
    RESTCONF users to a preconfigured subset of all available NETCONF or
    RESTCONF protocol operations and content.
 
-   There are a number of data nodes defined in this YANG module that are
-   writable/creatable/deletable (i.e., config true, which is the
-   default).  These data nodes may be considered sensitive or vulnerable
-   in some network environments.  Write operations (e.g., edit-config)
-   to these data nodes without proper protection can have a negative
-   effect on network operations.  These are the subtrees and data nodes
-   and their sensitivity/vulnerability:
+   There are a number of data nodes defined in the "ietf-acl-enh" YANG
+   module that are writable/creatable/deletable (i.e., config true,
+   which is the default).  These data nodes may be considered sensitive
+   or vulnerable in some network environments.  Write operations (e.g.,
+   edit-config) to these data nodes without proper protection can have a
+   negative effect on network operations.  These are the subtrees and
+   data nodes and their sensitivity/vulnerability:
 
    'defined-sets':  These lists specify a set of sets and aliases.
       Similar to [RFC8519], unauthorized write access to these list can
@@ -1787,15 +1799,23 @@ Table of Contents
       The former may result in a DoS attack, or compromise a device.
       The latter may result in a DoS attack.
 
-   Some of the readable data nodes in this YANG module may be considered
-   sensitive or vulnerable in some network environments.  It is thus
-   important to control read access (e.g., via get, get-config, or
-   notification) to these data nodes.  These are the subtrees and data
-   nodes and their sensitivity/vulnerability:
+   Some of the readable data nodes in the "ietf-acl-enh" YANG module may
+   be considered sensitive or vulnerable in some network environments.
+   It is thus important to control read access (e.g., via get, get-
+   config, or notification) to these data nodes.  These are the subtrees
+   and data nodes and their sensitivity/vulnerability:
 
    'defined-sets':  Unauthorized read access of these lists will allow
       an attacker to identify the actual resources that are bound to
       ACLs.
+
+   The YANG modules "iana-icmpv4-types", "iana-icmpv6-types", and "iana-
+   ipv6-ext-types defines" a set of types.  These nodes are intended to
+   be reused by other YANG modules.  Each of these modules by itself
+   does not expose any data nodes that are writable, data nodes that
+   contain read-only state, or RPCs.  As such, there are no additional
+   security issues related to these YANG modules that need to be
+   considered.
 
 6.  IANA Considerations
 
@@ -1804,21 +1824,21 @@ Table of Contents
    This document requests IANA to register the following URIs in the
    "ns" subregistry within the "IETF XML Registry" [RFC3688]:
 
-            URI: urn:ietf:params:xml:ns:yang:ietf-acl-enh
-            Registrant Contact: The IESG.
-            XML: N/A; the requested URI is an XML namespace.
+   URI: urn:ietf:params:xml:ns:yang:ietf-acl-enh
+   Registrant Contact: The IESG.
+   XML: N/A; the requested URI is an XML namespace.
 
-            URI: urn:ietf:params:xml:ns:yang:iana-icmpv4-types
-            Registrant Contact: The IESG.
-            XML: N/A; the requested URI is an XML namespace.
+   URI: urn:ietf:params:xml:ns:yang:iana-icmpv4-types
+   Registrant Contact: The IESG.
+   XML: N/A; the requested URI is an XML namespace.
 
-            URI: urn:ietf:params:xml:ns:yang:iana-icmpv6-types
-            Registrant Contact: The IESG.
-            XML: N/A; the requested URI is an XML namespace.
+   URI: urn:ietf:params:xml:ns:yang:iana-icmpv6-types
+   Registrant Contact: The IESG.
+   XML: N/A; the requested URI is an XML namespace.
 
-            URI: urn:ietf:params:xml:ns:yang:iana-ipv6-ext-types
-            Registrant Contact: The IESG.
-            XML: N/A; the requested URI is an XML namespace.
+   URI: urn:ietf:params:xml:ns:yang:iana-ipv6-ext-types
+   Registrant Contact: The IESG.
+   XML: N/A; the requested URI is an XML namespace.
 
 6.2.  YANG Module Name Registrations
 
@@ -1826,29 +1846,29 @@ Table of Contents
    the "YANG Module Names" subregistry [RFC6020] within the "YANG
    Parameters" registry.
 
-       name: ietf-acl-enh
-       namespace: urn:ietf:params:xml:ns:yang:ietf-acl-enh
-       maintained by IANA: N
-       prefix: acl-enh
-       reference: RFC XXXX
+   name: ietf-acl-enh
+   namespace: urn:ietf:params:xml:ns:yang:ietf-acl-enh
+   maintained by IANA: N
+   prefix: acl-enh
+   reference: RFC XXXX
 
-       name: iana-icmpv4-types
-       namespace: urn:ietf:params:xml:ns:yang:iana-icmpv4-types
-       maintained by IANA: Y
-       prefix: iana-icmpv4-types
-       reference: RFC XXXX
+   name: iana-icmpv4-types
+   namespace: urn:ietf:params:xml:ns:yang:iana-icmpv4-types
+   maintained by IANA: Y
+   prefix: iana-icmpv4-types
+   reference: RFC XXXX
 
-       name: iana-icmpv6-types
-       namespace: urn:ietf:params:xml:ns:yang:iana-icmpv6-types
-       maintained by IANA: Y
-       prefix: iana-icmpv6-types
-       reference: RFC XXXX
+   name: iana-icmpv6-types
+   namespace: urn:ietf:params:xml:ns:yang:iana-icmpv6-types
+   maintained by IANA: Y
+   prefix: iana-icmpv6-types
+   reference: RFC XXXX
 
-       name: iana-ipv6-ext-types
-       namespace: urn:ietf:params:xml:ns:yang:iana-ipv6-ext-types
-       maintained by IANA: Y
-       prefix: iana-ipv6-ext-types
-       reference: RFC XXXX
+   name: iana-ipv6-ext-types
+   namespace: urn:ietf:params:xml:ns:yang:iana-ipv6-ext-types
+   maintained by IANA: Y
+   prefix: iana-ipv6-ext-types
+   reference: RFC XXXX
 
 6.3.  Considerations for IANA-Maintained Modules
 
@@ -2172,6 +2192,12 @@ Table of Contents
               networks -- Virtual Bridged Local Area Networks Amendment
               7: Provider Backbone Bridges", August 2008,
               <https://standards.ieee.org/standard/802_1ah-2008.html>.
+
+   [IEEE802.1Qcp]
+              IEEE, "IEEE Standard for Local and metropolitan area
+              networks--Bridges and Bridged Networks--Amendment 30: YANG
+              Data Model", September 2018,
+              <https://doi.org/10.1109/IEEESTD.2018.8467507>.
 
    [RFC2780]  Bradner, S. and V. Paxson, "IANA Allocation Guidelines For
               Values In the Internet Protocol and Related Headers",
@@ -2697,7 +2723,7 @@ B.1.  XSLT Template to Generate the ICMPv6 Types IANA-Maintained Module
 
 B.2.  Initial Version of the ICMPv6 Types IANA-Maintained Module
 
-   <CODE BEGINS> file "iana-icmpv6-types@2020-09-25.yang"
+   <CODE BEGINS> file "iana-icmpv6-types@2023-04-28.yang"
    module iana-icmpv6-types {
      yang-version 1.1;
      namespace "urn:ietf:params:xml:ns:yang:iana-icmpv6-types";
