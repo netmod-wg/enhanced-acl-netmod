@@ -453,8 +453,9 @@ Table of Contents
       document.
 
    Aliases:  An alias is defined by a combination of various parameters
-      (e.g., IP prefix, protocol, port number, or VLAN).  Sets of
-      aliases can be defined and referred to in ACL match criteria.
+      (e.g., IP prefix, protocol, port number, or VLAN [IEEE802.1Qcp]).
+      Sets of aliases can be defined and referred to in ACL match
+      criteria.
 
 3.3.  IPv6 Extension Headers
 
@@ -2191,6 +2192,12 @@ Table of Contents
               networks -- Virtual Bridged Local Area Networks Amendment
               7: Provider Backbone Bridges", August 2008,
               <https://standards.ieee.org/standard/802_1ah-2008.html>.
+
+   [IEEE802.1Qcp]
+              IEEE, "IEEE Standard for Local and metropolitan area
+              networks--Bridges and Bridged Networks--Amendment 30: YANG
+              Data Model", September 2018,
+              <https://doi.org/10.1109/IEEESTD.2018.8467507>.
 
    [RFC2780]  Bradner, S. and V. Paxson, "IANA Allocation Guidelines For
               Values In the Internet Protocol and Related Headers",
