@@ -1053,7 +1053,7 @@ module ietf-acl-enh {
               "I-SID number along with the operator on which to
                match.";
             reference
-              "IEEE 802.1ah: Provider Backbone Bridges"
+              "IEEE 802.1ah: Provider Backbone Bridges";
           }
         }
       }
