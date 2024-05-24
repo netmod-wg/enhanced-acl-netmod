@@ -3778,6 +3778,8 @@ Acknowledgements
    Thanks to Qiufang Ma, Victor Lopez, Joe Clarke, and Mahesh
    Jethanandani for the comments and suggestions.
 
+   Thanks to Lou Berger for Shepherding the document.
+
    The IANA-maintained modules were generated using an XSLT stylesheet
    from the 'iana-yang' project (https://github.com/llhotka/iana-yang).
 
