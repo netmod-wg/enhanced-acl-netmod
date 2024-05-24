@@ -70,6 +70,14 @@ informative:
               -
                 name: IEEE
 
+   IEEE802.1Qcp:
+              title: "IEEE Standard for Local and metropolitan area networks--Bridges and Bridged Networks--Amendment 30: YANG Data Model"
+              date: September 2018
+              target: https://doi.org/10.1109/IEEESTD.2018.8467507
+              author:
+              -
+                name: IEEE
+
 --- abstract
 
 RFC 8519 defines a YANG data model for Access Control Lists
@@ -201,7 +209,7 @@ ICMP sets:
 : New IANA-maintained modules for ICMP types are defined in this document.
 
 Aliases:
-: An alias is defined by a combination of various parameters (e.g., IP prefix, protocol, port number, or VLAN). Sets of aliases can be defined and referred to in ACL match criteria.
+: An alias is defined by a combination of various parameters (e.g., IP prefix, protocol, port number, or VLAN {{IEEE802.1Qcp}}). Sets of aliases can be defined and referred to in ACL match criteria.
 
 ## IPv6 Extension Headers
 
