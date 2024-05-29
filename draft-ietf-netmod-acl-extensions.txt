@@ -5,12 +5,12 @@
 netmod                                                     O. G. D. Dios
 Internet-Draft                                                Telefonica
 Intended status: Standards Track                              S. Barguil
-Expires: 25 November 2024                                          Nokia
+Expires: 30 November 2024                                          Nokia
                                                             M. Boucadair
                                                                   Orange
                                                                    Q. Wu
                                                                   Huawei
-                                                             24 May 2024
+                                                             29 May 2024
 
 
         Extensions to the Access Control Lists (ACLs) YANG Model
@@ -51,7 +51,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 25 November 2024.
+   This Internet-Draft will expire on 30 November 2024.
 
 Copyright Notice
 
@@ -1615,7 +1615,7 @@ Table of Contents
                  "I-SID number along with the operator on which to
                   match.";
                reference
-                 "IEEE 802.1ah: Provider Backbone Bridges"
+                 "IEEE 802.1ah: Provider Backbone Bridges";
              }
            }
          }
