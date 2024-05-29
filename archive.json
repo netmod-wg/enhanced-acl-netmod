@@ -1,0 +1,1017 @@
+{
+  "magic": "E!vIA5L86J2I",
+  "timestamp": "2023-04-18T01:11:16.370998+00:00",
+  "repo": "boucadair/enhanced-acl-netmod",
+  "labels": [
+    {
+      "name": "bug",
+      "description": "Something isn't working",
+      "color": "d73a4a"
+    },
+    {
+      "name": "documentation",
+      "description": "Improvements or additions to documentation",
+      "color": "0075ca"
+    },
+    {
+      "name": "duplicate",
+      "description": "This issue or pull request already exists",
+      "color": "cfd3d7"
+    },
+    {
+      "name": "enhancement",
+      "description": "New feature or request",
+      "color": "a2eeef"
+    },
+    {
+      "name": "good first issue",
+      "description": "Good for newcomers",
+      "color": "7057ff"
+    },
+    {
+      "name": "help wanted",
+      "description": "Extra attention is needed",
+      "color": "008672"
+    },
+    {
+      "name": "invalid",
+      "description": "This doesn't seem right",
+      "color": "e4e669"
+    },
+    {
+      "name": "question",
+      "description": "Further information is requested",
+      "color": "d876e3"
+    },
+    {
+      "name": "wontfix",
+      "description": "This will not be worked on",
+      "color": "ffffff"
+    },
+    {
+      "name": "revive_when_core_spec_stable",
+      "description": "Will be reassessed when the core spec is stable.",
+      "color": "bfdadc"
+    },
+    {
+      "name": "YANG",
+      "description": "",
+      "color": "BBC780"
+    },
+    {
+      "name": "I-D_Text",
+      "description": "Add text to the draft to clarify the concern",
+      "color": "916597"
+    },
+    {
+      "name": "dig_more_needed",
+      "description": "",
+      "color": "bfd4f2"
+    }
+  ],
+  "issues": [
+    {
+      "number": 1,
+      "id": "I_kwDOIykBHs5bjHX1",
+      "title": "Create standalone container for Defined Set",
+      "url": "https://github.com/boucadair/enhanced-acl-netmod/issues/1",
+      "state": "CLOSED",
+      "author": "boucadair",
+      "authorAssociation": "OWNER",
+      "assignees": [
+        "boucadair"
+      ],
+      "labels": [
+        "YANG"
+      ],
+      "body": "WG feedback https://github.com/ietf 115 meeting was that a standalone container could be best usable by other models.\r\n\r\n(initially created here: https://github.com/oscargdd/draft-dbb-netmod-enhanced-acl/issues/3)",
+      "createdAt": "2023-01-17T07:55:42Z",
+      "updatedAt": "2023-02-20T13:45:25Z",
+      "closedAt": "2023-02-20T13:45:25Z",
+      "comments": [
+        {
+          "author": "boucadair",
+          "authorAssociation": "OWNER",
+          "body": "Agree to define them at the root level",
+          "createdAt": "2023-01-18T13:46:57Z",
+          "updatedAt": "2023-01-18T13:46:57Z"
+        }
+      ]
+    },
+    {
+      "number": 2,
+      "id": "I_kwDOIykBHs5bjHjk",
+      "title": "(From Eliot Lear) Implication on existing ACL augmentations",
+      "url": "https://github.com/boucadair/enhanced-acl-netmod/issues/2",
+      "state": "OPEN",
+      "author": "boucadair",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [
+        "revive_when_core_spec_stable",
+        "I-D_Text"
+      ],
+      "body": "> I have no objections to the WG adopting this, but I do have a question\r\n> about augmentations of the earlier ACL model. Should those\r\n> augmentations be updated if this work is approved?\r\n\r\n(initially here: https://github.com/oscargdd/draft-dbb-netmod-enhanced-acl/issues/4)",
+      "createdAt": "2023-01-17T07:56:26Z",
+      "updatedAt": "2023-02-17T08:32:15Z",
+      "closedAt": null,
+      "comments": [
+        {
+          "author": "oscargdd",
+          "authorAssociation": "COLLABORATOR",
+          "body": "In the draft we need to add pointers to other extensions. Action point to collect current RFCs with ACL augmentations.",
+          "createdAt": "2023-01-18T13:51:15Z",
+          "updatedAt": "2023-01-18T13:51:15Z"
+        },
+        {
+          "author": "oscargdd",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Check https://yangcatalog.org/yang-search/impact_analysis/ietf-packet-fields@2019-03-04 to document current augments and asses the impact",
+          "createdAt": "2023-01-18T13:54:36Z",
+          "updatedAt": "2023-01-18T13:54:36Z"
+        }
+      ]
+    },
+    {
+      "number": 3,
+      "id": "I_kwDOIykBHs5bj1Ya",
+      "title": "(from Qin) Factorize scheduled ACLs",
+      "url": "https://github.com/boucadair/enhanced-acl-netmod/issues/3",
+      "state": "OPEN",
+      "author": "boucadair",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [
+        "revive_when_core_spec_stable",
+        "YANG"
+      ],
+      "body": "Happy new year, Qiufang and I are working on the update of draft-ma-opsawg-ucl-acl, we haven't finished yet, but like to share the draft version(see attached).\r\nOne issue we have addressed in the latest version is to factor out calendar data from UCL YANG model, defined them as grouping,\r\n```\r\n   module: ietf-calendar\r\n     grouping period:\r\n       +-- period-of-time\r\n          +-- (forms)?\r\n             +--:(period-explicit)\r\n             |  +-- explicit-start?   yang:date-and-time\r\n             |  +-- explicit-end?     yang:date-and-time\r\n             +--:(period-start)\r\n                +-- start?            yang:date-and-time\r\n                +-- duration?         yang:time-no-zone\r\n     grouping recurrence:\r\n       +-- recurrence\r\n          +-- freq           enumeration\r\n          +-- (until-or-count)?\r\n          |  +--:(until)\r\n          |  |  +-- until?   union\r\n          |  +--:(count)\r\n          |     +-- count?   uint32\r\n          +-- interval?      uint32\r\n          +-- bysecond*      uint32\r\n          +-- byminute*      uint32\r\n          +-- byhour*        uint32\r\n          +-- byday* [weekday]\r\n          |  +-- direction?   int32\r\n          |  +-- weekday?     ical:weekday\r\n          +-- bymonthday*    int32\r\n          +-- byyearday*     int32\r\n          +-- byyearweek*    int32\r\n          +-- byyearmonth*   uint32\r\n          +-- bysetpos*      int32\r\n          +-- wkst*          ical:weekday\r\n\r\n```\r\nSo we can reuses these grouping in the following YANG snippet:\r\n```\r\n        augment \"/acl:acls/acl:acl/acl:aces/acl:ace\" {\r\n          if-feature \"match-on-time\";\r\n          description\r\n            \"Add a new parameter to the Access Control Entry (ACE).\";\r\n          container time-range {\r\n            description\r\n              \"This container defines when the access control\r\n               entry rules are in effect.\r\n               If it is not configured, the access control entry\r\n               is immediately and always in effect.\";\r\n            choice time-range-type {\r\n              description\r\n                \"Choice based on the type of the time range.\";\r\n              case periodic-range {\r\n                description\r\n                  \"A periodic range of time to take effect.\";\r\n                uses ical:recurrence;\r\n              }\r\n              case absolute-range {\r\n                description\r\n                  \"A single precise period of time to take effect.\";\r\n                uses ical:period;\r\n              }\r\n            }\r\n          }\r\n        }\r\n```\r\nI am wondering these part should be factored into draft-dbb-netmod-acl-03?\r\n",
+      "createdAt": "2023-01-17T10:18:35Z",
+      "updatedAt": "2023-02-17T08:31:53Z",
+      "closedAt": null,
+      "comments": [
+        {
+          "author": "oscargdd",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Wait until having an stable version of the draft",
+          "createdAt": "2023-01-18T13:56:40Z",
+          "updatedAt": "2023-01-18T13:56:40Z"
+        }
+      ]
+    },
+    {
+      "number": 4,
+      "id": "I_kwDOIykBHs5bqdmA",
+      "title": "EVPN Filtering",
+      "url": "https://github.com/boucadair/enhanced-acl-netmod/issues/4",
+      "state": "CLOSED",
+      "author": "sbarguil",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [
+        "sbarguil"
+      ],
+      "labels": [
+        "YANG",
+        "dig_more_needed"
+      ],
+      "body": "Hi all,\r\n\r\nFor the EVPN use case it is intering to consider additional filters such as:\r\n\r\n- Service identifiers (MAC ISID Filter Policy): \r\n\r\nProvider backbone bridging (PBB) was originally defined as IEEE 802.1ah standard, and operates in exactly the same manner as IEEE 802.1ad standard. However, instead of multiplexing VLANs, PBB duplicates the MAC layer of the customer frame and separates it from the provider domain, by encapsulating it in a 24 bit instance service identifier (I-SID). This allows for complete transparency between the customer network and the provider network.\r\n\r\nThe I-component forms the customer or access facing interface or routing instance. The I-component is responsible for mapping customer Ethernet traffic to the appropriate I-SID. In the netrowk is mandatory to configure the default service identifier (I-SID).\r\n\r\nBeign able to filter by I-Component Service identifier is a feature of the PBB configuration. \r\n\r\n```\r\nmac-filter 90 create\r\n\tdescription \"filter-wan-man\"\r\n\tscope template\r\n\ttype isid\r\n\tentry 1 create\r\n\t\tdescription \"drop-local-isids\"\r\n\t\tmatch\r\n\t\t\tisid 100 to 1000\r\n\t\texit\r\n\t\taction drop\r\n\texit\r\n\tentry 2 create\r\n\t\tdescription \"allow-wan-isids\"\r\n\t\tmatch\r\n\t\t\tisid 150\r\n\t\texit\r\n\t\taction forward\r\n\texit\r\n```\r\n\r\n",
+      "createdAt": "2023-01-18T11:46:08Z",
+      "updatedAt": "2023-04-17T12:19:01Z",
+      "closedAt": "2023-04-17T12:19:01Z",
+      "comments": [
+        {
+          "author": "oscargdd",
+          "authorAssociation": "COLLABORATOR",
+          "body": "@sbarguil Please provide a motivation of the use case for both functionalities. ",
+          "createdAt": "2023-01-18T13:58:44Z",
+          "updatedAt": "2023-01-18T13:58:44Z"
+        },
+        {
+          "author": "sbarguil",
+          "authorAssociation": "COLLABORATOR",
+          "body": "With more innovative technologies like VLAN Based-EVPN as decribed by [Juniper](https://www.juniper.net/documentation/us/en/software/junos/evpn-vxlan/topics/concept/evpn-based-services.html), VxLAN implemented by [Cisco](https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst6500/ios/12-2SX/configuration/guide/book/vacl.html#14906) or as [Huawei](https://support.huawei.com/enterprise/en/doc/EDOC1000178116/671214b/how-can-i-apply-an-acl-to-a-vlan)  simply the flexibility to apply a traffic filter to a VLAN; there is a common necessity to control all packets that are bridged within a VLAN or that are routed into or out of a VLAN or a WAN interface for the ACL capture.. \r\n\r\nIt can be defined as:\r\n\r\n- traffic-filter vlan _vlan-id_ inbound acl _acl-name_\r\n- traffic-filter vlan _vlan-id_ outbound acl _acl-name_\r\n\r\nThe _vlan-id_ can be a single vlan a range or a list. \r\n\r\nFor example include vlans from 12 to 16:\r\n- traffic-filter vlan *12-16* inbound acl _acl-name_\r\n\r\nFor example include vlan 2 and vlans from 4 to 6:\r\n- traffic-filter vlan *2*, *4-6* outbound acl _acl-name_\r\n \r\n- Vlan IDs (MAC VID Filter Policy)\r\n\r\n```\r\n      default-action forward\r\n      type vic\r\n      entry 1 create\r\n         match frame-type ethernet_II\r\n           ouiter-tag 85 4095\r\n         exit\r\n         action drop\r\n      exit\r\n      entry 2 create\r\n         match frame-type ethernet_II\r\n           ouiter-tag 43 4095\r\n         exit\r\n         action drop\r\n      exit   \r\n```    ",
+          "createdAt": "2023-01-25T12:28:24Z",
+          "updatedAt": "2023-01-25T13:04:23Z"
+        },
+        {
+          "author": "sbarguil",
+          "authorAssociation": "COLLABORATOR",
+          "body": "To cover the range in the VLAN filter; Each modification muist include the sample usage in the I-D Document",
+          "createdAt": "2023-02-20T13:33:53Z",
+          "updatedAt": "2023-02-20T13:33:53Z"
+        }
+      ]
+    },
+    {
+      "number": 5,
+      "id": "I_kwDOIykBHs5bqeW3",
+      "title": "Action Redirect",
+      "url": "https://github.com/boucadair/enhanced-acl-netmod/issues/5",
+      "state": "OPEN",
+      "author": "sbarguil",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [
+        "sbarguil"
+      ],
+      "labels": [
+        "YANG",
+        "dig_more_needed"
+      ],
+      "body": "Can we complement the actions with a redirect option.\r\n\r\nThis will be highly dependant of the routers capabilities but this redirection can be to a Captive Portal for HTTP traffic, for example:\r\n\r\n```\r\n            entry 30 create\r\n                match protocol tcp\r\n                    dst-ip 10.10.10.91/24\r\n                    dst-port eq 80\r\n                exit\r\n                action http-redirect \"http://100.0.0.2/login.cgi?mac=$MAC$sap=$S\r\nAP&ip=$IP&orig_url=$URL\"\r\n```",
+      "createdAt": "2023-01-18T11:48:43Z",
+      "updatedAt": "2023-04-17T12:23:16Z",
+      "closedAt": null,
+      "comments": [
+        {
+          "author": "sbarguil",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Do we want to make it at IP or application Level. It requires further discussions: usage and possible implementations. ",
+          "createdAt": "2023-02-20T14:01:03Z",
+          "updatedAt": "2023-02-20T14:01:03Z"
+        },
+        {
+          "author": "boucadair",
+          "authorAssociation": "OWNER",
+          "body": "@sbarguil, any update on this?",
+          "createdAt": "2023-04-17T12:23:16Z",
+          "updatedAt": "2023-04-17T12:23:16Z"
+        }
+      ]
+    },
+    {
+      "number": 6,
+      "id": "I_kwDOIykBHs5brHqC",
+      "title": "add a reference to point to sets from other modules",
+      "url": "https://github.com/boucadair/enhanced-acl-netmod/issues/6",
+      "state": "CLOSED",
+      "author": "boucadair",
+      "authorAssociation": "OWNER",
+      "assignees": [
+        "boucadair"
+      ],
+      "labels": [
+        "YANG"
+      ],
+      "body": "Add a typedef for referencing purposes",
+      "createdAt": "2023-01-18T13:45:59Z",
+      "updatedAt": "2023-02-20T13:45:26Z",
+      "closedAt": "2023-02-20T13:45:26Z",
+      "comments": []
+    },
+    {
+      "number": 8,
+      "id": "I_kwDOIykBHs5djgLI",
+      "title": "ICMP matches: include identities for Types and Codes",
+      "url": "https://github.com/boucadair/enhanced-acl-netmod/issues/8",
+      "state": "CLOSED",
+      "author": "oscargdd",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [
+        "boucadair"
+      ],
+      "labels": [
+        "YANG"
+      ],
+      "body": "Currently the members of an ICMP match are numbers. For the user defining the ACL, it is more intuitive and less prone to errors to write identities. However, given that ICMP types and codes are well documented by IANA, the suggestion is to create identities. A separate IANA-maintained module would be a good candidate to host the identities. ",
+      "createdAt": "2023-02-03T10:08:36Z",
+      "updatedAt": "2023-02-20T13:54:03Z",
+      "closedAt": "2023-02-20T13:54:03Z",
+      "comments": []
+    },
+    {
+      "number": 9,
+      "id": "I_kwDOIykBHs5djhp-",
+      "title": "IPv6 extended header matches",
+      "url": "https://github.com/boucadair/enhanced-acl-netmod/issues/9",
+      "state": "OPEN",
+      "author": "oscargdd",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [
+        "oscargdd"
+      ],
+      "labels": [
+        "YANG"
+      ],
+      "body": "Use case: match extended header of an IPv6 packet, for example routing headers ",
+      "createdAt": "2023-02-03T10:12:33Z",
+      "updatedAt": "2023-04-17T12:27:15Z",
+      "closedAt": null,
+      "comments": []
+    },
+    {
+      "number": 10,
+      "id": "I_kwDOIykBHs5etELF",
+      "title": "Comments from Qin",
+      "url": "https://github.com/boucadair/enhanced-acl-netmod/issues/10",
+      "state": "OPEN",
+      "author": "boucadair",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [
+        "question"
+      ],
+      "body": "> These comments can be summarized as follows:\r\n> 1.\tWe need to clarify the relationship between draft-dbb and draft-ma-opsawg-ucl-acl\r\n> 2.\tSection 3.3 and Section 3.8 seems related, not sure whether these two section should be consolidated\r\n> 3.\tHow match element grouping in pre-defined set is different from configuration template?\r\n> Happy to discuss with you about these comments if needed.\r\n> ",
+      "createdAt": "2023-02-17T07:22:20Z",
+      "updatedAt": "2023-02-17T07:22:20Z",
+      "closedAt": null,
+      "comments": []
+    },
+    {
+      "number": 15,
+      "id": "I_kwDOIykBHs5e3Blv",
+      "title": "Payload match Clarification",
+      "url": "https://github.com/boucadair/enhanced-acl-netmod/issues/15",
+      "state": "CLOSED",
+      "author": "sbarguil",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [
+        "boucadair"
+      ],
+      "labels": [
+        "I-D_Text"
+      ],
+      "body": " payload match is strange:\r\n\r\nit should be?\r\n\r\na) value in hex \r\nb) mask in hex \r\nc) offset-type ip/l4/payload \r\nd) offset-value in B from the offset-type -> pbb difficult to agree on this as different vendors may support different length -> \r\n\r\n[here](https://datatracker.ietf.org/doc/draft-khare-idr-bgp-flowspec-payload-match/08/) is a draft dedicated to this here",
+      "createdAt": "2023-02-20T09:35:11Z",
+      "updatedAt": "2023-04-17T12:29:24Z",
+      "closedAt": "2023-04-17T12:29:23Z",
+      "comments": [
+        {
+          "author": "sbarguil",
+          "authorAssociation": "COLLABORATOR",
+          "body": "To add more text to clarify and explain the usage of the Payload match in the text.",
+          "createdAt": "2023-02-20T13:41:43Z",
+          "updatedAt": "2023-02-20T13:41:43Z"
+        },
+        {
+          "author": "boucadair",
+          "authorAssociation": "OWNER",
+          "body": "Already fixed in 01",
+          "createdAt": "2023-04-17T12:29:23Z",
+          "updatedAt": "2023-04-17T12:29:23Z"
+        }
+      ]
+    },
+    {
+      "number": 19,
+      "id": "I_kwDOIykBHs5f40Th",
+      "title": "Comments from Victor",
+      "url": "https://github.com/boucadair/enhanced-acl-netmod/issues/19",
+      "state": "OPEN",
+      "author": "boucadair",
+      "authorAssociation": "OWNER",
+      "assignees": [
+        "boucadair"
+      ],
+      "labels": [],
+      "body": "Hi Med\r\n\r\nI put below some editorial and readability improvements for the draft. Unfortunately, I did them with the version prior to Feb 1st. \r\n \r\nAbstract:\r\n \r\nI would replace \"This document discusses a set of extensions that fix many of the limitations of the ACL model as initially defined in RFC 8519.\" By \"This document discusses a set of extensions that address some of the limitations of the ACL model as defined in RFC 8519.\" because it might not completely fix all the limitations. \r\n \r\n1. Introduction\r\n \r\nAccess control lists (ACLs) \uf0e0 Access Control Lists (ACLs)\r\n \r\nIf it is needed, for example, \uf0e0 If, for example, it is needed \r\n \r\nentering IP address \uf0e0 entering the IP address \r\n \r\n3.1.  Suboptimal Configuration: Lack of Support for Lists of Prefixes\r\n \r\nIP prefix related data nodes \uf0e0 IP prefix-related data nodes \r\n \r\nDDoS attacks (e.g., RFC9132] when a set of sources are involved \uf0e0 DDoS attacks, e.g., [RFC9132], when a set of sources are involved\r\n \r\nThis sentence is not clear for me: \r\n \r\n\u201cSuch a configuration is suboptimal for both: - Network controllers that need to manipulate large files.\u201d I think it is missing some information. Network controllers and\u2026 My guess is that it should be something like \r\n \r\nSuch a configuration is suboptimal for both: network controllers and devices. Network controllers need to manipulate large files and they will need to pass all or a subset of the configuration to the underlying network devices. The devices will need to maintain the information locally and perform multiple configurations.\r\n \r\nConfirguration \uf0e0 configuration\r\n \r\n(Figure 2 depicts \uf0e0 Figure 2 depicts\r\n \r\n3.2.  Manageability: Impossibility to Use Aliases or Defined Sets\r\n \r\nIntroduing \uf0e0 introducing\r\n \r\nEach category is modelled \r\n \r\nMake uses \uf0e0 make use\r\n \r\nICMP sets: Uses \uf0e0 ICMP Used\r\n \r\nto managed resources  \uf0e0 to manage resources \r\n \r\n3.4. Partial or Lack of IPv4/IPv6 Fragment Handling\r\n \r\nThe sentence \"does not support fragment handling capability for IPv6\" I would changed it to \"does not support fragment handling for IPv6\" to improve readability\r\n \r\nIPv4 by means of 'flags' \uf0e0 IPv4 through the use of 'flags'\r\n \r\nallow a bitmask to be defined \uf0e0 allow the use of bitmasks.\r\n \r\nDefining a new IPv4/IPv6 matching field called 'fragment' is thus required \uf0e0 As a result, a new IPv4/IPv6 matching field called 'fragment' is defined \r\n \r\n3.5.  Suboptimal TCP Flags Handling\r\n \r\nThe sentence \"Defining this field to be defined as a flag bitmask together with a set of operations is meant to efficiently handle TCP flags filtering rules\" I would changed it to \"Defining this field as a flag bitmask with a set of operations can improve the efficiency of handling TCP flags filtering rules\" \r\n \r\n3.6.  Rate-Limit Action\r\n \r\nSuch capability is not currently supported \uf0e0 This capability (as it was already described)\r\n \r\n3.7.  Payload-based Filtering\r\n                                                                                               \r\nSome transport protocols use existing protocols \uf0e0 Some transport protocols rely on existing protocols\r\n \r\nIt is not clear to me why this section highlights the same gap in the two models. Someone can ask for a solution. \r\n \r\n3.8.  Reuse the ACLs Content Across Several Devices\r\n \r\nfollowing the hierarchy of the network topology \uf0e0 based on the network topology hierarchy\r\n \r\n\u201cthen, that same ACL can be used (or referenced to) in several devices (including termination points) within the same network\u201d I would change it for \u201cthen reused or referenced across multiple devices, including termination points within the same network\u201d\r\n \r\n4.5.  Rate-Limit Traffic\r\n \r\n(#example_5) shows an ACL example to rate-limit incoming SYNs during a SYN flood attack. \uf0e0 I think it is a missing link to the figure\r\n\r\nYANG file some typos\r\n\r\n          leaf-list protocol {\r\n            type union {\r\n              type uint8;\r\n              type string; //Check if we can reuse an IANA-maintained module\r\n            }\r\n            description\r\n              \"Value of the protocl set.\"; \uf0e0 protocol\r\n          }\r\n \r\nRegards,\r\n \r\nVictor\r\n \r\n \r\n",
+      "createdAt": "2023-03-03T14:19:11Z",
+      "updatedAt": "2023-04-17T12:38:00Z",
+      "closedAt": null,
+      "comments": []
+    },
+    {
+      "number": 22,
+      "id": "I_kwDOIykBHs5gf3Wg",
+      "title": "Update Match Filter to support aliases",
+      "url": "https://github.com/boucadair/enhanced-acl-netmod/issues/22",
+      "state": "OPEN",
+      "author": "boucadair",
+      "authorAssociation": "OWNER",
+      "assignees": [
+        "boucadair"
+      ],
+      "labels": [
+        "YANG"
+      ],
+      "body": "",
+      "createdAt": "2023-03-10T13:17:05Z",
+      "updatedAt": "2023-03-10T13:17:06Z",
+      "closedAt": null,
+      "comments": []
+    },
+    {
+      "number": 23,
+      "id": "I_kwDOIykBHs5g3dPb",
+      "title": "Implement all the recos in draft-boucadair-netmod-iana-registries",
+      "url": "https://github.com/boucadair/enhanced-acl-netmod/issues/23",
+      "state": "OPEN",
+      "author": "boucadair",
+      "authorAssociation": "OWNER",
+      "assignees": [
+        "boucadair"
+      ],
+      "labels": [
+        "YANG"
+      ],
+      "body": "",
+      "createdAt": "2023-03-15T09:50:42Z",
+      "updatedAt": "2023-03-15T09:50:43Z",
+      "closedAt": null,
+      "comments": []
+    },
+    {
+      "number": 24,
+      "id": "I_kwDOIykBHs5jmkaL",
+      "title": "Consider common actions",
+      "url": "https://github.com/boucadair/enhanced-acl-netmod/issues/24",
+      "state": "OPEN",
+      "author": "boucadair",
+      "authorAssociation": "OWNER",
+      "assignees": [
+        "oscargdd"
+      ],
+      "labels": [],
+      "body": "in addition to those in the draft. less common ones to be out of scope",
+      "createdAt": "2023-04-17T12:24:33Z",
+      "updatedAt": "2023-04-17T12:24:33Z",
+      "closedAt": null,
+      "comments": []
+    }
+  ],
+  "pulls": [
+    {
+      "number": 7,
+      "id": "PR_kwDOIykBHs5HoKEr",
+      "title": "Move defined-sets to top-level container",
+      "url": "https://github.com/boucadair/enhanced-acl-netmod/pull/7",
+      "state": "MERGED",
+      "author": "oscargdd",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Solves Issue #1 ",
+      "createdAt": "2023-01-18T13:47:14Z",
+      "updatedAt": "2023-01-18T14:11:47Z",
+      "baseRepository": "boucadair/enhanced-acl-netmod",
+      "baseRefName": "main",
+      "baseRefOid": "de372113f3e214efd64087b071b0dbab1dd44c09",
+      "headRepository": "oscargdd/enhanced-acl-netmod",
+      "headRefName": "patch-1",
+      "headRefOid": "a714aaa387faddad8beee0930fc64bb0bca907c5",
+      "closedAt": "2023-01-18T14:11:47Z",
+      "mergedAt": "2023-01-18T14:11:47Z",
+      "mergedBy": "boucadair",
+      "mergeCommit": {
+        "oid": "70fa0b28d691f2c6a97628f64c05f69717ad2c1f"
+      },
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 11,
+      "id": "PR_kwDOIykBHs5KMyHx",
+      "title": "Define reusable port set + provision references to call the sets (inc\u2026",
+      "url": "https://github.com/boucadair/enhanced-acl-netmod/pull/11",
+      "state": "MERGED",
+      "author": "boucadair",
+      "authorAssociation": "OWNER",
+      "assignees": [
+        "boucadair"
+      ],
+      "labels": [
+        "YANG"
+      ],
+      "body": "\u2026luding in other models)",
+      "createdAt": "2023-02-17T09:07:42Z",
+      "updatedAt": "2023-02-20T13:45:25Z",
+      "baseRepository": "boucadair/enhanced-acl-netmod",
+      "baseRefName": "main",
+      "baseRefOid": "1430d2c8fa91cfba08d643603a422b8058578148",
+      "headRepository": "boucadair/enhanced-acl-netmod",
+      "headRefName": "boucadair-patch-1",
+      "headRefOid": "9889a9b568767cbea530a2adb9d21569bdc2852e",
+      "closedAt": "2023-02-20T13:45:24Z",
+      "mergedAt": "2023-02-20T13:45:24Z",
+      "mergedBy": "sbarguil",
+      "mergeCommit": {
+        "oid": "7d9ca8e0fdcfee074d5add4717e19ffdccd768d0"
+      },
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 12,
+      "id": "PR_kwDOIykBHs5KOr7w",
+      "title": "IANA Module for ICMP Types",
+      "url": "https://github.com/boucadair/enhanced-acl-netmod/pull/12",
+      "state": "MERGED",
+      "author": "boucadair",
+      "authorAssociation": "OWNER",
+      "assignees": [
+        "boucadair"
+      ],
+      "labels": [
+        "YANG"
+      ],
+      "body": "",
+      "createdAt": "2023-02-17T15:49:51Z",
+      "updatedAt": "2023-02-20T13:54:03Z",
+      "baseRepository": "boucadair/enhanced-acl-netmod",
+      "baseRefName": "main",
+      "baseRefOid": "1430d2c8fa91cfba08d643603a422b8058578148",
+      "headRepository": "boucadair/enhanced-acl-netmod",
+      "headRefName": "boucadair-patch-2",
+      "headRefOid": "1a35fb53f0b4732bb706d26b12f9fb83e4326a4c",
+      "closedAt": "2023-02-20T13:54:01Z",
+      "mergedAt": "2023-02-20T13:54:01Z",
+      "mergedBy": "sbarguil",
+      "mergeCommit": {
+        "oid": "c3e0f7837634b628de0b54890c1b8b4199fed726"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOIykBHs5N1Ypd",
+          "commit": {
+            "abbreviatedOid": "1a35fb5"
+          },
+          "author": "sbarguil",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2023-02-20T13:53:27Z",
+          "updatedAt": "2023-02-20T13:53:27Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 13,
+      "id": "PR_kwDOIykBHs5KOwt_",
+      "title": "Add the IANA module to the draft",
+      "url": "https://github.com/boucadair/enhanced-acl-netmod/pull/13",
+      "state": "CLOSED",
+      "author": "boucadair",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2023-02-17T16:05:38Z",
+      "updatedAt": "2023-03-10T12:33:58Z",
+      "baseRepository": "boucadair/enhanced-acl-netmod",
+      "baseRefName": "main",
+      "baseRefOid": "1430d2c8fa91cfba08d643603a422b8058578148",
+      "headRepository": "boucadair/enhanced-acl-netmod",
+      "headRefName": "boucadair-patch-2-1",
+      "headRefOid": "56039e720d51cf3ac1a6662673c1e22d337a892a",
+      "closedAt": "2023-02-17T16:10:18Z",
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [
+        {
+          "author": "boucadair",
+          "authorAssociation": "OWNER",
+          "body": "[Merged with PR#2](https://github.com/boucadair/enhanced-acl-netmod/pull/12)",
+          "createdAt": "2023-02-17T16:10:18Z",
+          "updatedAt": "2023-02-17T16:10:18Z"
+        }
+      ],
+      "reviews": []
+    },
+    {
+      "number": 14,
+      "id": "PR_kwDOIykBHs5KUyli",
+      "title": "TCP Flags Clarification",
+      "url": "https://github.com/boucadair/enhanced-acl-netmod/pull/14",
+      "state": "CLOSED",
+      "author": "sbarguil",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [
+        "YANG"
+      ],
+      "body": "tcp flags match is very difficult to understand,",
+      "createdAt": "2023-02-20T09:26:11Z",
+      "updatedAt": "2023-03-10T12:33:48Z",
+      "baseRepository": "boucadair/enhanced-acl-netmod",
+      "baseRefName": "main",
+      "baseRefOid": "2d4d1036c0441c8dae66b2edca7b30715689df1c",
+      "headRepository": "boucadair/enhanced-acl-netmod",
+      "headRefName": "TCP-Flags-Simplification",
+      "headRefOid": "c128908607e980b81e23f024bfda4b05de58ddc2",
+      "closedAt": "2023-03-06T13:56:58Z",
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [
+        {
+          "author": "boucadair",
+          "authorAssociation": "OWNER",
+          "body": "The design in the draft is aligned with the practices, e.g., in https://www.rfc-editor.org/rfc/rfc5575. \r\n\r\nI have a concern with the proposed changes as they cannot allow to enforce policies on the flags that are not currently assigned by IANA. This is problematic.\r\n\r\n",
+          "createdAt": "2023-02-20T10:32:19Z",
+          "updatedAt": "2023-02-20T10:32:19Z"
+        },
+        {
+          "author": "sbarguil",
+          "authorAssociation": "COLLABORATOR",
+          "body": "> The design in the draft is aligned with the practices, e.g., in https://www.rfc-editor.org/rfc/rfc5575.\r\n> \r\n> I have a concern with the proposed changes as they cannot allow to enforce policies on the flags that are not currently assigned by IANA. This is problematic.\r\n\r\nThe current implementations are highly alligned with the identity kind of behavior, and can clarify its usability.\r\n\r\nJuniper [ref](https://www.juniper.net/documentation/us/en/software/junos/idp-policy/topics/ref/statement/security-edit-tcp-flags.html):\r\n```\r\ntcp-flags {\r\n    (ack | no-ack);\r\n    (fin | no-fin);\r\n    (psh | no-psh);\r\n    (r1 | no-r1);\r\n    (r2 | no-r2);\r\n    (rst | no-rst);\r\n    (syn | no-syn);\r\n    (urg | no-urg);\r\n} \r\n```\r\n\r\nNokia [ref](https://infocenter.nokia.com/public/7750SR215R1A/index.jsp?topic=%2Fcom.sr.mdcli%2Fhtml%2Ffilter-filter_0.html):\r\n\r\n![image](https://user-images.githubusercontent.com/13772485/220093695-fe9804db-8150-4256-8708-b819a05cf3aa.png)\r\n\r\nCisco [ref](https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/sec_data_acl/configuration/xe-3se/3650/sec-data-acl-xe-3se-3650-book/sec-create-filter-tcp.html)\r\n\r\n![image](https://user-images.githubusercontent.com/13772485/220095030-8e27afe8-3efe-4a8c-b7c8-8e657d539ed0.png)\r\n\r\n\r\n\r\n\r\n\r\n\r\n",
+          "createdAt": "2023-02-20T11:28:17Z",
+          "updatedAt": "2023-02-20T11:33:51Z"
+        },
+        {
+          "author": "sbarguil",
+          "authorAssociation": "COLLABORATOR",
+          "body": "@sbarguil check descriptions and allign. ",
+          "createdAt": "2023-03-06T13:10:40Z",
+          "updatedAt": "2023-03-06T13:10:40Z"
+        }
+      ],
+      "reviews": [
+        {
+          "id": "PRR_kwDOIykBHs5O4zPa",
+          "commit": {
+            "abbreviatedOid": "3d3f71e"
+          },
+          "author": "boucadair",
+          "authorAssociation": "OWNER",
+          "state": "CHANGES_REQUESTED",
+          "body": "Thanks @sbarguil for this updated version. Please find herein some comments.",
+          "createdAt": "2023-03-03T10:41:02Z",
+          "updatedAt": "2023-03-03T10:47:45Z",
+          "comments": [
+            {
+              "originalPosition": 678,
+              "body": "Not sure what retransmission is mentioned here. Please check the full flags at: https://www.iana.org/assignments/tcp-parameters/tcp-parameters.xhtml#tcp-header-flags",
+              "createdAt": "2023-03-03T10:41:03Z",
+              "updatedAt": "2023-03-03T10:47:46Z"
+            },
+            {
+              "originalPosition": 684,
+              "body": "Idem as the previous comment",
+              "createdAt": "2023-03-03T10:41:14Z",
+              "updatedAt": "2023-03-03T10:47:46Z"
+            },
+            {
+              "originalPosition": 702,
+              "body": "Such flag was deprecated by [RFC8311](https://www.iana.org/go/rfc8311)]",
+              "createdAt": "2023-03-03T10:42:11Z",
+              "updatedAt": "2023-03-03T10:47:46Z"
+            },
+            {
+              "originalPosition": 825,
+              "body": "We need to indicate that this one is inferior to the full bitmask as checks only on known flags may let pass some packets while they carry \"weird\" flags (e.g.. SYN set but bit position 6 is also set.)",
+              "createdAt": "2023-03-03T10:46:40Z",
+              "updatedAt": "2023-03-03T10:47:46Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIykBHs5PDS1-",
+          "commit": {
+            "abbreviatedOid": "3d3f71e"
+          },
+          "author": "sbarguil",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2023-03-06T13:37:52Z",
+          "updatedAt": "2023-03-06T13:37:52Z",
+          "comments": [
+            {
+              "originalPosition": 684,
+              "body": "https://www.rfc-editor.org/rfc/rfc9293.html#name-tcp-connection-failures: There are two thresholds R1 and R2 measuring the amount of retransmission that has occurred for the same segment. R1 and R2 might be measured in time units or as a count of retransmissions (with the current RTO and corresponding backoffs as a conversion factor, if needed).",
+              "createdAt": "2023-03-06T13:37:52Z",
+              "updatedAt": "2023-03-06T13:37:52Z"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "number": 16,
+      "id": "PR_kwDOIykBHs5KU2ld",
+      "title": "Add units in the description for clarification",
+      "url": "https://github.com/boucadair/enhanced-acl-netmod/pull/16",
+      "state": "CLOSED",
+      "author": "sbarguil",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [
+        "YANG"
+      ],
+      "body": "",
+      "createdAt": "2023-02-20T09:37:51Z",
+      "updatedAt": "2023-02-20T13:29:59Z",
+      "baseRepository": "boucadair/enhanced-acl-netmod",
+      "baseRefName": "main",
+      "baseRefOid": "1430d2c8fa91cfba08d643603a422b8058578148",
+      "headRepository": "boucadair/enhanced-acl-netmod",
+      "headRefName": "Add-Rate-Limit-Units",
+      "headRefOid": "d59bce74571489e846d420763874a810811ecd09",
+      "closedAt": "2023-02-20T13:29:59Z",
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [
+        {
+          "author": "boucadair",
+          "authorAssociation": "OWNER",
+          "body": "FWIW, yangdoctors will complain that the description is redundant with the unit clause. I would not make this change. Thanks.",
+          "createdAt": "2023-02-20T10:34:20Z",
+          "updatedAt": "2023-02-20T10:34:20Z"
+        }
+      ],
+      "reviews": []
+    },
+    {
+      "number": 17,
+      "id": "PR_kwDOIykBHs5KaKJy",
+      "title": "ISID and MAC Filter Creation",
+      "url": "https://github.com/boucadair/enhanced-acl-netmod/pull/17",
+      "state": "MERGED",
+      "author": "sbarguil",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Innitial Commit #4 ",
+      "createdAt": "2023-02-21T08:55:01Z",
+      "updatedAt": "2023-03-10T12:47:26Z",
+      "baseRepository": "boucadair/enhanced-acl-netmod",
+      "baseRefName": "main",
+      "baseRefOid": "2deab0750810707522a0802f420abe37ffc93948",
+      "headRepository": "boucadair/enhanced-acl-netmod",
+      "headRefName": "ISID-MACVLAN-Filters",
+      "headRefOid": "c6e5458ebfc54b5412e22829113c4f7b31d6e8d5",
+      "closedAt": "2023-03-10T12:47:25Z",
+      "mergedAt": "2023-03-10T12:47:25Z",
+      "mergedBy": "boucadair",
+      "mergeCommit": {
+        "oid": "3e7d7000de455f8dee987768adc85eb2fc522eb0"
+      },
+      "comments": [
+        {
+          "author": "sbarguil",
+          "authorAssociation": "COLLABORATOR",
+          "body": "@sbarguil To include Features in the YANG for both filtering options. ",
+          "createdAt": "2023-03-06T13:08:14Z",
+          "updatedAt": "2023-03-06T13:08:24Z"
+        }
+      ],
+      "reviews": [
+        {
+          "id": "PRR_kwDOIykBHs5PNP2U",
+          "commit": {
+            "abbreviatedOid": "7de6950"
+          },
+          "author": "boucadair",
+          "authorAssociation": "OWNER",
+          "state": "CHANGES_REQUESTED",
+          "body": "",
+          "createdAt": "2023-03-07T15:47:31Z",
+          "updatedAt": "2023-03-07T15:50:58Z",
+          "comments": [
+            {
+              "originalPosition": 4,
+              "body": "```suggestion\r\n  feature match-on-vlan-filter {\r\n\r\n```",
+              "createdAt": "2023-03-07T15:47:31Z",
+              "updatedAt": "2023-03-07T15:50:58Z"
+            },
+            {
+              "originalPosition": 26,
+              "body": "```suggestion\r\n      if-feature \"match-on-vlan-filter\";\r\n\r\n```",
+              "createdAt": "2023-03-07T15:47:54Z",
+              "updatedAt": "2023-03-07T15:50:58Z"
+            },
+            {
+              "originalPosition": 28,
+              "body": "```suggestion\r\n        \"Indicates how to handle MAC VLANs.\";\r\n\r\n```",
+              "createdAt": "2023-03-07T15:48:04Z",
+              "updatedAt": "2023-03-07T15:50:58Z"
+            },
+            {
+              "originalPosition": 7,
+              "body": "Can we add a reference? Thanks. ",
+              "createdAt": "2023-03-07T15:49:17Z",
+              "updatedAt": "2023-03-07T15:50:58Z"
+            },
+            {
+              "originalPosition": 18,
+              "body": "```suggestion\r\nBeing able to filter by I-component Service identifier is a feature of\r\n```",
+              "createdAt": "2023-03-07T15:49:57Z",
+              "updatedAt": "2023-03-07T15:50:58Z"
+            },
+            {
+              "originalPosition": 57,
+              "body": "Any pointer to cite here?",
+              "createdAt": "2023-03-07T15:50:36Z",
+              "updatedAt": "2023-03-07T15:50:58Z"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "number": 18,
+      "id": "PR_kwDOIykBHs5LOvoa",
+      "title": "clarify the pattern-macth",
+      "url": "https://github.com/boucadair/enhanced-acl-netmod/pull/18",
+      "state": "MERGED",
+      "author": "boucadair",
+      "authorAssociation": "OWNER",
+      "assignees": [
+        "boucadair"
+      ],
+      "labels": [
+        "YANG"
+      ],
+      "body": "",
+      "createdAt": "2023-03-03T14:10:15Z",
+      "updatedAt": "2023-03-06T13:11:52Z",
+      "baseRepository": "boucadair/enhanced-acl-netmod",
+      "baseRefName": "main",
+      "baseRefOid": "55fe08f99f236e5888dda80840e58a1282979b16",
+      "headRepository": "boucadair/enhanced-acl-netmod",
+      "headRefName": "patter-match-clarification",
+      "headRefOid": "64ca29fb73ce932739962047eaa9854abe9088a2",
+      "closedAt": "2023-03-06T13:11:51Z",
+      "mergedAt": "2023-03-06T13:11:51Z",
+      "mergedBy": "sbarguil",
+      "mergeCommit": {
+        "oid": "2d4d1036c0441c8dae66b2edca7b30715689df1c"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOIykBHs5PDDhr",
+          "commit": {
+            "abbreviatedOid": "64ca29f"
+          },
+          "author": "sbarguil",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2023-03-06T13:11:44Z",
+          "updatedAt": "2023-03-06T13:11:44Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 20,
+      "id": "PR_kwDOIykBHs5LXz5w",
+      "title": "TCP flags new branch",
+      "url": "https://github.com/boucadair/enhanced-acl-netmod/pull/20",
+      "state": "MERGED",
+      "author": "sbarguil",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "To track previous comments follow #14 ",
+      "createdAt": "2023-03-06T13:56:46Z",
+      "updatedAt": "2023-03-10T12:33:49Z",
+      "baseRepository": "boucadair/enhanced-acl-netmod",
+      "baseRefName": "main",
+      "baseRefOid": "2d4d1036c0441c8dae66b2edca7b30715689df1c",
+      "headRepository": "boucadair/enhanced-acl-netmod",
+      "headRefName": "tcp-flags",
+      "headRefOid": "151203f93c86412e955c562505cb732108b5881d",
+      "closedAt": "2023-03-08T09:21:24Z",
+      "mergedAt": "2023-03-08T09:21:24Z",
+      "mergedBy": "boucadair",
+      "mergeCommit": {
+        "oid": "846fba235477f341633fd3ade7fdd9c9e8ba3f70"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOIykBHs5PNXIN",
+          "commit": {
+            "abbreviatedOid": "c20e4ed"
+          },
+          "author": "boucadair",
+          "authorAssociation": "OWNER",
+          "state": "CHANGES_REQUESTED",
+          "body": "",
+          "createdAt": "2023-03-07T15:57:31Z",
+          "updatedAt": "2023-03-07T16:03:47Z",
+          "comments": [
+            {
+              "originalPosition": 9,
+              "body": "```suggestion\r\n  identity ack {\r\n\r\n```",
+              "createdAt": "2023-03-07T15:57:31Z",
+              "updatedAt": "2023-03-07T16:03:47Z"
+            },
+            {
+              "originalPosition": 12,
+              "body": "```suggestion\r\n      \"The acknowledgment TCP flag is used to acknowledge the \r\n\r\n```",
+              "createdAt": "2023-03-07T15:57:44Z",
+              "updatedAt": "2023-03-07T16:03:47Z"
+            },
+            {
+              "originalPosition": 13,
+              "body": "There is no diagram :-)",
+              "createdAt": "2023-03-07T15:58:17Z",
+              "updatedAt": "2023-03-07T16:03:47Z"
+            },
+            {
+              "originalPosition": 7,
+              "body": "Please add a reference statement that points to 9293#3.1. (https://www.rfc-editor.org/rfc/rfc9293#name-header-format)",
+              "createdAt": "2023-03-07T15:59:47Z",
+              "updatedAt": "2023-03-07T16:03:47Z"
+            },
+            {
+              "originalPosition": 25,
+              "body": "Please replace the description with the text from 3.1 of 9293 provided in the previous comment. Thanks.",
+              "createdAt": "2023-03-07T16:00:43Z",
+              "updatedAt": "2023-03-07T16:03:47Z"
+            },
+            {
+              "originalPosition": 19,
+              "body": "```suggestion\r\n  identity syn {\r\n\r\n```",
+              "createdAt": "2023-03-07T16:01:06Z",
+              "updatedAt": "2023-03-07T16:03:47Z"
+            },
+            {
+              "originalPosition": 28,
+              "body": "```suggestion\r\n  identity fin {\r\n\r\n```",
+              "createdAt": "2023-03-07T16:01:17Z",
+              "updatedAt": "2023-03-07T16:03:47Z"
+            },
+            {
+              "originalPosition": 36,
+              "body": "```suggestion\r\n  identity urg {\r\n\r\n```",
+              "createdAt": "2023-03-07T16:01:28Z",
+              "updatedAt": "2023-03-07T16:03:47Z"
+            },
+            {
+              "originalPosition": 44,
+              "body": "```suggestion\r\n     \"RFC 9293: Transmission Control Protocol (TCP), Section 3.1\";\r\n\r\n```",
+              "createdAt": "2023-03-07T16:01:54Z",
+              "updatedAt": "2023-03-07T16:03:47Z"
+            },
+            {
+              "originalPosition": 47,
+              "body": "```suggestion\r\n  identity psh {\r\n\r\n```",
+              "createdAt": "2023-03-07T16:02:06Z",
+              "updatedAt": "2023-03-07T16:03:47Z"
+            },
+            {
+              "originalPosition": 55,
+              "body": "```suggestion\r\n  identity rst {\r\n\r\n```",
+              "createdAt": "2023-03-07T16:02:19Z",
+              "updatedAt": "2023-03-07T16:03:47Z"
+            },
+            {
+              "originalPosition": 78,
+              "body": "```suggestion\r\n  identity ece {\r\n\r\n```",
+              "createdAt": "2023-03-07T16:02:43Z",
+              "updatedAt": "2023-03-07T16:03:47Z"
+            },
+            {
+              "originalPosition": 73,
+              "body": "I would delete this. Unless you want to have a name for each if reserved bits",
+              "createdAt": "2023-03-07T16:03:27Z",
+              "updatedAt": "2023-03-07T16:03:47Z"
+            },
+            {
+              "originalPosition": 87,
+              "body": "```suggestion\r\n  identity cwr {\r\n\r\n```",
+              "createdAt": "2023-03-07T16:03:40Z",
+              "updatedAt": "2023-03-07T16:03:47Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIykBHs5PSblZ",
+          "commit": {
+            "abbreviatedOid": "151203f"
+          },
+          "author": "boucadair",
+          "authorAssociation": "OWNER",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2023-03-08T09:21:07Z",
+          "updatedAt": "2023-03-08T09:21:07Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 21,
+      "id": "PR_kwDOIykBHs5Ljq-R",
+      "title": "Isid filter creation",
+      "url": "https://github.com/boucadair/enhanced-acl-netmod/pull/21",
+      "state": "CLOSED",
+      "author": "sbarguil",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2023-03-08T10:07:50Z",
+      "updatedAt": "2023-03-10T12:33:53Z",
+      "baseRepository": "boucadair/enhanced-acl-netmod",
+      "baseRefName": "main",
+      "baseRefOid": "846fba235477f341633fd3ade7fdd9c9e8ba3f70",
+      "headRepository": "boucadair/enhanced-acl-netmod",
+      "headRefName": "ISID-FILTER-I-D",
+      "headRefOid": "e94925ce96e38612466471cfd54a01c35c7b9eb8",
+      "closedAt": "2023-03-08T10:41:14Z",
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": []
+    }
+  ]
+}
