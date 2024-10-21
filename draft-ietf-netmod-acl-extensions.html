@@ -3566,9 +3566,6 @@ as follows:<a href="#section-6.3.3-11" class="pilcrow">¶</a></p>
 <div class="breakable sourcecode" id="appendix-A.1-1">
 <pre>&lt;CODE BEGINS&gt;
 
-
-=============== NOTE: '\' line wrapping per RFC 8792 ================
-
 &lt;?xml version="1.0" encoding="utf-8"?&gt;
 &lt;stylesheet
     xmlns="http://www.w3.org/1999/XSL/Transform"
@@ -3629,18 +3626,18 @@ as follows:<a href="#section-6.3.3-11" class="pilcrow">¶</a></p>
       &lt;with-param name="id"&gt;
         &lt;choose&gt;
           &lt;when test="contains(iana:description, '(Deprecated)')"&gt;
-            &lt;value-of select="translate(normalize-space(\
-                  substring-before(iana:description, \
+            &lt;value-of select="translate(normalize-space(
+                  substring-before(iana:description,
                   '(Deprecated)')),' ','')"/&gt;
           &lt;/when&gt;
           &lt;otherwise&gt;
-            &lt;value-of select="translate(normalize-space\
+            &lt;value-of select="translate(normalize-space
                     (iana:description),' ','')"/&gt;
           &lt;/otherwise&gt;
         &lt;/choose&gt;
       &lt;/with-param&gt;
       &lt;with-param name="deprecated"
-                  select="contains(iana:description, \
+                  select="contains(iana:description,
                   '(Deprecated)')"/&gt;
     &lt;/call-template&gt;
   &lt;/template&gt;
