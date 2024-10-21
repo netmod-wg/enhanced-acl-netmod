@@ -3658,8 +3658,6 @@ as follows:<a href="#section-6.3.3-11" class="pilcrow">¶</a></p>
 <pre>&lt;CODE BEGINS&gt; file "iana-icmpv4-types@2020-09-25.yang"
 
 
-=============== NOTE: '\' line wrapping per RFC 8792 ================
-
 module iana-icmpv4-types {
   yang-version 1.1;
   namespace "urn:ietf:params:xml:ns:yang:iana-icmpv4-types";
@@ -3710,8 +3708,8 @@ module iana-icmpv4-types {
       "Current revision as of the revision date specified in the XML
        representation of the registry page.";
     reference
-      "https://www.iana.org/assignments/icmp-parameters/icmp-\
-                                                     parameters.xml";
+      "https://www.iana.org/assignments/icmp-parameters/
+       icmp-parameters.xml";
   }
 
   /* Typedefs */
@@ -3939,7 +3937,7 @@ module iana-icmpv4-types {
           "RFC 2521";
       }
       enum \
-   ICMPmessagesutilizedbyexperimentalmobilityprotocolssuchasSeamoby {
+ICMPmessagesutilizedbyexperimentalmobilityprotocolssuchasSeamoby {
         value 41;
         description
           "ICMP messages utilized by experimental mobility protocols
