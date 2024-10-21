@@ -2088,11 +2088,6 @@ Table of Contents
               RFC 6991, DOI 10.17487/RFC6991, July 2013,
               <https://www.rfc-editor.org/rfc/rfc6991>.
 
-   [RFC7209]  Sajassi, A., Aggarwal, R., Uttaro, J., Bitar, N.,
-              Henderickx, W., and A. Isaac, "Requirements for Ethernet
-              VPN (EVPN)", RFC 7209, DOI 10.17487/RFC7209, May 2014,
-              <https://www.rfc-editor.org/rfc/rfc7209>.
-
    [RFC7950]  Bjorklund, M., Ed., "The YANG 1.1 Data Modeling Language",
               RFC 7950, DOI 10.17487/RFC7950, August 2016,
               <https://www.rfc-editor.org/rfc/rfc7950>.
@@ -2213,6 +2208,11 @@ Table of Contents
               of IPv6 Extension Headers", RFC 7045,
               DOI 10.17487/RFC7045, December 2013,
               <https://www.rfc-editor.org/rfc/rfc7045>.
+
+   [RFC7209]  Sajassi, A., Aggarwal, R., Uttaro, J., Bitar, N.,
+              Henderickx, W., and A. Isaac, "Requirements for Ethernet
+              VPN (EVPN)", RFC 7209, DOI 10.17487/RFC7209, May 2014,
+              <https://www.rfc-editor.org/rfc/rfc7209>.
 
    [RFC8340]  Bjorklund, M. and L. Berger, Ed., "YANG Tree Diagrams",
               BCP 215, RFC 8340, DOI 10.17487/RFC8340, March 2018,
