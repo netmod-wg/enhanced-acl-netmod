@@ -254,7 +254,7 @@ The augmented ACL structure ({{enh-acl-tree}}) allows an operator to configure A
 
 Being able to filter all packets that are bridged within a VLAN or that
 are routed into or out of a bridge domain is part of the VPN control
-requirements for Ethernet VPN (EVPN) {{!RFC7209}}.
+requirements for Ethernet VPN (EVPN) {{?RFC7209}}.
 All packets that are bridged within a VLAN or that are routed into or
 out of a VLAN can be captured, forwarded, translated, or discarded based
 on the network policy.
