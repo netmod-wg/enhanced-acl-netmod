@@ -4972,31 +4972,31 @@ logical infrastructure.<a href="#appendix-D.8-3.4.1" class="pilcrow">¶</a></p>
           <div class="lang-json sourcecode" id="appendix-E.1-1.1">
 <pre>
 {
-   "ietf-access-control-list:acls":{
-      "acl":[
-         {
-            "name":"tcp-flags-example",
-            "aces":{
-               "ace":[
-                  {
-                     "name":"null-attack",
-                     "matches":{
-                        "tcp":{
-                           "ietf-acl-enh:flags-bitmask":{
-                              "operator":"not any",
-                              "bitmask":4095
-                           }
-                        }
-                     },
-                     "actions":{
-                        "forwarding":"drop"
-                     }
+  "ietf-access-control-list:acls": {
+    "acl": [
+      {
+        "name": "tcp-flags-example",
+        "aces": {
+          "ace": [
+            {
+              "name": "null-attack",
+              "matches": {
+                "tcp": {
+                  "ietf-acl-enh:flags-bitmask": {
+                    "operator": "not any",
+                    "bitmask": 4095
                   }
-               ]
+                }
+              },
+              "actions": {
+                "forwarding": "drop"
+              }
             }
-         }
-      ]
-   }
+          ]
+        }
+      }
+    ]
+  }
 }
 </pre>
 </div>
@@ -5026,49 +5026,49 @@ packets.  The following ACEs are defined (in this order):<a href="#appendix-E.2-
           <div class="lang-json sourcecode" id="appendix-E.2-3.1">
 <pre>
 {
-   "ietf-access-control-list:acls":{
-      "acl":[
-         {
-            "name":"dns-fragments",
-            "type":"ipv4-acl-type",
-            "aces":{
-               "ace":[
-                  {
-                     "name":"drop-all-fragments",
-                     "matches":{
-                        "ipv4":{
-                           "ietf-acl-enh:ipv4-fragment":{
-                              "operator":"match",
-                              "type":"isf"
-                           }
-                        }
-                     },
-                     "actions":{
-                        "forwarding":"drop"
-                     }
-                  },
-                  {
-                     "name":"allow-dns-packets",
-                     "matches":{
-                        "ipv4":{
-                           "destination-ipv4-network":"198.51.100.0/24"
-                        },
-                        "udp":{
-                           "destination-port":{
-                              "operator":"eq",
-                              "port":53
-                           }
-                        }
-                     },
-                     "actions":{
-                        "forwarding":"accept"
-                     }
+  "ietf-access-control-list:acls": {
+    "acl": [
+      {
+        "name": "dns-fragments",
+        "type": "ipv4-acl-type",
+        "aces": {
+          "ace": [
+            {
+              "name": "drop-all-fragments",
+              "matches": {
+                "ipv4": {
+                  "ietf-acl-enh:ipv4-fragment": {
+                    "operator": "match",
+                    "type": "isf"
                   }
-               ]
+                }
+              },
+              "actions": {
+                "forwarding": "drop"
+              }
+            },
+            {
+              "name": "allow-dns-packets",
+              "matches": {
+                "ipv4": {
+                  "destination-ipv4-network": "198.51.100.0/24"
+                },
+                "udp": {
+                  "destination-port": {
+                    "operator": "eq",
+                    "port": 53
+                  }
+                }
+              },
+              "actions": {
+                "forwarding": "accept"
+              }
             }
-         }
-      ]
-   }
+          ]
+        }
+      }
+    ]
+  }
 }
 </pre>
 </div>
@@ -5090,49 +5090,49 @@ packets.  The following ACEs are defined (in this order):<a href="#appendix-E.2-
           <div class="lang-json sourcecode" id="appendix-E.2-6.1">
 <pre>
 {
-   "ietf-access-control-list:acls":{
-      "acl":[
-         {
-            "name":"dns-fragments",
-            "type":"ipv6-acl-type",
-            "aces":{
-               "ace":[
-                  {
-                     "name":"drop-all-fragments",
-                     "matches":{
-                        "ipv6":{
-                           "ietf-acl-enh:ipv6-fragment":{
-                              "operator":"match",
-                              "type":"isf"
-                           }
-                        }
-                     },
-                     "actions":{
-                        "forwarding":"drop"
-                     }
-                  },
-                  {
-                     "name":"allow-dns-packets",
-                     "matches":{
-                        "ipv6":{
-                           "destination-ipv6-network":"2001:db8::/32"
-                        },
-                        "udp":{
-                           "destination-port":{
-                              "operator":"eq",
-                              "port":53
-                           }
-                        }
-                     },
-                     "actions":{
-                        "forwarding":"accept"
-                     }
+  "ietf-access-control-list:acls": {
+    "acl": [
+      {
+        "name": "dns-fragments",
+        "type": "ipv6-acl-type",
+        "aces": {
+          "ace": [
+            {
+              "name": "drop-all-fragments",
+              "matches": {
+                "ipv6": {
+                  "ietf-acl-enh:ipv6-fragment": {
+                    "operator": "match",
+                    "type": "isf"
                   }
-               ]
+                }
+              },
+              "actions": {
+                "forwarding": "drop"
+              }
+            },
+            {
+              "name": "allow-dns-packets",
+              "matches": {
+                "ipv6": {
+                  "destination-ipv6-network": "2001:db8::/32"
+                },
+                "udp": {
+                  "destination-port": {
+                    "operator": "eq",
+                    "port": 53
+                  }
+                }
+              },
+              "actions": {
+                "forwarding": "accept"
+              }
             }
-         }
-      ]
-   }
+          ]
+        }
+      }
+    ]
+  }
 }
 </pre>
 </div>
@@ -5153,29 +5153,29 @@ packets.  The following ACEs are defined (in this order):<a href="#appendix-E.2-
           <div class="lang-json sourcecode" id="appendix-E.3-2.1">
 <pre>
 {
-   "ietf-access-control-list:acls":{
-      "acl":[
-         {
-            "name":"VLAN_FILTER",
-            "aces":{
-               "ace":[
-                  {
-                     "name":"1",
-                     "matches":{
-                        "ietf-acl-enh:vlan-filter":{
-                           "lower-vlan":10,
-                           "upper-vlan":20
-                        }
-                     },
-                     "actions":{
-                        "forwarding":"ietf-access-control-list:accept"
-                     }
-                  }
-               ]
+  "ietf-access-control-list:acls": {
+    "acl": [
+      {
+        "name": "VLAN_FILTER",
+        "aces": {
+          "ace": [
+            {
+              "name": "1",
+              "matches": {
+                "ietf-acl-enh:vlan-filter": {
+                  "lower-vlan": 10,
+                  "upper-vlan": 20
+                }
+              },
+              "actions": {
+                "forwarding": "ietf-access-control-list:accept"
+              }
             }
-         }
-      ]
-   }
+          ]
+        }
+      }
+    ]
+  }
 }
 </pre>
 </div>
@@ -5196,29 +5196,29 @@ packets.  The following ACEs are defined (in this order):<a href="#appendix-E.2-
           <div class="lang-json sourcecode" id="appendix-E.4-2.1">
 <pre>
 {
-   "ietf-access-control-list:acls":{
-      "acl":[
-         {
-            "name":"test",
-            "aces":{
-               "ace":[
-                  {
-                     "name":"1",
-                     "matches":{
-                        "ietf-acl-enh:isid-filter":{
-                           "lower-isid":100,
-                           "upper-isid":200
-                        }
-                     },
-                     "actions":{
-                        "forwarding":"ietf-access-control-list:accept"
-                     }
-                  }
-               ]
+  "ietf-access-control-list:acls": {
+    "acl": [
+      {
+        "name": "test",
+        "aces": {
+          "ace": [
+            {
+              "name": "1",
+              "matches": {
+                "ietf-acl-enh:isid-filter": {
+                  "lower-isid": 100,
+                  "upper-isid": 200
+                }
+              },
+              "actions": {
+                "forwarding": "ietf-access-control-list:accept"
+              }
             }
-         }
-      ]
-   }
+          ]
+        }
+      }
+    ]
+  }
 }
 </pre>
 </div>
@@ -5239,32 +5239,32 @@ packets.  The following ACEs are defined (in this order):<a href="#appendix-E.2-
           <div class="lang-json sourcecode" id="appendix-E.5-2.1">
 <pre>
 {
-   "ietf-access-control-list:acls":{
-      "acl":[
-         {
-            "name":"tcp-flags-example-with-rate-limit",
-            "aces":{
-               "ace":[
-                  {
-                     "name":"rate-limit-syn",
-                     "matches":{
-                        "tcp":{
-                           "ietf-acl-enh:flags-bitmask":{
-                              "operator":"match",
-                              "bitmask":2
-                           }
-                        }
-                     },
-                     "actions":{
-                        "forwarding":"accept",
-                        "ietf-acl-enh:rate-limit":"20.00"
-                     }
+  "ietf-access-control-list:acls": {
+    "acl": [
+      {
+        "name": "tcp-flags-example-with-rate-limit",
+        "aces": {
+          "ace": [
+            {
+              "name": "rate-limit-syn",
+              "matches": {
+                "tcp": {
+                  "ietf-acl-enh:flags-bitmask": {
+                    "operator": "match",
+                    "bitmask": 2
                   }
-               ]
+                }
+              },
+              "actions": {
+                "forwarding": "accept",
+                "ietf-acl-enh:rate-limit": "20.00"
+              }
             }
-         }
-      ]
-   }
+          ]
+        }
+      }
+    ]
+  }
 }
 </pre>
 </div>

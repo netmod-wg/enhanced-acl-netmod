@@ -3539,31 +3539,31 @@ Appendix E.  Examples
 E.1.  TCP Flags Handling
 
    {
-      "ietf-access-control-list:acls":{
-         "acl":[
-            {
-               "name":"tcp-flags-example",
-               "aces":{
-                  "ace":[
-                     {
-                        "name":"null-attack",
-                        "matches":{
-                           "tcp":{
-                              "ietf-acl-enh:flags-bitmask":{
-                                 "operator":"not any",
-                                 "bitmask":4095
-                              }
-                           }
-                        },
-                        "actions":{
-                           "forwarding":"drop"
-                        }
+     "ietf-access-control-list:acls": {
+       "acl": [
+         {
+           "name": "tcp-flags-example",
+           "aces": {
+             "ace": [
+               {
+                 "name": "null-attack",
+                 "matches": {
+                   "tcp": {
+                     "ietf-acl-enh:flags-bitmask": {
+                       "operator": "not any",
+                       "bitmask": 4095
                      }
-                  ]
+                   }
+                 },
+                 "actions": {
+                   "forwarding": "drop"
+                 }
                }
-            }
-         ]
-      }
+             ]
+           }
+         }
+       ]
+     }
    }
 
         Figure 4: Example of an ACL to Deny TCP Null Attack Messages
@@ -3581,49 +3581,49 @@ E.2.  Fragments Handling
       198.51.100.0/24.
 
    {
-      "ietf-access-control-list:acls":{
-         "acl":[
-            {
-               "name":"dns-fragments",
-               "type":"ipv4-acl-type",
-               "aces":{
-                  "ace":[
-                     {
-                        "name":"drop-all-fragments",
-                        "matches":{
-                           "ipv4":{
-                              "ietf-acl-enh:ipv4-fragment":{
-                                 "operator":"match",
-                                 "type":"isf"
-                              }
-                           }
-                        },
-                        "actions":{
-                           "forwarding":"drop"
-                        }
-                     },
-                     {
-                        "name":"allow-dns-packets",
-                        "matches":{
-                           "ipv4":{
-                              "destination-ipv4-network":"198.51.100.0/24"
-                           },
-                           "udp":{
-                              "destination-port":{
-                                 "operator":"eq",
-                                 "port":53
-                              }
-                           }
-                        },
-                        "actions":{
-                           "forwarding":"accept"
-                        }
+     "ietf-access-control-list:acls": {
+       "acl": [
+         {
+           "name": "dns-fragments",
+           "type": "ipv4-acl-type",
+           "aces": {
+             "ace": [
+               {
+                 "name": "drop-all-fragments",
+                 "matches": {
+                   "ipv4": {
+                     "ietf-acl-enh:ipv4-fragment": {
+                       "operator": "match",
+                       "type": "isf"
                      }
-                  ]
+                   }
+                 },
+                 "actions": {
+                   "forwarding": "drop"
+                 }
+               },
+               {
+                 "name": "allow-dns-packets",
+                 "matches": {
+                   "ipv4": {
+                     "destination-ipv4-network": "198.51.100.0/24"
+                   },
+                   "udp": {
+                     "destination-port": {
+                       "operator": "eq",
+                       "port": 53
+                     }
+                   }
+                 },
+                 "actions": {
+                   "forwarding": "accept"
+                 }
                }
-            }
-         ]
-      }
+             ]
+           }
+         }
+       ]
+     }
    }
 
          Figure 5: Example Illustrating Candidate Filtering of IPv4
@@ -3642,49 +3642,49 @@ E.2.  Fragments Handling
       2001:db8::/32.
 
    {
-      "ietf-access-control-list:acls":{
-         "acl":[
-            {
-               "name":"dns-fragments",
-               "type":"ipv6-acl-type",
-               "aces":{
-                  "ace":[
-                     {
-                        "name":"drop-all-fragments",
-                        "matches":{
-                           "ipv6":{
-                              "ietf-acl-enh:ipv6-fragment":{
-                                 "operator":"match",
-                                 "type":"isf"
-                              }
-                           }
-                        },
-                        "actions":{
-                           "forwarding":"drop"
-                        }
-                     },
-                     {
-                        "name":"allow-dns-packets",
-                        "matches":{
-                           "ipv6":{
-                              "destination-ipv6-network":"2001:db8::/32"
-                           },
-                           "udp":{
-                              "destination-port":{
-                                 "operator":"eq",
-                                 "port":53
-                              }
-                           }
-                        },
-                        "actions":{
-                           "forwarding":"accept"
-                        }
+     "ietf-access-control-list:acls": {
+       "acl": [
+         {
+           "name": "dns-fragments",
+           "type": "ipv6-acl-type",
+           "aces": {
+             "ace": [
+               {
+                 "name": "drop-all-fragments",
+                 "matches": {
+                   "ipv6": {
+                     "ietf-acl-enh:ipv6-fragment": {
+                       "operator": "match",
+                       "type": "isf"
                      }
-                  ]
+                   }
+                 },
+                 "actions": {
+                   "forwarding": "drop"
+                 }
+               },
+               {
+                 "name": "allow-dns-packets",
+                 "matches": {
+                   "ipv6": {
+                     "destination-ipv6-network": "2001:db8::/32"
+                   },
+                   "udp": {
+                     "destination-port": {
+                       "operator": "eq",
+                       "port": 53
+                     }
+                   }
+                 },
+                 "actions": {
+                   "forwarding": "accept"
+                 }
                }
-            }
-         ]
-      }
+             ]
+           }
+         }
+       ]
+     }
    }
 
        Figure 6: An Example Illustrating Filtering of IPv6 Fragmented
@@ -3696,29 +3696,29 @@ E.3.  VLAN Filtering
    filter.
 
    {
-      "ietf-access-control-list:acls":{
-         "acl":[
-            {
-               "name":"VLAN_FILTER",
-               "aces":{
-                  "ace":[
-                     {
-                        "name":"1",
-                        "matches":{
-                           "ietf-acl-enh:vlan-filter":{
-                              "lower-vlan":10,
-                              "upper-vlan":20
-                           }
-                        },
-                        "actions":{
-                           "forwarding":"ietf-access-control-list:accept"
-                        }
-                     }
-                  ]
+     "ietf-access-control-list:acls": {
+       "acl": [
+         {
+           "name": "VLAN_FILTER",
+           "aces": {
+             "ace": [
+               {
+                 "name": "1",
+                 "matches": {
+                   "ietf-acl-enh:vlan-filter": {
+                     "lower-vlan": 10,
+                     "upper-vlan": 20
+                   }
+                 },
+                 "actions": {
+                   "forwarding": "ietf-access-control-list:accept"
+                 }
                }
-            }
-         ]
-      }
+             ]
+           }
+         }
+       ]
+     }
    }
 
               Figure 7: Example of VLAN Filter (Message Body)
@@ -3728,29 +3728,29 @@ E.4.  ISID Filtering
    Figure 8 shows an ACL example to illustrate the ISID range filtering.
 
    {
-      "ietf-access-control-list:acls":{
-         "acl":[
-            {
-               "name":"test",
-               "aces":{
-                  "ace":[
-                     {
-                        "name":"1",
-                        "matches":{
-                           "ietf-acl-enh:isid-filter":{
-                              "lower-isid":100,
-                              "upper-isid":200
-                           }
-                        },
-                        "actions":{
-                           "forwarding":"ietf-access-control-list:accept"
-                        }
-                     }
-                  ]
+     "ietf-access-control-list:acls": {
+       "acl": [
+         {
+           "name": "test",
+           "aces": {
+             "ace": [
+               {
+                 "name": "1",
+                 "matches": {
+                   "ietf-acl-enh:isid-filter": {
+                     "lower-isid": 100,
+                     "upper-isid": 200
+                   }
+                 },
+                 "actions": {
+                   "forwarding": "ietf-access-control-list:accept"
+                 }
                }
-            }
-         ]
-      }
+             ]
+           }
+         }
+       ]
+     }
    }
 
                 Figure 8: Example ISID Filter (Message Body)
@@ -3761,32 +3761,32 @@ E.5.  Rate-Limit
    SYN flood attack.
 
    {
-      "ietf-access-control-list:acls":{
-         "acl":[
-            {
-               "name":"tcp-flags-example-with-rate-limit",
-               "aces":{
-                  "ace":[
-                     {
-                        "name":"rate-limit-syn",
-                        "matches":{
-                           "tcp":{
-                              "ietf-acl-enh:flags-bitmask":{
-                                 "operator":"match",
-                                 "bitmask":2
-                              }
-                           }
-                        },
-                        "actions":{
-                           "forwarding":"accept",
-                           "ietf-acl-enh:rate-limit":"20.00"
-                        }
+     "ietf-access-control-list:acls": {
+       "acl": [
+         {
+           "name": "tcp-flags-example-with-rate-limit",
+           "aces": {
+             "ace": [
+               {
+                 "name": "rate-limit-syn",
+                 "matches": {
+                   "tcp": {
+                     "ietf-acl-enh:flags-bitmask": {
+                       "operator": "match",
+                       "bitmask": 2
                      }
-                  ]
+                   }
+                 },
+                 "actions": {
+                   "forwarding": "accept",
+                   "ietf-acl-enh:rate-limit": "20.00"
+                 }
                }
-            }
-         ]
-      }
+             ]
+           }
+         }
+       ]
+     }
    }
 
     Figure 9: An Example of Rate-Limit Incoming TCP SYNs (Message Body).
