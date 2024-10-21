@@ -827,31 +827,31 @@ This section provides a few examples to illustrate the use of the enhanced ACL m
 
 ~~~ json
 {
-   "ietf-access-control-list:acls":{
-      "acl":[
-         {
-            "name":"tcp-flags-example",
-            "aces":{
-               "ace":[
-                  {
-                     "name":"null-attack",
-                     "matches":{
-                        "tcp":{
-                           "ietf-acl-enh:flags-bitmask":{
-                              "operator":"not any",
-                              "bitmask":4095
-                           }
-                        }
-                     },
-                     "actions":{
-                        "forwarding":"drop"
-                     }
+  "ietf-access-control-list:acls": {
+    "acl": [
+      {
+        "name": "tcp-flags-example",
+        "aces": {
+          "ace": [
+            {
+              "name": "null-attack",
+              "matches": {
+                "tcp": {
+                  "ietf-acl-enh:flags-bitmask": {
+                    "operator": "not any",
+                    "bitmask": 4095
                   }
-               ]
+                }
+              },
+              "actions": {
+                "forwarding": "drop"
+              }
             }
-         }
-      ]
-   }
+          ]
+        }
+      }
+    ]
+  }
 }
 ~~~
 {: #example_4 title="Example of an ACL to Deny TCP Null Attack Messages (Request Body)"}
@@ -866,49 +866,49 @@ packets.  The following ACEs are defined (in this order):
 
 ~~~ json
 {
-   "ietf-access-control-list:acls":{
-      "acl":[
-         {
-            "name":"dns-fragments",
-            "type":"ipv4-acl-type",
-            "aces":{
-               "ace":[
-                  {
-                     "name":"drop-all-fragments",
-                     "matches":{
-                        "ipv4":{
-                           "ietf-acl-enh:ipv4-fragment":{
-                              "operator":"match",
-                              "type":"isf"
-                           }
-                        }
-                     },
-                     "actions":{
-                        "forwarding":"drop"
-                     }
-                  },
-                  {
-                     "name":"allow-dns-packets",
-                     "matches":{
-                        "ipv4":{
-                           "destination-ipv4-network":"198.51.100.0/24"
-                        },
-                        "udp":{
-                           "destination-port":{
-                              "operator":"eq",
-                              "port":53
-                           }
-                        }
-                     },
-                     "actions":{
-                        "forwarding":"accept"
-                     }
+  "ietf-access-control-list:acls": {
+    "acl": [
+      {
+        "name": "dns-fragments",
+        "type": "ipv4-acl-type",
+        "aces": {
+          "ace": [
+            {
+              "name": "drop-all-fragments",
+              "matches": {
+                "ipv4": {
+                  "ietf-acl-enh:ipv4-fragment": {
+                    "operator": "match",
+                    "type": "isf"
                   }
-               ]
+                }
+              },
+              "actions": {
+                "forwarding": "drop"
+              }
+            },
+            {
+              "name": "allow-dns-packets",
+              "matches": {
+                "ipv4": {
+                  "destination-ipv4-network": "198.51.100.0/24"
+                },
+                "udp": {
+                  "destination-port": {
+                    "operator": "eq",
+                    "port": 53
+                  }
+                }
+              },
+              "actions": {
+                "forwarding": "accept"
+              }
             }
-         }
-      ]
-   }
+          ]
+        }
+      }
+    ]
+  }
 }
 ~~~
 {: #example_2 title="Example Illustrating Candidate Filtering of IPv4 Fragmented Packets (Message Body)"}
@@ -920,49 +920,49 @@ packets.  The following ACEs are defined (in this order):
 
 ~~~ json
 {
-   "ietf-access-control-list:acls":{
-      "acl":[
-         {
-            "name":"dns-fragments",
-            "type":"ipv6-acl-type",
-            "aces":{
-               "ace":[
-                  {
-                     "name":"drop-all-fragments",
-                     "matches":{
-                        "ipv6":{
-                           "ietf-acl-enh:ipv6-fragment":{
-                              "operator":"match",
-                              "type":"isf"
-                           }
-                        }
-                     },
-                     "actions":{
-                        "forwarding":"drop"
-                     }
-                  },
-                  {
-                     "name":"allow-dns-packets",
-                     "matches":{
-                        "ipv6":{
-                           "destination-ipv6-network":"2001:db8::/32"
-                        },
-                        "udp":{
-                           "destination-port":{
-                              "operator":"eq",
-                              "port":53
-                           }
-                        }
-                     },
-                     "actions":{
-                        "forwarding":"accept"
-                     }
+  "ietf-access-control-list:acls": {
+    "acl": [
+      {
+        "name": "dns-fragments",
+        "type": "ipv6-acl-type",
+        "aces": {
+          "ace": [
+            {
+              "name": "drop-all-fragments",
+              "matches": {
+                "ipv6": {
+                  "ietf-acl-enh:ipv6-fragment": {
+                    "operator": "match",
+                    "type": "isf"
                   }
-               ]
+                }
+              },
+              "actions": {
+                "forwarding": "drop"
+              }
+            },
+            {
+              "name": "allow-dns-packets",
+              "matches": {
+                "ipv6": {
+                  "destination-ipv6-network": "2001:db8::/32"
+                },
+                "udp": {
+                  "destination-port": {
+                    "operator": "eq",
+                    "port": 53
+                  }
+                }
+              },
+              "actions": {
+                "forwarding": "accept"
+              }
             }
-         }
-      ]
-   }
+          ]
+        }
+      }
+    ]
+  }
 }
 ~~~
 {: #example_3 title="An Example Illustrating Filtering of IPv6 Fragmented Packets (Message Body)"}
@@ -973,29 +973,29 @@ packets.  The following ACEs are defined (in this order):
 
 ~~~ json
 {
-   "ietf-access-control-list:acls":{
-      "acl":[
-         {
-            "name":"VLAN_FILTER",
-            "aces":{
-               "ace":[
-                  {
-                     "name":"1",
-                     "matches":{
-                        "ietf-acl-enh:vlan-filter":{
-                           "lower-vlan":10,
-                           "upper-vlan":20
-                        }
-                     },
-                     "actions":{
-                        "forwarding":"ietf-access-control-list:accept"
-                     }
-                  }
-               ]
+  "ietf-access-control-list:acls": {
+    "acl": [
+      {
+        "name": "VLAN_FILTER",
+        "aces": {
+          "ace": [
+            {
+              "name": "1",
+              "matches": {
+                "ietf-acl-enh:vlan-filter": {
+                  "lower-vlan": 10,
+                  "upper-vlan": 20
+                }
+              },
+              "actions": {
+                "forwarding": "ietf-access-control-list:accept"
+              }
             }
-         }
-      ]
-   }
+          ]
+        }
+      }
+    ]
+  }
 }
 ~~~
 {: #example_7 title="Example of VLAN Filter (Message Body)"}
@@ -1006,29 +1006,29 @@ packets.  The following ACEs are defined (in this order):
 
 ~~~ json
 {
-   "ietf-access-control-list:acls":{
-      "acl":[
-         {
-            "name":"test",
-            "aces":{
-               "ace":[
-                  {
-                     "name":"1",
-                     "matches":{
-                        "ietf-acl-enh:isid-filter":{
-                           "lower-isid":100,
-                           "upper-isid":200
-                        }
-                     },
-                     "actions":{
-                        "forwarding":"ietf-access-control-list:accept"
-                     }
-                  }
-               ]
+  "ietf-access-control-list:acls": {
+    "acl": [
+      {
+        "name": "test",
+        "aces": {
+          "ace": [
+            {
+              "name": "1",
+              "matches": {
+                "ietf-acl-enh:isid-filter": {
+                  "lower-isid": 100,
+                  "upper-isid": 200
+                }
+              },
+              "actions": {
+                "forwarding": "ietf-access-control-list:accept"
+              }
             }
-         }
-      ]
-   }
+          ]
+        }
+      }
+    ]
+  }
 }
 ~~~
 {: #example_6 title="Example ISID Filter (Message Body)"}
@@ -1039,32 +1039,32 @@ packets.  The following ACEs are defined (in this order):
 
 ~~~ json
 {
-   "ietf-access-control-list:acls":{
-      "acl":[
-         {
-            "name":"tcp-flags-example-with-rate-limit",
-            "aces":{
-               "ace":[
-                  {
-                     "name":"rate-limit-syn",
-                     "matches":{
-                        "tcp":{
-                           "ietf-acl-enh:flags-bitmask":{
-                              "operator":"match",
-                              "bitmask":2
-                           }
-                        }
-                     },
-                     "actions":{
-                        "forwarding":"accept",
-                        "ietf-acl-enh:rate-limit":"20.00"
-                     }
+  "ietf-access-control-list:acls": {
+    "acl": [
+      {
+        "name": "tcp-flags-example-with-rate-limit",
+        "aces": {
+          "ace": [
+            {
+              "name": "rate-limit-syn",
+              "matches": {
+                "tcp": {
+                  "ietf-acl-enh:flags-bitmask": {
+                    "operator": "match",
+                    "bitmask": 2
                   }
-               ]
+                }
+              },
+              "actions": {
+                "forwarding": "accept",
+                "ietf-acl-enh:rate-limit": "20.00"
+              }
             }
-         }
-      ]
-   }
+          ]
+        }
+      }
+    ]
+  }
 }
 ~~~
 {: #example_5 title="An Example of Rate-Limit Incoming TCP SYNs (Message Body)."}
