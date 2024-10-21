@@ -4001,9 +4001,6 @@ module iana-icmpv4-types {
 <div class="breakable sourcecode" id="appendix-B.1-1">
 <pre>&lt;CODE BEGINS&gt;
 
-
-=============== NOTE: '\' line wrapping per RFC 8792 ================
-
 &lt;?xml version="1.0" encoding="utf-8"?&gt;
 &lt;stylesheet
     xmlns="http://www.w3.org/1999/XSL/Transform"
@@ -4063,8 +4060,8 @@ module iana-icmpv4-types {
       &lt;with-param name="id"&gt;
         &lt;choose&gt;
           &lt;when test="contains(iana:name, '(Deprecated)')"&gt;
-            &lt;value-of select="translate(normalize-space(\
-                   substring-before(iana:name, \
+            &lt;value-of select="translate(normalize-space(
+                   substring-before(iana:name,
                   '(Deprecated)')),' ','')"/&gt;
           &lt;/when&gt;
           &lt;otherwise&gt;
@@ -4077,7 +4074,7 @@ module iana-icmpv4-types {
         &lt;value-of select="concat(iana:name, '.')"/&gt;
       &lt;/with-param&gt;
       &lt;with-param name="deprecated"
-                  select="contains(iana:name, \
+                  select="contains(iana:name,
                  '(Deprecated)')"/&gt;
     &lt;/call-template&gt;
   &lt;/template&gt;
