@@ -1,6 +1,3 @@
-
-=============== NOTE: '\' line wrapping per RFC 8792 ================
-
 <?xml version="1.0" encoding="utf-8"?>
 <stylesheet
     xmlns="http://www.w3.org/1999/XSL/Transform"
@@ -60,8 +57,8 @@
       <with-param name="id">
 	<choose>
 	  <when test="contains(iana:name, '(Deprecated)')">
-	    <value-of select="translate(normalize-space(\
-		   substring-before(iana:name, \ 
+	    <value-of select="translate(normalize-space(
+		   substring-before(iana:name,  
                   '(Deprecated)')),' ','')"/>
 	  </when>
 	  <otherwise>
@@ -74,7 +71,7 @@
 	<value-of select="concat(iana:name, '.')"/>
       </with-param>
       <with-param name="deprecated"
-		  select="contains(iana:name, \
+		  select="contains(iana:name, 
 	         '(Deprecated)')"/>
     </call-template>
   </template>
