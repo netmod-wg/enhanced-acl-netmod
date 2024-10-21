@@ -5,12 +5,12 @@
 netmod                                                     O. G. D. Dios
 Internet-Draft                                                Telefonica
 Intended status: Standards Track                              S. Barguil
-Expires: 30 November 2024                                          Nokia
+Expires: 24 April 2025                                             Nokia
                                                             M. Boucadair
                                                                   Orange
                                                                    Q. Wu
                                                                   Huawei
-                                                             29 May 2024
+                                                         21 October 2024
 
 
         Extensions to the Access Control Lists (ACLs) YANG Model
@@ -51,7 +51,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 30 November 2024.
+   This Internet-Draft will expire on 24 April 2025.
 
 Copyright Notice
 
@@ -2149,9 +2149,9 @@ Table of Contents
               Bierman, A., Boucadair, M., and Q. Wu, "Guidelines for
               Authors and Reviewers of Documents Containing YANG Data
               Models", Work in Progress, Internet-Draft, draft-ietf-
-              netmod-rfc8407bis-11, 18 April 2024,
+              netmod-rfc8407bis-19, 21 October 2024,
               <https://datatracker.ietf.org/doc/html/draft-ietf-netmod-
-              rfc8407bis-11>.
+              rfc8407bis-19>.
 
    [IANA-ICMPv4]
               "ICMP Type Numbers", n.d.,
@@ -2318,6 +2318,8 @@ A.1.  XSLT Template to Generate The ICMPv4 Types IANA-Maintained Module
 A.2.  Initial Version of the ICMPv4 Types IANA-Maintained Module
 
    <CODE BEGINS> file "iana-icmpv4-types@2020-09-25.yang"
+   =============== NOTE: '\' line wrapping per RFC 8792 ================
+
    module iana-icmpv4-types {
      yang-version 1.1;
      namespace "urn:ietf:params:xml:ns:yang:iana-icmpv4-types";
@@ -2368,7 +2370,8 @@ A.2.  Initial Version of the ICMPv4 Types IANA-Maintained Module
          "Current revision as of the revision date specified in the XML
           representation of the registry page.";
        reference
-         "https://www.iana.org/assignments/icmp-parameters/icmp-parameters.xml";
+         "https://www.iana.org/assignments/icmp-parameters/icmp-\
+                                                        parameters.xml";
      }
 
      /* Typedefs */
@@ -2595,7 +2598,8 @@ A.2.  Initial Version of the ICMPv4 Types IANA-Maintained Module
            reference
              "RFC 2521";
          }
-         enum ICMPmessagesutilizedbyexperimentalmobilityprotocolssuchasSeamoby {
+         enum \
+      ICMPmessagesutilizedbyexperimentalmobilityprotocolssuchasSeamoby {
            value 41;
            description
              "ICMP messages utilized by experimental mobility protocols
@@ -2724,6 +2728,8 @@ B.1.  XSLT Template to Generate the ICMPv6 Types IANA-Maintained Module
 B.2.  Initial Version of the ICMPv6 Types IANA-Maintained Module
 
    <CODE BEGINS> file "iana-icmpv6-types@2023-04-28.yang"
+   =============== NOTE: '\' line wrapping per RFC 8792 ================
+
    module iana-icmpv6-types {
      yang-version 1.1;
      namespace "urn:ietf:params:xml:ns:yang:iana-icmpv6-types";
@@ -2774,7 +2780,8 @@ B.2.  Initial Version of the ICMPv6 Types IANA-Maintained Module
          "Current revision as of the revision date specified in the XML
           representation of the registry page.";
        reference
-         "https://www.iana.org/assignments/icmpv6-parameters/icmpv6-parameters.xml";
+         "https://www.iana.org/assignments/icmpv6-parameters/icmpv6-\
+                                                        parameters.xml";
      }
 
      /* Typedefs */
@@ -2963,7 +2970,8 @@ B.2.  Initial Version of the ICMPv6 Types IANA-Maintained Module
            reference
              "RFC 3971";
          }
-         enum ICMPmessagesutilizedbyexperimentalmobilityprotocolssuchasSeamoby {
+         enum \
+      ICMPmessagesutilizedbyexperimentalmobilityprotocolssuchasSeamoby {
            value 150;
            description
              "ICMP messages utilized by experimental mobility protocols
@@ -3155,6 +3163,8 @@ C.2.  Initial Version of The IPv6 Extension Header Types IANA-Maintained
       Module
 
    <CODE BEGINS> file "iana-ipv6-ext-types@2023-09-29.yang"
+   =============== NOTE: '\' line wrapping per RFC 8792 ================
+
    module iana-ipv6-ext-types {
      yang-version 1.1;
      namespace "urn:ietf:params:xml:ns:yang:iana-ipv6-ext-types";
@@ -3202,7 +3212,8 @@ C.2.  Initial Version of The IPv6 Extension Header Types IANA-Maintained
          "Current revision as of the revision date specified in the XML
           representation of the registry page.";
        reference
-         "https://www.iana.org/assignments/ipv6-parameters/ipv6-parameters.xml";
+         "https://www.iana.org/assignments/ipv6-parameters/ipv6-\
+                                                        parameters.xml";
      }
 
      /* Typedefs */
