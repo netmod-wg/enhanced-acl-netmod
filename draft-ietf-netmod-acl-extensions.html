@@ -4469,6 +4469,9 @@ module iana-icmpv6-types {
 <div class="breakable sourcecode" id="appendix-C.1-1">
 <pre>&lt;CODE BEGINS&gt;
 
+
+=============== NOTE: '\' line wrapping per RFC 8792 ================
+
 &lt;?xml version="1.0" encoding="utf-8"?&gt;
 &lt;stylesheet
     xmlns="http://www.w3.org/1999/XSL/Transform"
@@ -4482,19 +4485,23 @@ module iana-icmpv6-types {
 
   &lt;template match="iana:registry[@id='extension-header']"&gt;
     &lt;element name="yin:typedef"&gt;
-      &lt;attribute name="name"&gt;ipv6-extension-header-type-name&lt;/attribute&gt;
+      &lt;attribute name="name"&gt;
+        ipv6-extension-header-type-name
+      &lt;/attribute&gt;
       &lt;element name="yin:type"&gt;
         &lt;attribute name="name"&gt;enumeration&lt;/attribute&gt;
         &lt;apply-templates
-            select="iana:record[not(iana:description = 'Unassigned' or
+         select="iana:record[not(iana:description = 'Unassigned' or
                     starts-with(iana:description, 'Reserved') or
-                    starts-with(iana:description, 'Use for experimentation and testing')) or
+                    starts-with(iana:description, \
+                    'Use for experimentation and testing')) or
                     contains(iana:description, 'experimental')]"/&gt;
       &lt;/element&gt;
       &lt;element name="yin:description"&gt;
         &lt;element name="yin:text"&gt;
           This enumeration type defines mnemonic names and
-          corresponding numeric values of IPv6 Extension header types.
+          corresponding numeric values of IPv6 Extension header
+          types.
         &lt;/element&gt;
       &lt;/element&gt;
       &lt;element name="yin:reference"&gt;
@@ -4505,20 +4512,25 @@ module iana-icmpv6-types {
       &lt;/element&gt;
     &lt;/element&gt;
     &lt;element name="yin:typedef"&gt;
-      &lt;attribute name="name"&gt;ipv6-extension-header-type&lt;/attribute&gt;
+      &lt;attribute name="name"&gt;
+        ipv6-extension-header-type
+      &lt;/attribute&gt;
       &lt;element name="yin:type"&gt;
         &lt;attribute name="name"&gt;union&lt;/attribute&gt;
         &lt;element name="yin:type"&gt;
           &lt;attribute name="name"&gt;uint8&lt;/attribute&gt;
         &lt;/element&gt;
         &lt;element name="yin:type"&gt;
-          &lt;attribute name="name"&gt;ipv6-extension-header-type-name&lt;/attribute&gt;
+          &lt;attribute name="name"&gt;
+            ipv6-extension-header-type-name
+          &lt;/attribute&gt;
         &lt;/element&gt;
       &lt;/element&gt;
       &lt;element name="yin:description"&gt;
         &lt;element name="yin:text"&gt;
-          This type allows reference to an IPv6 Extension header type using either
-          the assigned mnemonic name or the numeric protocol number value.
+          This type allows reference to an IPv6 Extension
+          header type using either the assigned mnemonic
+          name or the numeric protocol number value.
         &lt;/element&gt;
       &lt;/element&gt;
     &lt;/element&gt;
@@ -4528,17 +4540,21 @@ module iana-icmpv6-types {
     &lt;call-template name="enum"&gt;
       &lt;with-param name="id"&gt;
         &lt;choose&gt;
-          &lt;when test="contains(iana:description, '(Deprecated)')"&gt;
-            &lt;value-of select="translate(normalize-space(substring-before(iana:description,
+          &lt;when test="contains(iana:description, \
+                  '(Deprecated)')"&gt;
+            &lt;value-of select="translate(normalize-space(\
+                    substring-before(iana:description, \
                   '(Deprecated)')),' ','')"/&gt;
           &lt;/when&gt;
           &lt;otherwise&gt;
-            &lt;value-of select="translate(normalize-space(iana:description),' ','')"/&gt;
+            &lt;value-of select="translate(\
+                normalize-space(iana:description),' ','')"/&gt;
           &lt;/otherwise&gt;
         &lt;/choose&gt;
       &lt;/with-param&gt;
       &lt;with-param name="deprecated"
-                  select="contains(iana:description, '(Deprecated)')"/&gt;
+                  select="contains(iana:description, \
+                  '(Deprecated)')"/&gt;
     &lt;/call-template&gt;
   &lt;/template&gt;
 
