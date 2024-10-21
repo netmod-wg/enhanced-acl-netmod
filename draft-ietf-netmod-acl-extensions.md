@@ -175,14 +175,14 @@ Defined set:
 {{enh-acl-tree}} shows the full tree of the enhanced ACL module ({{sec-module}}):
 
 ~~~
-{::include ./yang/enh-tree.txt}
+{::include-fold ./yang/enh-tree.txt}
 ~~~
 {: #enh-acl-tree title="Enhanced ACL Tree Structure"}
 
 {{enh-acl-grp}} shows the reusable groupings that are defined in the enhanced ACL module:
 
 ~~~
-{::include ./yang/groupings.txt}
+{::include-fold  ./yang/groupings.txt}
 ~~~
 {: #enh-acl-grp title="Enhanced ACL Groupings"}
 
@@ -581,7 +581,7 @@ NEW:
 ~~~
 <CODE BEGINS> file "iana-icmpv4-types@2020-09-25.yang"
 
-{::include ./yang/iana-icmpv4-types.yang}
+{::include-fold ./yang/iana-icmpv4-types.yang}
 
 <CODE ENDS>
 ~~~
@@ -603,7 +603,7 @@ NEW:
 ~~~
 <CODE BEGINS> file "iana-icmpv6-types@2023-04-28.yang"
 
-{::include ./yang/iana-icmpv6-types.yang}
+{::include-fold ./yang/iana-icmpv6-types.yang}
 
 <CODE ENDS>
 ~~~
@@ -625,7 +625,7 @@ NEW:
 ~~~
 <CODE BEGINS> file "iana-ipv6-ext-types@2023-09-29.yang"
 
-{::include ./yang/iana-ipv6-ext-types.yang}
+{::include-fold ./yang/iana-ipv6-ext-types.yang}
 
 <CODE ENDS>
 ~~~
