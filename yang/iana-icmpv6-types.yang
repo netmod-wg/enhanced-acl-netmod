@@ -48,7 +48,8 @@ module iana-icmpv6-types {
       "Current revision as of the revision date specified in the XML
        representation of the registry page.";
     reference
-      "https://www.iana.org/assignments/icmpv6-parameters/icmpv6-parameters.xml";
+      "https://www.iana.org/assignments/icmpv6-parameters
+       /icmpv6-parameters.xml";
   }
 
   /* Typedefs */
@@ -237,7 +238,8 @@ module iana-icmpv6-types {
         reference
           "RFC 3971";
       }
-      enum ICMPmessagesutilizedbyexperimentalmobilityprotocolssuchasSeamoby {
+      enum \
+ICMPmessagesutilizedbyexperimentalmobilityprotocolssuchasSeamoby {
         value 150;
         description
           "ICMP messages utilized by experimental mobility protocols
