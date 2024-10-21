@@ -2732,8 +2732,6 @@ B.1.  XSLT Template to Generate the ICMPv6 Types IANA-Maintained Module
 B.2.  Initial Version of the ICMPv6 Types IANA-Maintained Module
 
    <CODE BEGINS> file "iana-icmpv6-types@2023-04-28.yang"
-   =============== NOTE: '\' line wrapping per RFC 8792 ================
-
    module iana-icmpv6-types {
      yang-version 1.1;
      namespace "urn:ietf:params:xml:ns:yang:iana-icmpv6-types";
@@ -2784,8 +2782,8 @@ B.2.  Initial Version of the ICMPv6 Types IANA-Maintained Module
          "Current revision as of the revision date specified in the XML
           representation of the registry page.";
        reference
-         "https://www.iana.org/assignments/icmpv6-parameters/icmpv6-\
-                                                        parameters.xml";
+         "https://www.iana.org/assignments/icmpv6-parameters
+          /icmpv6-parameters.xml";
      }
 
      /* Typedefs */
@@ -2975,7 +2973,7 @@ B.2.  Initial Version of the ICMPv6 Types IANA-Maintained Module
              "RFC 3971";
          }
          enum \
-      ICMPmessagesutilizedbyexperimentalmobilityprotocolssuchasSeamoby {
+   ICMPmessagesutilizedbyexperimentalmobilityprotocolssuchasSeamoby {
            value 150;
            description
              "ICMP messages utilized by experimental mobility protocols
