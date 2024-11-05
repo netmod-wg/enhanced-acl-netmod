@@ -1049,7 +1049,7 @@ Table of Contents
        }
      }
 
-     grouping payload {
+     grouping payload-match {
        description
          "Operations on payload match.";
        leaf offset {
@@ -1497,7 +1497,7 @@ Table of Contents
            if-feature "match-on-payload";
            description
              "Indicates the rule to perform the payload-based match.";
-           uses payload;
+           uses payload-match;
          }
        }
        choice alias {
