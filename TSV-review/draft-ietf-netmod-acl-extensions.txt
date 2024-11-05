@@ -334,7 +334,7 @@ Table of Contents
        +-- lower-label-range?   rt-types:mpls-label
        +-- label-block-name?    string
        +-- ttl-value?           uint8
-     grouping payload:
+     grouping payload-match:
        +-- offset?       identityref
        +-- offset-end?   uint64
        +-- operator?     operator
