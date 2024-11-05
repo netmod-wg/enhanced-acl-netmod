@@ -1738,7 +1738,7 @@ Each set is uniquely identified by a name and can be called from the relevant en
         <h3 id="name-tcp-flags-handling">
 <a href="#section-3.4" class="section-number selfRef">3.4. </a><a href="#name-tcp-flags-handling" class="section-name selfRef">TCP Flags Handling</a>
         </h3>
-<p id="section-3.4-1">The augmented ACL structure (<a href="#enh-acl-tree" class="auto internal xref">Figure 1</a>) includes a new container 'flags-bitmask' to better handle TCP flags <span>[<a href="#RFC9293" class="cite xref">RFC9293</a>]</span>.<a href="#section-3.4-1" class="pilcrow">¶</a></p>
+<p id="section-3.4-1">The augmented ACL structure (<a href="#enh-acl-tree" class="auto internal xref">Figure 1</a>) includes a new container 'flags-bitmask' to better handle TCP flags (<span><a href="https://rfc-editor.org/rfc/rfc9293#section-3.1" class="relref">Section 3.1</a> of [<a href="#RFC9293" class="cite xref">RFC9293</a>]</span>).<a href="#section-3.4-1" class="pilcrow">¶</a></p>
 <p id="section-3.4-2">Clients that support both 'flags-bitmask' and 'flags' <span>[<a href="#RFC8519" class="cite xref">RFC8519</a>]</span> matching fields <span class="bcp14">MUST NOT</span> set these fields in the same request.<a href="#section-3.4-2" class="pilcrow">¶</a></p>
 </section>
 </div>
@@ -5340,9 +5340,10 @@ packets.  The following ACEs are defined (in this order):<a href="#appendix-E.2-
 <p id="appendix-F-1">Many thanks to Jon Shallow and Miguel Cros for the review and comments to the document, including prior to publishing the document.<a href="#appendix-F-1" class="pilcrow">¶</a></p>
 <p id="appendix-F-2">Thanks to Qiufang Ma, Victor Lopez, Joe Clarke, and Mahesh Jethanandani for the comments and suggestions.<a href="#appendix-F-2" class="pilcrow">¶</a></p>
 <p id="appendix-F-3">Thanks to Lou Berger for Shepherding the document.<a href="#appendix-F-3" class="pilcrow">¶</a></p>
-<p id="appendix-F-4">The IANA-maintained modules were generated using an XSLT stylesheet from the 'iana-yang' project (https://github.com/llhotka/iana-yang).<a href="#appendix-F-4" class="pilcrow">¶</a></p>
-<p id="appendix-F-5">This work is partially supported by the European Commission under   Horizon 2020 Secured autonomic traffic management for a Tera of SDN
-flows (Teraflow) project (grant agreement number 101015857).<a href="#appendix-F-5" class="pilcrow">¶</a></p>
+<p id="appendix-F-4">Thanks to David Black for the TSV review.<a href="#appendix-F-4" class="pilcrow">¶</a></p>
+<p id="appendix-F-5">The IANA-maintained modules were generated using an XSLT stylesheet from the 'iana-yang' project (https://github.com/llhotka/iana-yang).<a href="#appendix-F-5" class="pilcrow">¶</a></p>
+<p id="appendix-F-6">This work is partially supported by the European Commission under   Horizon 2020 Secured autonomic traffic management for a Tera of SDN
+flows (Teraflow) project (grant agreement number 101015857).<a href="#appendix-F-6" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="authors-addresses">

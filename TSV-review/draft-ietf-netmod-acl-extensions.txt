@@ -467,7 +467,8 @@ Table of Contents
 3.4.  TCP Flags Handling
 
    The augmented ACL structure (Figure 1) includes a new container
-   'flags-bitmask' to better handle TCP flags [RFC9293].
+   'flags-bitmask' to better handle TCP flags (Section 3.1 of
+   [RFC9293]).
 
    Clients that support both 'flags-bitmask' and 'flags' [RFC8519]
    matching fields MUST NOT set these fields in the same request.
@@ -3805,6 +3806,8 @@ Acknowledgements
    Jethanandani for the comments and suggestions.
 
    Thanks to Lou Berger for Shepherding the document.
+
+   Thanks to David Black for the TSV review.
 
    The IANA-maintained modules were generated using an XSLT stylesheet
    from the 'iana-yang' project (https://github.com/llhotka/iana-yang).
