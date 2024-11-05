@@ -217,7 +217,7 @@ The module can be used to manage ACLs that require matching against IPv6 extensi
 
 ## TCP Flags Handling
 
-The augmented ACL structure ({{enh-acl-tree}}) includes a new container 'flags-bitmask' to better handle TCP flags {{!RFC9293}}.
+The augmented ACL structure ({{enh-acl-tree}}) includes a new container 'flags-bitmask' to better handle TCP flags ({{Section 3.1 of !RFC9293}}).
 
 Clients that support both 'flags-bitmask' and 'flags' {{!RFC8519}} matching fields MUST NOT set these fields in the same request.
 
@@ -1077,6 +1077,8 @@ Many thanks to Jon Shallow and Miguel Cros for the review and comments to the do
 Thanks to Qiufang Ma, Victor Lopez, Joe Clarke, and Mahesh Jethanandani for the comments and suggestions.
 
 Thanks to Lou Berger for Shepherding the document.
+
+Thanks to David Black for the TSV review.
 
 The IANA-maintained modules were generated using an XSLT stylesheet from the 'iana-yang' project (https://github.com/llhotka/iana-yang).
 
