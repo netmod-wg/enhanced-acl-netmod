@@ -38,6 +38,10 @@ informative:
               title: "YANG Parameters"
               target: https://www.iana.org/assignments/yang-parameters
 
+   IANA-TCP-FLAGS:
+              title: "Transmission Control Protocol (TCP) Parameters"
+              target: https://www.iana.org/assignments/tcp-parameters/
+
    IANA-ICMPv4:
               title: "ICMP Type Numbers"
               target: https://www.iana.org/assignments/icmp-parameters/icmp-parameters.xhtml
@@ -217,7 +221,7 @@ The module can be used to manage ACLs that require matching against IPv6 extensi
 
 ## TCP Flags Handling
 
-The augmented ACL structure ({{enh-acl-tree}}) includes a new container 'flags-bitmask' to better handle TCP flags ({{Section 3.1 of !RFC9293}}).
+The augmented ACL structure ({{enh-acl-tree}}) includes a new container 'flags-bitmask' to better handle TCP flags ({{Section 3.1 of !RFC9293}}). Assigned TCP flags are maintained in the "TCP Header Flags" registry under the "Transmission Control Protocol (TCP) Parameters" registry group {{IANA-TCP-FLAGS}}.
 
 Clients that support both 'flags-bitmask' and 'flags' {{!RFC8519}} matching fields MUST NOT set these fields in the same request.
 
