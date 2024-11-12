@@ -1738,7 +1738,7 @@ Each set is uniquely identified by a name and can be called from the relevant en
         <h3 id="name-tcp-flags-handling">
 <a href="#section-3.4" class="section-number selfRef">3.4. </a><a href="#name-tcp-flags-handling" class="section-name selfRef">TCP Flags Handling</a>
         </h3>
-<p id="section-3.4-1">The augmented ACL structure (<a href="#enh-acl-tree" class="auto internal xref">Figure 1</a>) includes a new container 'flags-bitmask' to better handle TCP flags (<span><a href="https://rfc-editor.org/rfc/rfc9293#section-3.1" class="relref">Section 3.1</a> of [<a href="#RFC9293" class="cite xref">RFC9293</a>]</span>).<a href="#section-3.4-1" class="pilcrow">¶</a></p>
+<p id="section-3.4-1">The augmented ACL structure (<a href="#enh-acl-tree" class="auto internal xref">Figure 1</a>) includes a new container 'flags-bitmask' to better handle TCP flags (<span><a href="https://rfc-editor.org/rfc/rfc9293#section-3.1" class="relref">Section 3.1</a> of [<a href="#RFC9293" class="cite xref">RFC9293</a>]</span>). Assigned TCP flags are maintained in the "TCP Header Flags" registry under the "Transmission Control Protocol (TCP) Parameters" registry group <span>[<a href="#IANA-TCP-FLAGS" class="cite xref">IANA-TCP-FLAGS</a>]</span>.<a href="#section-3.4-1" class="pilcrow">¶</a></p>
 <p id="section-3.4-2">Clients that support both 'flags-bitmask' and 'flags' <span>[<a href="#RFC8519" class="cite xref">RFC8519</a>]</span> matching fields <span class="bcp14">MUST NOT</span> set these fields in the same request.<a href="#section-3.4-2" class="pilcrow">¶</a></p>
 </section>
 </div>
@@ -3547,6 +3547,10 @@ as follows:<a href="#section-6.3.3-11" class="pilcrow">¶</a></p>
 <dt id="IANA-IPv6">[IANA-IPv6]</dt>
         <dd>
 <span class="refTitle">"IPv6 Extension Header Types"</span>, <span>n.d.</span>, <span>&lt;<a href="https://www.iana.org/assignments/ipv6-parameters/ipv6-parameters.xhtml">https://www.iana.org/assignments/ipv6-parameters/ipv6-parameters.xhtml</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="IANA-TCP-FLAGS">[IANA-TCP-FLAGS]</dt>
+        <dd>
+<span class="refTitle">"Transmission Control Protocol (TCP) Parameters"</span>, <span>n.d.</span>, <span>&lt;<a href="https://www.iana.org/assignments/tcp-parameters/">https://www.iana.org/assignments/tcp-parameters/</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="IANA-YANG-PARAMETERS">[IANA-YANG-PARAMETERS]</dt>
         <dd>

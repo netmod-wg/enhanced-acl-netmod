@@ -468,7 +468,9 @@ Table of Contents
 
    The augmented ACL structure (Figure 1) includes a new container
    'flags-bitmask' to better handle TCP flags (Section 3.1 of
-   [RFC9293]).
+   [RFC9293]).  Assigned TCP flags are maintained in the "TCP Header
+   Flags" registry under the "Transmission Control Protocol (TCP)
+   Parameters" registry group [IANA-TCP-FLAGS].
 
    Clients that support both 'flags-bitmask' and 'flags' [RFC8519]
    matching fields MUST NOT set these fields in the same request.
@@ -2171,6 +2173,10 @@ Table of Contents
               "IPv6 Extension Header Types", n.d.,
               <https://www.iana.org/assignments/ipv6-parameters/
               ipv6-parameters.xhtml>.
+
+   [IANA-TCP-FLAGS]
+              "Transmission Control Protocol (TCP) Parameters", n.d.,
+              <https://www.iana.org/assignments/tcp-parameters/>.
 
    [IANA-YANG-PARAMETERS]
               "YANG Parameters", n.d.,
