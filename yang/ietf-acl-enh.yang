@@ -407,9 +407,9 @@ module ietf-acl-enh {
              For clarity, the 4 bits of byte 12
              corresponding to the TCP data offset field are not
              included in any matching.
-             Assigned TCP flags are maintained in the IANA
-             "Transmission Control Protocol (TCP) Parameters"
-             registry group.";
+             Assigned TCP flags and their position are maintained
+             in the IANA'Transmission Control Protocol (TCP) 
+             Parameters' registry group.";
           reference
             "RFC 9293: Transmission Control Protocol (TCP),
                        Section 3.1
