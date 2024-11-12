@@ -5,12 +5,12 @@
 netmod                                                     O. G. D. Dios
 Internet-Draft                                                Telefonica
 Intended status: Standards Track                              S. Barguil
-Expires: 9 May 2025                                                Nokia
+Expires: 16 May 2025                                               Nokia
                                                             M. Boucadair
                                                                   Orange
                                                                    Q. Wu
                                                                   Huawei
-                                                         5 November 2024
+                                                        12 November 2024
 
 
         Extensions to the Access Control Lists (ACLs) YANG Model
@@ -51,7 +51,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 9 May 2025.
+   This Internet-Draft will expire on 16 May 2025.
 
 Copyright Notice
 
@@ -1810,6 +1810,13 @@ Table of Contents
    'defined-sets':  Unauthorized read access of these lists will allow
       an attacker to identify the actual resources that are bound to
       ACLs.
+
+   The document defines a match policy based on a pattern that can be
+   observed in a packet.  For example, such a policy can be combined
+   with header-based matches in the context of DDoS mitigation.
+   Filtering based on a pattern match is deterministic for packets with
+   unencrypted data.  However, the efficiency for encrypted packets
+   depend on the presence of an unvarying pattern.
 
    The YANG modules "iana-icmpv4-types", "iana-icmpv6-types", and "iana-
    ipv6-ext-types defines" a set of types.  These nodes are intended to
