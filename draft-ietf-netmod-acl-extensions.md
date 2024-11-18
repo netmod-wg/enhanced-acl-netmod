@@ -297,13 +297,13 @@ This model imports types from {{!RFC6991}}, {{!RFC8519}}, and {{!RFC8294}}.
 
 # Security Considerations
 
-The YANG modules specified in this document define a schema for data
- that is designed to be accessed via network management protocol such
- as NETCONF {{!RFC6241}} or RESTCONF {{!RFC8040}}.  The lowest NETCONF layer
- is the secure transport layer, and the mandatory-to-implement secure
- transport is Secure Shell (SSH) {{!RFC6242}}.  The lowest RESTCONF layer
- is HTTPS, and the mandatory-to-implement secure transport is TLS
- {{!RFC8446}}.
+This section is modeled after the template described in {{Section 3.7 of ?I-D.ietf-netmod-rfc8407bis}}.
+
+The "ietf-acl-enh" YANG module defines a data model that is
+designed to be accessed via YANG-based management protocols, such as
+NETCONF {{?RFC6241}} and RESTCONF {{?RFC8040}}. These protocols have to
+use a secure transport layer (e.g., SSH {{?RFC4252}}, TLS {{?RFC8446}}, and
+QUIC {{?RFC9000}}) and have to use mutual authentication.
 
 The Network Configuration Access Control Model (NACM) {{!RFC8341}} provides the means to restrict access for particular NETCONF or RESTCONF users to a preconfigured subset of all available NETCONF or RESTCONF protocol operations and content.
 
@@ -412,7 +412,7 @@ must be added to the "iana-icmpv4-types" YANG module.  The "enum" statement,
 and sub-statements thereof, should be defined:
 
 "enum":
-: Replicates a name from the registry.
+: Replicates the name from the registry with all spaces striped.
 
 "value":
 : Contains the decimal value of the IANA-assigned value.
@@ -424,7 +424,7 @@ and sub-statements thereof, should be defined:
        "obsolete".
 
 "description":
-: Replicates the description from the registry.
+: Replicates the name from the registry.
 
 "reference":
 :   Replicates the reference(s) from the registry with the
@@ -471,7 +471,7 @@ must be added to the "iana-icmpv6-types" YANG module.  The "enum" statement,
 and sub-statements thereof, should be defined:
 
 "enum":
-: Replicates a name from the registry.
+: Replicates the name from the registry with all spaces striped.
 
 "value":
 : Contains the decimal value of the IANA-assigned value.
@@ -483,7 +483,7 @@ and sub-statements thereof, should be defined:
        "obsolete".
 
 "description":
-: Replicates the description from the registry.
+: Replicates the name from the registry.
 
 "reference":
 :   Replicates the reference(s) from the registry with the
@@ -530,7 +530,7 @@ must be added to the "iana-ipv6-ext-types" YANG module.  The "enum" statement,
 and sub-statements thereof, should be defined:
 
 "enum":
-: Replicates a name from the registry.
+: Replicates the description from the registry with all spaces striped.
 
 "value":
 : Contains the decimal value of the IANA-assigned value.
@@ -828,9 +828,9 @@ The ACLs could be used to create rules to match MPLS fields on a packet. {{!RFC8
 
 This section provides a few examples to illustrate the use of the enhanced ACL module ("ietf-acl-enh").
 
-{{example_4}} shows an example of the message body of a request to install a filter to discard incoming TCP messages having all flags unset.
-
 ## TCP Flags Handling
+
+{{example_4}} shows an example of the message body of a request to install a filter to discard incoming TCP messages having all flags unset.
 
 ~~~ json
 {
