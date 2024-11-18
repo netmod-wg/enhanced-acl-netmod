@@ -15,17 +15,17 @@
 the limitations of the ACL model as initially defined in RFC 8519. 
        The document also defines IANA-maintained modules for ICMP types and IPv6 extension headers. 
     " name="description">
-<meta content="xml2rfc 3.23.2" name="generator">
+<meta content="xml2rfc 3.24.0" name="generator">
 <meta content="Internet-Draft" name="keyword">
 <meta content="draft-ietf-netmod-acl-extensions-latest" name="ietf.draft">
 <!-- Generator version information:
-  xml2rfc 3.23.2
+  xml2rfc 3.24.0
     Python 3.12.7
     ConfigArgParse 1.7
     google-i18n-address 3.1.1
     intervaltree 3.1.0
     Jinja2 3.1.4
-    lxml 4.9.4
+    lxml 5.3.0
     platformdirs 4.3.6
     pycountry 22.3.5
     PyYAML 6.0.1
@@ -167,31 +167,6 @@ the limitations of the ACL model as initially defined in RFC 8519.
 }
 
 @font-face {
-  font-family: 'Cabin Condensed';
-  font-style: normal;
-  font-weight: 600;
-  font-display: swap;
-  src: local('Cabin Condensed SemiBold'), local('CabinCondensed-SemiBold'), url('https://martinthomson.github.io/rfc-css/fonts/cabincondensed-semibold-vietnamese.woff2') format('woff2');
-  unicode-range: U+0102-0103, U+0110-0111, U+1EA0-1EF9, U+20AB;
-}
-@font-face {
-  font-family: 'Cabin Condensed';
-  font-style: normal;
-  font-weight: 600;
-  font-display: swap;
-  src: local('Cabin Condensed SemiBold'), local('CabinCondensed-SemiBold'), url('https://martinthomson.github.io/rfc-css/fonts/cabincondensed-semibold-latin-ext.woff2') format('woff2');
-  unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
-}
-@font-face {
-  font-family: 'Cabin Condensed';
-  font-style: normal;
-  font-weight: 600;
-  font-display: swap;
-  src: local('Cabin Condensed SemiBold'), local('CabinCondensed-SemiBold'), url('https://martinthomson.github.io/rfc-css/fonts/cabincondensed-semibold-latin.woff2') format('woff2');
-  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
-}
-
-@font-face {
   font-family: 'Oxygen Mono';
   font-style: normal;
   font-weight: 400;
@@ -208,6 +183,77 @@ the limitations of the ACL model as initially defined in RFC 8519.
   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
 
+@font-face {
+  font-family: 'Sofia Sans Semi Condensed';
+  font-style: italic;
+  font-weight: 1 1000;
+  src: url('https://martinthomson.github.io/rfc-css/fonts/sofiasanssemicondensed-italic-cyrillic-ext.woff2') format('woff2');
+  unicode-range: U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+}
+@font-face {
+  font-family: 'Sofia Sans Semi Condensed';
+  font-style: italic;
+  font-weight: 1 1000;
+  src: url('https://martinthomson.github.io/rfc-css/fonts/sofiasanssemicondensed-italic-cyrillic.woff2') format('woff2');
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+@font-face {
+  font-family: 'Sofia Sans Semi Condensed';
+  font-style: italic;
+  font-weight: 1 1000;
+  src: url('https://martinthomson.github.io/rfc-css/fonts/sofiasanssemicondensed-italic-greek.woff2') format('woff2');
+  unicode-range: U+0370-0377, U+037A-037F, U+0384-038A, U+038C, U+038E-03A1, U+03A3-03FF;
+}
+@font-face {
+  font-family: 'Sofia Sans Semi Condensed';
+  font-style: italic;
+  font-weight: 1 1000;
+  src: url('https://martinthomson.github.io/rfc-css/fonts/sofiasanssemicondensed-italic-latin-ext.woff2') format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: 'Sofia Sans Semi Condensed';
+  font-style: italic;
+  font-weight: 1 1000;
+  src: url('https://martinthomson.github.io/rfc-css/fonts/sofiasanssemicondensed-italic-latin.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'Sofia Sans Semi Condensed';
+  font-style: normal;
+  font-weight: 1 1000;
+  src: url('https://martinthomson.github.io/rfc-css/fonts/sofiasanssemicondensed-regular-cyrillic-ext.woff2') format('woff2');
+  unicode-range: U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+}
+@font-face {
+  font-family: 'Sofia Sans Semi Condensed';
+  font-style: normal;
+  font-weight: 1 1000;
+  src: url('https://martinthomson.github.io/rfc-css/fonts/sofiasanssemicondensed-regular-cyrillic.woff2') format('woff2');
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+@font-face {
+  font-family: 'Sofia Sans Semi Condensed';
+  font-style: normal;
+  font-weight: 1 1000;
+  src: url('https://martinthomson.github.io/rfc-css/fonts/sofiasanssemicondensed-regular-greek.woff2') format('woff2');
+  unicode-range: U+0370-0377, U+037A-037F, U+0384-038A, U+038C, U+038E-03A1, U+03A3-03FF;
+}
+@font-face {
+  font-family: 'Sofia Sans Semi Condensed';
+  font-style: normal;
+  font-weight: 1 1000;
+  src: url('https://martinthomson.github.io/rfc-css/fonts/sofiasanssemicondensed-regular-latin-ext.woff2') format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: 'Sofia Sans Semi Condensed';
+  font-style: normal;
+  font-weight: 1 1000;
+  src: url('https://martinthomson.github.io/rfc-css/fonts/sofiasanssemicondensed-regular-latin.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
 :root {
   color-scheme: light dark;
   --background-color: #fff;
@@ -220,6 +266,7 @@ the limitations of the ACL model as initially defined in RFC 8519.
   --pilcrow-strong: #bbb;
   --small-font-size: 14.5px;
   --font-mono: 'Oxygen Mono', monospace;
+  --font-title: "Sofia Sans Semi Condensed", sans-serif;
   scrollbar-color: #bbb #eee;
 }
 body {
@@ -238,8 +285,8 @@ body {
 
 /* headings */
 h1, h2, h3, h4, h5, h6 {
-  font-family: "Cabin Condensed", sans-serif;
-  font-weight: 600;
+  font-family: var(--font-title);
+  font-weight: 680;
   margin: 0.8em 0 0.3em;
   font-size-adjust: 0.5;
   color: var(--title-color);
@@ -647,6 +694,12 @@ sub, sup {
   padding: 0.75em 0 2em 0;
   margin-bottom: 1em;
 }
+@media screen {
+  #toc nav {
+    font-family: var(--font-title);
+    font-weight: 360;
+  }
+}
 #toc nav ul {
   margin: 0 0.5em 0 0;
   padding: 0;
@@ -1030,11 +1083,11 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <thead><tr>
 <td class="left">Internet-Draft</td>
 <td class="center">Enhanced ACLs</td>
-<td class="right">October 2024</td>
+<td class="right">November 2024</td>
 </tr></thead>
 <tfoot><tr>
 <td class="left">Dios, et al.</td>
-<td class="center">Expires 24 April 2025</td>
+<td class="center">Expires 22 May 2025</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1047,12 +1100,12 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <dd class="internet-draft">draft-ietf-netmod-acl-extensions-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2024-10-21" class="published">21 October 2024</time>
+<time datetime="2024-11-18" class="published">18 November 2024</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Standards Track</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2025-04-24">24 April 2025</time></dd>
+<dd class="expires"><time datetime="2025-05-22">22 May 2025</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1112,7 +1165,7 @@ the limitations of the ACL model as initially defined in RFC 8519.<a href="#sect
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 24 April 2025.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 22 May 2025.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1445,7 +1498,7 @@ module: ietf-acl-enh
     +--rw (payload)?
     |  +--:(prefix-pattern)
     |     +--rw prefix-pattern {match-on-payload}?
-    |        +---u payload
+    |        +---u payload-match
     +--rw (alias)?
     |  +--:(alias-name)
     |     +--rw alias-name*       alias-ref
@@ -1532,7 +1585,7 @@ module: ietf-acl-enh
     +-- lower-label-range?   rt-types:mpls-label
     +-- label-block-name?    string
     +-- ttl-value?           uint8
-  grouping payload:
+  grouping payload-match:
     +-- offset?       identityref
     +-- offset-end?   uint64
     +-- operator?     operator
@@ -1685,7 +1738,7 @@ Each set is uniquely identified by a name and can be called from the relevant en
         <h3 id="name-tcp-flags-handling">
 <a href="#section-3.4" class="section-number selfRef">3.4. </a><a href="#name-tcp-flags-handling" class="section-name selfRef">TCP Flags Handling</a>
         </h3>
-<p id="section-3.4-1">The augmented ACL structure (<a href="#enh-acl-tree" class="auto internal xref">Figure 1</a>) includes a new container 'flags-bitmask' to better handle TCP flags <span>[<a href="#RFC9293" class="cite xref">RFC9293</a>]</span>.<a href="#section-3.4-1" class="pilcrow">¶</a></p>
+<p id="section-3.4-1">The augmented ACL structure (<a href="#enh-acl-tree" class="auto internal xref">Figure 1</a>) includes a new container 'flags-bitmask' to better handle TCP flags (<span><a href="https://rfc-editor.org/rfc/rfc9293#section-3.1" class="relref">Section 3.1</a> of [<a href="#RFC9293" class="cite xref">RFC9293</a>]</span>). Assigned TCP flags are maintained in the "TCP Header Flags" registry under the "Transmission Control Protocol (TCP) Parameters" registry group <span>[<a href="#IANA-TCP-FLAGS" class="cite xref">IANA-TCP-FLAGS</a>]</span>.<a href="#section-3.4-1" class="pilcrow">¶</a></p>
 <p id="section-3.4-2">Clients that support both 'flags-bitmask' and 'flags' <span>[<a href="#RFC8519" class="cite xref">RFC8519</a>]</span> matching fields <span class="bcp14">MUST NOT</span> set these fields in the same request.<a href="#section-3.4-2" class="pilcrow">¶</a></p>
 </section>
 </div>
@@ -2203,13 +2256,18 @@ module ietf-acl-enh {
         leaf bitmask {
           type uint16;
           description
-            "The bitmask matches the last 4 bits of byte 12 and 13 of
-             the TCP header.  For clarity, the 4 bits of byte 12
+            "The bitmask matches the last 4 bits of byte 13
+             and byte 14 of the TCP header.
+             For clarity, the 4 bits of byte 12
              corresponding to the TCP data offset field are not
-             included in any matching.";
+             included in any matching.
+             Assigned TCP flags and their position are maintained
+             in the IANA'Transmission Control Protocol (TCP)
+             Parameters' registry group.";
           reference
             "RFC 9293: Transmission Control Protocol (TCP),
-                       Section 3.1";
+                       Section 3.1
+             https://www.iana.org/assignments/tcp-parameters";
         }
       }
     }
@@ -2286,7 +2344,7 @@ module ietf-acl-enh {
     }
   }
 
-  grouping payload {
+  grouping payload-match {
     description
       "Operations on payload match.";
     leaf offset {
@@ -2734,7 +2792,7 @@ module ietf-acl-enh {
         if-feature "match-on-payload";
         description
           "Indicates the rule to perform the payload-based match.";
-        uses payload;
+        uses payload-match;
       }
     }
     choice alias {
@@ -3016,41 +3074,42 @@ module ietf-acl-enh {
       <h2 id="name-security-considerations">
 <a href="#section-5" class="section-number selfRef">5. </a><a href="#name-security-considerations" class="section-name selfRef">Security Considerations</a>
       </h2>
-<p id="section-5-1">The YANG modules specified in this document define a schema for data
- that is designed to be accessed via network management protocol such
- as NETCONF <span>[<a href="#RFC6241" class="cite xref">RFC6241</a>]</span> or RESTCONF <span>[<a href="#RFC8040" class="cite xref">RFC8040</a>]</span>.  The lowest NETCONF layer
- is the secure transport layer, and the mandatory-to-implement secure
- transport is Secure Shell (SSH) <span>[<a href="#RFC6242" class="cite xref">RFC6242</a>]</span>.  The lowest RESTCONF layer
- is HTTPS, and the mandatory-to-implement secure transport is TLS
- <span>[<a href="#RFC8446" class="cite xref">RFC8446</a>]</span>.<a href="#section-5-1" class="pilcrow">¶</a></p>
-<p id="section-5-2">The Network Configuration Access Control Model (NACM) <span>[<a href="#RFC8341" class="cite xref">RFC8341</a>]</span> provides the means to restrict access for particular NETCONF or RESTCONF users to a preconfigured subset of all available NETCONF or RESTCONF protocol operations and content.<a href="#section-5-2" class="pilcrow">¶</a></p>
-<p id="section-5-3">There are a number of data nodes defined in the "ietf-acl-enh" YANG module that are writable/creatable/deletable (i.e., config true, which is the default). These data nodes may be considered sensitive or vulnerable in some network environments. Write operations (e.g., edit-config) to these data nodes without proper protection can have a negative effect on network operations. These are the subtrees and data nodes and their sensitivity/vulnerability:<a href="#section-5-3" class="pilcrow">¶</a></p>
-<span class="break"></span><dl class="dlParallel" id="section-5-4">
-        <dt id="section-5-4.1">'defined-sets':</dt>
-        <dd style="margin-left: 1.5em" id="section-5-4.2">
-          <p id="section-5-4.2.1">These lists specify a set of sets and aliases. Similar to <span>[<a href="#RFC8519" class="cite xref">RFC8519</a>]</span>, unauthorized write access to these
+<p id="section-5-1">This section is modeled after the template described in <span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-netmod-rfc8407bis-21#section-3.7" class="relref">Section 3.7</a> of [<a href="#I-D.ietf-netmod-rfc8407bis" class="cite xref">I-D.ietf-netmod-rfc8407bis</a>]</span>.<a href="#section-5-1" class="pilcrow">¶</a></p>
+<p id="section-5-2">The "ietf-acl-enh" YANG module defines a data model that is
+designed to be accessed via YANG-based management protocols, such as
+NETCONF <span>[<a href="#RFC6241" class="cite xref">RFC6241</a>]</span> and RESTCONF <span>[<a href="#RFC8040" class="cite xref">RFC8040</a>]</span>. These protocols have to
+use a secure transport layer (e.g., SSH <span>[<a href="#RFC4252" class="cite xref">RFC4252</a>]</span>, TLS <span>[<a href="#RFC8446" class="cite xref">RFC8446</a>]</span>, and
+QUIC <span>[<a href="#RFC9000" class="cite xref">RFC9000</a>]</span>) and have to use mutual authentication.<a href="#section-5-2" class="pilcrow">¶</a></p>
+<p id="section-5-3">The Network Configuration Access Control Model (NACM) <span>[<a href="#RFC8341" class="cite xref">RFC8341</a>]</span> provides the means to restrict access for particular NETCONF or RESTCONF users to a preconfigured subset of all available NETCONF or RESTCONF protocol operations and content.<a href="#section-5-3" class="pilcrow">¶</a></p>
+<p id="section-5-4">There are a number of data nodes defined in the "ietf-acl-enh" YANG module that are writable/creatable/deletable (i.e., config true, which is the default). These data nodes may be considered sensitive or vulnerable in some network environments. Write operations (e.g., edit-config) to these data nodes without proper protection can have a negative effect on network operations. These are the subtrees and data nodes and their sensitivity/vulnerability:<a href="#section-5-4" class="pilcrow">¶</a></p>
+<span class="break"></span><dl class="dlParallel" id="section-5-5">
+        <dt id="section-5-5.1">'defined-sets':</dt>
+        <dd style="margin-left: 1.5em" id="section-5-5.2">
+          <p id="section-5-5.2.1">These lists specify a set of sets and aliases. Similar to <span>[<a href="#RFC8519" class="cite xref">RFC8519</a>]</span>, unauthorized write access to these
    list can allow intruders to modify the entries so as to permit
    traffic that should not be permitted, or deny traffic that should
    be permitted.  The former may result in a DoS attack, or
-   compromise a device.  The latter may result in a DoS attack.<a href="#section-5-4.2.1" class="pilcrow">¶</a></p>
+   compromise a device.  The latter may result in a DoS attack.<a href="#section-5-5.2.1" class="pilcrow">¶</a></p>
 </dd>
       <dd class="break"></dd>
 </dl>
-<p id="section-5-5">Some of the readable data nodes in the "ietf-acl-enh" YANG module may be considered sensitive or vulnerable in some network environments. It is thus important to control read access (e.g., via get, get-config, or notification) to these data nodes. These are the subtrees and data nodes and their sensitivity/vulnerability:<a href="#section-5-5" class="pilcrow">¶</a></p>
-<span class="break"></span><dl class="dlParallel" id="section-5-6">
-        <dt id="section-5-6.1">'defined-sets':</dt>
-        <dd style="margin-left: 1.5em" id="section-5-6.2">
-          <p id="section-5-6.2.1">Unauthorized read access of these lists will allow
+<p id="section-5-6">Some of the readable data nodes in the "ietf-acl-enh" YANG module may be considered sensitive or vulnerable in some network environments. It is thus important to control read access (e.g., via get, get-config, or notification) to these data nodes. These are the subtrees and data nodes and their sensitivity/vulnerability:<a href="#section-5-6" class="pilcrow">¶</a></p>
+<span class="break"></span><dl class="dlParallel" id="section-5-7">
+        <dt id="section-5-7.1">'defined-sets':</dt>
+        <dd style="margin-left: 1.5em" id="section-5-7.2">
+          <p id="section-5-7.2.1">Unauthorized read access of these lists will allow
 an attacker to identify the actual resources that are bound
-to ACLs.<a href="#section-5-6.2.1" class="pilcrow">¶</a></p>
+to ACLs.<a href="#section-5-7.2.1" class="pilcrow">¶</a></p>
 </dd>
       <dd class="break"></dd>
 </dl>
-<p id="section-5-7">The YANG modules "iana-icmpv4-types", "iana-icmpv6-types", and "iana-ipv6-ext-types defines" a set of types. These nodes are intended to be reused by other YANG
+<p id="section-5-8">The document defines a match policy based on a pattern that can be observed in a packet. For example, such a policy can be combined with header-based matches in the context of DDoS mitigation. Filtering based on a pattern match is deterministic for packets with unencrypted data. However, the efficiency for encrypted
+packets depend on the presence of an unvarying pattern.<a href="#section-5-8" class="pilcrow">¶</a></p>
+<p id="section-5-9">The YANG modules "iana-icmpv4-types", "iana-icmpv6-types", and "iana-ipv6-ext-types defines" a set of types. These nodes are intended to be reused by other YANG
 modules. Each of these modules by itself does not expose any data nodes that
 are writable, data nodes that contain read-only state, or RPCs.
 As such, there are no additional security issues related to
-these YANG modules that need to be considered.<a href="#section-5-7" class="pilcrow">¶</a></p>
+these YANG modules that need to be considered.<a href="#section-5-9" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="iana-considerations">
@@ -3153,7 +3212,7 @@ and sub-statements thereof, should be defined:<a href="#section-6.3.1-5" class="
 <span class="break"></span><dl class="dlParallel" id="section-6.3.1-6">
             <dt id="section-6.3.1-6.1">"enum":</dt>
             <dd style="margin-left: 1.5em" id="section-6.3.1-6.2">
-              <p id="section-6.3.1-6.2.1">Replicates a name from the registry.<a href="#section-6.3.1-6.2.1" class="pilcrow">¶</a></p>
+              <p id="section-6.3.1-6.2.1">Replicates the name from the registry with all spaces striped.<a href="#section-6.3.1-6.2.1" class="pilcrow">¶</a></p>
 </dd>
             <dd class="break"></dd>
 <dt id="section-6.3.1-6.3">"value":</dt>
@@ -3171,7 +3230,7 @@ or obsoleted.  IANA "deprecated" maps to YANG status
             <dd class="break"></dd>
 <dt id="section-6.3.1-6.7">"description":</dt>
             <dd style="margin-left: 1.5em" id="section-6.3.1-6.8">
-              <p id="section-6.3.1-6.8.1">Replicates the description from the registry.<a href="#section-6.3.1-6.8.1" class="pilcrow">¶</a></p>
+              <p id="section-6.3.1-6.8.1">Replicates the name from the registry.<a href="#section-6.3.1-6.8.1" class="pilcrow">¶</a></p>
 </dd>
             <dd class="break"></dd>
 <dt id="section-6.3.1-6.9">"reference":</dt>
@@ -3233,7 +3292,7 @@ and sub-statements thereof, should be defined:<a href="#section-6.3.2-5" class="
 <span class="break"></span><dl class="dlParallel" id="section-6.3.2-6">
             <dt id="section-6.3.2-6.1">"enum":</dt>
             <dd style="margin-left: 1.5em" id="section-6.3.2-6.2">
-              <p id="section-6.3.2-6.2.1">Replicates a name from the registry.<a href="#section-6.3.2-6.2.1" class="pilcrow">¶</a></p>
+              <p id="section-6.3.2-6.2.1">Replicates the name from the registry with all spaces striped.<a href="#section-6.3.2-6.2.1" class="pilcrow">¶</a></p>
 </dd>
             <dd class="break"></dd>
 <dt id="section-6.3.2-6.3">"value":</dt>
@@ -3251,7 +3310,7 @@ or obsoleted.  IANA "deprecated" maps to YANG status
             <dd class="break"></dd>
 <dt id="section-6.3.2-6.7">"description":</dt>
             <dd style="margin-left: 1.5em" id="section-6.3.2-6.8">
-              <p id="section-6.3.2-6.8.1">Replicates the description from the registry.<a href="#section-6.3.2-6.8.1" class="pilcrow">¶</a></p>
+              <p id="section-6.3.2-6.8.1">Replicates the name from the registry.<a href="#section-6.3.2-6.8.1" class="pilcrow">¶</a></p>
 </dd>
             <dd class="break"></dd>
 <dt id="section-6.3.2-6.9">"reference":</dt>
@@ -3313,7 +3372,7 @@ and sub-statements thereof, should be defined:<a href="#section-6.3.3-5" class="
 <span class="break"></span><dl class="dlParallel" id="section-6.3.3-6">
             <dt id="section-6.3.3-6.1">"enum":</dt>
             <dd style="margin-left: 1.5em" id="section-6.3.3-6.2">
-              <p id="section-6.3.3-6.2.1">Replicates a name from the registry.<a href="#section-6.3.3-6.2.1" class="pilcrow">¶</a></p>
+              <p id="section-6.3.3-6.2.1">Replicates the description from the registry with all spaces striped.<a href="#section-6.3.3-6.2.1" class="pilcrow">¶</a></p>
 </dd>
             <dd class="break"></dd>
 <dt id="section-6.3.3-6.3">"value":</dt>
@@ -3411,14 +3470,6 @@ as follows:<a href="#section-6.3.3-11" class="pilcrow">¶</a></p>
         <dd>
 <span class="refAuthor">Bjorklund, M., Ed.</span>, <span class="refTitle">"YANG - A Data Modeling Language for the Network Configuration Protocol (NETCONF)"</span>, <span class="seriesInfo">RFC 6020</span>, <span class="seriesInfo">DOI 10.17487/RFC6020</span>, <time datetime="2010-10" class="refDate">October 2010</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc6020">https://www.rfc-editor.org/rfc/rfc6020</a>&gt;</span>. </dd>
 <dd class="break"></dd>
-<dt id="RFC6241">[RFC6241]</dt>
-        <dd>
-<span class="refAuthor">Enns, R., Ed.</span>, <span class="refAuthor">Bjorklund, M., Ed.</span>, <span class="refAuthor">Schoenwaelder, J., Ed.</span>, and <span class="refAuthor">A. Bierman, Ed.</span>, <span class="refTitle">"Network Configuration Protocol (NETCONF)"</span>, <span class="seriesInfo">RFC 6241</span>, <span class="seriesInfo">DOI 10.17487/RFC6241</span>, <time datetime="2011-06" class="refDate">June 2011</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc6241">https://www.rfc-editor.org/rfc/rfc6241</a>&gt;</span>. </dd>
-<dd class="break"></dd>
-<dt id="RFC6242">[RFC6242]</dt>
-        <dd>
-<span class="refAuthor">Wasserman, M.</span>, <span class="refTitle">"Using the NETCONF Protocol over Secure Shell (SSH)"</span>, <span class="seriesInfo">RFC 6242</span>, <span class="seriesInfo">DOI 10.17487/RFC6242</span>, <time datetime="2011-06" class="refDate">June 2011</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc6242">https://www.rfc-editor.org/rfc/rfc6242</a>&gt;</span>. </dd>
-<dd class="break"></dd>
 <dt id="RFC6991">[RFC6991]</dt>
         <dd>
 <span class="refAuthor">Schoenwaelder, J., Ed.</span>, <span class="refTitle">"Common YANG Data Types"</span>, <span class="seriesInfo">RFC 6991</span>, <span class="seriesInfo">DOI 10.17487/RFC6991</span>, <time datetime="2013-07" class="refDate">July 2013</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc6991">https://www.rfc-editor.org/rfc/rfc6991</a>&gt;</span>. </dd>
@@ -3426,10 +3477,6 @@ as follows:<a href="#section-6.3.3-11" class="pilcrow">¶</a></p>
 <dt id="RFC7950">[RFC7950]</dt>
         <dd>
 <span class="refAuthor">Bjorklund, M., Ed.</span>, <span class="refTitle">"The YANG 1.1 Data Modeling Language"</span>, <span class="seriesInfo">RFC 7950</span>, <span class="seriesInfo">DOI 10.17487/RFC7950</span>, <time datetime="2016-08" class="refDate">August 2016</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc7950">https://www.rfc-editor.org/rfc/rfc7950</a>&gt;</span>. </dd>
-<dd class="break"></dd>
-<dt id="RFC8040">[RFC8040]</dt>
-        <dd>
-<span class="refAuthor">Bierman, A.</span>, <span class="refAuthor">Bjorklund, M.</span>, and <span class="refAuthor">K. Watsen</span>, <span class="refTitle">"RESTCONF Protocol"</span>, <span class="seriesInfo">RFC 8040</span>, <span class="seriesInfo">DOI 10.17487/RFC8040</span>, <time datetime="2017-01" class="refDate">January 2017</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc8040">https://www.rfc-editor.org/rfc/rfc8040</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="RFC8174">[RFC8174]</dt>
         <dd>
@@ -3450,10 +3497,6 @@ as follows:<a href="#section-6.3.3-11" class="pilcrow">¶</a></p>
 <dt id="RFC8342">[RFC8342]</dt>
         <dd>
 <span class="refAuthor">Bjorklund, M.</span>, <span class="refAuthor">Schoenwaelder, J.</span>, <span class="refAuthor">Shafer, P.</span>, <span class="refAuthor">Watsen, K.</span>, and <span class="refAuthor">R. Wilton</span>, <span class="refTitle">"Network Management Datastore Architecture (NMDA)"</span>, <span class="seriesInfo">RFC 8342</span>, <span class="seriesInfo">DOI 10.17487/RFC8342</span>, <time datetime="2018-03" class="refDate">March 2018</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc8342">https://www.rfc-editor.org/rfc/rfc8342</a>&gt;</span>. </dd>
-<dd class="break"></dd>
-<dt id="RFC8446">[RFC8446]</dt>
-        <dd>
-<span class="refAuthor">Rescorla, E.</span>, <span class="refTitle">"The Transport Layer Security (TLS) Protocol Version 1.3"</span>, <span class="seriesInfo">RFC 8446</span>, <span class="seriesInfo">DOI 10.17487/RFC8446</span>, <time datetime="2018-08" class="refDate">August 2018</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc8446">https://www.rfc-editor.org/rfc/rfc8446</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="RFC8519">[RFC8519]</dt>
         <dd>
@@ -3478,7 +3521,7 @@ as follows:<a href="#section-6.3.3-11" class="pilcrow">¶</a></p>
 <dl class="references">
 <dt id="I-D.ietf-netmod-rfc8407bis">[I-D.ietf-netmod-rfc8407bis]</dt>
         <dd>
-<span class="refAuthor">Bierman, A.</span>, <span class="refAuthor">Boucadair, M.</span>, and <span class="refAuthor">Q. Wu</span>, <span class="refTitle">"Guidelines for Authors and Reviewers of Documents Containing YANG Data Models"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-netmod-rfc8407bis-19</span>, <time datetime="2024-10-21" class="refDate">21 October 2024</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-netmod-rfc8407bis-19">https://datatracker.ietf.org/doc/html/draft-ietf-netmod-rfc8407bis-19</a>&gt;</span>. </dd>
+<span class="refAuthor">Bierman, A.</span>, <span class="refAuthor">Boucadair, M.</span>, and <span class="refAuthor">Q. Wu</span>, <span class="refTitle">"Guidelines for Authors and Reviewers of Documents Containing YANG Data Models"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-netmod-rfc8407bis-21</span>, <time datetime="2024-11-13" class="refDate">13 November 2024</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-netmod-rfc8407bis-21">https://datatracker.ietf.org/doc/html/draft-ietf-netmod-rfc8407bis-21</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="IANA-ICMPv4">[IANA-ICMPv4]</dt>
         <dd>
@@ -3491,6 +3534,10 @@ as follows:<a href="#section-6.3.3-11" class="pilcrow">¶</a></p>
 <dt id="IANA-IPv6">[IANA-IPv6]</dt>
         <dd>
 <span class="refTitle">"IPv6 Extension Header Types"</span>, <span>n.d.</span>, <span>&lt;<a href="https://www.iana.org/assignments/ipv6-parameters/ipv6-parameters.xhtml">https://www.iana.org/assignments/ipv6-parameters/ipv6-parameters.xhtml</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="IANA-TCP-FLAGS">[IANA-TCP-FLAGS]</dt>
+        <dd>
+<span class="refTitle">"Transmission Control Protocol (TCP) Parameters"</span>, <span>n.d.</span>, <span>&lt;<a href="https://www.iana.org/assignments/tcp-parameters/">https://www.iana.org/assignments/tcp-parameters/</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="IANA-YANG-PARAMETERS">[IANA-YANG-PARAMETERS]</dt>
         <dd>
@@ -3520,9 +3567,17 @@ as follows:<a href="#section-6.3.3-11" class="pilcrow">¶</a></p>
         <dd>
 <span class="refAuthor">Bradner, S.</span> and <span class="refAuthor">V. Paxson</span>, <span class="refTitle">"IANA Allocation Guidelines For Values In the Internet Protocol and Related Headers"</span>, <span class="seriesInfo">BCP 37</span>, <span class="seriesInfo">RFC 2780</span>, <span class="seriesInfo">DOI 10.17487/RFC2780</span>, <time datetime="2000-03" class="refDate">March 2000</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc2780">https://www.rfc-editor.org/rfc/rfc2780</a>&gt;</span>. </dd>
 <dd class="break"></dd>
+<dt id="RFC4252">[RFC4252]</dt>
+        <dd>
+<span class="refAuthor">Ylonen, T.</span> and <span class="refAuthor">C. Lonvick, Ed.</span>, <span class="refTitle">"The Secure Shell (SSH) Authentication Protocol"</span>, <span class="seriesInfo">RFC 4252</span>, <span class="seriesInfo">DOI 10.17487/RFC4252</span>, <time datetime="2006-01" class="refDate">January 2006</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc4252">https://www.rfc-editor.org/rfc/rfc4252</a>&gt;</span>. </dd>
+<dd class="break"></dd>
 <dt id="RFC5237">[RFC5237]</dt>
         <dd>
 <span class="refAuthor">Arkko, J.</span> and <span class="refAuthor">S. Bradner</span>, <span class="refTitle">"IANA Allocation Guidelines for the Protocol Field"</span>, <span class="seriesInfo">BCP 37</span>, <span class="seriesInfo">RFC 5237</span>, <span class="seriesInfo">DOI 10.17487/RFC5237</span>, <time datetime="2008-02" class="refDate">February 2008</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc5237">https://www.rfc-editor.org/rfc/rfc5237</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC6241">[RFC6241]</dt>
+        <dd>
+<span class="refAuthor">Enns, R., Ed.</span>, <span class="refAuthor">Bjorklund, M., Ed.</span>, <span class="refAuthor">Schoenwaelder, J., Ed.</span>, and <span class="refAuthor">A. Bierman, Ed.</span>, <span class="refTitle">"Network Configuration Protocol (NETCONF)"</span>, <span class="seriesInfo">RFC 6241</span>, <span class="seriesInfo">DOI 10.17487/RFC6241</span>, <time datetime="2011-06" class="refDate">June 2011</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc6241">https://www.rfc-editor.org/rfc/rfc6241</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="RFC7045">[RFC7045]</dt>
         <dd>
@@ -3532,9 +3587,17 @@ as follows:<a href="#section-6.3.3-11" class="pilcrow">¶</a></p>
         <dd>
 <span class="refAuthor">Sajassi, A.</span>, <span class="refAuthor">Aggarwal, R.</span>, <span class="refAuthor">Uttaro, J.</span>, <span class="refAuthor">Bitar, N.</span>, <span class="refAuthor">Henderickx, W.</span>, and <span class="refAuthor">A. Isaac</span>, <span class="refTitle">"Requirements for Ethernet VPN (EVPN)"</span>, <span class="seriesInfo">RFC 7209</span>, <span class="seriesInfo">DOI 10.17487/RFC7209</span>, <time datetime="2014-05" class="refDate">May 2014</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc7209">https://www.rfc-editor.org/rfc/rfc7209</a>&gt;</span>. </dd>
 <dd class="break"></dd>
+<dt id="RFC8040">[RFC8040]</dt>
+        <dd>
+<span class="refAuthor">Bierman, A.</span>, <span class="refAuthor">Bjorklund, M.</span>, and <span class="refAuthor">K. Watsen</span>, <span class="refTitle">"RESTCONF Protocol"</span>, <span class="seriesInfo">RFC 8040</span>, <span class="seriesInfo">DOI 10.17487/RFC8040</span>, <time datetime="2017-01" class="refDate">January 2017</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc8040">https://www.rfc-editor.org/rfc/rfc8040</a>&gt;</span>. </dd>
+<dd class="break"></dd>
 <dt id="RFC8340">[RFC8340]</dt>
         <dd>
 <span class="refAuthor">Bjorklund, M.</span> and <span class="refAuthor">L. Berger, Ed.</span>, <span class="refTitle">"YANG Tree Diagrams"</span>, <span class="seriesInfo">BCP 215</span>, <span class="seriesInfo">RFC 8340</span>, <span class="seriesInfo">DOI 10.17487/RFC8340</span>, <time datetime="2018-03" class="refDate">March 2018</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc8340">https://www.rfc-editor.org/rfc/rfc8340</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC8446">[RFC8446]</dt>
+        <dd>
+<span class="refAuthor">Rescorla, E.</span>, <span class="refTitle">"The Transport Layer Security (TLS) Protocol Version 1.3"</span>, <span class="seriesInfo">RFC 8446</span>, <span class="seriesInfo">DOI 10.17487/RFC8446</span>, <time datetime="2018-08" class="refDate">August 2018</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc8446">https://www.rfc-editor.org/rfc/rfc8446</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="RFC8955">[RFC8955]</dt>
         <dd>
@@ -4963,15 +5026,15 @@ logical infrastructure.<a href="#appendix-D.8-3.4.1" class="pilcrow">¶</a></p>
 <a href="#appendix-E" class="section-number selfRef">Appendix E. </a><a href="#name-examples" class="section-name selfRef">Examples</a>
       </h2>
 <p id="appendix-E-1">This section provides a few examples to illustrate the use of the enhanced ACL module ("ietf-acl-enh").<a href="#appendix-E-1" class="pilcrow">¶</a></p>
-<p id="appendix-E-2"><a href="#example_4" class="auto internal xref">Figure 4</a> shows an example of the message body of a request to install a filter to discard incoming TCP messages having all flags unset.<a href="#appendix-E-2" class="pilcrow">¶</a></p>
 <div id="tcp-flags-handling-1">
 <section id="appendix-E.1">
         <h3 id="name-tcp-flags-handling-2">
 <a href="#appendix-E.1" class="section-number selfRef">E.1. </a><a href="#name-tcp-flags-handling-2" class="section-name selfRef">TCP Flags Handling</a>
         </h3>
+<p id="appendix-E.1-1"><a href="#example_4" class="auto internal xref">Figure 4</a> shows an example of the message body of a request to install a filter to discard incoming TCP messages having all flags unset.<a href="#appendix-E.1-1" class="pilcrow">¶</a></p>
 <span id="name-example-of-an-acl-to-deny-t"></span><div id="example_4">
 <figure id="figure-4">
-          <div class="lang-json sourcecode" id="appendix-E.1-1.1">
+          <div class="lang-json sourcecode" id="appendix-E.1-2.1">
 <pre>
 {
   "ietf-access-control-list:acls": {
@@ -5286,9 +5349,10 @@ packets.  The following ACEs are defined (in this order):<a href="#appendix-E.2-
 <p id="appendix-F-1">Many thanks to Jon Shallow and Miguel Cros for the review and comments to the document, including prior to publishing the document.<a href="#appendix-F-1" class="pilcrow">¶</a></p>
 <p id="appendix-F-2">Thanks to Qiufang Ma, Victor Lopez, Joe Clarke, and Mahesh Jethanandani for the comments and suggestions.<a href="#appendix-F-2" class="pilcrow">¶</a></p>
 <p id="appendix-F-3">Thanks to Lou Berger for Shepherding the document.<a href="#appendix-F-3" class="pilcrow">¶</a></p>
-<p id="appendix-F-4">The IANA-maintained modules were generated using an XSLT stylesheet from the 'iana-yang' project (https://github.com/llhotka/iana-yang).<a href="#appendix-F-4" class="pilcrow">¶</a></p>
-<p id="appendix-F-5">This work is partially supported by the European Commission under   Horizon 2020 Secured autonomic traffic management for a Tera of SDN
-flows (Teraflow) project (grant agreement number 101015857).<a href="#appendix-F-5" class="pilcrow">¶</a></p>
+<p id="appendix-F-4">Thanks to David Black for the TSV review.<a href="#appendix-F-4" class="pilcrow">¶</a></p>
+<p id="appendix-F-5">The IANA-maintained modules were generated using an XSLT stylesheet from the 'iana-yang' project (https://github.com/llhotka/iana-yang).<a href="#appendix-F-5" class="pilcrow">¶</a></p>
+<p id="appendix-F-6">This work is partially supported by the European Commission under   Horizon 2020 Secured autonomic traffic management for a Tera of SDN
+flows (Teraflow) project (grant agreement number 101015857).<a href="#appendix-F-6" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="authors-addresses">

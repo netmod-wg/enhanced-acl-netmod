@@ -5,12 +5,12 @@
 netmod                                                     O. G. D. Dios
 Internet-Draft                                                Telefonica
 Intended status: Standards Track                              S. Barguil
-Expires: 24 April 2025                                             Nokia
+Expires: 22 May 2025                                               Nokia
                                                             M. Boucadair
                                                                   Orange
                                                                    Q. Wu
                                                                   Huawei
-                                                         21 October 2024
+                                                        18 November 2024
 
 
         Extensions to the Access Control Lists (ACLs) YANG Model
@@ -51,7 +51,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 24 April 2025.
+   This Internet-Draft will expire on 22 May 2025.
 
 Copyright Notice
 
@@ -252,7 +252,7 @@ Table of Contents
        +--rw (payload)?
        |  +--:(prefix-pattern)
        |     +--rw prefix-pattern {match-on-payload}?
-       |        +---u payload
+       |        +---u payload-match
        +--rw (alias)?
        |  +--:(alias-name)
        |     +--rw alias-name*       alias-ref
@@ -334,7 +334,7 @@ Table of Contents
        +-- lower-label-range?   rt-types:mpls-label
        +-- label-block-name?    string
        +-- ttl-value?           uint8
-     grouping payload:
+     grouping payload-match:
        +-- offset?       identityref
        +-- offset-end?   uint64
        +-- operator?     operator
@@ -467,7 +467,10 @@ Table of Contents
 3.4.  TCP Flags Handling
 
    The augmented ACL structure (Figure 1) includes a new container
-   'flags-bitmask' to better handle TCP flags [RFC9293].
+   'flags-bitmask' to better handle TCP flags (Section 3.1 of
+   [RFC9293]).  Assigned TCP flags are maintained in the "TCP Header
+   Flags" registry under the "Transmission Control Protocol (TCP)
+   Parameters" registry group [IANA-TCP-FLAGS].
 
    Clients that support both 'flags-bitmask' and 'flags' [RFC8519]
    matching fields MUST NOT set these fields in the same request.
@@ -964,13 +967,18 @@ Table of Contents
            leaf bitmask {
              type uint16;
              description
-               "The bitmask matches the last 4 bits of byte 12 and 13 of
-                the TCP header.  For clarity, the 4 bits of byte 12
+               "The bitmask matches the last 4 bits of byte 13
+                and byte 14 of the TCP header.
+                For clarity, the 4 bits of byte 12
                 corresponding to the TCP data offset field are not
-                included in any matching.";
+                included in any matching.
+                Assigned TCP flags and their position are maintained
+                in the IANA'Transmission Control Protocol (TCP)
+                Parameters' registry group.";
              reference
                "RFC 9293: Transmission Control Protocol (TCP),
-                          Section 3.1";
+                          Section 3.1
+                https://www.iana.org/assignments/tcp-parameters";
            }
          }
        }
@@ -1047,7 +1055,7 @@ Table of Contents
        }
      }
 
-     grouping payload {
+     grouping payload-match {
        description
          "Operations on payload match.";
        leaf offset {
@@ -1495,7 +1503,7 @@ Table of Contents
            if-feature "match-on-payload";
            description
              "Indicates the rule to perform the payload-based match.";
-           uses payload;
+           uses payload-match;
          }
        }
        choice alias {
@@ -1771,13 +1779,14 @@ Table of Contents
 
 5.  Security Considerations
 
-   The YANG modules specified in this document define a schema for data
-   that is designed to be accessed via network management protocol such
-   as NETCONF [RFC6241] or RESTCONF [RFC8040].  The lowest NETCONF layer
-   is the secure transport layer, and the mandatory-to-implement secure
-   transport is Secure Shell (SSH) [RFC6242].  The lowest RESTCONF layer
-   is HTTPS, and the mandatory-to-implement secure transport is TLS
-   [RFC8446].
+   This section is modeled after the template described in Section 3.7
+   of [I-D.ietf-netmod-rfc8407bis].
+
+   The "ietf-acl-enh" YANG module defines a data model that is designed
+   to be accessed via YANG-based management protocols, such as NETCONF
+   [RFC6241] and RESTCONF [RFC8040].  These protocols have to use a
+   secure transport layer (e.g., SSH [RFC4252], TLS [RFC8446], and QUIC
+   [RFC9000]) and have to use mutual authentication.
 
    The Network Configuration Access Control Model (NACM) [RFC8341]
    provides the means to restrict access for particular NETCONF or
@@ -1808,6 +1817,13 @@ Table of Contents
    'defined-sets':  Unauthorized read access of these lists will allow
       an attacker to identify the actual resources that are bound to
       ACLs.
+
+   The document defines a match policy based on a pattern that can be
+   observed in a packet.  For example, such a policy can be combined
+   with header-based matches in the context of DDoS mitigation.
+   Filtering based on a pattern match is deterministic for packets with
+   unencrypted data.  However, the efficiency for encrypted packets
+   depend on the presence of an unvarying pattern.
 
    The YANG modules "iana-icmpv4-types", "iana-icmpv6-types", and "iana-
    ipv6-ext-types defines" a set of types.  These nodes are intended to
@@ -1895,7 +1911,8 @@ Table of Contents
    module.  The "enum" statement, and sub-statements thereof, should be
    defined:
 
-   "enum":  Replicates a name from the registry.
+   "enum":  Replicates the name from the registry with all spaces
+      striped.
 
    "value":  Contains the decimal value of the IANA-assigned value.
 
@@ -1903,7 +1920,7 @@ Table of Contents
       obsoleted.  IANA "deprecated" maps to YANG status "deprecated",
       and IANA "obsolete" maps to YANG status "obsolete".
 
-   "description":  Replicates the description from the registry.
+   "description":  Replicates the name from the registry.
 
    "reference":  Replicates the reference(s) from the registry with the
       title of the document(s) added.
@@ -1950,7 +1967,8 @@ Table of Contents
    module.  The "enum" statement, and sub-statements thereof, should be
    defined:
 
-   "enum":  Replicates a name from the registry.
+   "enum":  Replicates the name from the registry with all spaces
+      striped.
 
    "value":  Contains the decimal value of the IANA-assigned value.
 
@@ -1958,7 +1976,7 @@ Table of Contents
       obsoleted.  IANA "deprecated" maps to YANG status "deprecated",
       and IANA "obsolete" maps to YANG status "obsolete".
 
-   "description":  Replicates the description from the registry.
+   "description":  Replicates the name from the registry.
 
    "reference":  Replicates the reference(s) from the registry with the
       title of the document(s) added.
@@ -2005,7 +2023,8 @@ Table of Contents
    YANG module.  The "enum" statement, and sub-statements thereof,
    should be defined:
 
-   "enum":  Replicates a name from the registry.
+   "enum":  Replicates the description from the registry with all spaces
+      striped.
 
    "value":  Contains the decimal value of the IANA-assigned value.
 
@@ -2075,15 +2094,6 @@ Table of Contents
               DOI 10.17487/RFC6020, October 2010,
               <https://www.rfc-editor.org/rfc/rfc6020>.
 
-   [RFC6241]  Enns, R., Ed., Bjorklund, M., Ed., Schoenwaelder, J., Ed.,
-              and A. Bierman, Ed., "Network Configuration Protocol
-              (NETCONF)", RFC 6241, DOI 10.17487/RFC6241, June 2011,
-              <https://www.rfc-editor.org/rfc/rfc6241>.
-
-   [RFC6242]  Wasserman, M., "Using the NETCONF Protocol over Secure
-              Shell (SSH)", RFC 6242, DOI 10.17487/RFC6242, June 2011,
-              <https://www.rfc-editor.org/rfc/rfc6242>.
-
    [RFC6991]  Schoenwaelder, J., Ed., "Common YANG Data Types",
               RFC 6991, DOI 10.17487/RFC6991, July 2013,
               <https://www.rfc-editor.org/rfc/rfc6991>.
@@ -2091,10 +2101,6 @@ Table of Contents
    [RFC7950]  Bjorklund, M., Ed., "The YANG 1.1 Data Modeling Language",
               RFC 7950, DOI 10.17487/RFC7950, August 2016,
               <https://www.rfc-editor.org/rfc/rfc7950>.
-
-   [RFC8040]  Bierman, A., Bjorklund, M., and K. Watsen, "RESTCONF
-              Protocol", RFC 8040, DOI 10.17487/RFC8040, January 2017,
-              <https://www.rfc-editor.org/rfc/rfc8040>.
 
    [RFC8174]  Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC
               2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174,
@@ -2120,10 +2126,6 @@ Table of Contents
               (NMDA)", RFC 8342, DOI 10.17487/RFC8342, March 2018,
               <https://www.rfc-editor.org/rfc/rfc8342>.
 
-   [RFC8446]  Rescorla, E., "The Transport Layer Security (TLS) Protocol
-              Version 1.3", RFC 8446, DOI 10.17487/RFC8446, August 2018,
-              <https://www.rfc-editor.org/rfc/rfc8446>.
-
    [RFC8519]  Jethanandani, M., Agarwal, S., Huang, L., and D. Blair,
               "YANG Data Model for Network Access Control Lists (ACLs)",
               RFC 8519, DOI 10.17487/RFC8519, March 2019,
@@ -2144,9 +2146,9 @@ Table of Contents
               Bierman, A., Boucadair, M., and Q. Wu, "Guidelines for
               Authors and Reviewers of Documents Containing YANG Data
               Models", Work in Progress, Internet-Draft, draft-ietf-
-              netmod-rfc8407bis-19, 21 October 2024,
+              netmod-rfc8407bis-21, 13 November 2024,
               <https://datatracker.ietf.org/doc/html/draft-ietf-netmod-
-              rfc8407bis-19>.
+              rfc8407bis-21>.
 
    [IANA-ICMPv4]
               "ICMP Type Numbers", n.d.,
@@ -2162,6 +2164,10 @@ Table of Contents
               "IPv6 Extension Header Types", n.d.,
               <https://www.iana.org/assignments/ipv6-parameters/
               ipv6-parameters.xhtml>.
+
+   [IANA-TCP-FLAGS]
+              "Transmission Control Protocol (TCP) Parameters", n.d.,
+              <https://www.iana.org/assignments/tcp-parameters/>.
 
    [IANA-YANG-PARAMETERS]
               "YANG Parameters", n.d.,
@@ -2199,10 +2205,19 @@ Table of Contents
               BCP 37, RFC 2780, DOI 10.17487/RFC2780, March 2000,
               <https://www.rfc-editor.org/rfc/rfc2780>.
 
+   [RFC4252]  Ylonen, T. and C. Lonvick, Ed., "The Secure Shell (SSH)
+              Authentication Protocol", RFC 4252, DOI 10.17487/RFC4252,
+              January 2006, <https://www.rfc-editor.org/rfc/rfc4252>.
+
    [RFC5237]  Arkko, J. and S. Bradner, "IANA Allocation Guidelines for
               the Protocol Field", BCP 37, RFC 5237,
               DOI 10.17487/RFC5237, February 2008,
               <https://www.rfc-editor.org/rfc/rfc5237>.
+
+   [RFC6241]  Enns, R., Ed., Bjorklund, M., Ed., Schoenwaelder, J., Ed.,
+              and A. Bierman, Ed., "Network Configuration Protocol
+              (NETCONF)", RFC 6241, DOI 10.17487/RFC6241, June 2011,
+              <https://www.rfc-editor.org/rfc/rfc6241>.
 
    [RFC7045]  Carpenter, B. and S. Jiang, "Transmission and Processing
               of IPv6 Extension Headers", RFC 7045,
@@ -2214,9 +2229,17 @@ Table of Contents
               VPN (EVPN)", RFC 7209, DOI 10.17487/RFC7209, May 2014,
               <https://www.rfc-editor.org/rfc/rfc7209>.
 
+   [RFC8040]  Bierman, A., Bjorklund, M., and K. Watsen, "RESTCONF
+              Protocol", RFC 8040, DOI 10.17487/RFC8040, January 2017,
+              <https://www.rfc-editor.org/rfc/rfc8040>.
+
    [RFC8340]  Bjorklund, M. and L. Berger, Ed., "YANG Tree Diagrams",
               BCP 215, RFC 8340, DOI 10.17487/RFC8340, March 2018,
               <https://www.rfc-editor.org/rfc/rfc8340>.
+
+   [RFC8446]  Rescorla, E., "The Transport Layer Security (TLS) Protocol
+              Version 1.3", RFC 8446, DOI 10.17487/RFC8446, August 2018,
+              <https://www.rfc-editor.org/rfc/rfc8446>.
 
    [RFC8955]  Loibl, C., Hares, S., Raszuk, R., McPherson, D., and M.
               Bacher, "Dissemination of Flow Specification Rules",
@@ -3537,10 +3560,10 @@ Appendix E.  Examples
    This section provides a few examples to illustrate the use of the
    enhanced ACL module ("ietf-acl-enh").
 
+E.1.  TCP Flags Handling
+
    Figure 4 shows an example of the message body of a request to install
    a filter to discard incoming TCP messages having all flags unset.
-
-E.1.  TCP Flags Handling
 
    {
      "ietf-access-control-list:acls": {
@@ -3804,6 +3827,8 @@ Acknowledgements
    Jethanandani for the comments and suggestions.
 
    Thanks to Lou Berger for Shepherding the document.
+
+   Thanks to David Black for the TSV review.
 
    The IANA-maintained modules were generated using an XSLT stylesheet
    from the 'iana-yang' project (https://github.com/llhotka/iana-yang).
