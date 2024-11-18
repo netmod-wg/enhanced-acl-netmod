@@ -38,6 +38,10 @@ informative:
               title: "YANG Parameters"
               target: https://www.iana.org/assignments/yang-parameters
 
+   IANA-TCP-FLAGS:
+              title: "Transmission Control Protocol (TCP) Parameters"
+              target: https://www.iana.org/assignments/tcp-parameters/
+
    IANA-ICMPv4:
               title: "ICMP Type Numbers"
               target: https://www.iana.org/assignments/icmp-parameters/icmp-parameters.xhtml
@@ -217,7 +221,7 @@ The module can be used to manage ACLs that require matching against IPv6 extensi
 
 ## TCP Flags Handling
 
-The augmented ACL structure ({{enh-acl-tree}}) includes a new container 'flags-bitmask' to better handle TCP flags {{!RFC9293}}.
+The augmented ACL structure ({{enh-acl-tree}}) includes a new container 'flags-bitmask' to better handle TCP flags ({{Section 3.1 of !RFC9293}}). Assigned TCP flags are maintained in the "TCP Header Flags" registry under the "Transmission Control Protocol (TCP) Parameters" registry group {{IANA-TCP-FLAGS}}.
 
 Clients that support both 'flags-bitmask' and 'flags' {{!RFC8519}} matching fields MUST NOT set these fields in the same request.
 
@@ -318,6 +322,9 @@ Some of the readable data nodes in the "ietf-acl-enh" YANG module may be conside
  : Unauthorized read access of these lists will allow
    an attacker to identify the actual resources that are bound
    to ACLs.
+
+The document defines a match policy based on a pattern that can be observed in a packet. For example, such a policy can be combined with header-based matches in the context of DDoS mitigation. Filtering based on a pattern match is deterministic for packets with unencrypted data. However, the efficiency for encrypted
+packets depend on the presence of an unvarying pattern.
 
 The YANG modules "iana-icmpv4-types", "iana-icmpv6-types", and "iana-ipv6-ext-types defines" a set of types. These nodes are intended to be reused by other YANG
 modules. Each of these modules by itself does not expose any data nodes that
@@ -1077,6 +1084,8 @@ Many thanks to Jon Shallow and Miguel Cros for the review and comments to the do
 Thanks to Qiufang Ma, Victor Lopez, Joe Clarke, and Mahesh Jethanandani for the comments and suggestions.
 
 Thanks to Lou Berger for Shepherding the document.
+
+Thanks to David Black for the TSV review.
 
 The IANA-maintained modules were generated using an XSLT stylesheet from the 'iana-yang' project (https://github.com/llhotka/iana-yang).
 

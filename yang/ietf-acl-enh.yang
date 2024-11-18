@@ -402,13 +402,18 @@ module ietf-acl-enh {
         leaf bitmask {
           type uint16;
           description
-            "The bitmask matches the last 4 bits of byte 12 and 13 of
-             the TCP header.  For clarity, the 4 bits of byte 12
+            "The bitmask matches the last 4 bits of byte 13
+             and byte 14 of the TCP header.
+             For clarity, the 4 bits of byte 12
              corresponding to the TCP data offset field are not
-             included in any matching.";
+             included in any matching.
+             Assigned TCP flags and their position are maintained
+             in the IANA'Transmission Control Protocol (TCP) 
+             Parameters' registry group.";
           reference
             "RFC 9293: Transmission Control Protocol (TCP),
-                       Section 3.1";
+                       Section 3.1
+             https://www.iana.org/assignments/tcp-parameters";
         }
       }
     }
@@ -485,7 +490,7 @@ module ietf-acl-enh {
     }
   }
 
-  grouping payload {
+  grouping payload-match {
     description
       "Operations on payload match.";
     leaf offset {
@@ -933,7 +938,7 @@ module ietf-acl-enh {
         if-feature "match-on-payload";
         description
           "Indicates the rule to perform the payload-based match.";
-        uses payload;
+        uses payload-match;
       }
     }
     choice alias {
