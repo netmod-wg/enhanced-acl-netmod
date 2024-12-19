@@ -1554,9 +1554,9 @@ module: ietf-acl-enh
     +-- ttl-value?           uint8
   grouping payload-match:
     +-- offset?       identityref
-    +-- offset-end?   uint64
+    +-- length?   uint64
     +-- operator?     operator
-    +-- prefix?       binary
+    +-- pattern?       binary
   grouping alias:
     +-- vlan*         uint16
     +-- prefix*       inet:ip-prefix
