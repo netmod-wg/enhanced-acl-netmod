@@ -1827,7 +1827,7 @@ Table of Contents
    depend on the presence of an unvarying pattern.
 
    The YANG modules "iana-icmpv4-types", "iana-icmpv6-types", and "iana-
-   ipv6-ext-types defines" a set of types.  These nodes are intended to
+   ipv6-ext-types" defines" a set of types.  These nodes are intended to
    be reused by other YANG modules.  Each of these modules by itself
    does not expose any data nodes that are writable, data nodes that
    contain read-only state, or RPCs.  As such, there are no additional
@@ -1949,7 +1949,7 @@ Table of Contents
 
    IANA is requested to create and post the initial version of the
    "iana-icmpv6-types" YANG module by applying the XSLT stylesheet from
-   Appendix B.1 to the XML version of [IANA-ICMPv4].
+   Appendix B.1 to the XML version of [IANA-ICMPv6].
 
    This document defines the initial version of the IANA-maintained
    "iana-icmpv6-types" YANG module.  The most recent version of the YANG
@@ -2017,7 +2017,7 @@ Table of Contents
 
       New values must not be directly added to the "iana-ipv6-ext-types"
       YANG module.  They must instead be added to the "IPv6 Extension
-      Header Types" registry [IANA-ICMPv6].
+      Header Types" registry [IANA-IPv6].
 
    When a value is added to the "IPv6 Extension Header Types" registry,
    a new "enum" statement must be added to the "iana-ipv6-ext-types"
