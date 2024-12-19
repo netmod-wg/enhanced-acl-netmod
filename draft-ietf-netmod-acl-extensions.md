@@ -114,13 +114,13 @@ individual Access Control Entries (ACEs) for each IP address (or prefix). In
 doing so, implementations would optimize the performance of matching
 lists vs multiple rules matching.
 
-The enhanced ACL structure ({{sec-module}}) is also meant to facilitate the management of
+The enhanced ACL structure ("ietf-acl-enh", {{sec-module}}) is also meant to facilitate the management of
 network operators. Instead of entering the IP address or port number
 literals, using user-named lists decouples the creation of the rule
 from the management of the sets. Hence, it is possible to remove/add
  entries to the list without redefining the (parent) ACL rule.
 
-In addition, the notion of Access Control List (ACL) and defined sets
+In addition, the notion of ACL and defined sets
 is generalized so that it is not device-specific as per {{!RFC8519}}.  ACLs
 and defined sets may be defined at network/administrative domain level
 and associated to devices. This approach facilitates the reusability across multiple
@@ -133,7 +133,7 @@ e.g., deny-lists or accept-lists that are associated with those provided by a
 
 Note that ACLs are used locally in devices but are triggered by other
 tools such as DDoS mitigation {{?RFC9132}} or BGP Flow Spec {{?RFC8955}}
-{{!RFC8956}}. Therefore, supporting means to easily map to the filtering rules conveyed in
+{{?RFC8956}}. Therefore, supporting means to easily map to the filtering rules conveyed in
 messages triggered by  these tools is valuable from a network operation standpoint.
 
 The enhanced ACL module ({{sec-module}}) conforms to the Network
@@ -239,7 +239,7 @@ Clients that support both 'ipv4-fragment' and 'flags' {{!RFC8519}} matching fiel
 
 Some transport protocols use existing protocols (e.g., TCP or UDP) as substrate. The match criteria for such protocols may rely upon the 'protocol' under 'l3', TCP/UDP match criteria, part of the TCP/UDP payload, or a combination thereof.
 
-A new feature, called 'match-on-payload', is defined in the document. This can be used, for example, for QUIC {{?RFC9000}} or for tunneling protocols.
+A new feature, called 'match-on-payload', is defined in the document. This can be used, for example, for QUIC {{?RFC9000}} or for tunneling protocols. This feature requires configuring a data offset, a length, and a binary pattern to macth data against using a specified operator.
 
 ## Match on MPLS Headers
 
@@ -263,6 +263,7 @@ The augmented ACL structure ({{enh-acl-tree}}) allows an operator to configure A
 Being able to filter all packets that are bridged within a VLAN or that
 are routed into or out of a bridge domain is part of the VPN control
 requirements for Ethernet VPN (EVPN) {{?RFC7209}}.
+
 All packets that are bridged within a VLAN or that are routed into or
 out of a VLAN can be captured, forwarded, translated, or discarded based
 on the network policy.
@@ -287,7 +288,9 @@ the EVNP-PBB configuration.
 
 ## Additional Actions
 
-In order to support rate-limiting (see {{ps-rate}}), a new action called 'rate-limit' is defined in this document. Also, the "ietf-acl-enh" module supports new actions to complement existing ones: Log ('log-action') and write a counter ('counter-action'). The version of the module defined in this document supports only local actions.
+In order to support rate-limiting (see {{ps-rate}}), a new action called 'rate-limit' is defined in this document.
+
+Also, the "ietf-acl-enh" module supports new actions to complement existing ones: Log ('log-action') and write a counter ('counter-action'). The version of the module defined in this document supports only local actions.
 
 # Enhanced ACL YANG Module {#sec-module}
 
@@ -311,7 +314,14 @@ QUIC {{?RFC9000}}) and have to use mutual authentication.
 
 The Network Configuration Access Control Model (NACM) {{!RFC8341}} provides the means to restrict access for particular NETCONF or RESTCONF users to a preconfigured subset of all available NETCONF or RESTCONF protocol operations and content.
 
-There are a number of data nodes defined in the "ietf-acl-enh" YANG module that are writable/creatable/deletable (i.e., config true, which is the default). These data nodes may be considered sensitive or vulnerable in some network environments. Write operations (e.g., edit-config) to these data nodes without proper protection can have a negative effect on network operations. These are the subtrees and data nodes and their sensitivity/vulnerability:
+There are a number of data nodes defined in this YANG module that are
+writable/creatable/deletable (i.e., "config true", which is the
+default).  All writable data nodes are likely to be reasonably
+sensitive or vulnerable in some network environments.  Write
+operations (e.g., edit-config) and delete operations to these data
+nodes without proper protection or authentication can have a negative
+effect on network operations. The following subtrees and data nodes
+have particular sensitivities/vulnerabilities:
 
  'defined-sets':
  : These lists specify a set of sets and aliases. Similar to {{!RFC8519}}, unauthorized write access to these
@@ -320,15 +330,18 @@ There are a number of data nodes defined in the "ietf-acl-enh" YANG module that 
       be permitted.  The former may result in a DoS attack, or
       compromise a device.  The latter may result in a DoS attack.
 
-Some of the readable data nodes in the "ietf-acl-enh" YANG module may be considered sensitive or vulnerable in some network environments. It is thus important to control read access (e.g., via get, get-config, or notification) to these data nodes. These are the subtrees and data nodes and their sensitivity/vulnerability:
+Some of the readable data nodes in this YANG module may be considered
+sensitive or vulnerable in some network environments.  It is thus
+important to control read access (e.g., via get, get-config, or
+notification) to these data nodes. Specifically, the following
+subtrees and data nodes have particular sensitivities/vulnerabilities:
 
  'defined-sets':
  : Unauthorized read access of these lists will allow
    an attacker to identify the actual resources that are bound
    to ACLs.
 
-The document defines a match policy based on a pattern that can be observed in a packet. For example, such a policy can be combined with header-based matches in the context of DDoS mitigation. Filtering based on a pattern match is deterministic for packets with unencrypted data. However, the efficiency for encrypted
-packets depend on the presence of an unvarying pattern.
+The document defines a match policy based on a pattern that can be observed in a packet. For example, such a policy can be combined with header-based matches in the context of DDoS mitigation. Filtering based on a pattern match is deterministic for packets with unencrypted data. However, the efficiency for encrypted packets depend on the presence of an unvarying pattern.
 
 The YANG modules "iana-icmpv4-types", "iana-icmpv6-types", and "iana-ipv6-ext-types" define a set of types. These nodes are intended to be reused by other YANG
 modules. Each of these modules by itself does not expose any data nodes that
