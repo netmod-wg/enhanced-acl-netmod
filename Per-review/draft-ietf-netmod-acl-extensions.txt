@@ -252,7 +252,7 @@ Table of Contents
      augment /acl:acls/acl:acl/acl:aces/acl:ace/acl:matches:
        +--rw (payload)?
        |  +--:(prefix-pattern)
-       |     +--rw prefix-pattern {match-on-payload}?
+       |     +--rw pattern {match-on-payload}?
        |        +---u payload-match
        +--rw (alias)?
        |  +--:(alias-name)
