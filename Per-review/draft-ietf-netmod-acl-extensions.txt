@@ -1500,7 +1500,7 @@ Table of Contents
        choice payload {
          description
            "Matches based upon a prefix pattern.";
-         container prefix-pattern {
+         container pattern {
            if-feature "match-on-payload";
            description
              "Indicates the rule to perform the payload-based match.";
