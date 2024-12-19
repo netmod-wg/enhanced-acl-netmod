@@ -15,20 +15,20 @@
 the limitations of the ACL model as initially defined in RFC 8519. 
        The document also defines IANA-maintained modules for ICMP types and IPv6 extension headers. 
     " name="description">
-<meta content="xml2rfc 3.24.0" name="generator">
+<meta content="xml2rfc 3.25.0" name="generator">
 <meta content="Internet-Draft" name="keyword">
 <meta content="draft-ietf-netmod-acl-extensions-latest" name="ietf.draft">
 <!-- Generator version information:
-  xml2rfc 3.24.0
-    Python 3.12.7
+  xml2rfc 3.25.0
+    Python 3.12.8
     ConfigArgParse 1.7
     google-i18n-address 3.1.1
     intervaltree 3.1.0
     Jinja2 3.1.4
     lxml 5.3.0
     platformdirs 4.3.6
-    pycountry 22.3.5
-    PyYAML 6.0.1
+    pycountry 24.6.1
+    PyYAML 6.0.2
     requests 2.32.3
     setuptools 70.3.0
     wcwidth 0.2.13
@@ -284,6 +284,12 @@ body {
 }
 
 /* headings */
+section {
+  clear: both;
+}
+.section-number {
+  padding-right: 0.5em;
+}
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-title);
   font-weight: 680;
@@ -315,6 +321,7 @@ h4, h5, h6 {
 /* general structure */
 .author {
   padding-bottom: 0.3em;
+  vertical-align: top;
 }
 #abstract+p {
   font-size: 18px;
@@ -392,25 +399,26 @@ svg[font-family~="monospace" i], svg [font-family~="monospace" i] {
 ol, ul {
   padding: 0;
   margin: 0 0 0.5em 2em;
-}
-:is(ol, ul) :is(ol, ul) {
-  margin-left: 1em;
+  & :is(ol, ul) {
+    margin-left: 1em;
+  }
 }
 li {
   margin: 0 0 0.25em 0;
 }
-.ulCompact li {
-  margin: 0;
-}
 ul.empty, .ulEmpty {
   list-style-type: none;
-}
-ul.empty li, .ulEmpty li {
-  margin-top: 0.5em;
+  & li {
+    margin-top: 0.5em;
+  }
 }
 :is(ul, ol).compact, .ulCompact, .olCompact {
-  line-height: 1;
   margin: 0 0 0 2em;
+  & li {
+    margin: 0;
+    & :first-child { margin-top: 0; }
+    & :last-child { margin-bottom: 0; }
+  }
 }
 
 /* definition lists */
@@ -418,38 +426,39 @@ dl {
   clear: left;
   --indent: 3ch;
   /* --indent: attr(indent ch); not supported in any browser, but we can dream */
-}
-dl.olPercent {
-  --indent: 5ch;
+  &.olPercent {
+    --indent: 5ch;
+    & > dt {
+      min-width: calc(var(--indent) - 2ch);
+    }
+  }
+  &.olPercent > dt {
+    float: none;
+  }
+
+  dl > dd > & {
+    margin-top: 0.5em;
+    margin-bottom: 0;
+  }
 }
 dl > dt {
   float: left;
   margin-right: 2ch;
   min-width: 8ch;
 }
-dl.dlNewline > dt {
-  float: none;
-}
 dl > dd {
   margin-bottom: .8em;
   margin-left: var(--indent) !important; /* stupid element overrides */
   min-height: 2ex;
 }
-dl.olPercent > dt {
-  min-width: calc(var(--indent) - 2ch);
-}
 :is(dl.compact, .dlCompact) > dd {
   margin-bottom: 0;
-}
-:is(dl.compact, .dlCompact) > dd > :is(:first-child, .break:first-child + *) {
-  margin-top: 0;
-}
-:is(dl.compact, .dlCompact) > dd > :is(:last-child) {
-  margin-bottom: 0;
-}
-dl > dd > dl {
-  margin-top: 0.5em;
-  margin-bottom: 0;
+  & > :is(:first-child, .break:first-child + *) {
+    margin-top: 0;
+  }
+  & > :is(:last-child) {
+    margin-bottom: 0;
+  }
 }
 :is(dd, span).break {
   display: none;
@@ -513,6 +522,7 @@ figcaption, caption {
   font-style: italic;
   margin: 0.5em 1.5em;
   text-align: left;
+  caption-side: bottom;
 }
 @media screen {
   /* Auto-collapse boilerplate. */
@@ -530,7 +540,11 @@ figcaption, caption {
   }
   pre, svg {
     display: inline-block;
-    overflow-x: auto;
+    /* In the horizontal direction, sometimes people make over-sized figures.
+       Scrollbars for those is therefore necessary: auto adds them as necessary..
+       In the vertical direction, the line-height can combine with the font
+       asender/descender height to produce scrollbars: hidden avoids that. */
+    overflow: auto hidden;
   }
   pre {
     max-width: 100%;
@@ -567,6 +581,7 @@ cite {
 
 /* tables */
 table {
+  width: auto;
   max-width: 100%;
   margin: 0 0 1em;
   border-collapse: collapse;
@@ -581,6 +596,16 @@ table.center {
 table.left {
   margin-right: auto;
 }
+table .text-left {
+  text-align: left;
+}
+table .text-center {
+  text-align: center;
+}
+table .text-right {
+  text-align: right;
+}
+
 thead, tbody {
   border: 1px solid var(--line-color);
 }
@@ -611,9 +636,11 @@ a.pilcrow {
   margin-left: 3px;
   opacity: 0.2;
   user-select: none;
+  &[href] {
+    color: var(--pilcrow-weak);
+    &:hover { text-decoration: none; }
+  }
 }
-a.pilcrow[href] { color: var(--pilcrow-weak); }
-a.pilcrow[href]:hover { text-decoration: none; }
 @media not print {
   :hover > a.pilcrow {
     opacity: 1;
@@ -653,26 +680,28 @@ sub, sup {
   font-size: var(--small-font-size);
   line-height: 18px;
   --identifier-width: 15ch;
-}
-#identifiers dt {
-  width: var(--identifier-width);
-  min-width: var(--identifier-width);
-  clear: left;
-  float: left;
-  text-align: right;
-  margin-right: 1ch;
-}
-#identifiers dd {
-  margin: 0;
-  margin-left: calc(1em + var(--identifier-width)) !important;
-  min-width: 5em;
-}
-#identifiers .authors .author {
-  display: inline-block;
-  margin-right: 1.5em;
-}
-#identifiers .authors .org {
-  font-style: italic;
+  & dt {
+    width: var(--identifier-width);
+    min-width: var(--identifier-width);
+    clear: left;
+    float: left;
+    text-align: right;
+    margin-right: 1ch;
+  }
+  & dd {
+    margin: 0;
+    margin-left: calc(1em + var(--identifier-width)) !important;
+    min-width: 5em;
+  }
+  & .authors {
+    & .author {
+      display: inline-block;
+      margin-right: 1.5em;
+    }
+    & .org {
+      font-style: italic;
+    }
+  }
 }
 
 /* The prepared/rendered info at the very bottom of the page */
@@ -683,9 +712,6 @@ sub, sup {
   margin-top: 2em;
 }
 .docInfo .prepared {
-  float: left;
-}
-.docInfo .prepared {
   float: right;
 }
 
@@ -693,53 +719,48 @@ sub, sup {
 #toc {
   padding: 0.75em 0 2em 0;
   margin-bottom: 1em;
-}
-@media screen {
-  #toc nav {
-    font-family: var(--font-title);
-    font-weight: 360;
+
+  & nav {
+    & ul {
+      margin: 0 0.5em 0 0;
+      padding: 0;
+      list-style: none;
+    }
+    & li {
+      line-height: 1.3em;
+      margin: 2px 0;
+      padding-left: 1.2em;
+      text-indent: -1.2em;
+    }
+  }
+  & a.xref {
+    white-space: normal;
   }
 }
-#toc nav ul {
-  margin: 0 0.5em 0 0;
-  padding: 0;
-  list-style: none;
-}
-#toc nav li {
-  line-height: 1.3em;
-  margin: 2px 0;
-  padding-left: 1.2em;
-  text-indent: -1.2em;
-}
-#toc a.xref {
-  white-space: normal;
-}
-/* references */
-.references dt {
-  text-align: right;
-  font-weight: bold;
-  min-width: 10ch;
-  margin-right: 1.5ch;
-}
-.references dt:target::before {
-  content: "⇒";
-  width: 15px;
-  margin: 0 10px 0 -25px;
-}
-.references dd {
-  margin-left: 12ch !important;
-  overflow: auto;
+
+.references {
+  & > dt {
+    text-align: right;
+    font-weight: bold;
+    min-width: 10ch;
+    margin-right: 1.5ch;
+    &:target::before {
+      content: "⇒";
+      margin: 0 10px 0 -25px;
+    }
+  }
+  & > dd {
+    margin-left: 12ch !important;
+    overflow: visible;
+    & .refInstance {
+      margin-bottom: 0.8em;
+    }
+    & .ascii {
+      margin-bottom: 0.25em;
+    }
+  }
 }
 
-.refInstance {
-  margin-bottom: 1.25em;
-}
-
-.references .ascii {
-  margin-bottom: 0.25em;
-}
-
-/* index */
 #rfc\.index\.index + ul {
   margin-left: 0;
 }
@@ -747,21 +768,33 @@ sub, sup {
 /* authors */
 address.vcard {
   font-style: normal;
-  margin: 1em 0;
+  max-width: 20em;
+  margin: 1em auto 1em 0;
+
+  & .nameRole {
+    font-weight: 700;
+    margin-left: 0;
+  }
+  & .label {
+    margin: 0.5em 0;
+  }
+  & .type {
+    display: none;
+  }
+  & .alternative-contact {
+    margin: 0.5em 0 0.25em 0;
+  }
+  & .non-ascii {
+    margin: 0 0 0 2em;
+  }
+  & div.left {
+    text-align: left;
+  }
+  & div.right {
+    text-align: right;
+  }
 }
-address.vcard .nameRole {
-  font-weight: 700;
-  margin-left: 0;
-}
-address.vcard .label {
-  margin: 0.5em 0;
-}
-address.vcard .type {
-  display: none;
-}
-.alternative-contact {
-  margin: 1.5em 0 1em;
-}
+
 hr.addr {
   border-top: 1px dashed;
   margin: 0;
@@ -783,6 +816,7 @@ hr.addr {
   }
 }
 
+/* Comments */
 .rfcEditorRemove p:first-of-type {
   font-style: italic;
 }
@@ -793,7 +827,31 @@ hr.addr {
 .crefSource {
   font-style: italic;
 }
-/* alternative layout for smaller screens */
+
+@media screen {
+  #toc nav {
+    font-family: var(--font-title);
+    font-weight: 360;
+    & > ul { margin-bottom: 2em; }
+    & ul {
+      margin: 0 0 0 4px;
+      & :is(p, li) {
+        margin: 2px 0;
+      }
+    }
+  }
+  #toc a.toplink {
+    float: right;
+  }
+}
+@media not screen {
+  #toc a.toplink {
+    display: none;
+  }
+}
+
+
+/* TOC layout for smaller screens */
 @media screen and (max-width: 929px) {
   #toc {
     position: fixed;
@@ -804,9 +862,6 @@ hr.addr {
     margin: 0;
     border-bottom: 1px solid #ccc;
     opacity: 0.6;
-  }
-  #toc.active {
-      opacity: 1;
   }
   #toc h2 {
     margin: 0;
@@ -819,17 +874,17 @@ hr.addr {
     background-color: #444;
     color: white;
     cursor: pointer;
-  }
-  #toc h2::before { /* css hamburger */
-    float: right;
-    position: relative;
-    width: 1em;
-    height: 1px;
-    left: -164px;
-    margin: 8px 0 0 0;
-    background: white none repeat scroll 0 0;
-    box-shadow: 0 4px 0 0 white, 0 8px 0 0 white;
-    content: "";
+    &::before { /* css hamburger */
+      float: right;
+      position: relative;
+      width: 1em;
+      height: 1px;
+      left: -164px;
+      margin: 8px 0 0 0;
+      background: white none repeat scroll 0 0;
+      box-shadow: 0 4px 0 0 white, 0 8px 0 0 white;
+      content: "";
+    }
   }
   #toc nav {
     display: none;
@@ -840,14 +895,13 @@ hr.addr {
     height: calc(100vh - 48px);
     border-left: 1px solid #ddd;
   }
-  #toc.active nav {
-    display: block;
+  #toc.active {
+    opacity: 1;
+    & nav { display: block; }
   }
   /* Make the collapsed ToC header render white on gray also when it's a link */
   #toc h2 a,
-  #toc h2 a:link,
-  #toc h2 a:focus,
-  #toc h2 a:hover,
+  #toc h2 a:is(:link, :focus, :hover),
   #toc a.toplink,
   #toc a.toplink:hover {
     color: white;
@@ -855,11 +909,11 @@ hr.addr {
     text-decoration: none;
   }
   #toc a.toplink {
-    margin-top: 2px;
+    margin: 2px 0.5em 0;
   }
 }
 
-/* alternative layout for wide screens */
+/* TOC layout for wide screens */
 @media screen and (min-width: 930px) {
   body {
     padding-right: 360px;
@@ -888,20 +942,12 @@ hr.addr {
     overscroll-behavior: contain;
     scrollbar-width: thin;
   }
-  #toc nav > ul  {
-    margin-bottom: 2em;
-  }
-  #toc ul {
-    margin: 0 0 0 4px;
-    font-size: var(--small-font-size);
-  }
-  #toc ul :is(p, li) {
-    margin: 2px 0;
-    line-height: 22px;
-  }
   img { /* future proofing */
     max-width: 100%;
     height: auto;
+  }
+  #toc a.toplink {
+    margin: 8px 0.5em 0;
   }
 }
 
@@ -944,9 +990,6 @@ hr.addr {
   td {
     border-top: 1px solid #ddd;
   }
-  .toplink {
-    display: none;
-  }
 }
 
 @page :first {
@@ -969,82 +1012,6 @@ hr.addr {
   size: A4;
   margin-bottom: 45mm;
   padding-top: 20px;
-}
-
-/* Changes introduced to fix issues found during implementation */
-
-/* Separate body from document info even without intervening H1 */
-section {
-  clear: both;
-}
-
-/* Top align author divs, to avoid names without organization dropping level with org names */
-.author {
-  vertical-align: top;
-}
-
-/* Style section numbers with more space between number and title */
-.section-number {
-  padding-right: 0.5em;
-}
-
-/* Add styling for a link in the ToC that points to the top of the document */
-a.toplink {
-  float: right;
-  margin: 8px 0.5em 0;
-}
-
-/* Provide styling for table cell text alignment */
-table .text-left {
-  text-align: left;
-}
-table .text-center {
-  text-align: center;
-}
-table .text-right {
-  text-align: right;
-}
-
-/* Make the alternative author contact information look less like just another
-   author, and group it closer with the primary author contact information */
-.alternative-contact {
-  margin: 0.5em 0 0.25em 0;
-}
-address .non-ascii {
-  margin: 0 0 0 2em;
-}
-
-/* With it being possible to set tables with alignment
-  left, center, and right, { width: 100%; } does not make sense */
-table {
-  width: auto;
-}
-
-/* Avoid reference text that sits in a block with very wide left margin,
-   because of a long floating dt label.*/
-.references dd {
-  overflow: visible;
-}
-
-/* Control caption placement */
-caption {
-  caption-side: bottom;
-}
-
-/* Limit the width of the author address vcard, so names in right-to-left
-   script don't end up on the other side of the page. */
-
-address.vcard {
-  max-width: 20em;
-  margin-right: auto;
-}
-
-/* For address alignment dependent on LTR or RTL scripts */
-address div.left {
-  text-align: left;
-}
-address div.right {
-  text-align: right;
 }
 
 /* Dark mode. */
@@ -1083,11 +1050,11 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <thead><tr>
 <td class="left">Internet-Draft</td>
 <td class="center">Enhanced ACLs</td>
-<td class="right">November 2024</td>
+<td class="right">December 2024</td>
 </tr></thead>
 <tfoot><tr>
 <td class="left">Dios, et al.</td>
-<td class="center">Expires 22 May 2025</td>
+<td class="center">Expires 22 June 2025</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1100,12 +1067,12 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <dd class="internet-draft">draft-ietf-netmod-acl-extensions-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2024-11-18" class="published">18 November 2024</time>
+<time datetime="2024-12-19" class="published">19 December 2024</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Standards Track</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2025-05-22">22 May 2025</time></dd>
+<dd class="expires"><time datetime="2025-06-22">22 June 2025</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1165,7 +1132,7 @@ the limitations of the ACL model as initially defined in RFC 8519.<a href="#sect
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 22 May 2025.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 22 June 2025.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1396,12 +1363,12 @@ IP addresses (or prefixes), a single rule will suffice rather than creating
 individual Access Control Entries (ACEs) for each IP address (or prefix). In
 doing so, implementations would optimize the performance of matching
 lists vs multiple rules matching.<a href="#section-1-2" class="pilcrow">¶</a></p>
-<p id="section-1-3">The enhanced ACL structure (<a href="#sec-module" class="auto internal xref">Section 4</a>) is also meant to facilitate the management of
+<p id="section-1-3">The enhanced ACL structure ("ietf-acl-enh", <a href="#sec-module" class="auto internal xref">Section 4</a>) is also meant to facilitate the management of
 network operators. Instead of entering the IP address or port number
 literals, using user-named lists decouples the creation of the rule
 from the management of the sets. Hence, it is possible to remove/add
  entries to the list without redefining the (parent) ACL rule.<a href="#section-1-3" class="pilcrow">¶</a></p>
-<p id="section-1-4">In addition, the notion of Access Control List (ACL) and defined sets
+<p id="section-1-4">In addition, the notion of ACL and defined sets
 is generalized so that it is not device-specific as per <span>[<a href="#RFC8519" class="cite xref">RFC8519</a>]</span>.  ACLs
 and defined sets may be defined at network/administrative domain level
 and associated to devices. This approach facilitates the reusability across multiple
@@ -1418,7 +1385,7 @@ messages triggered by  these tools is valuable from a network operation standpoi
 Management Datastore Architecture (NMDA) defined in <span>[<a href="#RFC8342" class="cite xref">RFC8342</a>]</span>.<a href="#section-1-7" class="pilcrow">¶</a></p>
 <p id="section-1-8">A set of examples to illustrate the use of the enhanced ACL module are provided in <a href="#sec-examples" class="auto internal xref">Appendix E</a>.<a href="#section-1-8" class="pilcrow">¶</a></p>
 <p id="section-1-9">The document also defines IANA-maintained modules for ICMP types and IPv6 extension headers. The design of the modules adheres to the recommendations
-in <span>[<a href="#I-D.ietf-netmod-rfc8407bis" class="cite xref">I-D.ietf-netmod-rfc8407bis</a>]</span>. The templates to generate the modules are available in <a href="#template" class="auto internal xref">Appendix A.1</a>, <a href="#v6-template" class="auto internal xref">Appendix B.1</a>, and <a href="#iana-ipv6-ext-template" class="auto internal xref">Appendix C.1</a>. Readers should refer to the IANA websites <span>[<a href="#IANA_ICMPv4_YANG_URL" class="cite xref">IANA_ICMPv4_YANG_URL</a>]</span>, <span>[<a href="#IANA_ICMPv6_YANG_URL" class="cite xref">IANA_ICMPv6_YANG_URL</a>]</span>, and <span>[<a href="#IANA_IPV6_YANG_URL" class="cite xref">IANA_IPV6_YANG_URL</a>]</span> to retrieve the latest version of these IANA-maintained modules.<a href="#section-1-9" class="pilcrow">¶</a></p>
+in <span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-netmod-rfc8407bis-21#section-4.30.2" class="relref">Section 4.30.2</a> of [<a href="#I-D.ietf-netmod-rfc8407bis" class="cite xref">I-D.ietf-netmod-rfc8407bis</a>]</span>. The templates to generate the modules are available in <a href="#template" class="auto internal xref">Appendix A.1</a>, <a href="#v6-template" class="auto internal xref">Appendix B.1</a>, and <a href="#iana-ipv6-ext-template" class="auto internal xref">Appendix C.1</a>. The templates use an XSLT stylesheet from the 'iana-yang' project <span>[<a href="#YANG-XSLT" class="cite xref">YANG-XSLT</a>]</span>. Readers should refer to the IANA websites <span>[<a href="#IANA_ICMPv4_YANG_URL" class="cite xref">IANA_ICMPv4_YANG_URL</a>]</span>, <span>[<a href="#IANA_ICMPv6_YANG_URL" class="cite xref">IANA_ICMPv6_YANG_URL</a>]</span>, and <span>[<a href="#IANA_IPV6_YANG_URL" class="cite xref">IANA_IPV6_YANG_URL</a>]</span> to retrieve the latest version of these IANA-maintained modules.<a href="#section-1-9" class="pilcrow">¶</a></p>
 <div id="editorial-note-to-be-removed-by-rfc-editor">
 <section id="section-1.1">
         <h3 id="name-editorial-note-to-be-remove">
@@ -1496,8 +1463,8 @@ module: ietf-acl-enh
        +---u defined-sets
   augment /acl:acls/acl:acl/acl:aces/acl:ace/acl:matches:
     +--rw (payload)?
-    |  +--:(prefix-pattern)
-    |     +--rw prefix-pattern {match-on-payload}?
+    |  +--:(pattern)
+    |     +--rw pattern {match-on-payload}?
     |        +---u payload-match
     +--rw (alias)?
     |  +--:(alias-name)
@@ -1587,9 +1554,9 @@ module: ietf-acl-enh
     +-- ttl-value?           uint8
   grouping payload-match:
     +-- offset?       identityref
-    +-- offset-end?   uint64
+    +-- length?   uint64
     +-- operator?     operator
-    +-- prefix?       binary
+    +-- pattern?       binary
   grouping alias:
     +-- vlan*         uint16
     +-- prefix*       inet:ip-prefix
@@ -1757,7 +1724,7 @@ Each set is uniquely identified by a name and can be called from the relevant en
 <a href="#section-3.6" class="section-number selfRef">3.6. </a><a href="#name-payload-based-filtering" class="section-name selfRef">Payload-based Filtering</a>
         </h3>
 <p id="section-3.6-1">Some transport protocols use existing protocols (e.g., TCP or UDP) as substrate. The match criteria for such protocols may rely upon the 'protocol' under 'l3', TCP/UDP match criteria, part of the TCP/UDP payload, or a combination thereof.<a href="#section-3.6-1" class="pilcrow">¶</a></p>
-<p id="section-3.6-2">A new feature, called 'match-on-payload', is defined in the document. This can be used, for example, for QUIC <span>[<a href="#RFC9000" class="cite xref">RFC9000</a>]</span> or for tunneling protocols.<a href="#section-3.6-2" class="pilcrow">¶</a></p>
+<p id="section-3.6-2">A new feature, called 'match-on-payload', is defined in the document. This can be used, for example, for QUIC <span>[<a href="#RFC9000" class="cite xref">RFC9000</a>]</span> or for tunneling protocols. This feature requires configuring a data offset, a length, and a binary pattern to macth data against using a specified operator.<a href="#section-3.6-2" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="match-on-mpls-headers">
@@ -1807,10 +1774,10 @@ Each set is uniquely identified by a name and can be called from the relevant en
         </h3>
 <p id="section-3.8-1">Being able to filter all packets that are bridged within a VLAN or that
 are routed into or out of a bridge domain is part of the VPN control
-requirements for Ethernet VPN (EVPN) <span>[<a href="#RFC7209" class="cite xref">RFC7209</a>]</span>.
-All packets that are bridged within a VLAN or that are routed into or
+requirements for Ethernet VPN (EVPN) <span>[<a href="#RFC7209" class="cite xref">RFC7209</a>]</span>.<a href="#section-3.8-1" class="pilcrow">¶</a></p>
+<p id="section-3.8-2">All packets that are bridged within a VLAN or that are routed into or
 out of a VLAN can be captured, forwarded, translated, or discarded based
-on the network policy.<a href="#section-3.8-1" class="pilcrow">¶</a></p>
+on the network policy.<a href="#section-3.8-2" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="instance-service-identifier-i-sid-filtering">
@@ -1838,7 +1805,8 @@ the EVNP-PBB configuration.<a href="#section-3.9-3" class="pilcrow">¶</a></p>
         <h3 id="name-additional-actions">
 <a href="#section-3.10" class="section-number selfRef">3.10. </a><a href="#name-additional-actions" class="section-name selfRef">Additional Actions</a>
         </h3>
-<p id="section-3.10-1">In order to support rate-limiting (see <a href="#ps-rate" class="auto internal xref">Appendix D.6</a>), a new action called 'rate-limit' is defined in this document. Also, the "ietf-acl-enh" module supports new actions to complement existing ones: Log ('log-action') and write a counter ('counter-action'). The version of the module defined in this document supports only local actions.<a href="#section-3.10-1" class="pilcrow">¶</a></p>
+<p id="section-3.10-1">In order to support rate-limiting (see <a href="#ps-rate" class="auto internal xref">Appendix D.6</a>), a new action called 'rate-limit' is defined in this document.<a href="#section-3.10-1" class="pilcrow">¶</a></p>
+<p id="section-3.10-2">Also, the "ietf-acl-enh" module supports new actions to complement existing ones: Log ('log-action') and write a counter ('counter-action'). The version of the module defined in this document supports only local actions.<a href="#section-3.10-2" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
@@ -2245,7 +2213,7 @@ module ietf-acl-enh {
       case explicit {
         leaf-list explicit-tcp-flag {
           type identityref {
-            base tcp-flag;
+            base acl-enh:tcp-flag;
           }
           description
             "An explicit list of the TCP flags that are to be
@@ -2302,7 +2270,7 @@ module ietf-acl-enh {
     }
     leaf label-position {
       type identityref {
-        base label-position;
+        base acl-enh:label-position;
       }
       description
         "Position of the label.";
@@ -2349,14 +2317,14 @@ module ietf-acl-enh {
       "Operations on payload match.";
     leaf offset {
       type identityref {
-        base offset-type;
+        base acl-enh:offset-type;
       }
       description
         "Indicates the payload offset. This will indicate
          the position of the data in packet to use for
          the match.";
     }
-    leaf offset-end {
+    leaf length {
       type uint64;
       units "bytes";
       description
@@ -2369,7 +2337,7 @@ module ietf-acl-enh {
       description
         "How to interpret the prefix match.";
     }
-    leaf prefix {
+    leaf pattern {
       type binary;
       description
         "The binary pattern to match against.";
@@ -2788,7 +2756,7 @@ module ietf-acl-enh {
     choice payload {
       description
         "Matches based upon a prefix pattern.";
-      container prefix-pattern {
+      container pattern {
         if-feature "match-on-payload";
         description
           "Indicates the rule to perform the payload-based match.";
@@ -3081,7 +3049,14 @@ NETCONF <span>[<a href="#RFC6241" class="cite xref">RFC6241</a>]</span> and REST
 use a secure transport layer (e.g., SSH <span>[<a href="#RFC4252" class="cite xref">RFC4252</a>]</span>, TLS <span>[<a href="#RFC8446" class="cite xref">RFC8446</a>]</span>, and
 QUIC <span>[<a href="#RFC9000" class="cite xref">RFC9000</a>]</span>) and have to use mutual authentication.<a href="#section-5-2" class="pilcrow">¶</a></p>
 <p id="section-5-3">The Network Configuration Access Control Model (NACM) <span>[<a href="#RFC8341" class="cite xref">RFC8341</a>]</span> provides the means to restrict access for particular NETCONF or RESTCONF users to a preconfigured subset of all available NETCONF or RESTCONF protocol operations and content.<a href="#section-5-3" class="pilcrow">¶</a></p>
-<p id="section-5-4">There are a number of data nodes defined in the "ietf-acl-enh" YANG module that are writable/creatable/deletable (i.e., config true, which is the default). These data nodes may be considered sensitive or vulnerable in some network environments. Write operations (e.g., edit-config) to these data nodes without proper protection can have a negative effect on network operations. These are the subtrees and data nodes and their sensitivity/vulnerability:<a href="#section-5-4" class="pilcrow">¶</a></p>
+<p id="section-5-4">There are a number of data nodes defined in this YANG module that are
+writable/creatable/deletable (i.e., "config true", which is the
+default).  All writable data nodes are likely to be reasonably
+sensitive or vulnerable in some network environments.  Write
+operations (e.g., edit-config) and delete operations to these data
+nodes without proper protection or authentication can have a negative
+effect on network operations. The following subtrees and data nodes
+have particular sensitivities/vulnerabilities:<a href="#section-5-4" class="pilcrow">¶</a></p>
 <span class="break"></span><dl class="dlParallel" id="section-5-5">
         <dt id="section-5-5.1">'defined-sets':</dt>
         <dd style="margin-left: 1.5em" id="section-5-5.2">
@@ -3093,7 +3068,11 @@ QUIC <span>[<a href="#RFC9000" class="cite xref">RFC9000</a>]</span>) and have t
 </dd>
       <dd class="break"></dd>
 </dl>
-<p id="section-5-6">Some of the readable data nodes in the "ietf-acl-enh" YANG module may be considered sensitive or vulnerable in some network environments. It is thus important to control read access (e.g., via get, get-config, or notification) to these data nodes. These are the subtrees and data nodes and their sensitivity/vulnerability:<a href="#section-5-6" class="pilcrow">¶</a></p>
+<p id="section-5-6">Some of the readable data nodes in this YANG module may be considered
+sensitive or vulnerable in some network environments.  It is thus
+important to control read access (e.g., via get, get-config, or
+notification) to these data nodes. Specifically, the following
+subtrees and data nodes have particular sensitivities/vulnerabilities:<a href="#section-5-6" class="pilcrow">¶</a></p>
 <span class="break"></span><dl class="dlParallel" id="section-5-7">
         <dt id="section-5-7.1">'defined-sets':</dt>
         <dd style="margin-left: 1.5em" id="section-5-7.2">
@@ -3103,9 +3082,8 @@ to ACLs.<a href="#section-5-7.2.1" class="pilcrow">¶</a></p>
 </dd>
       <dd class="break"></dd>
 </dl>
-<p id="section-5-8">The document defines a match policy based on a pattern that can be observed in a packet. For example, such a policy can be combined with header-based matches in the context of DDoS mitigation. Filtering based on a pattern match is deterministic for packets with unencrypted data. However, the efficiency for encrypted
-packets depend on the presence of an unvarying pattern.<a href="#section-5-8" class="pilcrow">¶</a></p>
-<p id="section-5-9">The YANG modules "iana-icmpv4-types", "iana-icmpv6-types", and "iana-ipv6-ext-types defines" a set of types. These nodes are intended to be reused by other YANG
+<p id="section-5-8">The document defines a match policy based on a pattern that can be observed in a packet. For example, such a policy can be combined with header-based matches in the context of DDoS mitigation. Filtering based on a pattern match is deterministic for packets with unencrypted data. However, the efficiency for encrypted packets depend on the presence of an unvarying pattern.<a href="#section-5-8" class="pilcrow">¶</a></p>
+<p id="section-5-9">The YANG modules "iana-icmpv4-types", "iana-icmpv6-types", and "iana-ipv6-ext-types" define a set of types. These nodes are intended to be reused by other YANG
 modules. Each of these modules by itself does not expose any data nodes that
 are writable, data nodes that contain read-only state, or RPCs.
 As such, there are no additional security issues related to
@@ -3275,7 +3253,7 @@ as follows:<a href="#section-6.3.1-11" class="pilcrow">¶</a></p>
 <p id="section-6.3.2-1">IANA is requested to create and post
 the initial version of the "iana-icmpv6-types" YANG module by
 applying the XSLT stylesheet from <a href="#v6-template" class="auto internal xref">Appendix B.1</a> to the XML version of
-<span>[<a href="#IANA-ICMPv4" class="cite xref">IANA-ICMPv4</a>]</span>.<a href="#section-6.3.2-1" class="pilcrow">¶</a></p>
+<span>[<a href="#IANA-ICMPv6" class="cite xref">IANA-ICMPv6</a>]</span>.<a href="#section-6.3.2-1" class="pilcrow">¶</a></p>
 <p id="section-6.3.2-2">This document defines the initial version of the IANA-maintained
 "iana-icmpv6-types" YANG module.  The most recent version of the YANG module
 is available from the "YANG Parameters" registry
@@ -3363,7 +3341,7 @@ is available from the "YANG Parameters" registry
 <p id="section-6.3.3-3">IANA is requested to add this note to the registry <span>[<a href="#IANA-YANG-PARAMETERS" class="cite xref">IANA-YANG-PARAMETERS</a>]</span>:<a href="#section-6.3.3-3" class="pilcrow">¶</a></p>
 <ul class="normal ulEmpty">
 <li class="normal ulEmpty" id="section-6.3.3-4.1">
-              <p id="section-6.3.3-4.1.1">New values must not be directly added to the "iana-ipv6-ext-types" YANG module.  They must instead be added to the "IPv6 Extension Header Types" registry <span>[<a href="#IANA-ICMPv6" class="cite xref">IANA-ICMPv6</a>]</span>.<a href="#section-6.3.3-4.1.1" class="pilcrow">¶</a></p>
+              <p id="section-6.3.3-4.1.1">New values must not be directly added to the "iana-ipv6-ext-types" YANG module.  They must instead be added to the "IPv6 Extension Header Types" registry <span>[<a href="#IANA-IPv6" class="cite xref">IANA-IPv6</a>]</span>.<a href="#section-6.3.3-4.1.1" class="pilcrow">¶</a></p>
 </li>
           </ul>
 <p id="section-6.3.3-5">When a value is added to the "IPv6 Extension Header Types" registry, a new "enum" statement
@@ -3502,10 +3480,6 @@ as follows:<a href="#section-6.3.3-11" class="pilcrow">¶</a></p>
         <dd>
 <span class="refAuthor">Jethanandani, M.</span>, <span class="refAuthor">Agarwal, S.</span>, <span class="refAuthor">Huang, L.</span>, and <span class="refAuthor">D. Blair</span>, <span class="refTitle">"YANG Data Model for Network Access Control Lists (ACLs)"</span>, <span class="seriesInfo">RFC 8519</span>, <span class="seriesInfo">DOI 10.17487/RFC8519</span>, <time datetime="2019-03" class="refDate">March 2019</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc8519">https://www.rfc-editor.org/rfc/rfc8519</a>&gt;</span>. </dd>
 <dd class="break"></dd>
-<dt id="RFC8956">[RFC8956]</dt>
-        <dd>
-<span class="refAuthor">Loibl, C., Ed.</span>, <span class="refAuthor">Raszuk, R., Ed.</span>, and <span class="refAuthor">S. Hares, Ed.</span>, <span class="refTitle">"Dissemination of Flow Specification Rules for IPv6"</span>, <span class="seriesInfo">RFC 8956</span>, <span class="seriesInfo">DOI 10.17487/RFC8956</span>, <time datetime="2020-12" class="refDate">December 2020</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc8956">https://www.rfc-editor.org/rfc/rfc8956</a>&gt;</span>. </dd>
-<dd class="break"></dd>
 <dt id="RFC9293">[RFC9293]</dt>
       <dd>
 <span class="refAuthor">Eddy, W., Ed.</span>, <span class="refTitle">"Transmission Control Protocol (TCP)"</span>, <span class="seriesInfo">STD 7</span>, <span class="seriesInfo">RFC 9293</span>, <span class="seriesInfo">DOI 10.17487/RFC9293</span>, <time datetime="2022-08" class="refDate">August 2022</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc9293">https://www.rfc-editor.org/rfc/rfc9293</a>&gt;</span>. </dd>
@@ -3603,13 +3577,21 @@ as follows:<a href="#section-6.3.3-11" class="pilcrow">¶</a></p>
         <dd>
 <span class="refAuthor">Loibl, C.</span>, <span class="refAuthor">Hares, S.</span>, <span class="refAuthor">Raszuk, R.</span>, <span class="refAuthor">McPherson, D.</span>, and <span class="refAuthor">M. Bacher</span>, <span class="refTitle">"Dissemination of Flow Specification Rules"</span>, <span class="seriesInfo">RFC 8955</span>, <span class="seriesInfo">DOI 10.17487/RFC8955</span>, <time datetime="2020-12" class="refDate">December 2020</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc8955">https://www.rfc-editor.org/rfc/rfc8955</a>&gt;</span>. </dd>
 <dd class="break"></dd>
+<dt id="RFC8956">[RFC8956]</dt>
+        <dd>
+<span class="refAuthor">Loibl, C., Ed.</span>, <span class="refAuthor">Raszuk, R., Ed.</span>, and <span class="refAuthor">S. Hares, Ed.</span>, <span class="refTitle">"Dissemination of Flow Specification Rules for IPv6"</span>, <span class="seriesInfo">RFC 8956</span>, <span class="seriesInfo">DOI 10.17487/RFC8956</span>, <time datetime="2020-12" class="refDate">December 2020</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc8956">https://www.rfc-editor.org/rfc/rfc8956</a>&gt;</span>. </dd>
+<dd class="break"></dd>
 <dt id="RFC9000">[RFC9000]</dt>
         <dd>
 <span class="refAuthor">Iyengar, J., Ed.</span> and <span class="refAuthor">M. Thomson, Ed.</span>, <span class="refTitle">"QUIC: A UDP-Based Multiplexed and Secure Transport"</span>, <span class="seriesInfo">RFC 9000</span>, <span class="seriesInfo">DOI 10.17487/RFC9000</span>, <time datetime="2021-05" class="refDate">May 2021</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc9000">https://www.rfc-editor.org/rfc/rfc9000</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="RFC9132">[RFC9132]</dt>
-      <dd>
+        <dd>
 <span class="refAuthor">Boucadair, M., Ed.</span>, <span class="refAuthor">Shallow, J.</span>, and <span class="refAuthor">T. Reddy.K</span>, <span class="refTitle">"Distributed Denial-of-Service Open Threat Signaling (DOTS) Signal Channel Specification"</span>, <span class="seriesInfo">RFC 9132</span>, <span class="seriesInfo">DOI 10.17487/RFC9132</span>, <time datetime="2021-09" class="refDate">September 2021</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc9132">https://www.rfc-editor.org/rfc/rfc9132</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="YANG-XSLT">[YANG-XSLT]</dt>
+      <dd>
+<span class="refTitle">"iana-yang"</span>, <span>n.d.</span>, <span>&lt;<a href="https://github.com/llhotka/iana-yang">https://github.com/llhotka/iana-yang</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 </dl>
 </section>
@@ -3694,8 +3676,8 @@ as follows:<a href="#section-6.3.3-11" class="pilcrow">¶</a></p>
                   '(Deprecated)')),' ','')"/&gt;
           &lt;/when&gt;
           &lt;otherwise&gt;
-            &lt;value-of select="translate(normalize-space
-                    (iana:description),' ','')"/&gt;
+           &lt;value-of select="substring-before(translate(normalize-space
+                  (iana:description),' ',''),'suchasSeamoby')"/&gt;
           &lt;/otherwise&gt;
         &lt;/choose&gt;
       &lt;/with-param&gt;
@@ -3999,8 +3981,7 @@ module iana-icmpv4-types {
         reference
           "RFC 2521";
       }
-      enum \
-ICMPmessagesutilizedbyexperimentalmobilityprotocolssuchasSeamoby {
+      enum ICMPmessagesutilizedbyexperimentalmobilityprotocols {
         value 41;
         description
           "ICMP messages utilized by experimental mobility protocols
@@ -5349,8 +5330,8 @@ packets.  The following ACEs are defined (in this order):<a href="#appendix-E.2-
 <p id="appendix-F-1">Many thanks to Jon Shallow and Miguel Cros for the review and comments to the document, including prior to publishing the document.<a href="#appendix-F-1" class="pilcrow">¶</a></p>
 <p id="appendix-F-2">Thanks to Qiufang Ma, Victor Lopez, Joe Clarke, and Mahesh Jethanandani for the comments and suggestions.<a href="#appendix-F-2" class="pilcrow">¶</a></p>
 <p id="appendix-F-3">Thanks to Lou Berger for Shepherding the document.<a href="#appendix-F-3" class="pilcrow">¶</a></p>
-<p id="appendix-F-4">Thanks to David Black for the TSV review and Tim Wicinski for the intdir review.<a href="#appendix-F-4" class="pilcrow">¶</a></p>
-<p id="appendix-F-5">The IANA-maintained modules were generated using an XSLT stylesheet from the 'iana-yang' project (https://github.com/llhotka/iana-yang).<a href="#appendix-F-5" class="pilcrow">¶</a></p>
+<p id="appendix-F-4">Thanks to David Black for the TSV review, Tim Wicinski for the intdir review, and Per Andersson for the yangdoctors review.<a href="#appendix-F-4" class="pilcrow">¶</a></p>
+<p id="appendix-F-5">The IANA-maintained modules were generated using an XSLT stylesheet from the 'iana-yang' project <span>[<a href="#YANG-XSLT" class="cite xref">YANG-XSLT</a>]</span>).<a href="#appendix-F-5" class="pilcrow">¶</a></p>
 <p id="appendix-F-6">This work is partially supported by the European Commission under   Horizon 2020 Secured autonomic traffic management for a Tera of SDN
 flows (Teraflow) project (grant agreement number 101015857).<a href="#appendix-F-6" class="pilcrow">¶</a></p>
 </section>
