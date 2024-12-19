@@ -1068,7 +1068,7 @@ Table of Contents
             the position of the data in packet to use for
             the match.";
        }
-       leaf offset-end {
+       leaf length {
          type uint64;
          units "bytes";
          description
@@ -1081,7 +1081,7 @@ Table of Contents
          description
            "How to interpret the prefix match.";
        }
-       leaf prefix {
+       leaf pattern {
          type binary;
          description
            "The binary pattern to match against.";

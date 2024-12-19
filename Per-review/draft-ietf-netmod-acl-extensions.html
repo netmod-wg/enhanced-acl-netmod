@@ -2323,7 +2323,7 @@ module ietf-acl-enh {
          the position of the data in packet to use for
          the match.";
     }
-    leaf offset-end {
+    leaf length {
       type uint64;
       units "bytes";
       description
@@ -2336,7 +2336,7 @@ module ietf-acl-enh {
       description
         "How to interpret the prefix match.";
     }
-    leaf prefix {
+    leaf pattern {
       type binary;
       description
         "The binary pattern to match against.";
