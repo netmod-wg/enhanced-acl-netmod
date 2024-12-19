@@ -5,12 +5,12 @@
 netmod                                                     O. G. D. Dios
 Internet-Draft                                                Telefonica
 Intended status: Standards Track                              S. Barguil
-Expires: 16 May 2025                                               Nokia
+Expires: 22 June 2025                                              Nokia
                                                             M. Boucadair
                                                                   Orange
                                                                    Q. Wu
                                                                   Huawei
-                                                        12 November 2024
+                                                        19 December 2024
 
 
         Extensions to the Access Control Lists (ACLs) YANG Model
@@ -51,7 +51,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 16 May 2025.
+   This Internet-Draft will expire on 22 June 2025.
 
 Copyright Notice
 
@@ -181,10 +181,11 @@ Table of Contents
 
    The document also defines IANA-maintained modules for ICMP types and
    IPv6 extension headers.  The design of the modules adheres to the
-   recommendations in [I-D.ietf-netmod-rfc8407bis].  The templates to
-   generate the modules are available in Appendix A.1, Appendix B.1, and
-   Appendix C.1.  Readers should refer to the IANA websites
-   [IANA_ICMPv4_YANG_URL], [IANA_ICMPv6_YANG_URL], and
+   recommendations in Section 4.30.2 of [I-D.ietf-netmod-rfc8407bis].
+   The templates to generate the modules are available in Appendix A.1,
+   Appendix B.1, and Appendix C.1.  The templates uses XSLT stylesheets
+   from the 'iana-yang' project [YANG-XSLT].  Readers should refer to
+   the IANA websites [IANA_ICMPv4_YANG_URL], [IANA_ICMPv6_YANG_URL], and
    [IANA_IPV6_YANG_URL] to retrieve the latest version of these IANA-
    maintained modules.
 
@@ -252,7 +253,7 @@ Table of Contents
        +--rw (payload)?
        |  +--:(prefix-pattern)
        |     +--rw prefix-pattern {match-on-payload}?
-       |        +---u payload
+       |        +---u payload-match
        +--rw (alias)?
        |  +--:(alias-name)
        |     +--rw alias-name*       alias-ref
@@ -334,7 +335,7 @@ Table of Contents
        +-- lower-label-range?   rt-types:mpls-label
        +-- label-block-name?    string
        +-- ttl-value?           uint8
-     grouping payload:
+     grouping payload-match:
        +-- offset?       identityref
        +-- offset-end?   uint64
        +-- operator?     operator
@@ -967,13 +968,18 @@ Table of Contents
            leaf bitmask {
              type uint16;
              description
-               "The bitmask matches the last 4 bits of byte 12 and 13 of
-                the TCP header.  For clarity, the 4 bits of byte 12
+               "The bitmask matches the last 4 bits of byte 13
+                and byte 14 of the TCP header.
+                For clarity, the 4 bits of byte 12
                 corresponding to the TCP data offset field are not
-                included in any matching.";
+                included in any matching.
+                Assigned TCP flags and their position are maintained
+                in the IANA'Transmission Control Protocol (TCP)
+                Parameters' registry group.";
              reference
                "RFC 9293: Transmission Control Protocol (TCP),
-                          Section 3.1";
+                          Section 3.1
+                https://www.iana.org/assignments/tcp-parameters";
            }
          }
        }
@@ -1050,7 +1056,7 @@ Table of Contents
        }
      }
 
-     grouping payload {
+     grouping payload-match {
        description
          "Operations on payload match.";
        leaf offset {
@@ -1498,7 +1504,7 @@ Table of Contents
            if-feature "match-on-payload";
            description
              "Indicates the rule to perform the payload-based match.";
-           uses payload;
+           uses payload-match;
          }
        }
        choice alias {
@@ -2141,9 +2147,9 @@ Table of Contents
               Bierman, A., Boucadair, M., and Q. Wu, "Guidelines for
               Authors and Reviewers of Documents Containing YANG Data
               Models", Work in Progress, Internet-Draft, draft-ietf-
-              netmod-rfc8407bis-20, 21 October 2024,
+              netmod-rfc8407bis-21, 13 November 2024,
               <https://datatracker.ietf.org/doc/html/draft-ietf-netmod-
-              rfc8407bis-20>.
+              rfc8407bis-21>.
 
    [IANA-ICMPv4]
               "ICMP Type Numbers", n.d.,
@@ -2251,6 +2257,9 @@ Table of Contents
               (DOTS) Signal Channel Specification", RFC 9132,
               DOI 10.17487/RFC9132, September 2021,
               <https://www.rfc-editor.org/rfc/rfc9132>.
+
+   [YANG-XSLT]
+              "iana-yang", n.d., <https://github.com/llhotka/iana-yang>.
 
 Appendix A.  ICMPv4 Types
 
@@ -3823,10 +3832,11 @@ Acknowledgements
 
    Thanks to Lou Berger for Shepherding the document.
 
-   Thanks to David Black for the TSV review.
+   Thanks to David Black for the TSV review and Tim Wicinski for the
+   intdir review.
 
    The IANA-maintained modules were generated using an XSLT stylesheet
-   from the 'iana-yang' project (https://github.com/llhotka/iana-yang).
+   from the 'iana-yang' project [YANG-XSLT]).
 
    This work is partially supported by the European Commission under
    Horizon 2020 Secured autonomic traffic management for a Tera of SDN
