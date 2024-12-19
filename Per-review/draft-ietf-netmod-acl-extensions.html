@@ -3665,8 +3665,8 @@ as follows:<a href="#section-6.3.3-11" class="pilcrow">¶</a></p>
                   '(Deprecated)')),' ','')"/&gt;
           &lt;/when&gt;
           &lt;otherwise&gt;
-            &lt;value-of select="translate(normalize-space
-                    (iana:description),' ','')"/&gt;
+           &lt;value-of select="substring-before(translate(normalize-space
+                  (iana:description),' ',''),'suchasSeamoby')"/&gt;
           &lt;/otherwise&gt;
         &lt;/choose&gt;
       &lt;/with-param&gt;
