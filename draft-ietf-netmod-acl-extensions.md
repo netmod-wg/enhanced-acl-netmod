@@ -82,6 +82,10 @@ informative:
               -
                 name: IEEE
 
+   YANG-XSLT:
+              title: "iana-yang"
+              target: https://github.com/llhotka/iana-yang
+
 --- abstract
 
 RFC 8519 defines a YANG data model for Access Control Lists
@@ -138,7 +142,7 @@ Management Datastore Architecture (NMDA) defined in {{!RFC8342}}.
 A set of examples to illustrate the use of the enhanced ACL module are provided in {{sec-examples}}.
 
 The document also defines IANA-maintained modules for ICMP types and IPv6 extension headers. The design of the modules adheres to the recommendations
-in {{?I-D.ietf-netmod-rfc8407bis}}. The templates to generate the modules are available in {{template}}, {{v6-template}}, and {{iana-ipv6-ext-template}}. Readers should refer to the IANA websites {{IANA_ICMPv4_YANG_URL}}, {{IANA_ICMPv6_YANG_URL}}, and {{IANA_IPV6_YANG_URL}} to retrieve the latest version of these IANA-maintained modules.
+in {{Section 4.30.2 of ?I-D.ietf-netmod-rfc8407bis}}. The templates to generate the modules are available in {{template}}, {{v6-template}}, and {{iana-ipv6-ext-template}}. The templates uses XSLT stylesheets from the 'iana-yang' project {{YANG-XSLT}}. Readers should refer to the IANA websites {{IANA_ICMPv4_YANG_URL}}, {{IANA_ICMPv6_YANG_URL}}, and {{IANA_IPV6_YANG_URL}} to retrieve the latest version of these IANA-maintained modules.
 
 ## Editorial Note (To be removed by RFC Editor)
 
@@ -1087,7 +1091,7 @@ Thanks to Lou Berger for Shepherding the document.
 
 Thanks to David Black for the TSV review and Tim Wicinski for the intdir review.
 
-The IANA-maintained modules were generated using an XSLT stylesheet from the 'iana-yang' project (https://github.com/llhotka/iana-yang).
+The IANA-maintained modules were generated using an XSLT stylesheet from the 'iana-yang' project {{YANG-XSLT}}).
 
 This work is partially supported by the European Commission under   Horizon 2020 Secured autonomic traffic management for a Tera of SDN
 flows (Teraflow) project (grant agreement number 101015857).
