@@ -330,7 +330,7 @@ Some of the readable data nodes in the "ietf-acl-enh" YANG module may be conside
 The document defines a match policy based on a pattern that can be observed in a packet. For example, such a policy can be combined with header-based matches in the context of DDoS mitigation. Filtering based on a pattern match is deterministic for packets with unencrypted data. However, the efficiency for encrypted
 packets depend on the presence of an unvarying pattern.
 
-The YANG modules "iana-icmpv4-types", "iana-icmpv6-types", and "iana-ipv6-ext-types" defines" a set of types. These nodes are intended to be reused by other YANG
+The YANG modules "iana-icmpv4-types", "iana-icmpv6-types", and "iana-ipv6-ext-types" define a set of types. These nodes are intended to be reused by other YANG
 modules. Each of these modules by itself does not expose any data nodes that
 are writable, data nodes that contain read-only state, or RPCs.
 As such, there are no additional security issues related to
