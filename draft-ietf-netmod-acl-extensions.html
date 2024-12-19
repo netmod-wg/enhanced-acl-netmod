@@ -4107,8 +4107,8 @@ module iana-icmpv4-types {
                   '(Deprecated)')),' ','')"/&gt;
           &lt;/when&gt;
           &lt;otherwise&gt;
-            &lt;value-of select="translate(\
-                    normalize-space(iana:name),' ','')"/&gt;
+           &lt;value-of select="substring-before(translate(normalize-space
+                  (iana:description),' ',''),'suchasSeamoby')"/&gt;
           &lt;/otherwise&gt;
         &lt;/choose&gt;
       &lt;/with-param&gt;
