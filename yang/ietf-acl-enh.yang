@@ -391,7 +391,7 @@ module ietf-acl-enh {
       case explicit {
         leaf-list explicit-tcp-flag {
           type identityref {
-            base tcp-flag;
+            base acl-enh:tcp-flag;
           }
           description
             "An explicit list of the TCP flags that are to be
@@ -448,7 +448,7 @@ module ietf-acl-enh {
     }
     leaf label-position {
       type identityref {
-        base label-position;
+        base acl-enh:label-position;
       }
       description
         "Position of the label.";
@@ -495,7 +495,7 @@ module ietf-acl-enh {
       "Operations on payload match.";
     leaf offset {
       type identityref {
-        base offset-type;
+        base acl-enh:offset-type;
       }
       description
         "Indicates the payload offset. This will indicate
