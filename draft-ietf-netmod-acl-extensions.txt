@@ -3005,8 +3005,7 @@ B.2.  Initial Version of the ICMPv6 Types IANA-Maintained Module
            reference
              "RFC 3971";
          }
-         enum \
-   ICMPmessagesutilizedbyexperimentalmobilityprotocolssuchasSeamoby {
+         enum ICMPmessagesutilizedbyexperimentalmobilityprotocols {
            value 150;
            description
              "ICMP messages utilized by experimental mobility protocols
