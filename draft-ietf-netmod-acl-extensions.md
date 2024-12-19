@@ -239,7 +239,7 @@ Clients that support both 'ipv4-fragment' and 'flags' {{!RFC8519}} matching fiel
 
 Some transport protocols use existing protocols (e.g., TCP or UDP) as substrate. The match criteria for such protocols may rely upon the 'protocol' under 'l3', TCP/UDP match criteria, part of the TCP/UDP payload, or a combination thereof.
 
-A new feature, called 'match-on-payload', is defined in the document. This can be used, for example, for QUIC {{?RFC9000}} or for tunneling protocols. This feature requires configuring a data offset, a length, and a binary pattern to macth data against.
+A new feature, called 'match-on-payload', is defined in the document. This can be used, for example, for QUIC {{?RFC9000}} or for tunneling protocols. This feature requires configuring a data offset, a length, and a binary pattern to macth data against using a specified operator.
 
 ## Match on MPLS Headers
 
