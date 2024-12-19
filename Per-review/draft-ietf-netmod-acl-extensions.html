@@ -1363,12 +1363,12 @@ IP addresses (or prefixes), a single rule will suffice rather than creating
 individual Access Control Entries (ACEs) for each IP address (or prefix). In
 doing so, implementations would optimize the performance of matching
 lists vs multiple rules matching.<a href="#section-1-2" class="pilcrow">¶</a></p>
-<p id="section-1-3">The enhanced ACL structure (<a href="#sec-module" class="auto internal xref">Section 4</a>) is also meant to facilitate the management of
+<p id="section-1-3">The enhanced ACL structure ("ietf-acl-enh", <a href="#sec-module" class="auto internal xref">Section 4</a>) is also meant to facilitate the management of
 network operators. Instead of entering the IP address or port number
 literals, using user-named lists decouples the creation of the rule
 from the management of the sets. Hence, it is possible to remove/add
  entries to the list without redefining the (parent) ACL rule.<a href="#section-1-3" class="pilcrow">¶</a></p>
-<p id="section-1-4">In addition, the notion of Access Control List (ACL) and defined sets
+<p id="section-1-4">In addition, the notion of ACL and defined sets
 is generalized so that it is not device-specific as per <span>[<a href="#RFC8519" class="cite xref">RFC8519</a>]</span>.  ACLs
 and defined sets may be defined at network/administrative domain level
 and associated to devices. This approach facilitates the reusability across multiple
@@ -1724,7 +1724,7 @@ Each set is uniquely identified by a name and can be called from the relevant en
 <a href="#section-3.6" class="section-number selfRef">3.6. </a><a href="#name-payload-based-filtering" class="section-name selfRef">Payload-based Filtering</a>
         </h3>
 <p id="section-3.6-1">Some transport protocols use existing protocols (e.g., TCP or UDP) as substrate. The match criteria for such protocols may rely upon the 'protocol' under 'l3', TCP/UDP match criteria, part of the TCP/UDP payload, or a combination thereof.<a href="#section-3.6-1" class="pilcrow">¶</a></p>
-<p id="section-3.6-2">A new feature, called 'match-on-payload', is defined in the document. This can be used, for example, for QUIC <span>[<a href="#RFC9000" class="cite xref">RFC9000</a>]</span> or for tunneling protocols.<a href="#section-3.6-2" class="pilcrow">¶</a></p>
+<p id="section-3.6-2">A new feature, called 'match-on-payload', is defined in the document. This can be used, for example, for QUIC <span>[<a href="#RFC9000" class="cite xref">RFC9000</a>]</span> or for tunneling protocols. This feature requires configuring a data offset, a length, and a binary pattern to macth data against using a specified operator.<a href="#section-3.6-2" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="match-on-mpls-headers">
@@ -1774,10 +1774,10 @@ Each set is uniquely identified by a name and can be called from the relevant en
         </h3>
 <p id="section-3.8-1">Being able to filter all packets that are bridged within a VLAN or that
 are routed into or out of a bridge domain is part of the VPN control
-requirements for Ethernet VPN (EVPN) <span>[<a href="#RFC7209" class="cite xref">RFC7209</a>]</span>.
-All packets that are bridged within a VLAN or that are routed into or
+requirements for Ethernet VPN (EVPN) <span>[<a href="#RFC7209" class="cite xref">RFC7209</a>]</span>.<a href="#section-3.8-1" class="pilcrow">¶</a></p>
+<p id="section-3.8-2">All packets that are bridged within a VLAN or that are routed into or
 out of a VLAN can be captured, forwarded, translated, or discarded based
-on the network policy.<a href="#section-3.8-1" class="pilcrow">¶</a></p>
+on the network policy.<a href="#section-3.8-2" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="instance-service-identifier-i-sid-filtering">
@@ -1805,7 +1805,8 @@ the EVNP-PBB configuration.<a href="#section-3.9-3" class="pilcrow">¶</a></p>
         <h3 id="name-additional-actions">
 <a href="#section-3.10" class="section-number selfRef">3.10. </a><a href="#name-additional-actions" class="section-name selfRef">Additional Actions</a>
         </h3>
-<p id="section-3.10-1">In order to support rate-limiting (see <a href="#ps-rate" class="auto internal xref">Appendix D.6</a>), a new action called 'rate-limit' is defined in this document. Also, the "ietf-acl-enh" module supports new actions to complement existing ones: Log ('log-action') and write a counter ('counter-action'). The version of the module defined in this document supports only local actions.<a href="#section-3.10-1" class="pilcrow">¶</a></p>
+<p id="section-3.10-1">In order to support rate-limiting (see <a href="#ps-rate" class="auto internal xref">Appendix D.6</a>), a new action called 'rate-limit' is defined in this document.<a href="#section-3.10-1" class="pilcrow">¶</a></p>
+<p id="section-3.10-2">Also, the "ietf-acl-enh" module supports new actions to complement existing ones: Log ('log-action') and write a counter ('counter-action'). The version of the module defined in this document supports only local actions.<a href="#section-3.10-2" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
@@ -3048,7 +3049,14 @@ NETCONF <span>[<a href="#RFC6241" class="cite xref">RFC6241</a>]</span> and REST
 use a secure transport layer (e.g., SSH <span>[<a href="#RFC4252" class="cite xref">RFC4252</a>]</span>, TLS <span>[<a href="#RFC8446" class="cite xref">RFC8446</a>]</span>, and
 QUIC <span>[<a href="#RFC9000" class="cite xref">RFC9000</a>]</span>) and have to use mutual authentication.<a href="#section-5-2" class="pilcrow">¶</a></p>
 <p id="section-5-3">The Network Configuration Access Control Model (NACM) <span>[<a href="#RFC8341" class="cite xref">RFC8341</a>]</span> provides the means to restrict access for particular NETCONF or RESTCONF users to a preconfigured subset of all available NETCONF or RESTCONF protocol operations and content.<a href="#section-5-3" class="pilcrow">¶</a></p>
-<p id="section-5-4">There are a number of data nodes defined in the "ietf-acl-enh" YANG module that are writable/creatable/deletable (i.e., config true, which is the default). These data nodes may be considered sensitive or vulnerable in some network environments. Write operations (e.g., edit-config) to these data nodes without proper protection can have a negative effect on network operations. These are the subtrees and data nodes and their sensitivity/vulnerability:<a href="#section-5-4" class="pilcrow">¶</a></p>
+<p id="section-5-4">There are a number of data nodes defined in this YANG module that are
+writable/creatable/deletable (i.e., "config true", which is the
+default).  All writable data nodes are likely to be reasonably
+sensitive or vulnerable in some network environments.  Write
+operations (e.g., edit-config) and delete operations to these data
+nodes without proper protection or authentication can have a negative
+effect on network operations. The following subtrees and data nodes
+have particular sensitivities/vulnerabilities:<a href="#section-5-4" class="pilcrow">¶</a></p>
 <span class="break"></span><dl class="dlParallel" id="section-5-5">
         <dt id="section-5-5.1">'defined-sets':</dt>
         <dd style="margin-left: 1.5em" id="section-5-5.2">
@@ -3060,7 +3068,11 @@ QUIC <span>[<a href="#RFC9000" class="cite xref">RFC9000</a>]</span>) and have t
 </dd>
       <dd class="break"></dd>
 </dl>
-<p id="section-5-6">Some of the readable data nodes in the "ietf-acl-enh" YANG module may be considered sensitive or vulnerable in some network environments. It is thus important to control read access (e.g., via get, get-config, or notification) to these data nodes. These are the subtrees and data nodes and their sensitivity/vulnerability:<a href="#section-5-6" class="pilcrow">¶</a></p>
+<p id="section-5-6">Some of the readable data nodes in this YANG module may be considered
+sensitive or vulnerable in some network environments.  It is thus
+important to control read access (e.g., via get, get-config, or
+notification) to these data nodes. Specifically, the following
+subtrees and data nodes have particular sensitivities/vulnerabilities:<a href="#section-5-6" class="pilcrow">¶</a></p>
 <span class="break"></span><dl class="dlParallel" id="section-5-7">
         <dt id="section-5-7.1">'defined-sets':</dt>
         <dd style="margin-left: 1.5em" id="section-5-7.2">
@@ -3070,8 +3082,7 @@ to ACLs.<a href="#section-5-7.2.1" class="pilcrow">¶</a></p>
 </dd>
       <dd class="break"></dd>
 </dl>
-<p id="section-5-8">The document defines a match policy based on a pattern that can be observed in a packet. For example, such a policy can be combined with header-based matches in the context of DDoS mitigation. Filtering based on a pattern match is deterministic for packets with unencrypted data. However, the efficiency for encrypted
-packets depend on the presence of an unvarying pattern.<a href="#section-5-8" class="pilcrow">¶</a></p>
+<p id="section-5-8">The document defines a match policy based on a pattern that can be observed in a packet. For example, such a policy can be combined with header-based matches in the context of DDoS mitigation. Filtering based on a pattern match is deterministic for packets with unencrypted data. However, the efficiency for encrypted packets depend on the presence of an unvarying pattern.<a href="#section-5-8" class="pilcrow">¶</a></p>
 <p id="section-5-9">The YANG modules "iana-icmpv4-types", "iana-icmpv6-types", and "iana-ipv6-ext-types" define a set of types. These nodes are intended to be reused by other YANG
 modules. Each of these modules by itself does not expose any data nodes that
 are writable, data nodes that contain read-only state, or RPCs.
@@ -3469,10 +3480,6 @@ as follows:<a href="#section-6.3.3-11" class="pilcrow">¶</a></p>
         <dd>
 <span class="refAuthor">Jethanandani, M.</span>, <span class="refAuthor">Agarwal, S.</span>, <span class="refAuthor">Huang, L.</span>, and <span class="refAuthor">D. Blair</span>, <span class="refTitle">"YANG Data Model for Network Access Control Lists (ACLs)"</span>, <span class="seriesInfo">RFC 8519</span>, <span class="seriesInfo">DOI 10.17487/RFC8519</span>, <time datetime="2019-03" class="refDate">March 2019</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc8519">https://www.rfc-editor.org/rfc/rfc8519</a>&gt;</span>. </dd>
 <dd class="break"></dd>
-<dt id="RFC8956">[RFC8956]</dt>
-        <dd>
-<span class="refAuthor">Loibl, C., Ed.</span>, <span class="refAuthor">Raszuk, R., Ed.</span>, and <span class="refAuthor">S. Hares, Ed.</span>, <span class="refTitle">"Dissemination of Flow Specification Rules for IPv6"</span>, <span class="seriesInfo">RFC 8956</span>, <span class="seriesInfo">DOI 10.17487/RFC8956</span>, <time datetime="2020-12" class="refDate">December 2020</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc8956">https://www.rfc-editor.org/rfc/rfc8956</a>&gt;</span>. </dd>
-<dd class="break"></dd>
 <dt id="RFC9293">[RFC9293]</dt>
       <dd>
 <span class="refAuthor">Eddy, W., Ed.</span>, <span class="refTitle">"Transmission Control Protocol (TCP)"</span>, <span class="seriesInfo">STD 7</span>, <span class="seriesInfo">RFC 9293</span>, <span class="seriesInfo">DOI 10.17487/RFC9293</span>, <time datetime="2022-08" class="refDate">August 2022</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc9293">https://www.rfc-editor.org/rfc/rfc9293</a>&gt;</span>. </dd>
@@ -3569,6 +3576,10 @@ as follows:<a href="#section-6.3.3-11" class="pilcrow">¶</a></p>
 <dt id="RFC8955">[RFC8955]</dt>
         <dd>
 <span class="refAuthor">Loibl, C.</span>, <span class="refAuthor">Hares, S.</span>, <span class="refAuthor">Raszuk, R.</span>, <span class="refAuthor">McPherson, D.</span>, and <span class="refAuthor">M. Bacher</span>, <span class="refTitle">"Dissemination of Flow Specification Rules"</span>, <span class="seriesInfo">RFC 8955</span>, <span class="seriesInfo">DOI 10.17487/RFC8955</span>, <time datetime="2020-12" class="refDate">December 2020</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc8955">https://www.rfc-editor.org/rfc/rfc8955</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC8956">[RFC8956]</dt>
+        <dd>
+<span class="refAuthor">Loibl, C., Ed.</span>, <span class="refAuthor">Raszuk, R., Ed.</span>, and <span class="refAuthor">S. Hares, Ed.</span>, <span class="refTitle">"Dissemination of Flow Specification Rules for IPv6"</span>, <span class="seriesInfo">RFC 8956</span>, <span class="seriesInfo">DOI 10.17487/RFC8956</span>, <time datetime="2020-12" class="refDate">December 2020</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc8956">https://www.rfc-editor.org/rfc/rfc8956</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="RFC9000">[RFC9000]</dt>
         <dd>

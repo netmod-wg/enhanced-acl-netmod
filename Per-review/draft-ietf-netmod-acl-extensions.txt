@@ -147,20 +147,20 @@ Table of Contents
    (or prefix).  In doing so, implementations would optimize the
    performance of matching lists vs multiple rules matching.
 
-   The enhanced ACL structure (Section 4) is also meant to facilitate
-   the management of network operators.  Instead of entering the IP
-   address or port number literals, using user-named lists decouples the
-   creation of the rule from the management of the sets.  Hence, it is
-   possible to remove/add entries to the list without redefining the
-   (parent) ACL rule.
+   The enhanced ACL structure ("ietf-acl-enh", Section 4) is also meant
+   to facilitate the management of network operators.  Instead of
+   entering the IP address or port number literals, using user-named
+   lists decouples the creation of the rule from the management of the
+   sets.  Hence, it is possible to remove/add entries to the list
+   without redefining the (parent) ACL rule.
 
-   In addition, the notion of Access Control List (ACL) and defined sets
-   is generalized so that it is not device-specific as per [RFC8519].
-   ACLs and defined sets may be defined at network/administrative domain
-   level and associated to devices.  This approach facilitates the
-   reusability across multiple network elements.  For example, managing
-   the IP prefix sets from a network level makes it easier to maintain
-   by the security groups.
+   In addition, the notion of ACL and defined sets is generalized so
+   that it is not device-specific as per [RFC8519].  ACLs and defined
+   sets may be defined at network/administrative domain level and
+   associated to devices.  This approach facilitates the reusability
+   across multiple network elements.  For example, managing the IP
+   prefix sets from a network level makes it easier to maintain by the
+   security groups.
 
    Network operators maintain sets of IP prefixes that are related to
    each other, e.g., deny-lists or accept-lists that are associated with
@@ -493,7 +493,9 @@ Table of Contents
 
    A new feature, called 'match-on-payload', is defined in the document.
    This can be used, for example, for QUIC [RFC9000] or for tunneling
-   protocols.
+   protocols.  This feature requires configuring a data offset, a
+   length, and a binary pattern to macth data against using a specified
+   operator.
 
 3.7.  Match on MPLS Headers
 
@@ -528,10 +530,11 @@ Table of Contents
 
    Being able to filter all packets that are bridged within a VLAN or
    that are routed into or out of a bridge domain is part of the VPN
-   control requirements for Ethernet VPN (EVPN) [RFC7209].  All packets
-   that are bridged within a VLAN or that are routed into or out of a
-   VLAN can be captured, forwarded, translated, or discarded based on
-   the network policy.
+   control requirements for Ethernet VPN (EVPN) [RFC7209].
+
+   All packets that are bridged within a VLAN or that are routed into or
+   out of a VLAN can be captured, forwarded, translated, or discarded
+   based on the network policy.
 
 3.9.  Instance Service Identifier (I-SID) Filtering
 
@@ -554,10 +557,12 @@ Table of Contents
 3.10.  Additional Actions
 
    In order to support rate-limiting (see Appendix D.6), a new action
-   called 'rate-limit' is defined in this document.  Also, the "ietf-
-   acl-enh" module supports new actions to complement existing ones: Log
-   ('log-action') and write a counter ('counter-action').  The version
-   of the module defined in this document supports only local actions.
+   called 'rate-limit' is defined in this document.
+
+   Also, the "ietf-acl-enh" module supports new actions to complement
+   existing ones: Log ('log-action') and write a counter ('counter-
+   action').  The version of the module defined in this document
+   supports only local actions.
 
 4.  Enhanced ACL YANG Module
 
@@ -1794,13 +1799,14 @@ Table of Contents
    RESTCONF users to a preconfigured subset of all available NETCONF or
    RESTCONF protocol operations and content.
 
-   There are a number of data nodes defined in the "ietf-acl-enh" YANG
-   module that are writable/creatable/deletable (i.e., config true,
-   which is the default).  These data nodes may be considered sensitive
-   or vulnerable in some network environments.  Write operations (e.g.,
-   edit-config) to these data nodes without proper protection can have a
-   negative effect on network operations.  These are the subtrees and
-   data nodes and their sensitivity/vulnerability:
+   There are a number of data nodes defined in this YANG module that are
+   writable/creatable/deletable (i.e., "config true", which is the
+   default).  All writable data nodes are likely to be reasonably
+   sensitive or vulnerable in some network environments.  Write
+   operations (e.g., edit-config) and delete operations to these data
+   nodes without proper protection or authentication can have a negative
+   effect on network operations.  The following subtrees and data nodes
+   have particular sensitivities/vulnerabilities:
 
    'defined-sets':  These lists specify a set of sets and aliases.
       Similar to [RFC8519], unauthorized write access to these list can
@@ -1809,11 +1815,12 @@ Table of Contents
       The former may result in a DoS attack, or compromise a device.
       The latter may result in a DoS attack.
 
-   Some of the readable data nodes in the "ietf-acl-enh" YANG module may
-   be considered sensitive or vulnerable in some network environments.
-   It is thus important to control read access (e.g., via get, get-
-   config, or notification) to these data nodes.  These are the subtrees
-   and data nodes and their sensitivity/vulnerability:
+   Some of the readable data nodes in this YANG module may be considered
+   sensitive or vulnerable in some network environments.  It is thus
+   important to control read access (e.g., via get, get-config, or
+   notification) to these data nodes.  Specifically, the following
+   subtrees and data nodes have particular sensitivities/
+   vulnerabilities:
 
    'defined-sets':  Unauthorized read access of these lists will allow
       an attacker to identify the actual resources that are bound to
@@ -2132,11 +2139,6 @@ Table of Contents
               RFC 8519, DOI 10.17487/RFC8519, March 2019,
               <https://www.rfc-editor.org/rfc/rfc8519>.
 
-   [RFC8956]  Loibl, C., Ed., Raszuk, R., Ed., and S. Hares, Ed.,
-              "Dissemination of Flow Specification Rules for IPv6",
-              RFC 8956, DOI 10.17487/RFC8956, December 2020,
-              <https://www.rfc-editor.org/rfc/rfc8956>.
-
    [RFC9293]  Eddy, W., Ed., "Transmission Control Protocol (TCP)",
               STD 7, RFC 9293, DOI 10.17487/RFC9293, August 2022,
               <https://www.rfc-editor.org/rfc/rfc9293>.
@@ -2246,6 +2248,11 @@ Table of Contents
               Bacher, "Dissemination of Flow Specification Rules",
               RFC 8955, DOI 10.17487/RFC8955, December 2020,
               <https://www.rfc-editor.org/rfc/rfc8955>.
+
+   [RFC8956]  Loibl, C., Ed., Raszuk, R., Ed., and S. Hares, Ed.,
+              "Dissemination of Flow Specification Rules for IPv6",
+              RFC 8956, DOI 10.17487/RFC8956, December 2020,
+              <https://www.rfc-editor.org/rfc/rfc8956>.
 
    [RFC9000]  Iyengar, J., Ed. and M. Thomson, Ed., "QUIC: A UDP-Based
               Multiplexed and Secure Transport", RFC 9000,
