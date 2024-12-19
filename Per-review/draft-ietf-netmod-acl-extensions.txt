@@ -251,7 +251,7 @@ Table of Contents
           +---u defined-sets
      augment /acl:acls/acl:acl/acl:aces/acl:ace/acl:matches:
        +--rw (payload)?
-       |  +--:(prefix-pattern)
+       |  +--:(pattern)
        |     +--rw pattern {match-on-payload}?
        |        +---u payload-match
        +--rw (alias)?
