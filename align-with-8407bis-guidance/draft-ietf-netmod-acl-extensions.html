@@ -1463,7 +1463,7 @@ module: ietf-acl-enh
        +---u defined-sets
   augment /acl:acls/acl:acl/acl:aces/acl:ace/acl:matches:
     +--rw (payload)?
-    |  +--:(prefix-pattern)
+    |  +--:(pattern)
     |     +--rw pattern {match-on-payload}?
     |        +---u payload-match
     +--rw (alias)?
@@ -3083,7 +3083,8 @@ to ACLs.<a href="#section-5-7.2.1" class="pilcrow">¶</a></p>
       <dd class="break"></dd>
 </dl>
 <p id="section-5-8">The document defines a match policy based on a pattern that can be observed in a packet. For example, such a policy can be combined with header-based matches in the context of DDoS mitigation. Filtering based on a pattern match is deterministic for packets with unencrypted data. However, the efficiency for encrypted packets depend on the presence of an unvarying pattern.<a href="#section-5-8" class="pilcrow">¶</a></p>
-<p id="section-5-9">The YANG modules "iana-icmpv4-types", "iana-icmpv6-types", and "iana-ipv6-ext-types" define a set of types. These nodes are intended to be reused by other YANG modules. Each of these modules by itself does not expose any data nodes that
+<p id="section-5-9">The YANG modules "iana-icmpv4-types", "iana-icmpv6-types", and "iana-ipv6-ext-types" define a set of types. These nodes are intended to be reused by other YANG
+modules. Each of these modules by itself does not expose any data nodes that
 are writable, data nodes that contain read-only state, or RPCs.
 As such, there are no additional security issues related to
 these YANG modules that need to be considered.<a href="#section-5-9" class="pilcrow">¶</a></p>
