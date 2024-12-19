@@ -276,8 +276,7 @@ module iana-icmpv4-types {
         reference
           "RFC 2521";
       }
-      enum \
-ICMPmessagesutilizedbyexperimentalmobilityprotocolssuchasSeamoby {
+      enum ICMPmessagesutilizedbyexperimentalmobilityprotocols {
         value 41;
         description
           "ICMP messages utilized by experimental mobility protocols
