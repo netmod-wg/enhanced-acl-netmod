@@ -494,7 +494,8 @@ Table of Contents
    A new feature, called 'match-on-payload', is defined in the document.
    This can be used, for example, for QUIC [RFC9000] or for tunneling
    protocols.  This feature requires configuring a data offset, a
-   length, and a binary pattern to macth data against.
+   length, and a binary pattern to macth data against using a specified
+   operator.
 
 3.7.  Match on MPLS Headers
 
