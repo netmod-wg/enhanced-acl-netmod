@@ -330,7 +330,7 @@ Some of the readable data nodes in the "ietf-acl-enh" YANG module may be conside
 The document defines a match policy based on a pattern that can be observed in a packet. For example, such a policy can be combined with header-based matches in the context of DDoS mitigation. Filtering based on a pattern match is deterministic for packets with unencrypted data. However, the efficiency for encrypted
 packets depend on the presence of an unvarying pattern.
 
-The YANG modules "iana-icmpv4-types", "iana-icmpv6-types", and "iana-ipv6-ext-types defines" a set of types. These nodes are intended to be reused by other YANG
+The YANG modules "iana-icmpv4-types", "iana-icmpv6-types", and "iana-ipv6-ext-types" defines" a set of types. These nodes are intended to be reused by other YANG
 modules. Each of these modules by itself does not expose any data nodes that
 are writable, data nodes that contain read-only state, or RPCs.
 As such, there are no additional security issues related to
@@ -459,7 +459,7 @@ NEW:
 IANA is requested to create and post
 the initial version of the "iana-icmpv6-types" YANG module by
 applying the XSLT stylesheet from {{v6-template}} to the XML version of
-{{IANA-ICMPv4}}.
+{{IANA-ICMPv6}}.
 
 This document defines the initial version of the IANA-maintained
 "iana-icmpv6-types" YANG module.  The most recent version of the YANG module
@@ -527,7 +527,7 @@ is available from the "YANG Parameters" registry
 
 IANA is requested to add this note to the registry {{IANA-YANG-PARAMETERS}}:
 
-> New values must not be directly added to the "iana-ipv6-ext-types" YANG module.  They must instead be added to the "IPv6 Extension Header Types" registry {{IANA-ICMPv6}}.
+> New values must not be directly added to the "iana-ipv6-ext-types" YANG module.  They must instead be added to the "IPv6 Extension Header Types" registry {{IANA-IPv6}}.
 
 When a value is added to the "IPv6 Extension Header Types" registry, a new "enum" statement
 must be added to the "iana-ipv6-ext-types" YANG module.  The "enum" statement,
