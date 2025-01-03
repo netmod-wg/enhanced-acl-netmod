@@ -91,6 +91,7 @@ informative:
 RFC 8519 defines a YANG data model for Access Control Lists
 (ACLs). This document discusses a set of extensions that fix many of
 the limitations of the ACL model as initially defined in RFC 8519.
+Specifically, it introduces augmentations to the ACL base model to enhance its functionality and applicability.
 
 The document also defines IANA-maintained modules for ICMP types and IPv6 extension headers.
 
@@ -101,9 +102,10 @@ The document also defines IANA-maintained modules for ICMP types and IPv6 extens
 {{!RFC8519}} defines Access Control Lists (ACLs) as a
 user-ordered set of filtering rules. The model targets the
 configuration of the filtering behavior of a device. However, the
-model structure, as defined in {{!RFC8519}}, suffers from a set of limitations. This
-document describes these limitations and specifies an enhanced ACL
-structure ({{sec-module}}). The motivation of such enhanced ACL structure is discussed in detail in {{ps}}.
+model structure, as defined in {{!RFC8519}}, suffers from a set of limitations. 
+This document identifies these limitations and specifies an enhanced ACL structure, 
+introducing augmentations to the ACL base model ({{sec-module}}).
+The motivation of such enhanced ACL structure is discussed in detail in {{ps}}.
 
 When managing ACLs, it is common for network operators to group
 match elements in pre-defined sets. The consolidation into group matches
@@ -174,7 +176,7 @@ The meaning of the symbols in the tree diagrams is defined in
 In addition to the terms defined in {{!RFC8519}}, this document makes use of the following term:
 
 Defined set:
-: Refers to reusable description of one or multiple information elements (e.g., IP address, IP prefix, port number, or ICMP type).
+: Elements in a defined set typically share a logical purpose or function, such as IP address, IP prefixes, port number, or ICMP type.
 
 # Overall Structure of The Enhanced ACL Module
 
@@ -219,6 +221,9 @@ ICMP sets:
 Aliases:
 : An alias is defined by a combination of various parameters (e.g., IP prefix, protocol, port number, or VLAN {{IEEE802.1Qcp}}). Sets of aliases can be defined and referred to in ACL match criteria.
 
+Payload-based filtering:
+: Network traffic filtering technique that examines the data payload of packets, beyond just the header information, to identify, allow, or block traffic based on specific content or patterns within the payload.
+
 ## IPv6 Extension Headers
 
 The module can be used to manage ACLs that require matching against IPv6 extension headers {{!RFC8200}}. To that aim, a new IANA-maintained module for IPv6 extension header types "iana-ipv6-ext-types" is defined in this document.
@@ -239,7 +244,7 @@ Clients that support both 'ipv4-fragment' and 'flags' {{!RFC8519}} matching fiel
 
 Some transport protocols use existing protocols (e.g., TCP or UDP) as substrate. The match criteria for such protocols may rely upon the 'protocol' under 'l3', TCP/UDP match criteria, part of the TCP/UDP payload, or a combination thereof.
 
-A new feature, called 'match-on-payload', is defined in the document. This can be used, for example, for QUIC {{?RFC9000}} or for tunneling protocols. This feature requires configuring a data offset, a length, and a binary pattern to macth data against using a specified operator.
+A new feature, called 'match-on-payload', is defined in the document. This can be used, for example, for QUIC {{?RFC9000}} or for tunneling protocols. This feature requires configuring a data offset, a length, and a binary pattern to match data against using a specified operator.
 
 ## Match on MPLS Headers
 
@@ -458,7 +463,7 @@ IANA is requested to add this note to "ICMP Type Numbers" {{IANA-ICMPv4}}:
     When this registry is modified, the YANG module "iana-icmpv4-types"
     [IANA_ICMPv4_YANG_URL] must be updated as defined in RFC XXXX.
 
-IANA is requested to updated the "Reference" in the "ICMP Type Numbers" registry
+IANA is requested to update the "Reference" in the "ICMP Type Numbers" registry
 as follows:
 
 OLD:
@@ -517,7 +522,7 @@ IANA is requested to add this note to "ICMPv6 "type" Numbers" {{IANA-ICMPv6}}:
     When this registry is modified, the YANG module "iana-icmpv6-types"
     [IANA_ICMPv6_YANG_URL] must be updated as defined in RFC XXXX.
 
-IANA is requested to updated the "Reference" in the "ICMPv6 "type" Numbers" registry
+IANA is requested to update the "Reference" in the "ICMPv6 "type" Numbers" registry
 as follows:
 
 OLD:
@@ -576,7 +581,7 @@ IANA is requested to add this note to the "IPv6 Extension Header Types" registry
     When this registry is modified, the YANG module "iana-ipv6-ext-types"
     [IANA_IPV6_YANG_URL] must be updated as defined in RFC XXXX.
 
-IANA is requested to updated the "Reference" in the "IPv6 Extension Header Types" registry
+IANA is requested to update the "Reference" in the "IPv6 Extension Header Types" registry
 as follows:
 
 OLD:
