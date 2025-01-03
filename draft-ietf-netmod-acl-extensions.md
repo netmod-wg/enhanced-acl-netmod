@@ -102,7 +102,7 @@ The document also defines IANA-maintained modules for ICMP types and IPv6 extens
 {{!RFC8519}} defines Access Control Lists (ACLs) as a
 user-ordered set of filtering rules. The model targets the
 configuration of the filtering behavior of a device. However, the
-model structure, as defined in {{!RFC8519}}, suffers from a set of limitations. 
+model structure, as defined in {{!RFC8519}}, suffers from a set of limitations.
 This document identifies these limitations and specifies an enhanced ACL structure,
 introducing augmentations to the ACL base model ({{sec-module}}).
 The motivation of such enhanced ACL structure is discussed in detail in {{ps}}.
