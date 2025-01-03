@@ -5,12 +5,12 @@
 netmod                                                     O. G. D. Dios
 Internet-Draft                                                Telefonica
 Intended status: Standards Track                              S. Barguil
-Expires: 31 May 2025                                               Nokia
+Expires: 7 July 2025                                               Nokia
                                                             M. Boucadair
                                                                   Orange
                                                                    Q. Wu
                                                                   Huawei
-                                                        27 November 2024
+                                                          3 January 2025
 
 
         Extensions to the Access Control Lists (ACLs) YANG Model
@@ -21,6 +21,8 @@ Abstract
    RFC 8519 defines a YANG data model for Access Control Lists (ACLs).
    This document discusses a set of extensions that fix many of the
    limitations of the ACL model as initially defined in RFC 8519.
+   Specifically, it introduces augmentations to the ACL base model to
+   enhance its functionality and applicability.
 
    The document also defines IANA-maintained modules for ICMP types and
    IPv6 extension headers.
@@ -51,11 +53,11 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 31 May 2025.
+   This Internet-Draft will expire on 7 July 2025.
 
 Copyright Notice
 
-   Copyright (c) 2024 IETF Trust and the persons identified as the
+   Copyright (c) 2025 IETF Trust and the persons identified as the
    document authors.  All rights reserved.
 
    This document is subject to BCP 78 and the IETF Trust's Legal
@@ -134,9 +136,10 @@ Table of Contents
    of filtering rules.  The model targets the configuration of the
    filtering behavior of a device.  However, the model structure, as
    defined in [RFC8519], suffers from a set of limitations.  This
-   document describes these limitations and specifies an enhanced ACL
-   structure (Section 4).  The motivation of such enhanced ACL structure
-   is discussed in detail in Appendix D.
+   document identifies these limitations and specifies an enhanced ACL
+   structure, introducing augmentations to the ACL base model
+   (Section 4).  The motivation of such enhanced ACL structure is
+   discussed in detail in Appendix D.
 
    When managing ACLs, it is common for network operators to group match
    elements in pre-defined sets.  The consolidation into group matches
@@ -147,20 +150,20 @@ Table of Contents
    (or prefix).  In doing so, implementations would optimize the
    performance of matching lists vs multiple rules matching.
 
-   The enhanced ACL structure (Section 4) is also meant to facilitate
-   the management of network operators.  Instead of entering the IP
-   address or port number literals, using user-named lists decouples the
-   creation of the rule from the management of the sets.  Hence, it is
-   possible to remove/add entries to the list without redefining the
-   (parent) ACL rule.
+   The enhanced ACL structure ("ietf-acl-enh", Section 4) is also meant
+   to facilitate the management of network operators.  Instead of
+   entering the IP address or port number literals, using user-named
+   lists decouples the creation of the rule from the management of the
+   sets.  Hence, it is possible to remove/add entries to the list
+   without redefining the (parent) ACL rule.
 
-   In addition, the notion of Access Control List (ACL) and defined sets
-   is generalized so that it is not device-specific as per [RFC8519].
-   ACLs and defined sets may be defined at network/administrative domain
-   level and associated to devices.  This approach facilitates the
-   reusability across multiple network elements.  For example, managing
-   the IP prefix sets from a network level makes it easier to maintain
-   by the security groups.
+   In addition, the notion of ACL and defined sets is generalized so
+   that it is not device-specific as per [RFC8519].  ACLs and defined
+   sets may be defined at network/administrative domain level and
+   associated to devices.  This approach facilitates the reusability
+   across multiple network elements.  For example, managing the IP
+   prefix sets from a network level makes it easier to maintain by the
+   security groups.
 
    Network operators maintain sets of IP prefixes that are related to
    each other, e.g., deny-lists or accept-lists that are associated with
@@ -181,10 +184,11 @@ Table of Contents
 
    The document also defines IANA-maintained modules for ICMP types and
    IPv6 extension headers.  The design of the modules adheres to the
-   recommendations in [I-D.ietf-netmod-rfc8407bis].  The templates to
-   generate the modules are available in Appendix A.1, Appendix B.1, and
-   Appendix C.1.  Readers should refer to the IANA websites
-   [IANA_ICMPv4_YANG_URL], [IANA_ICMPv6_YANG_URL], and
+   recommendations in Section 4.30.2 of [I-D.ietf-netmod-rfc8407bis].
+   The templates to generate the modules are available in Appendix A.1,
+   Appendix B.1, and Appendix C.1.  The templates use an XSLT stylesheet
+   from the 'iana-yang' project [YANG-XSLT].  Readers should refer to
+   the IANA websites [IANA_ICMPv4_YANG_URL], [IANA_ICMPv6_YANG_URL], and
    [IANA_IPV6_YANG_URL] to retrieve the latest version of these IANA-
    maintained modules.
 
@@ -233,9 +237,9 @@ Table of Contents
    In addition to the terms defined in [RFC8519], this document makes
    use of the following term:
 
-   Defined set:  Refers to reusable description of one or multiple
-      information elements (e.g., IP address, IP prefix, port number, or
-      ICMP type).
+   Defined set:  Elements in a defined set typically share a logical
+      purpose or function, such as IP address, IP prefixes, port number,
+      or ICMP type.
 
 3.  Overall Structure of The Enhanced ACL Module
 
@@ -250,8 +254,8 @@ Table of Contents
           +---u defined-sets
      augment /acl:acls/acl:acl/acl:aces/acl:ace/acl:matches:
        +--rw (payload)?
-       |  +--:(prefix-pattern)
-       |     +--rw prefix-pattern {match-on-payload}?
+       |  +--:(pattern)
+       |     +--rw pattern {match-on-payload}?
        |        +---u payload-match
        +--rw (alias)?
        |  +--:(alias-name)
@@ -336,9 +340,9 @@ Table of Contents
        +-- ttl-value?           uint8
      grouping payload-match:
        +-- offset?       identityref
-       +-- offset-end?   uint64
+       +-- length?   uint64
        +-- operator?     operator
-       +-- prefix?       binary
+       +-- pattern?       binary
      grouping alias:
        +-- vlan*         uint16
        +-- prefix*       inet:ip-prefix
@@ -457,6 +461,11 @@ Table of Contents
       Sets of aliases can be defined and referred to in ACL match
       criteria.
 
+   Payload-based filtering:  Network traffic filtering technique that
+      examines the data payload of packets, beyond just the header
+      information, to identify, allow, or block traffic based on
+      specific content or patterns within the payload.
+
 3.3.  IPv6 Extension Headers
 
    The module can be used to manage ACLs that require matching against
@@ -492,7 +501,9 @@ Table of Contents
 
    A new feature, called 'match-on-payload', is defined in the document.
    This can be used, for example, for QUIC [RFC9000] or for tunneling
-   protocols.
+   protocols.  This feature requires configuring a data offset, a
+   length, and a binary pattern to match data against using a specified
+   operator.
 
 3.7.  Match on MPLS Headers
 
@@ -527,10 +538,11 @@ Table of Contents
 
    Being able to filter all packets that are bridged within a VLAN or
    that are routed into or out of a bridge domain is part of the VPN
-   control requirements for Ethernet VPN (EVPN) [RFC7209].  All packets
-   that are bridged within a VLAN or that are routed into or out of a
-   VLAN can be captured, forwarded, translated, or discarded based on
-   the network policy.
+   control requirements for Ethernet VPN (EVPN) [RFC7209].
+
+   All packets that are bridged within a VLAN or that are routed into or
+   out of a VLAN can be captured, forwarded, translated, or discarded
+   based on the network policy.
 
 3.9.  Instance Service Identifier (I-SID) Filtering
 
@@ -553,10 +565,12 @@ Table of Contents
 3.10.  Additional Actions
 
    In order to support rate-limiting (see Appendix D.6), a new action
-   called 'rate-limit' is defined in this document.  Also, the "ietf-
-   acl-enh" module supports new actions to complement existing ones: Log
-   ('log-action') and write a counter ('counter-action').  The version
-   of the module defined in this document supports only local actions.
+   called 'rate-limit' is defined in this document.
+
+   Also, the "ietf-acl-enh" module supports new actions to complement
+   existing ones: Log ('log-action') and write a counter ('counter-
+   action').  The version of the module defined in this document
+   supports only local actions.
 
 4.  Enhanced ACL YANG Module
 
@@ -956,7 +970,7 @@ Table of Contents
          case explicit {
            leaf-list explicit-tcp-flag {
              type identityref {
-               base tcp-flag;
+               base acl-enh:tcp-flag;
              }
              description
                "An explicit list of the TCP flags that are to be
@@ -1013,7 +1027,7 @@ Table of Contents
        }
        leaf label-position {
          type identityref {
-           base label-position;
+           base acl-enh:label-position;
          }
          description
            "Position of the label.";
@@ -1060,14 +1074,14 @@ Table of Contents
          "Operations on payload match.";
        leaf offset {
          type identityref {
-           base offset-type;
+           base acl-enh:offset-type;
          }
          description
            "Indicates the payload offset. This will indicate
             the position of the data in packet to use for
             the match.";
        }
-       leaf offset-end {
+       leaf length {
          type uint64;
          units "bytes";
          description
@@ -1080,7 +1094,7 @@ Table of Contents
          description
            "How to interpret the prefix match.";
        }
-       leaf prefix {
+       leaf pattern {
          type binary;
          description
            "The binary pattern to match against.";
@@ -1499,7 +1513,7 @@ Table of Contents
        choice payload {
          description
            "Matches based upon a prefix pattern.";
-         container prefix-pattern {
+         container pattern {
            if-feature "match-on-payload";
            description
              "Indicates the rule to perform the payload-based match.";
@@ -1793,13 +1807,14 @@ Table of Contents
    RESTCONF users to a preconfigured subset of all available NETCONF or
    RESTCONF protocol operations and content.
 
-   There are a number of data nodes defined in the "ietf-acl-enh" YANG
-   module that are writable/creatable/deletable (i.e., config true,
-   which is the default).  These data nodes may be considered sensitive
-   or vulnerable in some network environments.  Write operations (e.g.,
-   edit-config) to these data nodes without proper protection can have a
-   negative effect on network operations.  These are the subtrees and
-   data nodes and their sensitivity/vulnerability:
+   There are a number of data nodes defined in this YANG module that are
+   writable/creatable/deletable (i.e., "config true", which is the
+   default).  All writable data nodes are likely to be reasonably
+   sensitive or vulnerable in some network environments.  Write
+   operations (e.g., edit-config) and delete operations to these data
+   nodes without proper protection or authentication can have a negative
+   effect on network operations.  The following subtrees and data nodes
+   have particular sensitivities/vulnerabilities:
 
    'defined-sets':  These lists specify a set of sets and aliases.
       Similar to [RFC8519], unauthorized write access to these list can
@@ -1808,11 +1823,12 @@ Table of Contents
       The former may result in a DoS attack, or compromise a device.
       The latter may result in a DoS attack.
 
-   Some of the readable data nodes in the "ietf-acl-enh" YANG module may
-   be considered sensitive or vulnerable in some network environments.
-   It is thus important to control read access (e.g., via get, get-
-   config, or notification) to these data nodes.  These are the subtrees
-   and data nodes and their sensitivity/vulnerability:
+   Some of the readable data nodes in this YANG module may be considered
+   sensitive or vulnerable in some network environments.  It is thus
+   important to control read access (e.g., via get, get-config, or
+   notification) to these data nodes.  Specifically, the following
+   subtrees and data nodes have particular sensitivities/
+   vulnerabilities:
 
    'defined-sets':  Unauthorized read access of these lists will allow
       an attacker to identify the actual resources that are bound to
@@ -1826,7 +1842,7 @@ Table of Contents
    depend on the presence of an unvarying pattern.
 
    The YANG modules "iana-icmpv4-types", "iana-icmpv6-types", and "iana-
-   ipv6-ext-types defines" a set of types.  These nodes are intended to
+   ipv6-ext-types" define a set of types.  These nodes are intended to
    be reused by other YANG modules.  Each of these modules by itself
    does not expose any data nodes that are writable, data nodes that
    contain read-only state, or RPCs.  As such, there are no additional
@@ -1937,7 +1953,7 @@ Table of Contents
    When this registry is modified, the YANG module "iana-icmpv4-types"
    [IANA_ICMPv4_YANG_URL] must be updated as defined in RFC XXXX.
 
-   IANA is requested to updated the "Reference" in the "ICMP Type
+   IANA is requested to update the "Reference" in the "ICMP Type
    Numbers" registry as follows:
 
    OLD:  [RFC2780]
@@ -1948,7 +1964,7 @@ Table of Contents
 
    IANA is requested to create and post the initial version of the
    "iana-icmpv6-types" YANG module by applying the XSLT stylesheet from
-   Appendix B.1 to the XML version of [IANA-ICMPv4].
+   Appendix B.1 to the XML version of [IANA-ICMPv6].
 
    This document defines the initial version of the IANA-maintained
    "iana-icmpv6-types" YANG module.  The most recent version of the YANG
@@ -1993,7 +2009,7 @@ Table of Contents
    When this registry is modified, the YANG module "iana-icmpv6-types"
    [IANA_ICMPv6_YANG_URL] must be updated as defined in RFC XXXX.
 
-   IANA is requested to updated the "Reference" in the "ICMPv6 "type"
+   IANA is requested to update the "Reference" in the "ICMPv6 "type"
    Numbers" registry as follows:
 
    OLD:  [RFC4443]
@@ -2016,7 +2032,7 @@ Table of Contents
 
       New values must not be directly added to the "iana-ipv6-ext-types"
       YANG module.  They must instead be added to the "IPv6 Extension
-      Header Types" registry [IANA-ICMPv6].
+      Header Types" registry [IANA-IPv6].
 
    When a value is added to the "IPv6 Extension Header Types" registry,
    a new "enum" statement must be added to the "iana-ipv6-ext-types"
@@ -2049,7 +2065,7 @@ Table of Contents
    When this registry is modified, the YANG module "iana-ipv6-ext-types"
    [IANA_IPV6_YANG_URL] must be updated as defined in RFC XXXX.
 
-   IANA is requested to updated the "Reference" in the "IPv6 Extension
+   IANA is requested to update the "Reference" in the "IPv6 Extension
    Header Types" registry as follows:
 
    OLD:  [RFC2780][RFC5237][RFC7045]
@@ -2130,11 +2146,6 @@ Table of Contents
               "YANG Data Model for Network Access Control Lists (ACLs)",
               RFC 8519, DOI 10.17487/RFC8519, March 2019,
               <https://www.rfc-editor.org/rfc/rfc8519>.
-
-   [RFC8956]  Loibl, C., Ed., Raszuk, R., Ed., and S. Hares, Ed.,
-              "Dissemination of Flow Specification Rules for IPv6",
-              RFC 8956, DOI 10.17487/RFC8956, December 2020,
-              <https://www.rfc-editor.org/rfc/rfc8956>.
 
    [RFC9293]  Eddy, W., Ed., "Transmission Control Protocol (TCP)",
               STD 7, RFC 9293, DOI 10.17487/RFC9293, August 2022,
@@ -2246,6 +2257,11 @@ Table of Contents
               RFC 8955, DOI 10.17487/RFC8955, December 2020,
               <https://www.rfc-editor.org/rfc/rfc8955>.
 
+   [RFC8956]  Loibl, C., Ed., Raszuk, R., Ed., and S. Hares, Ed.,
+              "Dissemination of Flow Specification Rules for IPv6",
+              RFC 8956, DOI 10.17487/RFC8956, December 2020,
+              <https://www.rfc-editor.org/rfc/rfc8956>.
+
    [RFC9000]  Iyengar, J., Ed. and M. Thomson, Ed., "QUIC: A UDP-Based
               Multiplexed and Secure Transport", RFC 9000,
               DOI 10.17487/RFC9000, May 2021,
@@ -2256,6 +2272,9 @@ Table of Contents
               (DOTS) Signal Channel Specification", RFC 9132,
               DOI 10.17487/RFC9132, September 2021,
               <https://www.rfc-editor.org/rfc/rfc9132>.
+
+   [YANG-XSLT]
+              "iana-yang", n.d., <https://github.com/llhotka/iana-yang>.
 
 Appendix A.  ICMPv4 Types
 
@@ -2327,8 +2346,8 @@ A.1.  XSLT Template to Generate The ICMPv4 Types IANA-Maintained Module
                      '(Deprecated)')),' ','')"/>
              </when>
              <otherwise>
-               <value-of select="translate(normalize-space
-                       (iana:description),' ','')"/>
+              <value-of select="substring-before(translate(normalize-space
+                     (iana:description),' ',''),'suchasSeamoby')"/>
              </otherwise>
            </choose>
          </with-param>
@@ -2622,8 +2641,7 @@ A.2.  Initial Version of the ICMPv4 Types IANA-Maintained Module
            reference
              "RFC 2521";
          }
-         enum \
-   ICMPmessagesutilizedbyexperimentalmobilityprotocolssuchasSeamoby {
+         enum ICMPmessagesutilizedbyexperimentalmobilityprotocols {
            value 41;
            description
              "ICMP messages utilized by experimental mobility protocols
@@ -2735,8 +2753,8 @@ B.1.  XSLT Template to Generate the ICMPv6 Types IANA-Maintained Module
                      '(Deprecated)')),' ','')"/>
              </when>
              <otherwise>
-               <value-of select="translate(\
-                       normalize-space(iana:name),' ','')"/>
+              <value-of select="substring-before(translate(normalize-space
+                     (iana:description),' ',''),'suchasSeamoby')"/>
              </otherwise>
            </choose>
          </with-param>
@@ -2995,8 +3013,7 @@ B.2.  Initial Version of the ICMPv6 Types IANA-Maintained Module
            reference
              "RFC 3971";
          }
-         enum \
-   ICMPmessagesutilizedbyexperimentalmobilityprotocolssuchasSeamoby {
+         enum ICMPmessagesutilizedbyexperimentalmobilityprotocols {
            value 150;
            description
              "ICMP messages utilized by experimental mobility protocols
@@ -3828,11 +3845,11 @@ Acknowledgements
 
    Thanks to Lou Berger for Shepherding the document.
 
-   Thanks to David Black for the TSV review and Tim Wicinski for the
-   intdir review.
+   Thanks to David Black for the TSV review, Tim Wicinski for the intdir
+   review, and Per Andersson for the yangdoctors review.
 
    The IANA-maintained modules were generated using an XSLT stylesheet
-   from the 'iana-yang' project (https://github.com/llhotka/iana-yang).
+   from the 'iana-yang' project [YANG-XSLT]).
 
    This work is partially supported by the European Commission under
    Horizon 2020 Secured autonomic traffic management for a Tera of SDN
