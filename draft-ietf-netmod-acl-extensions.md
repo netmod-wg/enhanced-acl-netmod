@@ -1098,7 +1098,7 @@ packets.  The following ACEs are defined (in this order):
 ~~~
 {: #example_5 title="An Example of Rate-Limit Incoming TCP SYNs (Message Body)."}
 
-# Acknowledgements
+# Acknowledgments
 {:numbered="false"}
 
 Many thanks to Jon Shallow and Miguel Cros for the review and comments to the document, including prior to publishing the document.
