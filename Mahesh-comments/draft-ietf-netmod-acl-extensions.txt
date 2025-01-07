@@ -1941,7 +1941,8 @@ Table of Contents
    "reference":  Replicates the reference(s) from the registry with the
       title of the document(s) added.
 
-   Unassigned or reserved values are not present in the module.
+   Unassigned, reserved, or [RFC3692]-style values are not present in
+   the module.
 
    When the "iana-icmpv4-types" YANG module is updated, a new "revision"
    statement with a unique revision date must be added in front of the
@@ -1997,7 +1998,8 @@ Table of Contents
    "reference":  Replicates the reference(s) from the registry with the
       title of the document(s) added.
 
-   Unassigned or reserved values are not present in the module.
+   Unassigned, reserved, or private experimentation values are not
+   present in the module.
 
    When the "iana-icmpv6-types" YANG module is updated, a new "revision"
    statement with a unique revision date must be added in front of the
@@ -2215,6 +2217,11 @@ Table of Contents
               Values In the Internet Protocol and Related Headers",
               BCP 37, RFC 2780, DOI 10.17487/RFC2780, March 2000,
               <https://www.rfc-editor.org/rfc/rfc2780>.
+
+   [RFC3692]  Narten, T., "Assigning Experimental and Testing Numbers
+              Considered Useful", BCP 82, RFC 3692,
+              DOI 10.17487/RFC3692, January 2004,
+              <https://www.rfc-editor.org/rfc/rfc3692>.
 
    [RFC4252]  Ylonen, T. and C. Lonvick, Ed., "The Secure Shell (SSH)
               Authentication Protocol", RFC 4252, DOI 10.17487/RFC4252,
