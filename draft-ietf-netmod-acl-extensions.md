@@ -452,7 +452,7 @@ and sub-statements thereof, should be defined:
 :   Replicates the reference(s) from the registry with the
     title of the document(s) added.
 
-Unassigned or reserved values are not present in the module.
+Unassigned, reserved, or {{?RFC3692}}-style values are not present in the module.
 
 When the "iana-icmpv4-types" YANG module is updated, a new "revision"
 statement with a unique revision date must be added in front of the
@@ -511,7 +511,7 @@ and sub-statements thereof, should be defined:
 :   Replicates the reference(s) from the registry with the
     title of the document(s) added.
 
-Unassigned or reserved values are not present in the module.
+Unassigned, reserved, or private experimentation values are not present in the module.
 
 When the "iana-icmpv6-types" YANG module is updated, a new "revision"
 statement with a unique revision date must be added in front of the
