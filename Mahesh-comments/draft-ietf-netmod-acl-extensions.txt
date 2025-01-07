@@ -5,12 +5,12 @@
 netmod                                                     O. G. D. Dios
 Internet-Draft                                                Telefonica
 Intended status: Standards Track                              S. Barguil
-Expires: 7 July 2025                                               Nokia
+Expires: 11 July 2025                                              Nokia
                                                             M. Boucadair
                                                                   Orange
                                                                    Q. Wu
                                                                   Huawei
-                                                          3 January 2025
+                                                          7 January 2025
 
 
         Extensions to the Access Control Lists (ACLs) YANG Model
@@ -53,7 +53,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 7 July 2025.
+   This Internet-Draft will expire on 11 July 2025.
 
 Copyright Notice
 
@@ -127,7 +127,7 @@ Table of Contents
      E.3.  VLAN Filtering
      E.4.  ISID Filtering
      E.5.  Rate-Limit
-   Acknowledgements
+   Acknowledgments
    Authors' Addresses
 
 1.  Introduction
@@ -3835,7 +3835,7 @@ E.5.  Rate-Limit
 
     Figure 9: An Example of Rate-Limit Incoming TCP SYNs (Message Body).
 
-Acknowledgements
+Acknowledgments
 
    Many thanks to Jon Shallow and Miguel Cros for the review and
    comments to the document, including prior to publishing the document.
