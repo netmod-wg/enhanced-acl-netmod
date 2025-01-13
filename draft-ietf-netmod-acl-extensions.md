@@ -996,6 +996,42 @@ packets.  The following ACEs are defined (in this order):
 ~~~
 {: #example_3 title="An Example Illustrating Filtering of IPv6 Fragmented Packets (Message Body)"}
 
+## Patter-based Filtering
+
+{{example_p}} shows an example of the message body of a request to install a filter to discard encapsulated messages with 2001:db8::1 as inner source IP address.
+
+~~~ json
+{
+  "ietf-access-control-list:acls": {
+    "acl": [
+      {
+        "name": "pattern-example",
+        "aces": {
+          "ace": [
+            {
+              "name": "pattern-1",
+              "matches": {
+                "ietf-acl-enh:pattern": {
+                  "offset": "ietf-acl-enh:payload",
+                  "length": "20",
+                  "operator": "match",
+                  "prefix": "MjAwMTpkYjg6OjE"
+                }
+              },
+              "actions": {
+                "forwarding": "drop"
+              }
+            }
+          ]
+        }
+      }
+    ]
+  }
+}
+~~~
+{: #example_p title="Example of an ACL to Deny Encapsulated Messages (Request Body)"}
+
+
 ## VLAN Filtering
 
 {{example_7}} shows an ACL example to illustrate how to apply a VLAN range filter.
