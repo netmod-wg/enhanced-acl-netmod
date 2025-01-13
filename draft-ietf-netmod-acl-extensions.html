@@ -12,7 +12,8 @@
 <meta content="
        RFC 8519 defines a YANG data model for Access Control Lists
 (ACLs). This document discusses a set of extensions that fix many of
-the limitations of the ACL model as initially defined in RFC 8519. 
+the limitations of the ACL model as initially defined in RFC 8519.
+Specifically, it introduces augmentations to the ACL base model to enhance its functionality and applicability. 
        The document also defines IANA-maintained modules for ICMP types and IPv6 extension headers. 
     " name="description">
 <meta content="xml2rfc 3.25.0" name="generator">
@@ -24,7 +25,7 @@ the limitations of the ACL model as initially defined in RFC 8519.
     ConfigArgParse 1.7
     google-i18n-address 3.1.1
     intervaltree 3.1.0
-    Jinja2 3.1.4
+    Jinja2 3.1.5
     lxml 5.3.0
     platformdirs 4.3.6
     pycountry 24.6.1
@@ -1050,11 +1051,11 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <thead><tr>
 <td class="left">Internet-Draft</td>
 <td class="center">Enhanced ACLs</td>
-<td class="right">December 2024</td>
+<td class="right">January 2025</td>
 </tr></thead>
 <tfoot><tr>
 <td class="left">Dios, et al.</td>
-<td class="center">Expires 22 June 2025</td>
+<td class="center">Expires 17 July 2025</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1067,12 +1068,12 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <dd class="internet-draft">draft-ietf-netmod-acl-extensions-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2024-12-19" class="published">19 December 2024</time>
+<time datetime="2025-01-13" class="published">13 January 2025</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Standards Track</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2025-06-22">22 June 2025</time></dd>
+<dd class="expires"><time datetime="2025-07-17">17 July 2025</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1099,7 +1100,8 @@ svg :is([fill="white"], [fill^="#fff"]) {
       <h2 id="abstract"><a href="#abstract" class="selfRef">Abstract</a></h2>
 <p id="section-abstract-1">RFC 8519 defines a YANG data model for Access Control Lists
 (ACLs). This document discusses a set of extensions that fix many of
-the limitations of the ACL model as initially defined in RFC 8519.<a href="#section-abstract-1" class="pilcrow">¶</a></p>
+the limitations of the ACL model as initially defined in RFC 8519.
+Specifically, it introduces augmentations to the ACL base model to enhance its functionality and applicability.<a href="#section-abstract-1" class="pilcrow">¶</a></p>
 <p id="section-abstract-2">The document also defines IANA-maintained modules for ICMP types and IPv6 extension headers.<a href="#section-abstract-2" class="pilcrow">¶</a></p>
 </section>
 <section class="note rfcEditorRemove" id="section-note.1">
@@ -1132,7 +1134,7 @@ the limitations of the ACL model as initially defined in RFC 8519.<a href="#sect
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 22 June 2025.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 17 July 2025.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1141,7 +1143,7 @@ the limitations of the ACL model as initially defined in RFC 8519.<a href="#sect
 <a href="#name-copyright-notice" class="section-name selfRef">Copyright Notice</a>
         </h2>
 <p id="section-boilerplate.2-1">
-            Copyright (c) 2024 IETF Trust and the persons identified as the
+            Copyright (c) 2025 IETF Trust and the persons identified as the
             document authors. All rights reserved.<a href="#section-boilerplate.2-1" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.2-2">
             This document is subject to BCP 78 and the IETF Trust's Legal
@@ -1335,7 +1337,7 @@ the limitations of the ACL model as initially defined in RFC 8519.<a href="#sect
             </ul>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.13">
-            <p id="section-toc.1-1.13.1"><a href="#appendix-F" class="auto internal xref"></a><a href="#name-acknowledgements" class="internal xref">Acknowledgements</a></p>
+            <p id="section-toc.1-1.13.1"><a href="#appendix-F" class="auto internal xref"></a><a href="#name-acknowledgments" class="internal xref">Acknowledgments</a></p>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.14">
             <p id="section-toc.1-1.14.1"><a href="#appendix-G" class="auto internal xref"></a><a href="#name-authors-addresses" class="internal xref">Authors' Addresses</a></p>
@@ -1352,9 +1354,10 @@ the limitations of the ACL model as initially defined in RFC 8519.<a href="#sect
 <p id="section-1-1"><span>[<a href="#RFC8519" class="cite xref">RFC8519</a>]</span> defines Access Control Lists (ACLs) as a
 user-ordered set of filtering rules. The model targets the
 configuration of the filtering behavior of a device. However, the
-model structure, as defined in <span>[<a href="#RFC8519" class="cite xref">RFC8519</a>]</span>, suffers from a set of limitations. This
-document describes these limitations and specifies an enhanced ACL
-structure (<a href="#sec-module" class="auto internal xref">Section 4</a>). The motivation of such enhanced ACL structure is discussed in detail in <a href="#ps" class="auto internal xref">Appendix D</a>.<a href="#section-1-1" class="pilcrow">¶</a></p>
+model structure, as defined in <span>[<a href="#RFC8519" class="cite xref">RFC8519</a>]</span>, suffers from a set of limitations.
+This document identifies these limitations and specifies an enhanced ACL structure,
+introducing augmentations to the ACL base model (<a href="#sec-module" class="auto internal xref">Section 4</a>).
+The motivation of such enhanced ACL structure is discussed in detail in <a href="#ps" class="auto internal xref">Appendix D</a>.<a href="#section-1-1" class="pilcrow">¶</a></p>
 <p id="section-1-2">When managing ACLs, it is common for network operators to group
 match elements in pre-defined sets. The consolidation into group matches
 allows for reducing the number of rules, especially in large scale
@@ -1435,7 +1438,7 @@ The meaning of the symbols in the tree diagrams is defined in
 <span class="break"></span><dl class="dlParallel" id="section-2-4">
         <dt id="section-2-4.1">Defined set:</dt>
         <dd style="margin-left: 1.5em" id="section-2-4.2">
-          <p id="section-2-4.2.1">Refers to reusable description of one or multiple information elements (e.g., IP address, IP prefix, port number, or ICMP type).<a href="#section-2-4.2.1" class="pilcrow">¶</a></p>
+          <p id="section-2-4.2.1">Elements in a defined set typically share a logical purpose or function, such as IP address, IP prefixes, port number, or ICMP type.<a href="#section-2-4.2.1" class="pilcrow">¶</a></p>
 </dd>
       <dd class="break"></dd>
 </dl>
@@ -1688,6 +1691,11 @@ Each set is uniquely identified by a name and can be called from the relevant en
           <dd style="margin-left: 1.5em" id="section-3.2-2.16">
             <p id="section-3.2-2.16.1">An alias is defined by a combination of various parameters (e.g., IP prefix, protocol, port number, or VLAN <span>[<a href="#IEEE802.1Qcp" class="cite xref">IEEE802.1Qcp</a>]</span>). Sets of aliases can be defined and referred to in ACL match criteria.<a href="#section-3.2-2.16.1" class="pilcrow">¶</a></p>
 </dd>
+          <dd class="break"></dd>
+<dt id="section-3.2-2.17">Payload-based filtering:</dt>
+          <dd style="margin-left: 1.5em" id="section-3.2-2.18">
+            <p id="section-3.2-2.18.1">Network traffic filtering technique that examines the data payload of packets, beyond just the header information, to identify, allow, or block traffic based on specific content or patterns within the payload.<a href="#section-3.2-2.18.1" class="pilcrow">¶</a></p>
+</dd>
         <dd class="break"></dd>
 </dl>
 </section>
@@ -1724,7 +1732,7 @@ Each set is uniquely identified by a name and can be called from the relevant en
 <a href="#section-3.6" class="section-number selfRef">3.6. </a><a href="#name-payload-based-filtering" class="section-name selfRef">Payload-based Filtering</a>
         </h3>
 <p id="section-3.6-1">Some transport protocols use existing protocols (e.g., TCP or UDP) as substrate. The match criteria for such protocols may rely upon the 'protocol' under 'l3', TCP/UDP match criteria, part of the TCP/UDP payload, or a combination thereof.<a href="#section-3.6-1" class="pilcrow">¶</a></p>
-<p id="section-3.6-2">A new feature, called 'match-on-payload', is defined in the document. This can be used, for example, for QUIC <span>[<a href="#RFC9000" class="cite xref">RFC9000</a>]</span> or for tunneling protocols. This feature requires configuring a data offset, a length, and a binary pattern to macth data against using a specified operator.<a href="#section-3.6-2" class="pilcrow">¶</a></p>
+<p id="section-3.6-2">A new feature, called 'match-on-payload', is defined in the document. This can be used, for example, for QUIC <span>[<a href="#RFC9000" class="cite xref">RFC9000</a>]</span> or for tunneling protocols. This feature requires configuring a data offset, a length, and a binary pattern to match data against using a specified operator.<a href="#section-3.6-2" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="match-on-mpls-headers">
@@ -3218,7 +3226,7 @@ title of the document(s) added.<a href="#section-6.3.1-6.10.1" class="pilcrow">�
 </dd>
           <dd class="break"></dd>
 </dl>
-<p id="section-6.3.1-7">Unassigned or reserved values are not present in the module.<a href="#section-6.3.1-7" class="pilcrow">¶</a></p>
+<p id="section-6.3.1-7">Unassigned, reserved, or <span>[<a href="#RFC3692" class="cite xref">RFC3692</a>]</span>-style values are not present in the module.<a href="#section-6.3.1-7" class="pilcrow">¶</a></p>
 <p id="section-6.3.1-8">When the "iana-icmpv4-types" YANG module is updated, a new "revision"
 statement with a unique revision date must be added in front of the
 existing revision statements.<a href="#section-6.3.1-8" class="pilcrow">¶</a></p>
@@ -3229,7 +3237,7 @@ When this registry is modified, the YANG module "iana-icmpv4-types"
 [IANA_ICMPv4_YANG_URL] must be updated as defined in RFC XXXX.
 </pre><a href="#section-6.3.1-10" class="pilcrow">¶</a>
 </div>
-<p id="section-6.3.1-11">IANA is requested to updated the "Reference" in the "ICMP Type Numbers" registry
+<p id="section-6.3.1-11">IANA is requested to update the "Reference" in the "ICMP Type Numbers" registry
 as follows:<a href="#section-6.3.1-11" class="pilcrow">¶</a></p>
 <span class="break"></span><dl class="dlParallel" id="section-6.3.1-12">
             <dt id="section-6.3.1-12.1">OLD:</dt>
@@ -3298,7 +3306,7 @@ title of the document(s) added.<a href="#section-6.3.2-6.10.1" class="pilcrow">�
 </dd>
           <dd class="break"></dd>
 </dl>
-<p id="section-6.3.2-7">Unassigned or reserved values are not present in the module.<a href="#section-6.3.2-7" class="pilcrow">¶</a></p>
+<p id="section-6.3.2-7">Unassigned, reserved, or private experimentation values are not present in the module.<a href="#section-6.3.2-7" class="pilcrow">¶</a></p>
 <p id="section-6.3.2-8">When the "iana-icmpv6-types" YANG module is updated, a new "revision"
 statement with a unique revision date must be added in front of the
 existing revision statements.<a href="#section-6.3.2-8" class="pilcrow">¶</a></p>
@@ -3309,7 +3317,7 @@ When this registry is modified, the YANG module "iana-icmpv6-types"
 [IANA_ICMPv6_YANG_URL] must be updated as defined in RFC XXXX.
 </pre><a href="#section-6.3.2-10" class="pilcrow">¶</a>
 </div>
-<p id="section-6.3.2-11">IANA is requested to updated the "Reference" in the "ICMPv6 "type" Numbers" registry
+<p id="section-6.3.2-11">IANA is requested to update the "Reference" in the "ICMPv6 "type" Numbers" registry
 as follows:<a href="#section-6.3.2-11" class="pilcrow">¶</a></p>
 <span class="break"></span><dl class="dlParallel" id="section-6.3.2-12">
             <dt id="section-6.3.2-12.1">OLD:</dt>
@@ -3389,7 +3397,7 @@ When this registry is modified, the YANG module "iana-ipv6-ext-types"
 [IANA_IPV6_YANG_URL] must be updated as defined in RFC XXXX.
 </pre><a href="#section-6.3.3-10" class="pilcrow">¶</a>
 </div>
-<p id="section-6.3.3-11">IANA is requested to updated the "Reference" in the "IPv6 Extension Header Types" registry
+<p id="section-6.3.3-11">IANA is requested to update the "Reference" in the "IPv6 Extension Header Types" registry
 as follows:<a href="#section-6.3.3-11" class="pilcrow">¶</a></p>
 <span class="break"></span><dl class="dlParallel" id="section-6.3.3-12">
             <dt id="section-6.3.3-12.1">OLD:</dt>
@@ -3540,6 +3548,10 @@ as follows:<a href="#section-6.3.3-11" class="pilcrow">¶</a></p>
 <dt id="RFC2780">[RFC2780]</dt>
         <dd>
 <span class="refAuthor">Bradner, S.</span> and <span class="refAuthor">V. Paxson</span>, <span class="refTitle">"IANA Allocation Guidelines For Values In the Internet Protocol and Related Headers"</span>, <span class="seriesInfo">BCP 37</span>, <span class="seriesInfo">RFC 2780</span>, <span class="seriesInfo">DOI 10.17487/RFC2780</span>, <time datetime="2000-03" class="refDate">March 2000</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc2780">https://www.rfc-editor.org/rfc/rfc2780</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC3692">[RFC3692]</dt>
+        <dd>
+<span class="refAuthor">Narten, T.</span>, <span class="refTitle">"Assigning Experimental and Testing Numbers Considered Useful"</span>, <span class="seriesInfo">BCP 82</span>, <span class="seriesInfo">RFC 3692</span>, <span class="seriesInfo">DOI 10.17487/RFC3692</span>, <time datetime="2004-01" class="refDate">January 2004</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc3692">https://www.rfc-editor.org/rfc/rfc3692</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="RFC4252">[RFC4252]</dt>
         <dd>
@@ -5321,10 +5333,10 @@ packets.  The following ACEs are defined (in this order):<a href="#appendix-E.2-
 </div>
 </section>
 </div>
-<div id="acknowledgements">
+<div id="acknowledgments">
 <section id="appendix-F">
-      <h2 id="name-acknowledgements">
-<a href="#name-acknowledgements" class="section-name selfRef">Acknowledgements</a>
+      <h2 id="name-acknowledgments">
+<a href="#name-acknowledgments" class="section-name selfRef">Acknowledgments</a>
       </h2>
 <p id="appendix-F-1">Many thanks to Jon Shallow and Miguel Cros for the review and comments to the document, including prior to publishing the document.<a href="#appendix-F-1" class="pilcrow">¶</a></p>
 <p id="appendix-F-2">Thanks to Qiufang Ma, Victor Lopez, Joe Clarke, and Mahesh Jethanandani for the comments and suggestions.<a href="#appendix-F-2" class="pilcrow">¶</a></p>

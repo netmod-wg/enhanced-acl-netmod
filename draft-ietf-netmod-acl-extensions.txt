@@ -5,12 +5,12 @@
 netmod                                                     O. G. D. Dios
 Internet-Draft                                                Telefonica
 Intended status: Standards Track                              S. Barguil
-Expires: 22 June 2025                                              Nokia
+Expires: 17 July 2025                                              Nokia
                                                             M. Boucadair
                                                                   Orange
                                                                    Q. Wu
                                                                   Huawei
-                                                        19 December 2024
+                                                         13 January 2025
 
 
         Extensions to the Access Control Lists (ACLs) YANG Model
@@ -21,6 +21,8 @@ Abstract
    RFC 8519 defines a YANG data model for Access Control Lists (ACLs).
    This document discusses a set of extensions that fix many of the
    limitations of the ACL model as initially defined in RFC 8519.
+   Specifically, it introduces augmentations to the ACL base model to
+   enhance its functionality and applicability.
 
    The document also defines IANA-maintained modules for ICMP types and
    IPv6 extension headers.
@@ -51,11 +53,11 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 22 June 2025.
+   This Internet-Draft will expire on 17 July 2025.
 
 Copyright Notice
 
-   Copyright (c) 2024 IETF Trust and the persons identified as the
+   Copyright (c) 2025 IETF Trust and the persons identified as the
    document authors.  All rights reserved.
 
    This document is subject to BCP 78 and the IETF Trust's Legal
@@ -125,7 +127,7 @@ Table of Contents
      E.3.  VLAN Filtering
      E.4.  ISID Filtering
      E.5.  Rate-Limit
-   Acknowledgements
+   Acknowledgments
    Authors' Addresses
 
 1.  Introduction
@@ -134,9 +136,10 @@ Table of Contents
    of filtering rules.  The model targets the configuration of the
    filtering behavior of a device.  However, the model structure, as
    defined in [RFC8519], suffers from a set of limitations.  This
-   document describes these limitations and specifies an enhanced ACL
-   structure (Section 4).  The motivation of such enhanced ACL structure
-   is discussed in detail in Appendix D.
+   document identifies these limitations and specifies an enhanced ACL
+   structure, introducing augmentations to the ACL base model
+   (Section 4).  The motivation of such enhanced ACL structure is
+   discussed in detail in Appendix D.
 
    When managing ACLs, it is common for network operators to group match
    elements in pre-defined sets.  The consolidation into group matches
@@ -234,9 +237,9 @@ Table of Contents
    In addition to the terms defined in [RFC8519], this document makes
    use of the following term:
 
-   Defined set:  Refers to reusable description of one or multiple
-      information elements (e.g., IP address, IP prefix, port number, or
-      ICMP type).
+   Defined set:  Elements in a defined set typically share a logical
+      purpose or function, such as IP address, IP prefixes, port number,
+      or ICMP type.
 
 3.  Overall Structure of The Enhanced ACL Module
 
@@ -458,6 +461,11 @@ Table of Contents
       Sets of aliases can be defined and referred to in ACL match
       criteria.
 
+   Payload-based filtering:  Network traffic filtering technique that
+      examines the data payload of packets, beyond just the header
+      information, to identify, allow, or block traffic based on
+      specific content or patterns within the payload.
+
 3.3.  IPv6 Extension Headers
 
    The module can be used to manage ACLs that require matching against
@@ -494,7 +502,7 @@ Table of Contents
    A new feature, called 'match-on-payload', is defined in the document.
    This can be used, for example, for QUIC [RFC9000] or for tunneling
    protocols.  This feature requires configuring a data offset, a
-   length, and a binary pattern to macth data against using a specified
+   length, and a binary pattern to match data against using a specified
    operator.
 
 3.7.  Match on MPLS Headers
@@ -1933,7 +1941,8 @@ Table of Contents
    "reference":  Replicates the reference(s) from the registry with the
       title of the document(s) added.
 
-   Unassigned or reserved values are not present in the module.
+   Unassigned, reserved, or [RFC3692]-style values are not present in
+   the module.
 
    When the "iana-icmpv4-types" YANG module is updated, a new "revision"
    statement with a unique revision date must be added in front of the
@@ -1945,7 +1954,7 @@ Table of Contents
    When this registry is modified, the YANG module "iana-icmpv4-types"
    [IANA_ICMPv4_YANG_URL] must be updated as defined in RFC XXXX.
 
-   IANA is requested to updated the "Reference" in the "ICMP Type
+   IANA is requested to update the "Reference" in the "ICMP Type
    Numbers" registry as follows:
 
    OLD:  [RFC2780]
@@ -1989,7 +1998,8 @@ Table of Contents
    "reference":  Replicates the reference(s) from the registry with the
       title of the document(s) added.
 
-   Unassigned or reserved values are not present in the module.
+   Unassigned, reserved, or private experimentation values are not
+   present in the module.
 
    When the "iana-icmpv6-types" YANG module is updated, a new "revision"
    statement with a unique revision date must be added in front of the
@@ -2001,7 +2011,7 @@ Table of Contents
    When this registry is modified, the YANG module "iana-icmpv6-types"
    [IANA_ICMPv6_YANG_URL] must be updated as defined in RFC XXXX.
 
-   IANA is requested to updated the "Reference" in the "ICMPv6 "type"
+   IANA is requested to update the "Reference" in the "ICMPv6 "type"
    Numbers" registry as follows:
 
    OLD:  [RFC4443]
@@ -2057,7 +2067,7 @@ Table of Contents
    When this registry is modified, the YANG module "iana-ipv6-ext-types"
    [IANA_IPV6_YANG_URL] must be updated as defined in RFC XXXX.
 
-   IANA is requested to updated the "Reference" in the "IPv6 Extension
+   IANA is requested to update the "Reference" in the "IPv6 Extension
    Header Types" registry as follows:
 
    OLD:  [RFC2780][RFC5237][RFC7045]
@@ -2207,6 +2217,11 @@ Table of Contents
               Values In the Internet Protocol and Related Headers",
               BCP 37, RFC 2780, DOI 10.17487/RFC2780, March 2000,
               <https://www.rfc-editor.org/rfc/rfc2780>.
+
+   [RFC3692]  Narten, T., "Assigning Experimental and Testing Numbers
+              Considered Useful", BCP 82, RFC 3692,
+              DOI 10.17487/RFC3692, January 2004,
+              <https://www.rfc-editor.org/rfc/rfc3692>.
 
    [RFC4252]  Ylonen, T. and C. Lonvick, Ed., "The Secure Shell (SSH)
               Authentication Protocol", RFC 4252, DOI 10.17487/RFC4252,
@@ -3827,7 +3842,7 @@ E.5.  Rate-Limit
 
     Figure 9: An Example of Rate-Limit Incoming TCP SYNs (Message Body).
 
-Acknowledgements
+Acknowledgments
 
    Many thanks to Jon Shallow and Miguel Cros for the review and
    comments to the document, including prior to publishing the document.
