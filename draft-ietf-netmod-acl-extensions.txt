@@ -5,12 +5,12 @@
 netmod                                                     O. G. D. Dios
 Internet-Draft                                                Telefonica
 Intended status: Standards Track                              S. Barguil
-Expires: 17 July 2025                                              Nokia
+Expires: 21 July 2025                                              Nokia
                                                             M. Boucadair
                                                                   Orange
                                                                    Q. Wu
                                                                   Huawei
-                                                         13 January 2025
+                                                         17 January 2025
 
 
         Extensions to the Access Control Lists (ACLs) YANG Model
@@ -53,7 +53,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 17 July 2025.
+   This Internet-Draft will expire on 21 July 2025.
 
 Copyright Notice
 
@@ -1816,9 +1816,10 @@ Table of Contents
    effect on network operations.  The following subtrees and data nodes
    have particular sensitivities/vulnerabilities:
 
-   'defined-sets':  These lists specify a set of sets and aliases.
-      Similar to [RFC8519], unauthorized write access to these list can
-      allow intruders to modify the entries so as to permit traffic that
+   'defined-sets':  These lists specify a set of IP addresses, port
+      numbers, protocols, ICMP types, and aliases.  Similar to
+      [RFC8519], unauthorized write access to these list can allow
+      intruders to modify the entries so as to permit traffic that
       should not be permitted, or deny traffic that should be permitted.
       The former may result in a DoS attack, or compromise a device.
       The latter may result in a DoS attack.
@@ -2159,9 +2160,9 @@ Table of Contents
               Bierman, A., Boucadair, M., and Q. Wu, "Guidelines for
               Authors and Reviewers of Documents Containing YANG Data
               Models", Work in Progress, Internet-Draft, draft-ietf-
-              netmod-rfc8407bis-21, 13 November 2024,
+              netmod-rfc8407bis-22, 14 January 2025,
               <https://datatracker.ietf.org/doc/html/draft-ietf-netmod-
-              rfc8407bis-21>.
+              rfc8407bis-22>.
 
    [IANA-ICMPv4]
               "ICMP Type Numbers", n.d.,
