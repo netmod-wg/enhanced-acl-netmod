@@ -458,6 +458,16 @@ Table of Contents
 
    Aliases:  An alias is defined by a combination of various parameters
       (e.g., IP prefix, protocol, port number, or VLAN [IEEE802.1Qcp]).
+      When only sets of one parameter (e.g., protocol) are handled, then
+      the relevant parameter sets should be used (e.g., protocol set)
+      rather than an alias.
+
+      For example, an alias can be defined to apply ACL policies bound
+      to a set of HTTPS servers.  Such an alias will typically include
+      these HTTPS server addresses (e.g., "prefix":
+      ["2001:db8:6401::1/128","2001:db8:6401::2/128"]) and the TCP port
+      number 443 (i.e., "protocol": [6] and "lower-port": 443).
+
       Sets of aliases can be defined and referred to in ACL match
       criteria.
 
