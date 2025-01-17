@@ -1107,7 +1107,8 @@ Thanks to Qiufang Ma, Victor Lopez, Joe Clarke, and Mahesh Jethanandani for the 
 
 Thanks to Lou Berger for Shepherding the document.
 
-Thanks to David Black for the TSV review, Tim Wicinski for the intdir review, and Per Andersson for the yangdoctors review.
+Thanks to David Black for the TSV review, Tim Wicinski for the intdir review, Per Andersson for the yangdoctors review, and Russ Housley
+for genart review.
 
 The IANA-maintained modules were generated using an XSLT stylesheet from the 'iana-yang' project {{YANG-XSLT}}).
 
