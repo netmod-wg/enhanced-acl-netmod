@@ -341,7 +341,7 @@ Table of Contents
        +-- ttl-value?           uint8
      grouping payload-match:
        +-- offset?       identityref
-       +-- length?   uint64
+       +-- length?   uint16
        +-- operator?     operator
        +-- pattern?       binary
      grouping alias:
