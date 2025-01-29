@@ -1326,7 +1326,7 @@ Specifically, it introduces augmentations to the ACL base model to enhance its f
                 <p id="section-toc.1-1.12.2.2.1"><a href="#appendix-E.2" class="auto internal xref">E.2</a>.  <a href="#name-fragments-handling-2" class="internal xref">Fragments Handling</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.12.2.3">
-                <p id="section-toc.1-1.12.2.3.1"><a href="#appendix-E.3" class="auto internal xref">E.3</a>.  <a href="#name-patter-based-filtering" class="internal xref">Patter-based Filtering</a></p>
+                <p id="section-toc.1-1.12.2.3.1"><a href="#appendix-E.3" class="auto internal xref">E.3</a>.  <a href="#name-pattern-based-filtering" class="internal xref">Pattern-based Filtering</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.12.2.4">
                 <p id="section-toc.1-1.12.2.4.1"><a href="#appendix-E.4" class="auto internal xref">E.4</a>.  <a href="#name-vlan-filtering-2" class="internal xref">VLAN Filtering</a></p>
@@ -5204,15 +5204,16 @@ packets.  The following ACEs are defined (in this order):<a href="#appendix-E.2-
 </div>
 </section>
 </div>
-<div id="patter-based-filtering">
+<div id="pattern-based-filtering">
 <section id="appendix-E.3">
-        <h3 id="name-patter-based-filtering">
-<a href="#appendix-E.3" class="section-number selfRef">E.3. </a><a href="#name-patter-based-filtering" class="section-name selfRef">Patter-based Filtering</a>
+        <h3 id="name-pattern-based-filtering">
+<a href="#appendix-E.3" class="section-number selfRef">E.3. </a><a href="#name-pattern-based-filtering" class="section-name selfRef">Pattern-based Filtering</a>
         </h3>
 <p id="appendix-E.3-1"><a href="#example_p" class="auto internal xref">Figure 7</a> shows an example of the message body of a request to install a filter to discard IP-in-IP encapsulated messages with some patterns. By using the offset at the end of layer 3, the rule targets a specific portion of the payload that starts 20 bytes after the beginning of the data (skipping the first 20 bytes). The rule is useful to detecting specific patterns, signatures, or encapsulated packets, such as when the inner source IP address is 2001:db8::1.<a href="#appendix-E.3-1" class="pilcrow">¶</a></p>
+<p id="appendix-E.3-2">For the readers' convenience, the textual representation of the pattern is used in the example instead of the binary form.<a href="#appendix-E.3-2" class="pilcrow">¶</a></p>
 <span id="name-example-of-an-acl-to-deny-e"></span><div id="example_p">
 <figure id="figure-7">
-          <div class="lang-json sourcecode" id="appendix-E.3-2.1">
+          <div class="lang-json sourcecode" id="appendix-E.3-3.1">
 <pre>
 {
   "ietf-access-control-list:acls": {
@@ -5226,9 +5227,9 @@ packets.  The following ACEs are defined (in this order):<a href="#appendix-E.2-
               "matches": {
                 "ietf-acl-enh:pattern": {
                   "offset": "ietf-acl-enh:layer4",
-                  "length": "20",
+                  "length": 20,
                   "operator": "match",
-                  "prefix": "MjAwMTpkYjg6OjE"
+                  "pattern": "2001:db8::1"
                 }
               },
               "actions": {

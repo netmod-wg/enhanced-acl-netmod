@@ -124,7 +124,7 @@ Table of Contents
    Appendix E.  Examples
      E.1.  TCP Flags Handling
      E.2.  Fragments Handling
-     E.3.  Patter-based Filtering
+     E.3.  Pattern-based Filtering
      E.4.  VLAN Filtering
      E.5.  ISID Filtering
      E.6.  Rate-Limit
@@ -3744,7 +3744,7 @@ E.2.  Fragments Handling
        Figure 6: An Example Illustrating Filtering of IPv6 Fragmented
                            Packets (Message Body)
 
-E.3.  Patter-based Filtering
+E.3.  Pattern-based Filtering
 
    Figure 7 shows an example of the message body of a request to install
    a filter to discard IP-in-IP encapsulated messages with some
@@ -3753,6 +3753,9 @@ E.3.  Patter-based Filtering
    the beginning of the data (skipping the first 20 bytes).  The rule is
    useful to detecting specific patterns, signatures, or encapsulated
    packets, such as when the inner source IP address is 2001:db8::1.
+
+   For the readers' convenience, the textual representation of the
+   pattern is used in the example instead of the binary form.
 
    {
      "ietf-access-control-list:acls": {
@@ -3766,9 +3769,9 @@ E.3.  Patter-based Filtering
                  "matches": {
                    "ietf-acl-enh:pattern": {
                      "offset": "ietf-acl-enh:layer4",
-                     "length": "20",
+                     "length": 20,
                      "operator": "match",
-                     "prefix": "MjAwMTpkYjg6OjE"
+                     "pattern": "2001:db8::1"
                    }
                  },
                  "actions": {
