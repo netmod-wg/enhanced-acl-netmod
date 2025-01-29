@@ -332,7 +332,7 @@ have particular sensitivities/vulnerabilities:
 
  'defined-sets':
  : These lists specify a set of IP addresses, port numbers, protocols, ICMP types, and aliases. Similar to {{!RFC8519}}, unauthorized write access to these
-      list can allow intruders to modify the entries so as to permit
+      lists can allow intruders to modify the entries so as to permit
       traffic that should not be permitted, or deny traffic that should
       be permitted.  The former may result in a DoS attack, or
       compromise a device.  The latter may result in a DoS attack.
