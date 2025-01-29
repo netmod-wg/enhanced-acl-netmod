@@ -2290,10 +2290,10 @@ module ietf-acl-enh {
       type rt-types:mpls-label;
       description
         "Match MPLS label value on the MPLS header.
-         The usage of this field indicated the upper
-         range value in the top of the stack.
-         This label value does not include the
-         encodings of Traffic Class and TTL.";
+         The usage of this field indicated the upper range
+         value in the top of the stack.
+         This label value does not include the encodings
+         of Traffic Class and TTL.";
       reference
         "RFC 3032: MPLS Label Stack Encoding";
     }
@@ -2336,11 +2336,11 @@ module ietf-acl-enh {
          the match.";
     }
     leaf length {
-      type uint64;
+      type uint16;
       units "bytes";
       description
-        "Indicates the number of bytes, starting from the offset to
-         cover when performing the prefix match.";
+        "Indicates the number of bytes to ignore, starting from
+         the offset, to perform the pattern match.";
     }
     leaf operator {
       type operator;
@@ -2351,7 +2351,9 @@ module ietf-acl-enh {
     leaf pattern {
       type binary;
       description
-        "The binary pattern to match against.";
+        "The binary pattern to match against starting.
+         The match starts from the byte indicated by
+         'offset' + length'.";
     }
   }
 
