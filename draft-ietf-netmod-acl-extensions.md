@@ -996,9 +996,11 @@ packets.  The following ACEs are defined (in this order):
 ~~~
 {: #example_3 title="An Example Illustrating Filtering of IPv6 Fragmented Packets (Message Body)"}
 
-## Patter-based Filtering
+## Pattern-based Filtering
 
 {{example_p}} shows an example of the message body of a request to install a filter to discard IP-in-IP encapsulated messages with some patterns. By using the offset at the end of layer 3, the rule targets a specific portion of the payload that starts 20 bytes after the beginning of the data (skipping the first 20 bytes). The rule is useful to detecting specific patterns, signatures, or encapsulated packets, such as when the inner source IP address is 2001:db8::1.
+
+For the readers' convenience, the textual representation of the pattern is used in the example instead of the binary form.
 
 ~~~ json
 {
@@ -1013,9 +1015,9 @@ packets.  The following ACEs are defined (in this order):
               "matches": {
                 "ietf-acl-enh:pattern": {
                   "offset": "ietf-acl-enh:layer4",
-                  "length": "20",
+                  "length": 20,
                   "operator": "match",
-                  "prefix": "MjAwMTpkYjg6OjE"
+                  "pattern": "2001:db8::1"
                 }
               },
               "actions": {
