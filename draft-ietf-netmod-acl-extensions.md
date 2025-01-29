@@ -998,7 +998,8 @@ packets.  The following ACEs are defined (in this order):
 
 ## Patter-based Filtering
 
-{{example_p}} shows an example of the message body of a request to install a filter to discard encapsulated messages with 2001:db8::1 as inner source IP address.
+{{example_p}} This rule focuses entirely on the TCP payload, ignoring other parts of the TCP segment (such as the TCP header or options). By using an offset at the payload, it allows targeting a specific portion of the payload that starts 20 bytes after the beginning of the data (skipping the first 20 bytes).
+This approach might be useful for detecting specific patterns, signatures, or protocols encapsulated within the payload, such as when the inner source IP address is 2001:db8::1.
 
 ~~~ json
 {
