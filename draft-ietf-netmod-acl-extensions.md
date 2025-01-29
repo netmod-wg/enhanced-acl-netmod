@@ -998,8 +998,7 @@ packets.  The following ACEs are defined (in this order):
 
 ## Patter-based Filtering
 
-{{example_p}} This rule focuses entirely on the TCP payload, ignoring other parts of the TCP segment (such as the TCP header or options). By using an offset at the payload, it allows targeting a specific portion of the payload that starts 20 bytes after the beginning of the data (skipping the first 20 bytes).
-This approach might be useful for detecting specific patterns, signatures, or protocols encapsulated within the payload, such as when the inner source IP address is 2001:db8::1.
+{{example_p}} shows an example of the message body of a request to install a filter to discard IP-in-IP encapsulated messages with some patterns. By using the offset at the end of layer 3, the rule targets a specific portion of the payload that starts 20 bytes after the beginning of the data (skipping the first 20 bytes). The rule is useful to detecting specific patterns, signatures, or encapsulated packets, such as when the inner source IP address is 2001:db8::1.
 
 ~~~ json
 {
@@ -1013,7 +1012,7 @@ This approach might be useful for detecting specific patterns, signatures, or pr
               "name": "pattern-1",
               "matches": {
                 "ietf-acl-enh:pattern": {
-                  "offset": "ietf-acl-enh:payload",
+                  "offset": "ietf-acl-enh:layer4",
                   "length": "20",
                   "operator": "match",
                   "prefix": "MjAwMTpkYjg6OjE"
@@ -1030,7 +1029,7 @@ This approach might be useful for detecting specific patterns, signatures, or pr
   }
 }
 ~~~
-{: #example_p title="Example of an ACL to Deny Encapsulated Messages (Request Body)"}
+{: #example_p title="Example of an ACL to Deny Encapsulated Messages with a Specific Inner Source Address (Request Body)"}
 
 
 ## VLAN Filtering
