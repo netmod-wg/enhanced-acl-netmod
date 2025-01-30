@@ -8,6 +8,11 @@ module ietf-acl-enh {
     reference
       "RFC 6991: Common YANG Data Types";
   }
+  import ietf-netconf-acm {
+    prefix nacm;
+    reference
+      "RFC 8341: Network Configuration Access Control Model";
+  }
   import ietf-access-control-list {
     prefix acl;
     reference
@@ -927,6 +932,7 @@ module ietf-acl-enh {
         "Predefined sets of attributes used in policy match
          statements.";
       uses defined-sets;
+      nacm:default-deny-write;
     }
   }
 
