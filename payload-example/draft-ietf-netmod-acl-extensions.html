@@ -1971,7 +1971,8 @@ module ietf-acl-enh {
     description
       "The offset start right after the IP header. This can be
        typically the beginning of transport header (e.g., TCP
-       or UDP).";
+       or UDP) or any encapsulation scheme over IP such as
+       IP-in-IP.";
   }
 
   identity payload {
