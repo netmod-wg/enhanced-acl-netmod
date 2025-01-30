@@ -998,6 +998,44 @@ packets.  The following ACEs are defined (in this order):
 ~~~
 {: #example_3 title="An Example Illustrating Filtering of IPv6 Fragmented Packets (Message Body)"}
 
+## Pattern-based Filtering
+
+Pattern-based filtering is useful to detect specific patterns, signatures, or encapsulated packets. {{example_p}} shows an example of the message body of a request to install a filter to discard IP-in-IP encapsulated messages with an inner source IP address equal to "2001:db8::1/128". By using the offset at the end of layer 3, the rule targets a specific portion of the payload that starts 20 bytes after the beginning of the data (skipping the first 20 bytes).
+
+For the readers' convenience, the textual representation of the pattern is used in the example instead of the binary form.
+
+~~~ json
+{
+  "ietf-access-control-list:acls": {
+    "acl": [
+      {
+        "name": "pattern-example",
+        "aces": {
+          "ace": [
+            {
+              "name": "pattern-1",
+              "matches": {
+                "ietf-acl-enh:pattern": {
+                  "offset": "ietf-acl-enh:layer4",
+                  "length": 20,
+                  "operator": "match",
+                  "pattern": "2001:db8::1"
+                }
+              },
+              "actions": {
+                "forwarding": "drop"
+              }
+            }
+          ]
+        }
+      }
+    ]
+  }
+}
+~~~
+{: #example_p title="Example of an ACL to Deny Encapsulated Messages with a Specific Inner Source Address (Request Body)"}
+
+
 ## VLAN Filtering
 
 {{example_7}} shows an ACL example to illustrate how to apply a VLAN range filter.
