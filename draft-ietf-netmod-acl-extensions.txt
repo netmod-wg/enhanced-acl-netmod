@@ -1844,6 +1844,8 @@ Table of Contents
       The former may result in a DoS attack, or compromise a device.
       The latter may result in a DoS attack.
 
+      These sets are defined with "nacm:default-deny-write" tagging.
+
    Some of the readable data nodes in this YANG module may be considered
    sensitive or vulnerable in some network environments.  It is thus
    important to control read access (e.g., via get, get-config, or
