@@ -5222,7 +5222,7 @@ packets.  The following ACEs are defined (in this order):<a href="#appendix-E.2-
         <h3 id="name-pattern-based-filtering">
 <a href="#appendix-E.3" class="section-number selfRef">E.3. </a><a href="#name-pattern-based-filtering" class="section-name selfRef">Pattern-based Filtering</a>
         </h3>
-<p id="appendix-E.3-1"><a href="#example_p" class="auto internal xref">Figure 7</a> shows an example of the message body of a request to install a filter to discard IP-in-IP encapsulated messages with some patterns. By using the offset at the end of layer 3, the rule targets a specific portion of the payload that starts 20 bytes after the beginning of the data (skipping the first 20 bytes). The rule is useful to detecting specific patterns, signatures, or encapsulated packets, such as when the inner source IP address is 2001:db8::1.<a href="#appendix-E.3-1" class="pilcrow">¶</a></p>
+<p id="appendix-E.3-1">Pattern-based filtering is useful to detect specific patterns, signatures, or encapsulated packets. <a href="#example_p" class="auto internal xref">Figure 7</a> shows an example of the message body of a request to install a filter to discard IP-in-IP encapsulated messages with an inner source IP address equal to "2001:db8::1/128". By using the offset at the end of layer 3, the rule targets a specific portion of the payload that starts 20 bytes after the beginning of the data (skipping the first 20 bytes).<a href="#appendix-E.3-1" class="pilcrow">¶</a></p>
 <p id="appendix-E.3-2">For the readers' convenience, the textual representation of the pattern is used in the example instead of the binary form.<a href="#appendix-E.3-2" class="pilcrow">¶</a></p>
 <span id="name-example-of-an-acl-to-deny-e"></span><div id="example_p">
 <figure id="figure-7">
