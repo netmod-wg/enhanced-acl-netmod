@@ -1055,7 +1055,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
 </tr></thead>
 <tfoot><tr>
 <td class="left">Dios, et al.</td>
-<td class="center">Expires 2 August 2025</td>
+<td class="center">Expires 3 August 2025</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1068,12 +1068,12 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <dd class="internet-draft">draft-ietf-netmod-acl-extensions-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2025-01-29" class="published">29 January 2025</time>
+<time datetime="2025-01-30" class="published">30 January 2025</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Standards Track</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2025-08-02">2 August 2025</time></dd>
+<dd class="expires"><time datetime="2025-08-03">3 August 2025</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1134,7 +1134,7 @@ Specifically, it introduces augmentations to the ACL base model to enhance its f
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 2 August 2025.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 3 August 2025.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1692,12 +1692,22 @@ Each set is uniquely identified by a name and can be called from the relevant en
           <dd class="break"></dd>
 <dt id="section-3.2-2.15">Aliases:</dt>
           <dd style="margin-left: 1.5em" id="section-3.2-2.16">
-            <p id="section-3.2-2.16.1">An alias is defined by a combination of various parameters (e.g., IP prefix, protocol, port number, or VLAN <span>[<a href="#IEEE802.1Qcp" class="cite xref">IEEE802.1Qcp</a>]</span>). Sets of aliases can be defined and referred to in ACL match criteria.<a href="#section-3.2-2.16.1" class="pilcrow">¶</a></p>
+            <p id="section-3.2-2.16.1">An alias is defined by a combination of various parameters (e.g., IP prefix, protocol, port number, or VLAN <span>[<a href="#IEEE802.1Qcp" class="cite xref">IEEE802.1Qcp</a>]</span>). When only sets of one parameter (e.g., protocol) are handled, then the relevant parameter sets should be used (e.g., protocol set) rather than an alias.<a href="#section-3.2-2.16.1" class="pilcrow">¶</a></p>
 </dd>
           <dd class="break"></dd>
-<dt id="section-3.2-2.17">Payload-based filtering:</dt>
+<dt id="section-3.2-2.17"></dt>
           <dd style="margin-left: 1.5em" id="section-3.2-2.18">
-            <p id="section-3.2-2.18.1">Network traffic filtering technique that examines the data payload of packets, beyond just the header information, to identify, allow, or block traffic based on specific content or patterns within the payload.<a href="#section-3.2-2.18.1" class="pilcrow">¶</a></p>
+            <p id="section-3.2-2.18.1">For example, an alias can be defined to apply ACL policies bound to a set of HTTPS servers. Such an alias will typically include these HTTPS server addresses (e.g., "prefix": ["2001:db8:6401::1/128","2001:db8:6401::2/128"]) and the TCP port number 443 (i.e., "protocol": [6] and "lower-port": 443).<a href="#section-3.2-2.18.1" class="pilcrow">¶</a></p>
+</dd>
+          <dd class="break"></dd>
+<dt id="section-3.2-2.19"></dt>
+          <dd style="margin-left: 1.5em" id="section-3.2-2.20">
+            <p id="section-3.2-2.20.1">Sets of aliases can be defined and referred to in ACL match criteria.<a href="#section-3.2-2.20.1" class="pilcrow">¶</a></p>
+</dd>
+          <dd class="break"></dd>
+<dt id="section-3.2-2.21">Payload-based filtering:</dt>
+          <dd style="margin-left: 1.5em" id="section-3.2-2.22">
+            <p id="section-3.2-2.22.1">Network traffic filtering technique that examines the data payload of packets, beyond just the header information, to identify, allow, or block traffic based on specific content or patterns within the payload.<a href="#section-3.2-2.22.1" class="pilcrow">¶</a></p>
 </dd>
         <dd class="break"></dd>
 </dl>
@@ -3073,8 +3083,8 @@ have particular sensitivities/vulnerabilities:<a href="#section-5-4" class="pilc
 <span class="break"></span><dl class="dlParallel" id="section-5-5">
         <dt id="section-5-5.1">'defined-sets':</dt>
         <dd style="margin-left: 1.5em" id="section-5-5.2">
-          <p id="section-5-5.2.1">These lists specify a set of sets and aliases. Similar to <span>[<a href="#RFC8519" class="cite xref">RFC8519</a>]</span>, unauthorized write access to these
-   list can allow intruders to modify the entries so as to permit
+          <p id="section-5-5.2.1">These lists specify a set of IP addresses, port numbers, protocols, ICMP types, and aliases. Similar to <span>[<a href="#RFC8519" class="cite xref">RFC8519</a>]</span>, unauthorized write access to these
+   lists can allow intruders to modify the entries so as to permit
    traffic that should not be permitted, or deny traffic that should
    be permitted.  The former may result in a DoS attack, or
    compromise a device.  The latter may result in a DoS attack.<a href="#section-5-5.2.1" class="pilcrow">¶</a></p>
@@ -3693,8 +3703,9 @@ as follows:<a href="#section-6.3.3-11" class="pilcrow">¶</a></p>
                   '(Deprecated)')),' ','')"/&gt;
           &lt;/when&gt;
           &lt;otherwise&gt;
-           &lt;value-of select="substring-before(translate(normalize-space
-                  (iana:description),' ',''),'suchasSeamoby')"/&gt;
+           &lt;value-of select="substring-before(translate
+                  (normalize-space(iana:description),' ',''),
+                  'suchasSeamoby')"/&gt;
           &lt;/otherwise&gt;
         &lt;/choose&gt;
       &lt;/with-param&gt;
@@ -4124,8 +4135,9 @@ module iana-icmpv4-types {
                   '(Deprecated)')),' ','')"/&gt;
           &lt;/when&gt;
           &lt;otherwise&gt;
-           &lt;value-of select="substring-before(translate(normalize-space
-                  (iana:description),' ',''),'suchasSeamoby')"/&gt;
+           &lt;value-of select="substring-before(translate
+                  (normalize-space(iana:description),' ',''),
+                   'suchasSeamoby')"/&gt;
           &lt;/otherwise&gt;
         &lt;/choose&gt;
       &lt;/with-param&gt;
@@ -5392,7 +5404,8 @@ packets.  The following ACEs are defined (in this order):<a href="#appendix-E.2-
 <p id="appendix-F-1">Many thanks to Jon Shallow and Miguel Cros for the review and comments to the document, including prior to publishing the document.<a href="#appendix-F-1" class="pilcrow">¶</a></p>
 <p id="appendix-F-2">Thanks to Qiufang Ma, Victor Lopez, Joe Clarke, and Mahesh Jethanandani for the comments and suggestions.<a href="#appendix-F-2" class="pilcrow">¶</a></p>
 <p id="appendix-F-3">Thanks to Lou Berger for Shepherding the document.<a href="#appendix-F-3" class="pilcrow">¶</a></p>
-<p id="appendix-F-4">Thanks to David Black for the TSV review, Tim Wicinski for the intdir review, and Per Andersson for the yangdoctors review.<a href="#appendix-F-4" class="pilcrow">¶</a></p>
+<p id="appendix-F-4">Thanks to David Black for the tsvart review, Tim Wicinski for the intdir review, Per Andersson for the yangdoctors review, Russ Housley
+for genart review, and Linda Dunbar for the secdir review.<a href="#appendix-F-4" class="pilcrow">¶</a></p>
 <p id="appendix-F-5">The IANA-maintained modules were generated using an XSLT stylesheet from the 'iana-yang' project <span>[<a href="#YANG-XSLT" class="cite xref">YANG-XSLT</a>]</span>).<a href="#appendix-F-5" class="pilcrow">¶</a></p>
 <p id="appendix-F-6">This work is partially supported by the European Commission under   Horizon 2020 Secured autonomic traffic management for a Tera of SDN
 flows (Teraflow) project (grant agreement number 101015857).<a href="#appendix-F-6" class="pilcrow">¶</a></p>
