@@ -336,6 +336,7 @@ have particular sensitivities/vulnerabilities:
       traffic that should not be permitted, or deny traffic that should
       be permitted.  The former may result in a DoS attack, or
       compromise a device.  The latter may result in a DoS attack.
+ : These sets are defined with "nacm:default-deny-write" tagging.
 
 Some of the readable data nodes in this YANG module may be considered
 sensitive or vulnerable in some network environments.  It is thus
