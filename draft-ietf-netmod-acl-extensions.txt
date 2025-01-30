@@ -5,12 +5,12 @@
 netmod                                                     O. G. D. Dios
 Internet-Draft                                                Telefonica
 Intended status: Standards Track                              S. Barguil
-Expires: 2 August 2025                                             Nokia
+Expires: 3 August 2025                                             Nokia
                                                             M. Boucadair
                                                                   Orange
                                                                    Q. Wu
                                                                   Huawei
-                                                         29 January 2025
+                                                         30 January 2025
 
 
         Extensions to the Access Control Lists (ACLs) YANG Model
@@ -53,7 +53,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 2 August 2025.
+   This Internet-Draft will expire on 3 August 2025.
 
 Copyright Notice
 
@@ -124,9 +124,10 @@ Table of Contents
    Appendix E.  Examples
      E.1.  TCP Flags Handling
      E.2.  Fragments Handling
-     E.3.  VLAN Filtering
-     E.4.  ISID Filtering
-     E.5.  Rate-Limit
+     E.3.  Pattern-based Filtering
+     E.4.  VLAN Filtering
+     E.5.  ISID Filtering
+     E.6.  Rate-Limit
    Acknowledgments
    Authors' Addresses
 
@@ -340,7 +341,7 @@ Table of Contents
        +-- ttl-value?           uint8
      grouping payload-match:
        +-- offset?       identityref
-       +-- length?   uint64
+       +-- length?   uint16
        +-- operator?     operator
        +-- pattern?       binary
      grouping alias:
@@ -717,7 +718,8 @@ Table of Contents
        description
          "The offset start right after the IP header. This can be
           typically the beginning of transport header (e.g., TCP
-          or UDP).";
+          or UDP) or any encapsulation scheme over IP such as
+          IP-in-IP.";
      }
 
      identity payload {
@@ -1046,10 +1048,10 @@ Table of Contents
          type rt-types:mpls-label;
          description
            "Match MPLS label value on the MPLS header.
-            The usage of this field indicated the upper
-            range value in the top of the stack.
-            This label value does not include the
-            encodings of Traffic Class and TTL.";
+            The usage of this field indicated the upper range
+            value in the top of the stack.
+            This label value does not include the encodings
+            of Traffic Class and TTL.";
          reference
            "RFC 3032: MPLS Label Stack Encoding";
        }
@@ -1092,11 +1094,11 @@ Table of Contents
             the match.";
        }
        leaf length {
-         type uint64;
+         type uint16;
          units "bytes";
          description
-           "Indicates the number of bytes, starting from the offset to
-            cover when performing the prefix match.";
+           "Indicates the number of bytes to ignore, starting from
+            the offset, to perform the pattern match.";
        }
        leaf operator {
          type operator;
@@ -1107,7 +1109,9 @@ Table of Contents
        leaf pattern {
          type binary;
          description
-           "The binary pattern to match against.";
+           "The binary pattern to match against starting.
+            The match starts from the byte indicated by
+            'offset' + length'.";
        }
      }
 
@@ -3754,9 +3758,53 @@ E.2.  Fragments Handling
        Figure 6: An Example Illustrating Filtering of IPv6 Fragmented
                            Packets (Message Body)
 
-E.3.  VLAN Filtering
+E.3.  Pattern-based Filtering
 
-   Figure 7 shows an ACL example to illustrate how to apply a VLAN range
+   Pattern-based filtering is useful to detect specific patterns,
+   signatures, or encapsulated packets.  Figure 7 shows an example of
+   the message body of a request to install a filter to discard IP-in-IP
+   encapsulated messages with an inner source IP address equal to
+   "2001:db8::1/128".  By using the offset at the end of layer 3, the
+   rule targets a specific portion of the payload that starts 20 bytes
+   after the beginning of the data (skipping the first 20 bytes).
+
+   For the readers' convenience, the textual representation of the
+   pattern is used in the example instead of the binary form.
+
+   {
+     "ietf-access-control-list:acls": {
+       "acl": [
+         {
+           "name": "pattern-example",
+           "aces": {
+             "ace": [
+               {
+                 "name": "pattern-1",
+                 "matches": {
+                   "ietf-acl-enh:pattern": {
+                     "offset": "ietf-acl-enh:layer4",
+                     "length": 20,
+                     "operator": "match",
+                     "pattern": "2001:db8::1"
+                   }
+                 },
+                 "actions": {
+                   "forwarding": "drop"
+                 }
+               }
+             ]
+           }
+         }
+       ]
+     }
+   }
+
+      Figure 7: Example of an ACL to Deny Encapsulated Messages with a
+                Specific Inner Source Address (Request Body)
+
+E.4.  VLAN Filtering
+
+   Figure 8 shows an ACL example to illustrate how to apply a VLAN range
    filter.
 
    {
@@ -3785,11 +3833,11 @@ E.3.  VLAN Filtering
      }
    }
 
-              Figure 7: Example of VLAN Filter (Message Body)
+              Figure 8: Example of VLAN Filter (Message Body)
 
-E.4.  ISID Filtering
+E.5.  ISID Filtering
 
-   Figure 8 shows an ACL example to illustrate the ISID range filtering.
+   Figure 9 shows an ACL example to illustrate the ISID range filtering.
 
    {
      "ietf-access-control-list:acls": {
@@ -3817,11 +3865,11 @@ E.4.  ISID Filtering
      }
    }
 
-                Figure 8: Example ISID Filter (Message Body)
+                Figure 9: Example ISID Filter (Message Body)
 
-E.5.  Rate-Limit
+E.6.  Rate-Limit
 
-   Figure 9 shows an ACL example to rate-limit incoming SYNs during a
+   Figure 10 shows an ACL example to rate-limit incoming SYNs during a
    SYN flood attack.
 
    {
@@ -3853,7 +3901,7 @@ E.5.  Rate-Limit
      }
    }
 
-    Figure 9: An Example of Rate-Limit Incoming TCP SYNs (Message Body).
+   Figure 10: An Example of Rate-Limit Incoming TCP SYNs (Message Body).
 
 Acknowledgments
 
