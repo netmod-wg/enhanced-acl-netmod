@@ -219,7 +219,9 @@ ICMP sets:
 : New IANA-maintained modules for ICMP types are defined in this document.
 
 Aliases:
-: An alias is defined by a combination of various parameters (e.g., IP prefix, protocol, port number, or VLAN {{IEEE802.1Qcp}}). Sets of aliases can be defined and referred to in ACL match criteria.
+: An alias is defined by a combination of various parameters (e.g., IP prefix, protocol, port number, or VLAN {{IEEE802.1Qcp}}). When only sets of one parameter (e.g., protocol) are handled, then the relevant parameter sets should be used (e.g., protocol set) rather than an alias.
+: For example, an alias can be defined to apply ACL policies bound to a set of HTTPS servers. Such an alias will typically include these HTTPS server addresses (e.g., "prefix": ["2001:db8:6401::1/128","2001:db8:6401::2/128"]) and the TCP port number 443 (i.e., "protocol": [6] and "lower-port": 443).
+: Sets of aliases can be defined and referred to in ACL match criteria.
 
 Payload-based filtering:
 : Network traffic filtering technique that examines the data payload of packets, beyond just the header information, to identify, allow, or block traffic based on specific content or patterns within the payload.
@@ -329,8 +331,8 @@ effect on network operations. The following subtrees and data nodes
 have particular sensitivities/vulnerabilities:
 
  'defined-sets':
- : These lists specify a set of sets and aliases. Similar to {{!RFC8519}}, unauthorized write access to these
-      list can allow intruders to modify the entries so as to permit
+ : These lists specify a set of IP addresses, port numbers, protocols, ICMP types, and aliases. Similar to {{!RFC8519}}, unauthorized write access to these
+      lists can allow intruders to modify the entries so as to permit
       traffic that should not be permitted, or deny traffic that should
       be permitted.  The former may result in a DoS attack, or
       compromise a device.  The latter may result in a DoS attack.
@@ -1145,7 +1147,8 @@ Thanks to Qiufang Ma, Victor Lopez, Joe Clarke, and Mahesh Jethanandani for the 
 
 Thanks to Lou Berger for Shepherding the document.
 
-Thanks to David Black for the TSV review, Tim Wicinski for the intdir review, and Per Andersson for the yangdoctors review.
+Thanks to David Black for the tsvart review, Tim Wicinski for the intdir review, Per Andersson for the yangdoctors review, Russ Housley
+for genart review, and Linda Dunbar for the secdir review.
 
 The IANA-maintained modules were generated using an XSLT stylesheet from the 'iana-yang' project {{YANG-XSLT}}).
 

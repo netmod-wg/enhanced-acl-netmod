@@ -62,8 +62,9 @@
                   '(Deprecated)')),' ','')"/>
 	  </when>
 	  <otherwise>
-           <value-of select="substring-before(translate(normalize-space
-                  (iana:description),' ',''),'suchasSeamoby')"/>  		  
+           <value-of select="substring-before(translate
+                  (normalize-space(iana:description),' ',''),
+		   'suchasSeamoby')"/>  		  
 	  </otherwise>
 	</choose>
       </with-param>
