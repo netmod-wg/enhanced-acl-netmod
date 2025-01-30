@@ -1000,7 +1000,7 @@ packets.  The following ACEs are defined (in this order):
 
 ## Pattern-based Filtering
 
-{{example_p}} shows an example of the message body of a request to install a filter to discard IP-in-IP encapsulated messages with some patterns. By using the offset at the end of layer 3, the rule targets a specific portion of the payload that starts 20 bytes after the beginning of the data (skipping the first 20 bytes). The rule is useful to detecting specific patterns, signatures, or encapsulated packets, such as when the inner source IP address is 2001:db8::1.
+Pattern-based filtering is useful to detect specific patterns, signatures, or encapsulated packets. {{example_p}} shows an example of the message body of a request to install a filter to discard IP-in-IP encapsulated messages with an inner source IP address equal to "2001:db8::1/128". By using the offset at the end of layer 3, the rule targets a specific portion of the payload that starts 20 bytes after the beginning of the data (skipping the first 20 bytes).
 
 For the readers' convenience, the textual representation of the pattern is used in the example instead of the binary form.
 
