@@ -349,7 +349,7 @@ subtrees and data nodes have particular sensitivities/vulnerabilities:
    an attacker to identify the actual resources that are bound
    to ACLs.
 
-The document defines a match policy based on a pattern that can be observed in a packet. For example, such a policy can be combined with header-based matches in the context of DDoS mitigation. Filtering based on a pattern match is deterministic for packets with unencrypted data. However, the efficiency for encrypted packets depend on the presence of an unvarying pattern.
+The document defines a match policy based on a pattern that can be observed in a packet. For example, such a policy can be combined with header-based matches in the context of DDoS mitigation. Filtering based on a pattern match is deterministic for packets with unencrypted data. However, the efficiency for encrypted packets depend on the presence of an unvarying pattern. Readers may also refer to {{Section 11 of ?RFC8329}} for security considerations related to Network Security Functions (NSFs) that apply packet content matching.
 
 The YANG modules "iana-icmpv4-types", "iana-icmpv6-types", and "iana-ipv6-ext-types" define a set of types. These nodes are intended to be reused by other YANG
 modules. Each of these modules by itself does not expose any data nodes that
@@ -1001,7 +1001,7 @@ packets.  The following ACEs are defined (in this order):
 
 ## Pattern-based Filtering
 
-Pattern-based filtering is useful to detect specific patterns, signatures, or encapsulated packets. {{example_p}} shows an example of the message body of a request to install a filter to discard IP-in-IP encapsulated messages with an inner source IP address equal to "2001:db8::1/128". By using the offset at the end of layer 3, the rule targets a specific portion of the payload that starts 20 bytes after the beginning of the data (skipping the first 20 bytes).
+Pattern-based filtering is useful to detect specific patterns, signatures, or encapsulated packets. {{example_p}} shows an example of the message body of a request to install a filter to discard IP-in-IP encapsulated messages with an inner destination IP address equal to "2001:db8::1". By using the offset at the end of layer 3, the rule targets a specific portion of the payload that starts 20 bytes after the beginning of the data (that is, skipping the first 20 bytes of the inner IPv6 header).
 
 For the readers' convenience, the textual representation of the pattern is used in the example instead of the binary form.
 
@@ -1034,7 +1034,7 @@ For the readers' convenience, the textual representation of the pattern is used 
   }
 }
 ~~~
-{: #example_p title="Example of an ACL to Deny Encapsulated Messages with a Specific Inner Source Address (Request Body)"}
+{: #example_p title="Example of an ACL to Deny Encapsulated Messages with a Specific Inner Destination Address (Request Body)"}
 
 
 ## VLAN Filtering
