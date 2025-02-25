@@ -16,12 +16,12 @@ the limitations of the ACL model as initially defined in RFC 8519.
 Specifically, it introduces augmentations to the ACL base model to enhance its functionality and applicability. 
        The document also defines IANA-maintained modules for ICMP types and IPv6 extension headers. 
     " name="description">
-<meta content="xml2rfc 3.25.0" name="generator">
+<meta content="xml2rfc 3.27.0" name="generator">
 <meta content="Internet-Draft" name="keyword">
 <meta content="draft-ietf-netmod-acl-extensions-latest" name="ietf.draft">
 <!-- Generator version information:
-  xml2rfc 3.25.0
-    Python 3.12.8
+  xml2rfc 3.27.0
+    Python 3.12.9
     ConfigArgParse 1.7
     google-i18n-address 3.1.1
     intervaltree 3.1.0
@@ -442,7 +442,7 @@ dl {
     margin-bottom: 0;
   }
 }
-dl > dt {
+dl:not(.dlNewline) > dt {
   float: left;
   margin-right: 2ch;
   min-width: 8ch;
@@ -1051,11 +1051,11 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <thead><tr>
 <td class="left">Internet-Draft</td>
 <td class="center">Enhanced ACLs</td>
-<td class="right">January 2025</td>
+<td class="right">February 2025</td>
 </tr></thead>
 <tfoot><tr>
 <td class="left">Dios, et al.</td>
-<td class="center">Expires 11 July 2025</td>
+<td class="center">Expires 29 August 2025</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1068,12 +1068,12 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <dd class="internet-draft">draft-ietf-netmod-acl-extensions-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2025-01-07" class="published">7 January 2025</time>
+<time datetime="2025-02-25" class="published">25 February 2025</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Standards Track</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2025-07-11">11 July 2025</time></dd>
+<dd class="expires"><time datetime="2025-08-29">29 August 2025</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1134,7 +1134,7 @@ Specifically, it introduces augmentations to the ACL base model to enhance its f
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 11 July 2025.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 29 August 2025.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1326,13 +1326,16 @@ Specifically, it introduces augmentations to the ACL base model to enhance its f
                 <p id="section-toc.1-1.12.2.2.1"><a href="#appendix-E.2" class="auto internal xref">E.2</a>.  <a href="#name-fragments-handling-2" class="internal xref">Fragments Handling</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.12.2.3">
-                <p id="section-toc.1-1.12.2.3.1"><a href="#appendix-E.3" class="auto internal xref">E.3</a>.  <a href="#name-vlan-filtering-2" class="internal xref">VLAN Filtering</a></p>
+                <p id="section-toc.1-1.12.2.3.1"><a href="#appendix-E.3" class="auto internal xref">E.3</a>.  <a href="#name-pattern-based-filtering" class="internal xref">Pattern-based Filtering</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.12.2.4">
-                <p id="section-toc.1-1.12.2.4.1"><a href="#appendix-E.4" class="auto internal xref">E.4</a>.  <a href="#name-isid-filtering" class="internal xref">ISID Filtering</a></p>
+                <p id="section-toc.1-1.12.2.4.1"><a href="#appendix-E.4" class="auto internal xref">E.4</a>.  <a href="#name-vlan-filtering-2" class="internal xref">VLAN Filtering</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.12.2.5">
-                <p id="section-toc.1-1.12.2.5.1"><a href="#appendix-E.5" class="auto internal xref">E.5</a>.  <a href="#name-rate-limit" class="internal xref">Rate-Limit</a></p>
+                <p id="section-toc.1-1.12.2.5.1"><a href="#appendix-E.5" class="auto internal xref">E.5</a>.  <a href="#name-isid-filtering" class="internal xref">ISID Filtering</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.12.2.6">
+                <p id="section-toc.1-1.12.2.6.1"><a href="#appendix-E.6" class="auto internal xref">E.6</a>.  <a href="#name-rate-limit" class="internal xref">Rate-Limit</a></p>
 </li>
             </ul>
 </li>
@@ -1388,7 +1391,7 @@ messages triggered by  these tools is valuable from a network operation standpoi
 Management Datastore Architecture (NMDA) defined in <span>[<a href="#RFC8342" class="cite xref">RFC8342</a>]</span>.<a href="#section-1-7" class="pilcrow">¶</a></p>
 <p id="section-1-8">A set of examples to illustrate the use of the enhanced ACL module are provided in <a href="#sec-examples" class="auto internal xref">Appendix E</a>.<a href="#section-1-8" class="pilcrow">¶</a></p>
 <p id="section-1-9">The document also defines IANA-maintained modules for ICMP types and IPv6 extension headers. The design of the modules adheres to the recommendations
-in <span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-netmod-rfc8407bis-21#section-4.30.2" class="relref">Section 4.30.2</a> of [<a href="#I-D.ietf-netmod-rfc8407bis" class="cite xref">I-D.ietf-netmod-rfc8407bis</a>]</span>. The templates to generate the modules are available in <a href="#template" class="auto internal xref">Appendix A.1</a>, <a href="#v6-template" class="auto internal xref">Appendix B.1</a>, and <a href="#iana-ipv6-ext-template" class="auto internal xref">Appendix C.1</a>. The templates use an XSLT stylesheet from the 'iana-yang' project <span>[<a href="#YANG-XSLT" class="cite xref">YANG-XSLT</a>]</span>. Readers should refer to the IANA websites <span>[<a href="#IANA_ICMPv4_YANG_URL" class="cite xref">IANA_ICMPv4_YANG_URL</a>]</span>, <span>[<a href="#IANA_ICMPv6_YANG_URL" class="cite xref">IANA_ICMPv6_YANG_URL</a>]</span>, and <span>[<a href="#IANA_IPV6_YANG_URL" class="cite xref">IANA_IPV6_YANG_URL</a>]</span> to retrieve the latest version of these IANA-maintained modules.<a href="#section-1-9" class="pilcrow">¶</a></p>
+in <span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-netmod-rfc8407bis-22#section-4.30.2" class="relref">Section 4.30.2</a> of [<a href="#I-D.ietf-netmod-rfc8407bis" class="cite xref">I-D.ietf-netmod-rfc8407bis</a>]</span>. The templates to generate the modules are available in <a href="#template" class="auto internal xref">Appendix A.1</a>, <a href="#v6-template" class="auto internal xref">Appendix B.1</a>, and <a href="#iana-ipv6-ext-template" class="auto internal xref">Appendix C.1</a>. The templates use an XSLT stylesheet from the 'iana-yang' project <span>[<a href="#YANG-XSLT" class="cite xref">YANG-XSLT</a>]</span>. Readers should refer to the IANA websites <span>[<a href="#IANA_ICMPv4_YANG_URL" class="cite xref">IANA_ICMPv4_YANG_URL</a>]</span>, <span>[<a href="#IANA_ICMPv6_YANG_URL" class="cite xref">IANA_ICMPv6_YANG_URL</a>]</span>, and <span>[<a href="#IANA_IPV6_YANG_URL" class="cite xref">IANA_IPV6_YANG_URL</a>]</span> to retrieve the latest version of these IANA-maintained modules.<a href="#section-1-9" class="pilcrow">¶</a></p>
 <div id="editorial-note-to-be-removed-by-rfc-editor">
 <section id="section-1.1">
         <h3 id="name-editorial-note-to-be-remove">
@@ -1557,7 +1560,7 @@ module: ietf-acl-enh
     +-- ttl-value?           uint8
   grouping payload-match:
     +-- offset?       identityref
-    +-- length?   uint64
+    +-- length?   uint16
     +-- operator?     operator
     +-- pattern?       binary
   grouping alias:
@@ -1689,12 +1692,22 @@ Each set is uniquely identified by a name and can be called from the relevant en
           <dd class="break"></dd>
 <dt id="section-3.2-2.15">Aliases:</dt>
           <dd style="margin-left: 1.5em" id="section-3.2-2.16">
-            <p id="section-3.2-2.16.1">An alias is defined by a combination of various parameters (e.g., IP prefix, protocol, port number, or VLAN <span>[<a href="#IEEE802.1Qcp" class="cite xref">IEEE802.1Qcp</a>]</span>). Sets of aliases can be defined and referred to in ACL match criteria.<a href="#section-3.2-2.16.1" class="pilcrow">¶</a></p>
+            <p id="section-3.2-2.16.1">An alias is defined by a combination of various parameters (e.g., IP prefix, protocol, port number, or VLAN <span>[<a href="#IEEE802.1Qcp" class="cite xref">IEEE802.1Qcp</a>]</span>). When only sets of one parameter (e.g., protocol) are handled, then the relevant parameter sets should be used (e.g., protocol set) rather than an alias.<a href="#section-3.2-2.16.1" class="pilcrow">¶</a></p>
 </dd>
           <dd class="break"></dd>
-<dt id="section-3.2-2.17">Payload-based filtering:</dt>
+<dt id="section-3.2-2.17"></dt>
           <dd style="margin-left: 1.5em" id="section-3.2-2.18">
-            <p id="section-3.2-2.18.1">Network traffic filtering technique that examines the data payload of packets, beyond just the header information, to identify, allow, or block traffic based on specific content or patterns within the payload.<a href="#section-3.2-2.18.1" class="pilcrow">¶</a></p>
+            <p id="section-3.2-2.18.1">For example, an alias can be defined to apply ACL policies bound to a set of HTTPS servers. Such an alias will typically include these HTTPS server addresses (e.g., "prefix": ["2001:db8:6401::1/128","2001:db8:6401::2/128"]) and the TCP port number 443 (i.e., "protocol": [6] and "lower-port": 443).<a href="#section-3.2-2.18.1" class="pilcrow">¶</a></p>
+</dd>
+          <dd class="break"></dd>
+<dt id="section-3.2-2.19"></dt>
+          <dd style="margin-left: 1.5em" id="section-3.2-2.20">
+            <p id="section-3.2-2.20.1">Sets of aliases can be defined and referred to in ACL match criteria.<a href="#section-3.2-2.20.1" class="pilcrow">¶</a></p>
+</dd>
+          <dd class="break"></dd>
+<dt id="section-3.2-2.21">Payload-based filtering:</dt>
+          <dd style="margin-left: 1.5em" id="section-3.2-2.22">
+            <p id="section-3.2-2.22.1">Network traffic filtering technique that examines the data payload of packets, beyond just the header information, to identify, allow, or block traffic based on specific content or patterns within the payload.<a href="#section-3.2-2.22.1" class="pilcrow">¶</a></p>
 </dd>
         <dd class="break"></dd>
 </dl>
@@ -1838,6 +1851,11 @@ module ietf-acl-enh {
     reference
       "RFC 6991: Common YANG Data Types";
   }
+  import ietf-netconf-acm {
+    prefix nacm;
+    reference
+      "RFC 8341: Network Configuration Access Control Model";
+  }
   import ietf-access-control-list {
     prefix acl;
     reference
@@ -1889,7 +1907,7 @@ module ietf-acl-enh {
   description
     "This module contains YANG definitions for enhanced ACLs.
 
-     Copyright (c) 2024 IETF Trust and the persons identified as
+     Copyright (c) 2025 IETF Trust and the persons identified as
      authors of the code. All rights reserved.
 
      Redistribution and use in source and binary forms, with or
@@ -1958,7 +1976,8 @@ module ietf-acl-enh {
     description
       "The offset start right after the IP header. This can be
        typically the beginning of transport header (e.g., TCP
-       or UDP).";
+       or UDP) or any encapsulation scheme over IP such as
+       IP-in-IP.";
   }
 
   identity payload {
@@ -2287,10 +2306,10 @@ module ietf-acl-enh {
       type rt-types:mpls-label;
       description
         "Match MPLS label value on the MPLS header.
-         The usage of this field indicated the upper
-         range value in the top of the stack.
-         This label value does not include the
-         encodings of Traffic Class and TTL.";
+         The usage of this field indicated the upper range
+         value in the top of the stack.
+         This label value does not include the encodings
+         of Traffic Class and TTL.";
       reference
         "RFC 3032: MPLS Label Stack Encoding";
     }
@@ -2333,11 +2352,11 @@ module ietf-acl-enh {
          the match.";
     }
     leaf length {
-      type uint64;
+      type uint16;
       units "bytes";
       description
-        "Indicates the number of bytes, starting from the offset to
-         cover when performing the prefix match.";
+        "Indicates the number of bytes to ignore, starting from
+         the offset, to perform the pattern match.";
     }
     leaf operator {
       type operator;
@@ -2348,7 +2367,9 @@ module ietf-acl-enh {
     leaf pattern {
       type binary;
       description
-        "The binary pattern to match against.";
+        "The binary pattern to match against starting.
+         The match starts from the byte indicated by
+         'offset' + length'.";
     }
   }
 
@@ -2754,6 +2775,7 @@ module ietf-acl-enh {
         "Predefined sets of attributes used in policy match
          statements.";
       uses defined-sets;
+      nacm:default-deny-write;
     }
   }
 
@@ -3050,7 +3072,7 @@ module ietf-acl-enh {
       <h2 id="name-security-considerations">
 <a href="#section-5" class="section-number selfRef">5. </a><a href="#name-security-considerations" class="section-name selfRef">Security Considerations</a>
       </h2>
-<p id="section-5-1">This section is modeled after the template described in <span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-netmod-rfc8407bis-21#section-3.7" class="relref">Section 3.7</a> of [<a href="#I-D.ietf-netmod-rfc8407bis" class="cite xref">I-D.ietf-netmod-rfc8407bis</a>]</span>.<a href="#section-5-1" class="pilcrow">¶</a></p>
+<p id="section-5-1">This section is modeled after the template described in <span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-netmod-rfc8407bis-22#section-3.7" class="relref">Section 3.7</a> of [<a href="#I-D.ietf-netmod-rfc8407bis" class="cite xref">I-D.ietf-netmod-rfc8407bis</a>]</span>.<a href="#section-5-1" class="pilcrow">¶</a></p>
 <p id="section-5-2">The "ietf-acl-enh" YANG module defines a data model that is
 designed to be accessed via YANG-based management protocols, such as
 NETCONF <span>[<a href="#RFC6241" class="cite xref">RFC6241</a>]</span> and RESTCONF <span>[<a href="#RFC8040" class="cite xref">RFC8040</a>]</span>. These protocols have to
@@ -3068,11 +3090,16 @@ have particular sensitivities/vulnerabilities:<a href="#section-5-4" class="pilc
 <span class="break"></span><dl class="dlParallel" id="section-5-5">
         <dt id="section-5-5.1">'defined-sets':</dt>
         <dd style="margin-left: 1.5em" id="section-5-5.2">
-          <p id="section-5-5.2.1">These lists specify a set of sets and aliases. Similar to <span>[<a href="#RFC8519" class="cite xref">RFC8519</a>]</span>, unauthorized write access to these
-   list can allow intruders to modify the entries so as to permit
+          <p id="section-5-5.2.1">These lists specify a set of IP addresses, port numbers, protocols, ICMP types, and aliases. Similar to <span>[<a href="#RFC8519" class="cite xref">RFC8519</a>]</span>, unauthorized write access to these
+   lists can allow intruders to modify the entries so as to permit
    traffic that should not be permitted, or deny traffic that should
    be permitted.  The former may result in a DoS attack, or
    compromise a device.  The latter may result in a DoS attack.<a href="#section-5-5.2.1" class="pilcrow">¶</a></p>
+</dd>
+        <dd class="break"></dd>
+<dt id="section-5-5.3"></dt>
+        <dd style="margin-left: 1.5em" id="section-5-5.4">
+          <p id="section-5-5.4.1">These sets are defined with "nacm:default-deny-write" tagging.<a href="#section-5-5.4.1" class="pilcrow">¶</a></p>
 </dd>
       <dd class="break"></dd>
 </dl>
@@ -3090,7 +3117,7 @@ to ACLs.<a href="#section-5-7.2.1" class="pilcrow">¶</a></p>
 </dd>
       <dd class="break"></dd>
 </dl>
-<p id="section-5-8">The document defines a match policy based on a pattern that can be observed in a packet. For example, such a policy can be combined with header-based matches in the context of DDoS mitigation. Filtering based on a pattern match is deterministic for packets with unencrypted data. However, the efficiency for encrypted packets depend on the presence of an unvarying pattern.<a href="#section-5-8" class="pilcrow">¶</a></p>
+<p id="section-5-8">The document defines a match policy based on a pattern that can be observed in a packet. For example, such a policy can be combined with header-based matches in the context of DDoS mitigation. Filtering based on a pattern match is deterministic for packets with unencrypted data. However, the efficiency for encrypted packets depend on the presence of an unvarying pattern. Readers may also refer to <span><a href="https://rfc-editor.org/rfc/rfc8329#section-11" class="relref">Section 11</a> of [<a href="#RFC8329" class="cite xref">RFC8329</a>]</span> for security considerations related to Network Security Functions (NSFs) that apply packet content matching.<a href="#section-5-8" class="pilcrow">¶</a></p>
 <p id="section-5-9">The YANG modules "iana-icmpv4-types", "iana-icmpv6-types", and "iana-ipv6-ext-types" define a set of types. These nodes are intended to be reused by other YANG
 modules. Each of these modules by itself does not expose any data nodes that
 are writable, data nodes that contain read-only state, or RPCs.
@@ -3503,7 +3530,7 @@ as follows:<a href="#section-6.3.3-11" class="pilcrow">¶</a></p>
 <dl class="references">
 <dt id="I-D.ietf-netmod-rfc8407bis">[I-D.ietf-netmod-rfc8407bis]</dt>
         <dd>
-<span class="refAuthor">Bierman, A.</span>, <span class="refAuthor">Boucadair, M.</span>, and <span class="refAuthor">Q. Wu</span>, <span class="refTitle">"Guidelines for Authors and Reviewers of Documents Containing YANG Data Models"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-netmod-rfc8407bis-21</span>, <time datetime="2024-11-13" class="refDate">13 November 2024</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-netmod-rfc8407bis-21">https://datatracker.ietf.org/doc/html/draft-ietf-netmod-rfc8407bis-21</a>&gt;</span>. </dd>
+<span class="refAuthor">Bierman, A.</span>, <span class="refAuthor">Boucadair, M.</span>, and <span class="refAuthor">Q. Wu</span>, <span class="refTitle">"Guidelines for Authors and Reviewers of Documents Containing YANG Data Models"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-netmod-rfc8407bis-22</span>, <time datetime="2025-01-14" class="refDate">14 January 2025</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-netmod-rfc8407bis-22">https://datatracker.ietf.org/doc/html/draft-ietf-netmod-rfc8407bis-22</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="IANA-ICMPv4">[IANA-ICMPv4]</dt>
         <dd>
@@ -3576,6 +3603,10 @@ as follows:<a href="#section-6.3.3-11" class="pilcrow">¶</a></p>
 <dt id="RFC8040">[RFC8040]</dt>
         <dd>
 <span class="refAuthor">Bierman, A.</span>, <span class="refAuthor">Bjorklund, M.</span>, and <span class="refAuthor">K. Watsen</span>, <span class="refTitle">"RESTCONF Protocol"</span>, <span class="seriesInfo">RFC 8040</span>, <span class="seriesInfo">DOI 10.17487/RFC8040</span>, <time datetime="2017-01" class="refDate">January 2017</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc8040">https://www.rfc-editor.org/rfc/rfc8040</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC8329">[RFC8329]</dt>
+        <dd>
+<span class="refAuthor">Lopez, D.</span>, <span class="refAuthor">Lopez, E.</span>, <span class="refAuthor">Dunbar, L.</span>, <span class="refAuthor">Strassner, J.</span>, and <span class="refAuthor">R. Kumar</span>, <span class="refTitle">"Framework for Interface to Network Security Functions"</span>, <span class="seriesInfo">RFC 8329</span>, <span class="seriesInfo">DOI 10.17487/RFC8329</span>, <time datetime="2018-02" class="refDate">February 2018</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc8329">https://www.rfc-editor.org/rfc/rfc8329</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="RFC8340">[RFC8340]</dt>
         <dd>
@@ -3688,8 +3719,9 @@ as follows:<a href="#section-6.3.3-11" class="pilcrow">¶</a></p>
                   '(Deprecated)')),' ','')"/&gt;
           &lt;/when&gt;
           &lt;otherwise&gt;
-           &lt;value-of select="substring-before(translate(normalize-space
-                  (iana:description),' ',''),'suchasSeamoby')"/&gt;
+           &lt;value-of select="substring-before(translate
+                  (normalize-space(iana:description),' ',''),
+                  'suchasSeamoby')"/&gt;
           &lt;/otherwise&gt;
         &lt;/choose&gt;
       &lt;/with-param&gt;
@@ -4119,8 +4151,9 @@ module iana-icmpv4-types {
                   '(Deprecated)')),' ','')"/&gt;
           &lt;/when&gt;
           &lt;otherwise&gt;
-           &lt;value-of select="substring-before(translate(normalize-space
-                  (iana:description),' ',''),'suchasSeamoby')"/&gt;
+           &lt;value-of select="substring-before(translate
+                  (normalize-space(iana:description),' ',''),
+                   'suchasSeamoby')"/&gt;
           &lt;/otherwise&gt;
         &lt;/choose&gt;
       &lt;/with-param&gt;
@@ -5199,15 +5232,61 @@ packets.  The following ACEs are defined (in this order):<a href="#appendix-E.2-
 </div>
 </section>
 </div>
-<div id="vlan-filtering-1">
+<div id="pattern-based-filtering">
 <section id="appendix-E.3">
-        <h3 id="name-vlan-filtering-2">
-<a href="#appendix-E.3" class="section-number selfRef">E.3. </a><a href="#name-vlan-filtering-2" class="section-name selfRef">VLAN Filtering</a>
+        <h3 id="name-pattern-based-filtering">
+<a href="#appendix-E.3" class="section-number selfRef">E.3. </a><a href="#name-pattern-based-filtering" class="section-name selfRef">Pattern-based Filtering</a>
         </h3>
-<p id="appendix-E.3-1"><a href="#example_7" class="auto internal xref">Figure 7</a> shows an ACL example to illustrate how to apply a VLAN range filter.<a href="#appendix-E.3-1" class="pilcrow">¶</a></p>
-<span id="name-example-of-vlan-filter-mess"></span><div id="example_7">
+<p id="appendix-E.3-1">Pattern-based filtering is useful to detect specific patterns, signatures, or encapsulated packets. <a href="#example_p" class="auto internal xref">Figure 7</a> shows an example of the message body of a request to install a filter to discard IP-in-IP encapsulated messages with an inner destination IP address equal to "2001:db8::1". By using the offset at the end of layer 3, the rule targets a specific portion of the payload that starts 20 bytes after the beginning of the data (that is, skipping the first 20 bytes of the inner IPv6 header).<a href="#appendix-E.3-1" class="pilcrow">¶</a></p>
+<p id="appendix-E.3-2">For the readers' convenience, the textual representation of the pattern is used in the example instead of the binary form.<a href="#appendix-E.3-2" class="pilcrow">¶</a></p>
+<span id="name-example-of-an-acl-to-deny-e"></span><div id="example_p">
 <figure id="figure-7">
-          <div class="lang-json sourcecode" id="appendix-E.3-2.1">
+          <div class="lang-json sourcecode" id="appendix-E.3-3.1">
+<pre>
+{
+  "ietf-access-control-list:acls": {
+    "acl": [
+      {
+        "name": "pattern-example",
+        "aces": {
+          "ace": [
+            {
+              "name": "pattern-1",
+              "matches": {
+                "ietf-acl-enh:pattern": {
+                  "offset": "ietf-acl-enh:layer4",
+                  "length": 20,
+                  "operator": "match",
+                  "pattern": "2001:db8::1"
+                }
+              },
+              "actions": {
+                "forwarding": "drop"
+              }
+            }
+          ]
+        }
+      }
+    ]
+  }
+}
+</pre>
+</div>
+<figcaption><a href="#figure-7" class="selfRef">Figure 7</a>:
+<a href="#name-example-of-an-acl-to-deny-e" class="selfRef">Example of an ACL to Deny Encapsulated Messages with a Specific Inner Destination Address (Request Body)</a>
+          </figcaption></figure>
+</div>
+</section>
+</div>
+<div id="vlan-filtering-1">
+<section id="appendix-E.4">
+        <h3 id="name-vlan-filtering-2">
+<a href="#appendix-E.4" class="section-number selfRef">E.4. </a><a href="#name-vlan-filtering-2" class="section-name selfRef">VLAN Filtering</a>
+        </h3>
+<p id="appendix-E.4-1"><a href="#example_7" class="auto internal xref">Figure 8</a> shows an ACL example to illustrate how to apply a VLAN range filter.<a href="#appendix-E.4-1" class="pilcrow">¶</a></p>
+<span id="name-example-of-vlan-filter-mess"></span><div id="example_7">
+<figure id="figure-8">
+          <div class="lang-json sourcecode" id="appendix-E.4-2.1">
 <pre>
 {
   "ietf-access-control-list:acls": {
@@ -5236,21 +5315,21 @@ packets.  The following ACEs are defined (in this order):<a href="#appendix-E.2-
 }
 </pre>
 </div>
-<figcaption><a href="#figure-7" class="selfRef">Figure 7</a>:
+<figcaption><a href="#figure-8" class="selfRef">Figure 8</a>:
 <a href="#name-example-of-vlan-filter-mess" class="selfRef">Example of VLAN Filter (Message Body)</a>
           </figcaption></figure>
 </div>
 </section>
 </div>
 <div id="isid-filtering">
-<section id="appendix-E.4">
+<section id="appendix-E.5">
         <h3 id="name-isid-filtering">
-<a href="#appendix-E.4" class="section-number selfRef">E.4. </a><a href="#name-isid-filtering" class="section-name selfRef">ISID Filtering</a>
+<a href="#appendix-E.5" class="section-number selfRef">E.5. </a><a href="#name-isid-filtering" class="section-name selfRef">ISID Filtering</a>
         </h3>
-<p id="appendix-E.4-1"><a href="#example_6" class="auto internal xref">Figure 8</a> shows an ACL example to illustrate the ISID range filtering.<a href="#appendix-E.4-1" class="pilcrow">¶</a></p>
+<p id="appendix-E.5-1"><a href="#example_6" class="auto internal xref">Figure 9</a> shows an ACL example to illustrate the ISID range filtering.<a href="#appendix-E.5-1" class="pilcrow">¶</a></p>
 <span id="name-example-isid-filter-message"></span><div id="example_6">
-<figure id="figure-8">
-          <div class="lang-json sourcecode" id="appendix-E.4-2.1">
+<figure id="figure-9">
+          <div class="lang-json sourcecode" id="appendix-E.5-2.1">
 <pre>
 {
   "ietf-access-control-list:acls": {
@@ -5279,21 +5358,21 @@ packets.  The following ACEs are defined (in this order):<a href="#appendix-E.2-
 }
 </pre>
 </div>
-<figcaption><a href="#figure-8" class="selfRef">Figure 8</a>:
+<figcaption><a href="#figure-9" class="selfRef">Figure 9</a>:
 <a href="#name-example-isid-filter-message" class="selfRef">Example ISID Filter (Message Body)</a>
           </figcaption></figure>
 </div>
 </section>
 </div>
 <div id="rate-limit">
-<section id="appendix-E.5">
+<section id="appendix-E.6">
         <h3 id="name-rate-limit">
-<a href="#appendix-E.5" class="section-number selfRef">E.5. </a><a href="#name-rate-limit" class="section-name selfRef">Rate-Limit</a>
+<a href="#appendix-E.6" class="section-number selfRef">E.6. </a><a href="#name-rate-limit" class="section-name selfRef">Rate-Limit</a>
         </h3>
-<p id="appendix-E.5-1"><a href="#example_5" class="auto internal xref">Figure 9</a> shows an ACL example to rate-limit incoming SYNs during a SYN flood attack.<a href="#appendix-E.5-1" class="pilcrow">¶</a></p>
+<p id="appendix-E.6-1"><a href="#example_5" class="auto internal xref">Figure 10</a> shows an ACL example to rate-limit incoming SYNs during a SYN flood attack.<a href="#appendix-E.6-1" class="pilcrow">¶</a></p>
 <span id="name-an-example-of-rate-limit-in"></span><div id="example_5">
-<figure id="figure-9">
-          <div class="lang-json sourcecode" id="appendix-E.5-2.1">
+<figure id="figure-10">
+          <div class="lang-json sourcecode" id="appendix-E.6-2.1">
 <pre>
 {
   "ietf-access-control-list:acls": {
@@ -5325,7 +5404,7 @@ packets.  The following ACEs are defined (in this order):<a href="#appendix-E.2-
 }
 </pre>
 </div>
-<figcaption><a href="#figure-9" class="selfRef">Figure 9</a>:
+<figcaption><a href="#figure-10" class="selfRef">Figure 10</a>:
 <a href="#name-an-example-of-rate-limit-in" class="selfRef">An Example of Rate-Limit Incoming TCP SYNs (Message Body).</a>
           </figcaption></figure>
 </div>
@@ -5341,7 +5420,8 @@ packets.  The following ACEs are defined (in this order):<a href="#appendix-E.2-
 <p id="appendix-F-1">Many thanks to Jon Shallow and Miguel Cros for the review and comments to the document, including prior to publishing the document.<a href="#appendix-F-1" class="pilcrow">¶</a></p>
 <p id="appendix-F-2">Thanks to Qiufang Ma, Victor Lopez, Joe Clarke, and Mahesh Jethanandani for the comments and suggestions.<a href="#appendix-F-2" class="pilcrow">¶</a></p>
 <p id="appendix-F-3">Thanks to Lou Berger for Shepherding the document.<a href="#appendix-F-3" class="pilcrow">¶</a></p>
-<p id="appendix-F-4">Thanks to David Black for the TSV review, Tim Wicinski for the intdir review, and Per Andersson for the yangdoctors review.<a href="#appendix-F-4" class="pilcrow">¶</a></p>
+<p id="appendix-F-4">Thanks to David Black for the tsvart review, Tim Wicinski for the intdir review, Per Andersson for the yangdoctors review, Russ Housley
+for genart review, and Linda Dunbar for the secdir review.<a href="#appendix-F-4" class="pilcrow">¶</a></p>
 <p id="appendix-F-5">The IANA-maintained modules were generated using an XSLT stylesheet from the 'iana-yang' project <span>[<a href="#YANG-XSLT" class="cite xref">YANG-XSLT</a>]</span>).<a href="#appendix-F-5" class="pilcrow">¶</a></p>
 <p id="appendix-F-6">This work is partially supported by the European Commission under   Horizon 2020 Secured autonomic traffic management for a Tera of SDN
 flows (Teraflow) project (grant agreement number 101015857).<a href="#appendix-F-6" class="pilcrow">¶</a></p>
