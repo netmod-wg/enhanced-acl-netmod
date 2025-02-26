@@ -347,7 +347,10 @@ subtrees and data nodes have particular sensitivities/vulnerabilities:
  'defined-sets':
  : Unauthorized read access of these lists will allow
    an attacker to identify the actual resources that are bound
-   to ACLs.
+   to ACLs. Likewise, access to this information will help an attacker to
+   better scope its attacks to target resources that are specific to a given network insteaf
+   of performing a random scan. Likewise, disclosing some of this information (e.g., IP addresses of core routers)
+   may nullify the effect of topology hiding strategies.
 
 The document defines a match policy based on a pattern that can be observed in a packet. For example, such a policy can be combined with header-based matches in the context of DDoS mitigation. Filtering based on a pattern match is deterministic for packets with unencrypted data. However, the efficiency for encrypted packets depend on the presence of an unvarying pattern. Readers may also refer to {{Section 11 of ?RFC8329}} for security considerations related to Network Security Functions (NSFs) that apply packet content matching.
 
@@ -1149,7 +1152,7 @@ Thanks to Qiufang Ma, Victor Lopez, Joe Clarke, and Mahesh Jethanandani for the 
 Thanks to Lou Berger for Shepherding the document.
 
 Thanks to David Black for the tsvart review, Tim Wicinski for the intdir review, Per Andersson for the yangdoctors review, Russ Housley
-for genart review, and Linda Dunbar for the secdir review.
+for genart review, and Linda Dunbar and Sean Turner for the secdir reviews.
 
 The IANA-maintained modules were generated using an XSLT stylesheet from the 'iana-yang' project {{YANG-XSLT}}).
 
