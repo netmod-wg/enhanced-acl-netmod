@@ -5,12 +5,12 @@
 netmod                                                     O. G. D. Dios
 Internet-Draft                                                Telefonica
 Intended status: Standards Track                              S. Barguil
-Expires: 29 August 2025                                            Nokia
+Expires: 30 August 2025                                            Nokia
                                                             M. Boucadair
                                                                   Orange
                                                                    Q. Wu
                                                                   Huawei
-                                                        25 February 2025
+                                                        26 February 2025
 
 
         Extensions to the Access Control Lists (ACLs) YANG Model
@@ -53,7 +53,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 29 August 2025.
+   This Internet-Draft will expire on 30 August 2025.
 
 Copyright Notice
 
@@ -1855,7 +1855,11 @@ Table of Contents
 
    'defined-sets':  Unauthorized read access of these lists will allow
       an attacker to identify the actual resources that are bound to
-      ACLs.
+      ACLs.  Likewise, access to this information will help an attacker
+      to better scope its attacks to target resources that are specific
+      to a given network insteaf of performing a random scan.  Likewise,
+      disclosing some of this information (e.g., IP addresses of core
+      routers) may nullify the effect of topology hiding strategies.
 
    The document defines a match policy based on a pattern that can be
    observed in a packet.  For example, such a policy can be combined
@@ -3932,7 +3936,8 @@ Acknowledgments
 
    Thanks to David Black for the tsvart review, Tim Wicinski for the
    intdir review, Per Andersson for the yangdoctors review, Russ Housley
-   for genart review, and Linda Dunbar for the secdir review.
+   for genart review, and Linda Dunbar and Sean Turner for the secdir
+   reviews.
 
    The IANA-maintained modules were generated using an XSLT stylesheet
    from the 'iana-yang' project [YANG-XSLT]).
