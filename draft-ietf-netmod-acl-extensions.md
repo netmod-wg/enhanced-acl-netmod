@@ -348,7 +348,7 @@ subtrees and data nodes have particular sensitivities/vulnerabilities:
  : Unauthorized read access of these lists will allow
    an attacker to identify the actual resources that are bound
    to ACLs. Likewise, access to this information will help an attacker to
-   better scope its attacks to target resources that are specific to a given network insteaf
+   better scope its attacks to target resources that are specific to a given network instead
    of performing a random scan. Likewise, disclosing some of this information (e.g., IP addresses of core routers)
    may nullify the effect of topology hiding strategies.
 
