@@ -1,7 +1,7 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2023-04-18T01:11:16.370998+00:00",
-  "repo": "boucadair/enhanced-acl-netmod",
+  "timestamp": "2025-02-27T01:45:27.791715+00:00",
+  "repo": "netmod-wg/enhanced-acl-netmod",
   "labels": [
     {
       "name": "bug",
@@ -67,6 +67,16 @@
       "name": "dig_more_needed",
       "description": "",
       "color": "bfd4f2"
+    },
+    {
+      "name": "editorial",
+      "description": "",
+      "color": "d4c5f9"
+    },
+    {
+      "name": "WGLC",
+      "description": "",
+      "color": "D9916C"
     }
   ],
   "issues": [
@@ -74,10 +84,10 @@
       "number": 1,
       "id": "I_kwDOIykBHs5bjHX1",
       "title": "Create standalone container for Defined Set",
-      "url": "https://github.com/boucadair/enhanced-acl-netmod/issues/1",
+      "url": "https://github.com/netmod-wg/enhanced-acl-netmod/issues/1",
       "state": "CLOSED",
       "author": "boucadair",
-      "authorAssociation": "OWNER",
+      "authorAssociation": "COLLABORATOR",
       "assignees": [
         "boucadair"
       ],
@@ -91,7 +101,7 @@
       "comments": [
         {
           "author": "boucadair",
-          "authorAssociation": "OWNER",
+          "authorAssociation": "COLLABORATOR",
           "body": "Agree to define them at the root level",
           "createdAt": "2023-01-18T13:46:57Z",
           "updatedAt": "2023-01-18T13:46:57Z"
@@ -102,10 +112,10 @@
       "number": 2,
       "id": "I_kwDOIykBHs5bjHjk",
       "title": "(From Eliot Lear) Implication on existing ACL augmentations",
-      "url": "https://github.com/boucadair/enhanced-acl-netmod/issues/2",
-      "state": "OPEN",
+      "url": "https://github.com/netmod-wg/enhanced-acl-netmod/issues/2",
+      "state": "CLOSED",
       "author": "boucadair",
-      "authorAssociation": "OWNER",
+      "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [
         "revive_when_core_spec_stable",
@@ -113,8 +123,8 @@
       ],
       "body": "> I have no objections to the WG adopting this, but I do have a question\r\n> about augmentations of the earlier ACL model. Should those\r\n> augmentations be updated if this work is approved?\r\n\r\n(initially here: https://github.com/oscargdd/draft-dbb-netmod-enhanced-acl/issues/4)",
       "createdAt": "2023-01-17T07:56:26Z",
-      "updatedAt": "2023-02-17T08:32:15Z",
-      "closedAt": null,
+      "updatedAt": "2025-01-20T13:44:30Z",
+      "closedAt": "2025-01-20T13:44:30Z",
       "comments": [
         {
           "author": "oscargdd",
@@ -136,10 +146,10 @@
       "number": 3,
       "id": "I_kwDOIykBHs5bj1Ya",
       "title": "(from Qin) Factorize scheduled ACLs",
-      "url": "https://github.com/boucadair/enhanced-acl-netmod/issues/3",
-      "state": "OPEN",
+      "url": "https://github.com/netmod-wg/enhanced-acl-netmod/issues/3",
+      "state": "CLOSED",
       "author": "boucadair",
-      "authorAssociation": "OWNER",
+      "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [
         "revive_when_core_spec_stable",
@@ -147,8 +157,8 @@
       ],
       "body": "Happy new year, Qiufang and I are working on the update of draft-ma-opsawg-ucl-acl, we haven't finished yet, but like to share the draft version(see attached).\r\nOne issue we have addressed in the latest version is to factor out calendar data from UCL YANG model, defined them as grouping,\r\n```\r\n   module: ietf-calendar\r\n     grouping period:\r\n       +-- period-of-time\r\n          +-- (forms)?\r\n             +--:(period-explicit)\r\n             |  +-- explicit-start?   yang:date-and-time\r\n             |  +-- explicit-end?     yang:date-and-time\r\n             +--:(period-start)\r\n                +-- start?            yang:date-and-time\r\n                +-- duration?         yang:time-no-zone\r\n     grouping recurrence:\r\n       +-- recurrence\r\n          +-- freq           enumeration\r\n          +-- (until-or-count)?\r\n          |  +--:(until)\r\n          |  |  +-- until?   union\r\n          |  +--:(count)\r\n          |     +-- count?   uint32\r\n          +-- interval?      uint32\r\n          +-- bysecond*      uint32\r\n          +-- byminute*      uint32\r\n          +-- byhour*        uint32\r\n          +-- byday* [weekday]\r\n          |  +-- direction?   int32\r\n          |  +-- weekday?     ical:weekday\r\n          +-- bymonthday*    int32\r\n          +-- byyearday*     int32\r\n          +-- byyearweek*    int32\r\n          +-- byyearmonth*   uint32\r\n          +-- bysetpos*      int32\r\n          +-- wkst*          ical:weekday\r\n\r\n```\r\nSo we can reuses these grouping in the following YANG snippet:\r\n```\r\n        augment \"/acl:acls/acl:acl/acl:aces/acl:ace\" {\r\n          if-feature \"match-on-time\";\r\n          description\r\n            \"Add a new parameter to the Access Control Entry (ACE).\";\r\n          container time-range {\r\n            description\r\n              \"This container defines when the access control\r\n               entry rules are in effect.\r\n               If it is not configured, the access control entry\r\n               is immediately and always in effect.\";\r\n            choice time-range-type {\r\n              description\r\n                \"Choice based on the type of the time range.\";\r\n              case periodic-range {\r\n                description\r\n                  \"A periodic range of time to take effect.\";\r\n                uses ical:recurrence;\r\n              }\r\n              case absolute-range {\r\n                description\r\n                  \"A single precise period of time to take effect.\";\r\n                uses ical:period;\r\n              }\r\n            }\r\n          }\r\n        }\r\n```\r\nI am wondering these part should be factored into draft-dbb-netmod-acl-03?\r\n",
       "createdAt": "2023-01-17T10:18:35Z",
-      "updatedAt": "2023-02-17T08:31:53Z",
-      "closedAt": null,
+      "updatedAt": "2023-10-16T12:16:23Z",
+      "closedAt": "2023-10-16T12:16:23Z",
       "comments": [
         {
           "author": "oscargdd",
@@ -156,6 +166,13 @@
           "body": "Wait until having an stable version of the draft",
           "createdAt": "2023-01-18T13:56:40Z",
           "updatedAt": "2023-01-18T13:56:40Z"
+        },
+        {
+          "author": "boucadair",
+          "authorAssociation": "COLLABORATOR",
+          "body": "covered in the UCL OPSAWG draft",
+          "createdAt": "2023-10-16T12:16:23Z",
+          "updatedAt": "2023-10-16T12:16:23Z"
         }
       ]
     },
@@ -163,7 +180,7 @@
       "number": 4,
       "id": "I_kwDOIykBHs5bqdmA",
       "title": "EVPN Filtering",
-      "url": "https://github.com/boucadair/enhanced-acl-netmod/issues/4",
+      "url": "https://github.com/netmod-wg/enhanced-acl-netmod/issues/4",
       "state": "CLOSED",
       "author": "sbarguil",
       "authorAssociation": "COLLABORATOR",
@@ -206,8 +223,8 @@
       "number": 5,
       "id": "I_kwDOIykBHs5bqeW3",
       "title": "Action Redirect",
-      "url": "https://github.com/boucadair/enhanced-acl-netmod/issues/5",
-      "state": "OPEN",
+      "url": "https://github.com/netmod-wg/enhanced-acl-netmod/issues/5",
+      "state": "CLOSED",
       "author": "sbarguil",
       "authorAssociation": "COLLABORATOR",
       "assignees": [
@@ -219,8 +236,8 @@
       ],
       "body": "Can we complement the actions with a redirect option.\r\n\r\nThis will be highly dependant of the routers capabilities but this redirection can be to a Captive Portal for HTTP traffic, for example:\r\n\r\n```\r\n            entry 30 create\r\n                match protocol tcp\r\n                    dst-ip 10.10.10.91/24\r\n                    dst-port eq 80\r\n                exit\r\n                action http-redirect \"http://100.0.0.2/login.cgi?mac=$MAC$sap=$S\r\nAP&ip=$IP&orig_url=$URL\"\r\n```",
       "createdAt": "2023-01-18T11:48:43Z",
-      "updatedAt": "2023-04-17T12:23:16Z",
-      "closedAt": null,
+      "updatedAt": "2023-07-24T21:39:56Z",
+      "closedAt": "2023-07-24T21:39:56Z",
       "comments": [
         {
           "author": "sbarguil",
@@ -231,10 +248,17 @@
         },
         {
           "author": "boucadair",
-          "authorAssociation": "OWNER",
+          "authorAssociation": "COLLABORATOR",
           "body": "@sbarguil, any update on this?",
           "createdAt": "2023-04-17T12:23:16Z",
           "updatedAt": "2023-04-17T12:23:16Z"
+        },
+        {
+          "author": "boucadair",
+          "authorAssociation": "COLLABORATOR",
+          "body": "As per the proposed plan in IETF#117",
+          "createdAt": "2023-07-24T21:39:55Z",
+          "updatedAt": "2023-07-24T21:39:55Z"
         }
       ]
     },
@@ -242,10 +266,10 @@
       "number": 6,
       "id": "I_kwDOIykBHs5brHqC",
       "title": "add a reference to point to sets from other modules",
-      "url": "https://github.com/boucadair/enhanced-acl-netmod/issues/6",
+      "url": "https://github.com/netmod-wg/enhanced-acl-netmod/issues/6",
       "state": "CLOSED",
       "author": "boucadair",
-      "authorAssociation": "OWNER",
+      "authorAssociation": "COLLABORATOR",
       "assignees": [
         "boucadair"
       ],
@@ -262,7 +286,7 @@
       "number": 8,
       "id": "I_kwDOIykBHs5djgLI",
       "title": "ICMP matches: include identities for Types and Codes",
-      "url": "https://github.com/boucadair/enhanced-acl-netmod/issues/8",
+      "url": "https://github.com/netmod-wg/enhanced-acl-netmod/issues/8",
       "state": "CLOSED",
       "author": "oscargdd",
       "authorAssociation": "COLLABORATOR",
@@ -282,8 +306,8 @@
       "number": 9,
       "id": "I_kwDOIykBHs5djhp-",
       "title": "IPv6 extended header matches",
-      "url": "https://github.com/boucadair/enhanced-acl-netmod/issues/9",
-      "state": "OPEN",
+      "url": "https://github.com/netmod-wg/enhanced-acl-netmod/issues/9",
+      "state": "CLOSED",
       "author": "oscargdd",
       "authorAssociation": "COLLABORATOR",
       "assignees": [
@@ -294,33 +318,41 @@
       ],
       "body": "Use case: match extended header of an IPv6 packet, for example routing headers ",
       "createdAt": "2023-02-03T10:12:33Z",
-      "updatedAt": "2023-04-17T12:27:15Z",
-      "closedAt": null,
+      "updatedAt": "2023-10-05T07:40:59Z",
+      "closedAt": "2023-10-05T07:40:59Z",
       "comments": []
     },
     {
       "number": 10,
       "id": "I_kwDOIykBHs5etELF",
       "title": "Comments from Qin",
-      "url": "https://github.com/boucadair/enhanced-acl-netmod/issues/10",
-      "state": "OPEN",
+      "url": "https://github.com/netmod-wg/enhanced-acl-netmod/issues/10",
+      "state": "CLOSED",
       "author": "boucadair",
-      "authorAssociation": "OWNER",
+      "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [
         "question"
       ],
       "body": "> These comments can be summarized as follows:\r\n> 1.\tWe need to clarify the relationship between draft-dbb and draft-ma-opsawg-ucl-acl\r\n> 2.\tSection 3.3 and Section 3.8 seems related, not sure whether these two section should be consolidated\r\n> 3.\tHow match element grouping in pre-defined set is different from configuration template?\r\n> Happy to discuss with you about these comments if needed.\r\n> ",
       "createdAt": "2023-02-17T07:22:20Z",
-      "updatedAt": "2023-02-17T07:22:20Z",
-      "closedAt": null,
-      "comments": []
+      "updatedAt": "2023-06-26T12:22:52Z",
+      "closedAt": "2023-06-26T12:22:51Z",
+      "comments": [
+        {
+          "author": "oscargdd",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Done in the draft",
+          "createdAt": "2023-06-26T12:22:51Z",
+          "updatedAt": "2023-06-26T12:22:51Z"
+        }
+      ]
     },
     {
       "number": 15,
       "id": "I_kwDOIykBHs5e3Blv",
       "title": "Payload match Clarification",
-      "url": "https://github.com/boucadair/enhanced-acl-netmod/issues/15",
+      "url": "https://github.com/netmod-wg/enhanced-acl-netmod/issues/15",
       "state": "CLOSED",
       "author": "sbarguil",
       "authorAssociation": "COLLABORATOR",
@@ -344,7 +376,7 @@
         },
         {
           "author": "boucadair",
-          "authorAssociation": "OWNER",
+          "authorAssociation": "COLLABORATOR",
           "body": "Already fixed in 01",
           "createdAt": "2023-04-17T12:29:23Z",
           "updatedAt": "2023-04-17T12:29:23Z"
@@ -355,28 +387,43 @@
       "number": 19,
       "id": "I_kwDOIykBHs5f40Th",
       "title": "Comments from Victor",
-      "url": "https://github.com/boucadair/enhanced-acl-netmod/issues/19",
-      "state": "OPEN",
+      "url": "https://github.com/netmod-wg/enhanced-acl-netmod/issues/19",
+      "state": "CLOSED",
       "author": "boucadair",
-      "authorAssociation": "OWNER",
+      "authorAssociation": "COLLABORATOR",
       "assignees": [
         "boucadair"
       ],
       "labels": [],
       "body": "Hi Med\r\n\r\nI put below some editorial and readability improvements for the draft. Unfortunately, I did them with the version prior to Feb 1st. \r\n \r\nAbstract:\r\n \r\nI would replace \"This document discusses a set of extensions that fix many of the limitations of the ACL model as initially defined in RFC 8519.\" By \"This document discusses a set of extensions that address some of the limitations of the ACL model as defined in RFC 8519.\" because it might not completely fix all the limitations. \r\n \r\n1. Introduction\r\n \r\nAccess control lists (ACLs) \uf0e0 Access Control Lists (ACLs)\r\n \r\nIf it is needed, for example, \uf0e0 If, for example, it is needed \r\n \r\nentering IP address \uf0e0 entering the IP address \r\n \r\n3.1.  Suboptimal Configuration: Lack of Support for Lists of Prefixes\r\n \r\nIP prefix related data nodes \uf0e0 IP prefix-related data nodes \r\n \r\nDDoS attacks (e.g., RFC9132] when a set of sources are involved \uf0e0 DDoS attacks, e.g., [RFC9132], when a set of sources are involved\r\n \r\nThis sentence is not clear for me: \r\n \r\n\u201cSuch a configuration is suboptimal for both: - Network controllers that need to manipulate large files.\u201d I think it is missing some information. Network controllers and\u2026 My guess is that it should be something like \r\n \r\nSuch a configuration is suboptimal for both: network controllers and devices. Network controllers need to manipulate large files and they will need to pass all or a subset of the configuration to the underlying network devices. The devices will need to maintain the information locally and perform multiple configurations.\r\n \r\nConfirguration \uf0e0 configuration\r\n \r\n(Figure 2 depicts \uf0e0 Figure 2 depicts\r\n \r\n3.2.  Manageability: Impossibility to Use Aliases or Defined Sets\r\n \r\nIntroduing \uf0e0 introducing\r\n \r\nEach category is modelled \r\n \r\nMake uses \uf0e0 make use\r\n \r\nICMP sets: Uses \uf0e0 ICMP Used\r\n \r\nto managed resources  \uf0e0 to manage resources \r\n \r\n3.4. Partial or Lack of IPv4/IPv6 Fragment Handling\r\n \r\nThe sentence \"does not support fragment handling capability for IPv6\" I would changed it to \"does not support fragment handling for IPv6\" to improve readability\r\n \r\nIPv4 by means of 'flags' \uf0e0 IPv4 through the use of 'flags'\r\n \r\nallow a bitmask to be defined \uf0e0 allow the use of bitmasks.\r\n \r\nDefining a new IPv4/IPv6 matching field called 'fragment' is thus required \uf0e0 As a result, a new IPv4/IPv6 matching field called 'fragment' is defined \r\n \r\n3.5.  Suboptimal TCP Flags Handling\r\n \r\nThe sentence \"Defining this field to be defined as a flag bitmask together with a set of operations is meant to efficiently handle TCP flags filtering rules\" I would changed it to \"Defining this field as a flag bitmask with a set of operations can improve the efficiency of handling TCP flags filtering rules\" \r\n \r\n3.6.  Rate-Limit Action\r\n \r\nSuch capability is not currently supported \uf0e0 This capability (as it was already described)\r\n \r\n3.7.  Payload-based Filtering\r\n                                                                                               \r\nSome transport protocols use existing protocols \uf0e0 Some transport protocols rely on existing protocols\r\n \r\nIt is not clear to me why this section highlights the same gap in the two models. Someone can ask for a solution. \r\n \r\n3.8.  Reuse the ACLs Content Across Several Devices\r\n \r\nfollowing the hierarchy of the network topology \uf0e0 based on the network topology hierarchy\r\n \r\n\u201cthen, that same ACL can be used (or referenced to) in several devices (including termination points) within the same network\u201d I would change it for \u201cthen reused or referenced across multiple devices, including termination points within the same network\u201d\r\n \r\n4.5.  Rate-Limit Traffic\r\n \r\n(#example_5) shows an ACL example to rate-limit incoming SYNs during a SYN flood attack. \uf0e0 I think it is a missing link to the figure\r\n\r\nYANG file some typos\r\n\r\n          leaf-list protocol {\r\n            type union {\r\n              type uint8;\r\n              type string; //Check if we can reuse an IANA-maintained module\r\n            }\r\n            description\r\n              \"Value of the protocl set.\"; \uf0e0 protocol\r\n          }\r\n \r\nRegards,\r\n \r\nVictor\r\n \r\n \r\n",
       "createdAt": "2023-03-03T14:19:11Z",
-      "updatedAt": "2023-04-17T12:38:00Z",
-      "closedAt": null,
-      "comments": []
+      "updatedAt": "2023-06-26T13:48:09Z",
+      "closedAt": "2023-06-26T12:23:43Z",
+      "comments": [
+        {
+          "author": "oscargdd",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Done in the latest version of the draft",
+          "createdAt": "2023-06-26T12:23:43Z",
+          "updatedAt": "2023-06-26T12:23:43Z"
+        },
+        {
+          "author": "vlopezalvarez",
+          "authorAssociation": "COLLABORATOR",
+          "body": "thanks @oscargdd ",
+          "createdAt": "2023-06-26T13:48:08Z",
+          "updatedAt": "2023-06-26T13:48:08Z"
+        }
+      ]
     },
     {
       "number": 22,
       "id": "I_kwDOIykBHs5gf3Wg",
       "title": "Update Match Filter to support aliases",
-      "url": "https://github.com/boucadair/enhanced-acl-netmod/issues/22",
-      "state": "OPEN",
+      "url": "https://github.com/netmod-wg/enhanced-acl-netmod/issues/22",
+      "state": "CLOSED",
       "author": "boucadair",
-      "authorAssociation": "OWNER",
+      "authorAssociation": "COLLABORATOR",
       "assignees": [
         "boucadair"
       ],
@@ -385,18 +432,26 @@
       ],
       "body": "",
       "createdAt": "2023-03-10T13:17:05Z",
-      "updatedAt": "2023-03-10T13:17:06Z",
-      "closedAt": null,
-      "comments": []
+      "updatedAt": "2023-06-27T08:07:11Z",
+      "closedAt": "2023-06-27T08:07:11Z",
+      "comments": [
+        {
+          "author": "boucadair",
+          "authorAssociation": "COLLABORATOR",
+          "body": "fixed in #27 ",
+          "createdAt": "2023-06-27T08:07:11Z",
+          "updatedAt": "2023-06-27T08:07:11Z"
+        }
+      ]
     },
     {
       "number": 23,
       "id": "I_kwDOIykBHs5g3dPb",
       "title": "Implement all the recos in draft-boucadair-netmod-iana-registries",
-      "url": "https://github.com/boucadair/enhanced-acl-netmod/issues/23",
-      "state": "OPEN",
+      "url": "https://github.com/netmod-wg/enhanced-acl-netmod/issues/23",
+      "state": "CLOSED",
       "author": "boucadair",
-      "authorAssociation": "OWNER",
+      "authorAssociation": "COLLABORATOR",
       "assignees": [
         "boucadair"
       ],
@@ -405,27 +460,414 @@
       ],
       "body": "",
       "createdAt": "2023-03-15T09:50:42Z",
-      "updatedAt": "2023-03-15T09:50:43Z",
-      "closedAt": null,
-      "comments": []
+      "updatedAt": "2023-06-26T12:26:52Z",
+      "closedAt": "2023-06-26T12:26:52Z",
+      "comments": [
+        {
+          "author": "oscargdd",
+          "authorAssociation": "COLLABORATOR",
+          "body": "can be closed as it is already in the introduction \r\n\r\nThe document also defines an IANA-maintained module for ICMP types. The design of the module adheres with the recommendations in [[I-D.boucadair-netmod-iana-registries](https://boucadair.github.io/enhanced-acl-netmod/draft-ietf-netmod-acl-extensions.html#I-D.boucadair-netmod-iana-registries)]. A template to generate the module is available at [Appendix A](https://boucadair.github.io/enhanced-acl-netmod/draft-ietf-netmod-acl-extensions.html#template). Readers should refer to the IANA website [REF_TBC] to retrieve the latest version of the module. The module is provided in [Appendix B](https://boucadair.github.io/enhanced-acl-netmod/draft-ietf-netmod-acl-extensions.html#iana-icmp) for the users convenience, but that appendix will be removed from the final RFC.",
+          "createdAt": "2023-06-26T12:26:52Z",
+          "updatedAt": "2023-06-26T12:26:52Z"
+        }
+      ]
     },
     {
       "number": 24,
       "id": "I_kwDOIykBHs5jmkaL",
       "title": "Consider common actions",
-      "url": "https://github.com/boucadair/enhanced-acl-netmod/issues/24",
-      "state": "OPEN",
+      "url": "https://github.com/netmod-wg/enhanced-acl-netmod/issues/24",
+      "state": "CLOSED",
       "author": "boucadair",
-      "authorAssociation": "OWNER",
+      "authorAssociation": "COLLABORATOR",
       "assignees": [
         "oscargdd"
       ],
       "labels": [],
       "body": "in addition to those in the draft. less common ones to be out of scope",
       "createdAt": "2023-04-17T12:24:33Z",
-      "updatedAt": "2023-04-17T12:24:33Z",
-      "closedAt": null,
+      "updatedAt": "2023-10-17T09:34:28Z",
+      "closedAt": "2023-10-17T09:34:28Z",
+      "comments": [
+        {
+          "author": "oscargdd",
+          "authorAssociation": "COLLABORATOR",
+          "body": "- remark / assign a forwarding class **too close to QoS**\r\n- log action: supported in Cisco, Juniper and Nokia\r\n- update a variable/counter: a name of the counter/policy is provided\r\n- raise an alarm **will require configuring where/proto to send the alarm**\r\n- drop-extracted-traffic (Nokia specific) **out of scope**\r\n- actions on inner part of the packet in case of encapsulation\r\n- bind to a VRF/NAT/etc. **check if this similar to binding to an egress interface/vrf**\r\n- set a priority for congestion case **may be tooooo close to QoS handling**\r\n- ",
+          "createdAt": "2023-06-26T12:27:57Z",
+          "updatedAt": "2023-07-10T12:47:47Z"
+        },
+        {
+          "author": "boucadair",
+          "authorAssociation": "COLLABORATOR",
+          "body": "fixed here https://github.com/boucadair/enhanced-acl-netmod/commit/a75f5b3413145cc93f02f6d08693aa72d26ddd97",
+          "createdAt": "2023-10-17T09:34:28Z",
+          "updatedAt": "2023-10-17T09:34:28Z"
+        }
+      ]
+    },
+    {
+      "number": 25,
+      "id": "I_kwDOIykBHs5px7om",
+      "title": "Add MPLS headed match",
+      "url": "https://github.com/netmod-wg/enhanced-acl-netmod/issues/25",
+      "state": "CLOSED",
+      "author": "oscargdd",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [
+        "oscargdd"
+      ],
+      "labels": [],
+      "body": "Focus on key functionalities",
+      "createdAt": "2023-06-26T12:44:42Z",
+      "updatedAt": "2023-06-27T07:25:50Z",
+      "closedAt": "2023-06-27T07:25:50Z",
       "comments": []
+    },
+    {
+      "number": 29,
+      "id": "I_kwDOIykBHs5sbobZ",
+      "title": "Add VLANs to the alias",
+      "url": "https://github.com/netmod-wg/enhanced-acl-netmod/issues/29",
+      "state": "CLOSED",
+      "author": "boucadair",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [
+        "boucadair"
+      ],
+      "labels": [],
+      "body": "From Joe\r\n\r\n> \u2022\tCould Aliases be applied to VLANs?  I think it would be useful to be able to match on a VLAN name or name class (match on VLAN SERVER, or Example, Co VLANs).",
+      "createdAt": "2023-07-24T21:35:51Z",
+      "updatedAt": "2023-09-06T06:41:14Z",
+      "closedAt": "2023-09-06T06:41:14Z",
+      "comments": [
+        {
+          "author": "boucadair",
+          "authorAssociation": "COLLABORATOR",
+          "body": "OK with a minimum l2 info (vlan)",
+          "createdAt": "2023-09-04T12:27:48Z",
+          "updatedAt": "2023-09-04T12:27:48Z"
+        }
+      ]
+    },
+    {
+      "number": 30,
+      "id": "I_kwDOIykBHs5sbosq",
+      "title": " problem statement section as an appendix",
+      "url": "https://github.com/netmod-wg/enhanced-acl-netmod/issues/30",
+      "state": "CLOSED",
+      "author": "boucadair",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [
+        "boucadair"
+      ],
+      "labels": [],
+      "body": "from Joe:\r\n\r\n> \u2022\tIt feels like the problem statement section will get dated as this document gets standardized.  I get wanting to rationalize the work, but I would focus more on the solution.  Perhaps the rationale needs to be move to an Appendix.",
+      "createdAt": "2023-07-24T21:36:49Z",
+      "updatedAt": "2023-08-04T16:16:20Z",
+      "closedAt": "2023-08-04T16:16:20Z",
+      "comments": [
+        {
+          "author": "boucadair",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Fixed in #36 ",
+          "createdAt": "2023-08-04T16:16:19Z",
+          "updatedAt": "2023-08-04T16:16:19Z"
+        }
+      ]
+    },
+    {
+      "number": 31,
+      "id": "I_kwDOIykBHs5scDjt",
+      "title": "Add ICMPv6 IANA mantained module",
+      "url": "https://github.com/netmod-wg/enhanced-acl-netmod/issues/31",
+      "state": "CLOSED",
+      "author": "oscargdd",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [
+        "boucadair"
+      ],
+      "labels": [],
+      "body": "In adition to current ICMP module, a specific ICMPv6 module could be added. Note that ICMPv6 parameters are maintained separately by IANA:\r\n\r\nhttps://www.iana.org/assignments/icmpv6-parameters/icmpv6-parameters.xhtml\r\n",
+      "createdAt": "2023-07-24T23:32:07Z",
+      "updatedAt": "2023-08-04T12:42:55Z",
+      "closedAt": "2023-08-04T12:42:55Z",
+      "comments": []
+    },
+    {
+      "number": 32,
+      "id": "I_kwDOIykBHs5scOUH",
+      "title": "update to refer to the IANA defined type",
+      "url": "https://github.com/netmod-wg/enhanced-acl-netmod/issues/32",
+      "state": "CLOSED",
+      "author": "boucadair",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [
+        "boucadair"
+      ],
+      "labels": [],
+      "body": "https://github.com/boucadair/enhanced-acl-netmod/blob/1db130879a2306618cb269f30dab634f71216f58/yang/ietf-acl-enh.yang#L924",
+      "createdAt": "2023-07-25T00:37:10Z",
+      "updatedAt": "2023-08-04T15:56:18Z",
+      "closedAt": "2023-08-04T15:56:18Z",
+      "comments": []
+    },
+    {
+      "number": 37,
+      "id": "I_kwDOIykBHs5tfrzH",
+      "title": "Update tree structures",
+      "url": "https://github.com/netmod-wg/enhanced-acl-netmod/issues/37",
+      "state": "CLOSED",
+      "author": "boucadair",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [
+        "sbarguil",
+        "boucadair"
+      ],
+      "labels": [],
+      "body": "",
+      "createdAt": "2023-08-04T16:12:38Z",
+      "updatedAt": "2023-10-02T12:04:55Z",
+      "closedAt": "2023-10-02T12:04:55Z",
+      "comments": []
+    },
+    {
+      "number": 38,
+      "id": "I_kwDOIykBHs5tfr5i",
+      "title": "Update IANA considerations for IANA-maintained modules",
+      "url": "https://github.com/netmod-wg/enhanced-acl-netmod/issues/38",
+      "state": "CLOSED",
+      "author": "boucadair",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [
+        "boucadair"
+      ],
+      "labels": [],
+      "body": "",
+      "createdAt": "2023-08-04T16:13:01Z",
+      "updatedAt": "2023-09-06T07:24:59Z",
+      "closedAt": "2023-09-06T07:24:59Z",
+      "comments": []
+    },
+    {
+      "number": 44,
+      "id": "I_kwDOIykBHs5ykDR2",
+      "title": "In pyang, the match elements added appear one hierarchy level below.",
+      "url": "https://github.com/netmod-wg/enhanced-acl-netmod/issues/44",
+      "state": "CLOSED",
+      "author": "oscargdd",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [
+        "boucadair"
+      ],
+      "labels": [
+        "YANG"
+      ],
+      "body": "When compiling via pyang I noticed that the tructure in ipv6 had the match items defined in the document one level below. See:\r\n```\r\n     |        |  |  +--:(ipv6)\r\n     |        |  |     +--rw ipv6 {match-on-ipv6}?\r\n     |        |  |     |  +--rw dscp?                             inet:dscp\r\n     |        |  |     |  +--rw ecn?                              uint8\r\n     |        |  |     |  +--rw length?                           uint16\r\n     |        |  |     |  +--rw ttl?                              uint8\r\n     |        |  |     |  +--rw protocol?                         uint8\r\n     |        |  |     |  +--rw (destination-network)?\r\n     |        |  |     |  |  +--:(destination-ipv6-network)\r\n     |        |  |     |  |     +--rw destination-ipv6-network?   inet:ipv6-prefix\r\n     |        |  |     |  +--rw (source-network)?\r\n     |        |  |     |  |  +--:(source-ipv6-network)\r\n     |        |  |     |  |     +--rw source-ipv6-network?        inet:ipv6-prefix\r\n     |        |  |     |  +--rw flow-label?                       inet:ipv6-flow-label\r\n     |        |  |     +--rw acl-enh:ipv6-fragment\r\n     |        |  |     |  +--rw acl-enh:operator?   operator\r\n     |        |  |     |  +--rw acl-enh:type?       fragment-type\r\n     |        |  |     +--rw acl-enh:source-ipv6-prefix-list?        ipv6-prefix-set-ref\r\n     |        |  |     +--rw acl-enh:destination-ipv6-prefix-list?   ipv6-prefix-set-ref\r\n     |        |  |     +--rw acl-enh:protocol-set?                   protocol-set-ref\r\n```\r\nSame happens with other augmentations...  is it a \"bug\" of pyang? Or it is that the augment needs something else? \r\n\r\n",
+      "createdAt": "2023-10-02T14:37:27Z",
+      "updatedAt": "2023-10-05T12:24:56Z",
+      "closedAt": "2023-10-05T12:24:56Z",
+      "comments": [
+        {
+          "author": "boucadair",
+          "authorAssociation": "COLLABORATOR",
+          "body": "@oscargdd, can you check https://github.com/boucadair/enhanced-acl-netmod/pull/46/files? ",
+          "createdAt": "2023-10-05T08:18:42Z",
+          "updatedAt": "2023-10-05T08:18:42Z"
+        }
+      ]
+    },
+    {
+      "number": 52,
+      "id": "I_kwDOIykBHs55VHV2",
+      "title": "WG last call comments from Mahesh",
+      "url": "https://github.com/netmod-wg/enhanced-acl-netmod/issues/52",
+      "state": "CLOSED",
+      "author": "oscargdd",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "- The Security Considerations section has both the read/write nodes and the read-only nodes as empty (or marked as TBC, which I imagine stands for To Be Completed). This needs to be filled out, or if no nodes are worth any security considerations, it should be stated so, and why.\r\n\r\n- Isn\u2019t the YANG model normative portion of the document? Isn\u2019t what this document all about? Why is it then in the Appendix?\r\n\r\n- Why is the Section titled \"Initial Version of the The ICMPv4 Types IANA-Maintained Module\u201d, when the model in question is \"[iana-icmpv6-types@2020-09-25.yang](mailto:iana-icmpv6-types@2020-09-25.yang)\u201d?\r\n\r\n- \u2018defined-sets\u2019 and \u2018aliases\u2019 have been defined in a the separate model \u2018ietf-acl-enh\u2019. Are these sets and aliases defined to be used outside of ACL? If that is the case then having them outside the \u2018ietf-access-control-list\u2019 model makes sense. Otherwise, almost everything in the \u2018ietf-acl-enh\u2019 is an augmentation of the model defined in RFC 8519, as stated in the Introduction of the document\r\n\r\n\"The YANG module in this document is solely based on augmentations to the ACL YANG module defined in [RFC8519].\u201d\r\n\r\nIf that is the case I see no reason why those containers should not be augmentations into the same model, as in\r\n\r\naugment \u201c/acl\u201d {\r\n  container defined-sets {\r\n  \u2026.\r\n  }\r\n\r\n  container aliases {\r\n     \u2026\r\n  }\r\n}\r\n  \r\n\r\n- I just pulled down the latest version (-03) of the draft, and ran into this error. \r\n\r\n$ pyang [ietf-acl-enh@2022-10-24.yang](mailto:ietf-acl-enh@2022-10-24.yang) \r\n[iana-icmpv6-types@2020-09-25.yang](mailto:iana-icmpv6-types@2020-09-25.yang):1: error: unexpected latest revision \"2023-04-28\" in [iana-icmpv6-types@2020-09-25.yang](mailto:iana-icmpv6-types@2020-09-25.yang), should be \"2020-09-25\u201d.\r\n\r\n- Section 3.4. TCP Flags Handling. The document states that. \r\n\r\n\"Clients that support both 'flags-bitmask' and 'flags' matching fields MUST NOT set these fields in the same request.\u201d.\r\n\r\nCan the model have a must statement to prevent this from being configured inadvertently?\r\n\r\nSame for Section 3.5 Fragments Handling\r\n\r\n- There should be clear direction to the RFC Editor on what should be done with revision dates. The same is true for other placeholder text. For example, what is the RFC Editor to do with text \"RFC XXXX\"?\r\n\r\n- References in the YANG model should be expanded to include the title of the RFC.\r\n\r\n- Examples are always good. Not only can they be used to validate the model, but users get to understand how it can be used. See other models such as BGP, TCP, BFD on how an example can be added.\r\n\r\n- How is this a reference?\r\n        reference\r\n          \"- Bill Simpson <mailto:Bill.Simpson&[um.cc.umich.edu](http://um.cc.umich.edu/)>",
+      "createdAt": "2023-12-11T12:32:26Z",
+      "updatedAt": "2023-12-19T08:01:44Z",
+      "closedAt": "2023-12-19T08:01:44Z",
+      "comments": [
+        {
+          "author": "oscargdd",
+          "authorAssociation": "COLLABORATOR",
+          "body": "How is this a reference?\r\nreference\r\n\"- Bill Simpson [mailto:Bill.Simpson&[um.cc.umich.edu](http://um.cc.umich.edu/)](mailto:Bill.Simpson&%5Bum.cc.umich.edu%5D(http://um.cc.umich.edu/))\r\n\r\nWe are echoing IANA registry, so we do not have control over that reference.",
+          "createdAt": "2023-12-11T12:47:39Z",
+          "updatedAt": "2023-12-11T12:47:39Z"
+        },
+        {
+          "author": "oscargdd",
+          "authorAssociation": "COLLABORATOR",
+          "body": "References in the YANG model should be expanded to include the title of the RFC.\r\n\r\nWe are echoing IANA registry, so we do not have control over these references.",
+          "createdAt": "2023-12-11T12:48:22Z",
+          "updatedAt": "2023-12-11T12:48:22Z"
+        }
+      ]
+    },
+    {
+      "number": 53,
+      "id": "I_kwDOIykBHs55VIPx",
+      "title": "Update Security considerations",
+      "url": "https://github.com/netmod-wg/enhanced-acl-netmod/issues/53",
+      "state": "CLOSED",
+      "author": "oscargdd",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [
+        "boucadair"
+      ],
+      "labels": [
+        "editorial",
+        "WGLC"
+      ],
+      "body": "The Security Considerations section has both the read/write nodes and the read-only nodes as empty (or marked as TBC, which I imagine stands for To Be Completed). This needs to be filled out, or if no nodes are worth any security considerations, it should be stated so, and why.\r\n\r\n",
+      "createdAt": "2023-12-11T12:34:32Z",
+      "updatedAt": "2023-12-19T07:04:12Z",
+      "closedAt": "2023-12-19T07:04:12Z",
+      "comments": []
+    },
+    {
+      "number": 54,
+      "id": "I_kwDOIykBHs55VKj6",
+      "title": "Errata: Initial Version of the The ICMPv6 Types IANA-Maintained Module",
+      "url": "https://github.com/netmod-wg/enhanced-acl-netmod/issues/54",
+      "state": "CLOSED",
+      "author": "oscargdd",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [
+        "boucadair"
+      ],
+      "labels": [
+        "editorial",
+        "WGLC"
+      ],
+      "body": "Title in sections B.2 and C.2 say v4 and should be v6",
+      "createdAt": "2023-12-11T12:38:41Z",
+      "updatedAt": "2023-12-19T07:05:02Z",
+      "closedAt": "2023-12-19T07:05:01Z",
+      "comments": []
+    },
+    {
+      "number": 55,
+      "id": "I_kwDOIykBHs55VLj-",
+      "title": "Clarify \"The YANG module in this document is solely based on augmentations to the ACL YANG module defined in [RFC8519].\u201d",
+      "url": "https://github.com/netmod-wg/enhanced-acl-netmod/issues/55",
+      "state": "CLOSED",
+      "author": "oscargdd",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "In the document is is stated \"The YANG module in this document is solely based on augmentations to the ACL YANG module defined in [RFC8519].\u201d \r\n",
+      "createdAt": "2023-12-11T12:41:00Z",
+      "updatedAt": "2023-12-19T07:49:42Z",
+      "closedAt": "2023-12-19T07:49:42Z",
+      "comments": [
+        {
+          "author": "boucadair",
+          "authorAssociation": "COLLABORATOR",
+          "body": "#66 ",
+          "createdAt": "2023-12-19T07:49:42Z",
+          "updatedAt": "2023-12-19T07:49:42Z"
+        }
+      ]
+    },
+    {
+      "number": 56,
+      "id": "I_kwDOIykBHs55VL9c",
+      "title": "Consistency in dates in yang files and in the yang module",
+      "url": "https://github.com/netmod-wg/enhanced-acl-netmod/issues/56",
+      "state": "CLOSED",
+      "author": "oscargdd",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [
+        "boucadair"
+      ],
+      "labels": [
+        "YANG",
+        "WGLC"
+      ],
+      "body": "[iana-icmpv6-types@2020-09-25.yang](mailto:iana-icmpv6-types@2020-09-25.yang):1: error: unexpected latest revision \"2023-04-28\" in [iana-icmpv6-types@2020-09-25.yang](mailto:iana-icmpv6-types@2020-09-25.yang), should be \"2020-09-25\u201d.",
+      "createdAt": "2023-12-11T12:41:56Z",
+      "updatedAt": "2023-12-19T07:05:14Z",
+      "closedAt": "2023-12-19T07:05:14Z",
+      "comments": []
+    },
+    {
+      "number": 57,
+      "id": "I_kwDOIykBHs55VNew",
+      "title": "Add editor note at the beginning of the document with instructions for RFC editor",
+      "url": "https://github.com/netmod-wg/enhanced-acl-netmod/issues/57",
+      "state": "CLOSED",
+      "author": "oscargdd",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [
+        "boucadair"
+      ],
+      "labels": [
+        "editorial",
+        "WGLC"
+      ],
+      "body": "There should be clear direction to the RFC Editor on what should be done with revision dates. The same is true for other placeholder text. For example, what is the RFC Editor to do with text \"RFC XXXX\"?",
+      "createdAt": "2023-12-11T12:45:26Z",
+      "updatedAt": "2023-12-19T07:06:06Z",
+      "closedAt": "2023-12-19T07:06:06Z",
+      "comments": []
+    },
+    {
+      "number": 58,
+      "id": "I_kwDOIykBHs55VOCG",
+      "title": "add more examples",
+      "url": "https://github.com/netmod-wg/enhanced-acl-netmod/issues/58",
+      "state": "CLOSED",
+      "author": "oscargdd",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [
+        "WGLC"
+      ],
+      "body": "Examples are always good. Not only can they be used to validate the model, but users get to understand how it can be used. See other models such as BGP, TCP, BFD on how an example can be added.\r\n\r\n",
+      "createdAt": "2023-12-11T12:46:41Z",
+      "updatedAt": "2024-05-16T08:04:34Z",
+      "closedAt": "2024-05-16T08:04:34Z",
+      "comments": [
+        {
+          "author": "boucadair",
+          "authorAssociation": "COLLABORATOR",
+          "body": "We do already have examples in the module. ",
+          "createdAt": "2023-12-11T13:45:38Z",
+          "updatedAt": "2023-12-11T13:45:38Z"
+        }
+      ]
+    },
+    {
+      "number": 63,
+      "id": "I_kwDOIykBHs55VhiH",
+      "title": "Isn\u2019t the YANG model normative portion of the document",
+      "url": "https://github.com/netmod-wg/enhanced-acl-netmod/issues/63",
+      "state": "CLOSED",
+      "author": "boucadair",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [
+        "boucadair"
+      ],
+      "labels": [
+        "WGLC"
+      ],
+      "body": "Isn\u2019t the YANG model normative portion of the document? Isn\u2019t what this document all about? Why is it then in the Appendix?\r\n\r\n",
+      "createdAt": "2023-12-11T13:29:47Z",
+      "updatedAt": "2023-12-19T07:06:19Z",
+      "closedAt": "2023-12-19T07:06:19Z",
+      "comments": [
+        {
+          "author": "boucadair",
+          "authorAssociation": "COLLABORATOR",
+          "body": "That is to comply with this part from 8407bis: \r\n\r\n> It is RECOMMENDED to include the URL from where to retrieve the recent version of the module. When a script is used, the Internet-Draft that defines an IANA-maintained module SHOULD include an appendix with the initial full version of the module. Including such an appendix in pre-RFC versions is meant to assess the correctness of the outcome of the supplied script. The authors MUST include a note to the RFC Editor requesting that the appendix be removed before publication as RFC and that RFC IIII is replaced with the RFC number that is assigned to the document. Initial versions of IANA-maintained modules that are published in RFCs may be misused despite the appropriate language to refer to the IANA registry to retrieve the up-to-date module. This is problematic for interoperability, e.g., when values are deprecated or are associated with a new meaning.",
+          "createdAt": "2023-12-11T13:32:09Z",
+          "updatedAt": "2023-12-11T13:32:09Z"
+        }
+      ]
     }
   ],
   "pulls": [
@@ -433,16 +875,16 @@
       "number": 7,
       "id": "PR_kwDOIykBHs5HoKEr",
       "title": "Move defined-sets to top-level container",
-      "url": "https://github.com/boucadair/enhanced-acl-netmod/pull/7",
+      "url": "https://github.com/netmod-wg/enhanced-acl-netmod/pull/7",
       "state": "MERGED",
       "author": "oscargdd",
-      "authorAssociation": "CONTRIBUTOR",
+      "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "Solves Issue #1 ",
       "createdAt": "2023-01-18T13:47:14Z",
       "updatedAt": "2023-01-18T14:11:47Z",
-      "baseRepository": "boucadair/enhanced-acl-netmod",
+      "baseRepository": "netmod-wg/enhanced-acl-netmod",
       "baseRefName": "main",
       "baseRefOid": "de372113f3e214efd64087b071b0dbab1dd44c09",
       "headRepository": "oscargdd/enhanced-acl-netmod",
@@ -461,10 +903,10 @@
       "number": 11,
       "id": "PR_kwDOIykBHs5KMyHx",
       "title": "Define reusable port set + provision references to call the sets (inc\u2026",
-      "url": "https://github.com/boucadair/enhanced-acl-netmod/pull/11",
+      "url": "https://github.com/netmod-wg/enhanced-acl-netmod/pull/11",
       "state": "MERGED",
       "author": "boucadair",
-      "authorAssociation": "OWNER",
+      "authorAssociation": "COLLABORATOR",
       "assignees": [
         "boucadair"
       ],
@@ -474,10 +916,10 @@
       "body": "\u2026luding in other models)",
       "createdAt": "2023-02-17T09:07:42Z",
       "updatedAt": "2023-02-20T13:45:25Z",
-      "baseRepository": "boucadair/enhanced-acl-netmod",
+      "baseRepository": "netmod-wg/enhanced-acl-netmod",
       "baseRefName": "main",
       "baseRefOid": "1430d2c8fa91cfba08d643603a422b8058578148",
-      "headRepository": "boucadair/enhanced-acl-netmod",
+      "headRepository": "netmod-wg/enhanced-acl-netmod",
       "headRefName": "boucadair-patch-1",
       "headRefOid": "9889a9b568767cbea530a2adb9d21569bdc2852e",
       "closedAt": "2023-02-20T13:45:24Z",
@@ -493,10 +935,10 @@
       "number": 12,
       "id": "PR_kwDOIykBHs5KOr7w",
       "title": "IANA Module for ICMP Types",
-      "url": "https://github.com/boucadair/enhanced-acl-netmod/pull/12",
+      "url": "https://github.com/netmod-wg/enhanced-acl-netmod/pull/12",
       "state": "MERGED",
       "author": "boucadair",
-      "authorAssociation": "OWNER",
+      "authorAssociation": "COLLABORATOR",
       "assignees": [
         "boucadair"
       ],
@@ -506,10 +948,10 @@
       "body": "",
       "createdAt": "2023-02-17T15:49:51Z",
       "updatedAt": "2023-02-20T13:54:03Z",
-      "baseRepository": "boucadair/enhanced-acl-netmod",
+      "baseRepository": "netmod-wg/enhanced-acl-netmod",
       "baseRefName": "main",
       "baseRefOid": "1430d2c8fa91cfba08d643603a422b8058578148",
-      "headRepository": "boucadair/enhanced-acl-netmod",
+      "headRepository": "netmod-wg/enhanced-acl-netmod",
       "headRefName": "boucadair-patch-2",
       "headRefOid": "1a35fb53f0b4732bb706d26b12f9fb83e4326a4c",
       "closedAt": "2023-02-20T13:54:01Z",
@@ -539,19 +981,19 @@
       "number": 13,
       "id": "PR_kwDOIykBHs5KOwt_",
       "title": "Add the IANA module to the draft",
-      "url": "https://github.com/boucadair/enhanced-acl-netmod/pull/13",
+      "url": "https://github.com/netmod-wg/enhanced-acl-netmod/pull/13",
       "state": "CLOSED",
       "author": "boucadair",
-      "authorAssociation": "OWNER",
+      "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "",
       "createdAt": "2023-02-17T16:05:38Z",
       "updatedAt": "2023-03-10T12:33:58Z",
-      "baseRepository": "boucadair/enhanced-acl-netmod",
+      "baseRepository": "netmod-wg/enhanced-acl-netmod",
       "baseRefName": "main",
       "baseRefOid": "1430d2c8fa91cfba08d643603a422b8058578148",
-      "headRepository": "boucadair/enhanced-acl-netmod",
+      "headRepository": "netmod-wg/enhanced-acl-netmod",
       "headRefName": "boucadair-patch-2-1",
       "headRefOid": "56039e720d51cf3ac1a6662673c1e22d337a892a",
       "closedAt": "2023-02-17T16:10:18Z",
@@ -561,7 +1003,7 @@
       "comments": [
         {
           "author": "boucadair",
-          "authorAssociation": "OWNER",
+          "authorAssociation": "COLLABORATOR",
           "body": "[Merged with PR#2](https://github.com/boucadair/enhanced-acl-netmod/pull/12)",
           "createdAt": "2023-02-17T16:10:18Z",
           "updatedAt": "2023-02-17T16:10:18Z"
@@ -573,7 +1015,7 @@
       "number": 14,
       "id": "PR_kwDOIykBHs5KUyli",
       "title": "TCP Flags Clarification",
-      "url": "https://github.com/boucadair/enhanced-acl-netmod/pull/14",
+      "url": "https://github.com/netmod-wg/enhanced-acl-netmod/pull/14",
       "state": "CLOSED",
       "author": "sbarguil",
       "authorAssociation": "COLLABORATOR",
@@ -584,10 +1026,10 @@
       "body": "tcp flags match is very difficult to understand,",
       "createdAt": "2023-02-20T09:26:11Z",
       "updatedAt": "2023-03-10T12:33:48Z",
-      "baseRepository": "boucadair/enhanced-acl-netmod",
+      "baseRepository": "netmod-wg/enhanced-acl-netmod",
       "baseRefName": "main",
       "baseRefOid": "2d4d1036c0441c8dae66b2edca7b30715689df1c",
-      "headRepository": "boucadair/enhanced-acl-netmod",
+      "headRepository": "netmod-wg/enhanced-acl-netmod",
       "headRefName": "TCP-Flags-Simplification",
       "headRefOid": "c128908607e980b81e23f024bfda4b05de58ddc2",
       "closedAt": "2023-03-06T13:56:58Z",
@@ -597,7 +1039,7 @@
       "comments": [
         {
           "author": "boucadair",
-          "authorAssociation": "OWNER",
+          "authorAssociation": "COLLABORATOR",
           "body": "The design in the draft is aligned with the practices, e.g., in https://www.rfc-editor.org/rfc/rfc5575. \r\n\r\nI have a concern with the proposed changes as they cannot allow to enforce policies on the flags that are not currently assigned by IANA. This is problematic.\r\n\r\n",
           "createdAt": "2023-02-20T10:32:19Z",
           "updatedAt": "2023-02-20T10:32:19Z"
@@ -624,7 +1066,7 @@
             "abbreviatedOid": "3d3f71e"
           },
           "author": "boucadair",
-          "authorAssociation": "OWNER",
+          "authorAssociation": "COLLABORATOR",
           "state": "CHANGES_REQUESTED",
           "body": "Thanks @sbarguil for this updated version. Please find herein some comments.",
           "createdAt": "2023-03-03T10:41:02Z",
@@ -682,7 +1124,7 @@
       "number": 16,
       "id": "PR_kwDOIykBHs5KU2ld",
       "title": "Add units in the description for clarification",
-      "url": "https://github.com/boucadair/enhanced-acl-netmod/pull/16",
+      "url": "https://github.com/netmod-wg/enhanced-acl-netmod/pull/16",
       "state": "CLOSED",
       "author": "sbarguil",
       "authorAssociation": "COLLABORATOR",
@@ -693,10 +1135,10 @@
       "body": "",
       "createdAt": "2023-02-20T09:37:51Z",
       "updatedAt": "2023-02-20T13:29:59Z",
-      "baseRepository": "boucadair/enhanced-acl-netmod",
+      "baseRepository": "netmod-wg/enhanced-acl-netmod",
       "baseRefName": "main",
       "baseRefOid": "1430d2c8fa91cfba08d643603a422b8058578148",
-      "headRepository": "boucadair/enhanced-acl-netmod",
+      "headRepository": "netmod-wg/enhanced-acl-netmod",
       "headRefName": "Add-Rate-Limit-Units",
       "headRefOid": "d59bce74571489e846d420763874a810811ecd09",
       "closedAt": "2023-02-20T13:29:59Z",
@@ -706,7 +1148,7 @@
       "comments": [
         {
           "author": "boucadair",
-          "authorAssociation": "OWNER",
+          "authorAssociation": "COLLABORATOR",
           "body": "FWIW, yangdoctors will complain that the description is redundant with the unit clause. I would not make this change. Thanks.",
           "createdAt": "2023-02-20T10:34:20Z",
           "updatedAt": "2023-02-20T10:34:20Z"
@@ -718,7 +1160,7 @@
       "number": 17,
       "id": "PR_kwDOIykBHs5KaKJy",
       "title": "ISID and MAC Filter Creation",
-      "url": "https://github.com/boucadair/enhanced-acl-netmod/pull/17",
+      "url": "https://github.com/netmod-wg/enhanced-acl-netmod/pull/17",
       "state": "MERGED",
       "author": "sbarguil",
       "authorAssociation": "COLLABORATOR",
@@ -727,10 +1169,10 @@
       "body": "Innitial Commit #4 ",
       "createdAt": "2023-02-21T08:55:01Z",
       "updatedAt": "2023-03-10T12:47:26Z",
-      "baseRepository": "boucadair/enhanced-acl-netmod",
+      "baseRepository": "netmod-wg/enhanced-acl-netmod",
       "baseRefName": "main",
       "baseRefOid": "2deab0750810707522a0802f420abe37ffc93948",
-      "headRepository": "boucadair/enhanced-acl-netmod",
+      "headRepository": "netmod-wg/enhanced-acl-netmod",
       "headRefName": "ISID-MACVLAN-Filters",
       "headRefOid": "c6e5458ebfc54b5412e22829113c4f7b31d6e8d5",
       "closedAt": "2023-03-10T12:47:25Z",
@@ -755,7 +1197,7 @@
             "abbreviatedOid": "7de6950"
           },
           "author": "boucadair",
-          "authorAssociation": "OWNER",
+          "authorAssociation": "COLLABORATOR",
           "state": "CHANGES_REQUESTED",
           "body": "",
           "createdAt": "2023-03-07T15:47:31Z",
@@ -805,10 +1247,10 @@
       "number": 18,
       "id": "PR_kwDOIykBHs5LOvoa",
       "title": "clarify the pattern-macth",
-      "url": "https://github.com/boucadair/enhanced-acl-netmod/pull/18",
+      "url": "https://github.com/netmod-wg/enhanced-acl-netmod/pull/18",
       "state": "MERGED",
       "author": "boucadair",
-      "authorAssociation": "OWNER",
+      "authorAssociation": "COLLABORATOR",
       "assignees": [
         "boucadair"
       ],
@@ -818,10 +1260,10 @@
       "body": "",
       "createdAt": "2023-03-03T14:10:15Z",
       "updatedAt": "2023-03-06T13:11:52Z",
-      "baseRepository": "boucadair/enhanced-acl-netmod",
+      "baseRepository": "netmod-wg/enhanced-acl-netmod",
       "baseRefName": "main",
       "baseRefOid": "55fe08f99f236e5888dda80840e58a1282979b16",
-      "headRepository": "boucadair/enhanced-acl-netmod",
+      "headRepository": "netmod-wg/enhanced-acl-netmod",
       "headRefName": "patter-match-clarification",
       "headRefOid": "64ca29fb73ce932739962047eaa9854abe9088a2",
       "closedAt": "2023-03-06T13:11:51Z",
@@ -851,7 +1293,7 @@
       "number": 20,
       "id": "PR_kwDOIykBHs5LXz5w",
       "title": "TCP flags new branch",
-      "url": "https://github.com/boucadair/enhanced-acl-netmod/pull/20",
+      "url": "https://github.com/netmod-wg/enhanced-acl-netmod/pull/20",
       "state": "MERGED",
       "author": "sbarguil",
       "authorAssociation": "COLLABORATOR",
@@ -860,10 +1302,10 @@
       "body": "To track previous comments follow #14 ",
       "createdAt": "2023-03-06T13:56:46Z",
       "updatedAt": "2023-03-10T12:33:49Z",
-      "baseRepository": "boucadair/enhanced-acl-netmod",
+      "baseRepository": "netmod-wg/enhanced-acl-netmod",
       "baseRefName": "main",
       "baseRefOid": "2d4d1036c0441c8dae66b2edca7b30715689df1c",
-      "headRepository": "boucadair/enhanced-acl-netmod",
+      "headRepository": "netmod-wg/enhanced-acl-netmod",
       "headRefName": "tcp-flags",
       "headRefOid": "151203f93c86412e955c562505cb732108b5881d",
       "closedAt": "2023-03-08T09:21:24Z",
@@ -880,7 +1322,7 @@
             "abbreviatedOid": "c20e4ed"
           },
           "author": "boucadair",
-          "authorAssociation": "OWNER",
+          "authorAssociation": "COLLABORATOR",
           "state": "CHANGES_REQUESTED",
           "body": "",
           "createdAt": "2023-03-07T15:57:31Z",
@@ -978,7 +1420,7 @@
             "abbreviatedOid": "151203f"
           },
           "author": "boucadair",
-          "authorAssociation": "OWNER",
+          "authorAssociation": "COLLABORATOR",
           "state": "APPROVED",
           "body": "",
           "createdAt": "2023-03-08T09:21:07Z",
@@ -991,7 +1433,7 @@
       "number": 21,
       "id": "PR_kwDOIykBHs5Ljq-R",
       "title": "Isid filter creation",
-      "url": "https://github.com/boucadair/enhanced-acl-netmod/pull/21",
+      "url": "https://github.com/netmod-wg/enhanced-acl-netmod/pull/21",
       "state": "CLOSED",
       "author": "sbarguil",
       "authorAssociation": "COLLABORATOR",
@@ -1000,16 +1442,1794 @@
       "body": "",
       "createdAt": "2023-03-08T10:07:50Z",
       "updatedAt": "2023-03-10T12:33:53Z",
-      "baseRepository": "boucadair/enhanced-acl-netmod",
+      "baseRepository": "netmod-wg/enhanced-acl-netmod",
       "baseRefName": "main",
       "baseRefOid": "846fba235477f341633fd3ade7fdd9c9e8ba3f70",
-      "headRepository": "boucadair/enhanced-acl-netmod",
+      "headRepository": "netmod-wg/enhanced-acl-netmod",
       "headRefName": "ISID-FILTER-I-D",
       "headRefOid": "e94925ce96e38612466471cfd54a01c35c7b9eb8",
       "closedAt": "2023-03-08T10:41:14Z",
       "mergedAt": null,
       "mergedBy": null,
       "mergeCommit": null,
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 26,
+      "id": "PR_kwDOIykBHs5T7hVB",
+      "title": "Mpls match in ACL",
+      "url": "https://github.com/netmod-wg/enhanced-acl-netmod/pull/26",
+      "state": "MERGED",
+      "author": "oscargdd",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "This PR contains enhacements to the Yang model to match MPLS headers",
+      "createdAt": "2023-06-26T14:39:51Z",
+      "updatedAt": "2023-06-27T07:25:49Z",
+      "baseRepository": "netmod-wg/enhanced-acl-netmod",
+      "baseRefName": "main",
+      "baseRefOid": "306bff2485692fcbb278056a0a9e84404298cc22",
+      "headRepository": "netmod-wg/enhanced-acl-netmod",
+      "headRefName": "mpls-match",
+      "headRefOid": "034f2f83bce85e4153db95176412c2a1f4e24df3",
+      "closedAt": "2023-06-27T07:25:49Z",
+      "mergedAt": "2023-06-27T07:25:48Z",
+      "mergedBy": "boucadair",
+      "mergeCommit": {
+        "oid": "d7e3390573eee977a6d1f6bcdf25198264edc1a7"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOIykBHs5ZaRnt",
+          "commit": {
+            "abbreviatedOid": "6877165"
+          },
+          "author": "boucadair",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2023-06-27T06:50:01Z",
+          "updatedAt": "2023-06-27T06:50:01Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 27,
+      "id": "PR_kwDOIykBHs5UABDj",
+      "title": "alias-match",
+      "url": "https://github.com/netmod-wg/enhanced-acl-netmod/pull/27",
+      "state": "MERGED",
+      "author": "boucadair",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2023-06-27T07:43:27Z",
+      "updatedAt": "2023-06-27T08:06:27Z",
+      "baseRepository": "netmod-wg/enhanced-acl-netmod",
+      "baseRefName": "main",
+      "baseRefOid": "d7e3390573eee977a6d1f6bcdf25198264edc1a7",
+      "headRepository": "netmod-wg/enhanced-acl-netmod",
+      "headRefName": "alias-match",
+      "headRefOid": "a4a2e73929ba3a288ec2e78d384032bcc99b9d97",
+      "closedAt": "2023-06-27T08:06:26Z",
+      "mergedAt": "2023-06-27T08:06:26Z",
+      "mergedBy": "boucadair",
+      "mergeCommit": {
+        "oid": "bd02c7ed3ce3694093976b7a1e96e74f1be27372"
+      },
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 28,
+      "id": "PR_kwDOIykBHs5VFYlH",
+      "title": "Update identities for payload offset",
+      "url": "https://github.com/netmod-wg/enhanced-acl-netmod/pull/28",
+      "state": "MERGED",
+      "author": "sbarguil",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [
+        "YANG"
+      ],
+      "body": "",
+      "createdAt": "2023-07-10T12:55:35Z",
+      "updatedAt": "2023-07-24T21:39:20Z",
+      "baseRepository": "netmod-wg/enhanced-acl-netmod",
+      "baseRefName": "main",
+      "baseRefOid": "00aa16232f071c74a75c3dc8af32989778f482e4",
+      "headRepository": "netmod-wg/enhanced-acl-netmod",
+      "headRefName": "add-l2-identity-payload",
+      "headRefOid": "13dd1b93f9550bd41c40ee0ae32c4e6f44f01b8a",
+      "closedAt": "2023-07-24T21:39:19Z",
+      "mergedAt": "2023-07-24T21:39:19Z",
+      "mergedBy": "boucadair",
+      "mergeCommit": {
+        "oid": "a16ea18cd4d005d6ad171bd86f5971c13c2842f6"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOIykBHs5aul-F",
+          "commit": {
+            "abbreviatedOid": "13dd1b9"
+          },
+          "author": "boucadair",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "Thanks, Samier",
+          "createdAt": "2023-07-10T13:59:24Z",
+          "updatedAt": "2023-07-10T13:59:24Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 33,
+      "id": "PR_kwDOIykBHs5WivpG",
+      "title": "icmpv4",
+      "url": "https://github.com/netmod-wg/enhanced-acl-netmod/pull/33",
+      "state": "MERGED",
+      "author": "boucadair",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2023-07-27T12:52:50Z",
+      "updatedAt": "2023-07-27T12:57:15Z",
+      "baseRepository": "netmod-wg/enhanced-acl-netmod",
+      "baseRefName": "main",
+      "baseRefOid": "1db130879a2306618cb269f30dab634f71216f58",
+      "headRepository": "netmod-wg/enhanced-acl-netmod",
+      "headRefName": "icmpv4",
+      "headRefOid": "860381f5a9a3895d09fe8f1ca5bc0537caa12566",
+      "closedAt": "2023-07-27T12:57:14Z",
+      "mergedAt": "2023-07-27T12:57:14Z",
+      "mergedBy": "boucadair",
+      "mergeCommit": {
+        "oid": "f157e57cbc84e1502dbdb5a39dcb3214eac21aeb"
+      },
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 34,
+      "id": "PR_kwDOIykBHs5WkJyv",
+      "title": "IANA maintained module for ICMPv6",
+      "url": "https://github.com/netmod-wg/enhanced-acl-netmod/pull/34",
+      "state": "MERGED",
+      "author": "boucadair",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [
+        "boucadair"
+      ],
+      "labels": [],
+      "body": "",
+      "createdAt": "2023-07-27T16:17:55Z",
+      "updatedAt": "2023-08-04T13:08:17Z",
+      "baseRepository": "netmod-wg/enhanced-acl-netmod",
+      "baseRefName": "main",
+      "baseRefOid": "2c6e30bbc97752317c15cf1f7f1440bbac56dd3e",
+      "headRepository": "netmod-wg/enhanced-acl-netmod",
+      "headRefName": "icmpv6-types",
+      "headRefOid": "73ae895902748763d746a212f10338fca47d1659",
+      "closedAt": "2023-08-04T12:42:54Z",
+      "mergedAt": "2023-08-04T12:42:54Z",
+      "mergedBy": "boucadair",
+      "mergeCommit": {
+        "oid": "7a54a3de0946e9dd9413fde5aa598f0bf1a9e6fb"
+      },
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 35,
+      "id": "PR_kwDOIykBHs5WzAb2",
+      "title": "icmpv6/icmpv4 sets",
+      "url": "https://github.com/netmod-wg/enhanced-acl-netmod/pull/35",
+      "state": "MERGED",
+      "author": "boucadair",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [
+        "boucadair"
+      ],
+      "labels": [],
+      "body": "",
+      "createdAt": "2023-07-31T13:01:47Z",
+      "updatedAt": "2023-08-04T15:56:17Z",
+      "baseRepository": "netmod-wg/enhanced-acl-netmod",
+      "baseRefName": "main",
+      "baseRefOid": "2c6e30bbc97752317c15cf1f7f1440bbac56dd3e",
+      "headRepository": "netmod-wg/enhanced-acl-netmod",
+      "headRefName": "boucadair-icmp-sets",
+      "headRefOid": "510163ca6420f6783ec4e1df22de04d0207c7aa5",
+      "closedAt": "2023-08-04T15:56:17Z",
+      "mergedAt": "2023-08-04T15:56:17Z",
+      "mergedBy": "boucadair",
+      "mergeCommit": {
+        "oid": "cedeb9b6b1ca0677d60b8651ded7762d86309cdc"
+      },
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 36,
+      "id": "PR_kwDOIykBHs5XNlb1",
+      "title": "Move the problem statement to an appendix",
+      "url": "https://github.com/netmod-wg/enhanced-acl-netmod/pull/36",
+      "state": "MERGED",
+      "author": "boucadair",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2023-08-04T16:12:17Z",
+      "updatedAt": "2023-08-04T16:15:50Z",
+      "baseRepository": "netmod-wg/enhanced-acl-netmod",
+      "baseRefName": "main",
+      "baseRefOid": "cedeb9b6b1ca0677d60b8651ded7762d86309cdc",
+      "headRepository": "netmod-wg/enhanced-acl-netmod",
+      "headRefName": "boucadair-ps-as-appendix",
+      "headRefOid": "06ac2328d57754cb88394323762542ea8e0bee31",
+      "closedAt": "2023-08-04T16:15:49Z",
+      "mergedAt": "2023-08-04T16:15:49Z",
+      "mergedBy": "boucadair",
+      "mergeCommit": {
+        "oid": "efd7adeae325b956b7f50da0497dd73f49f181b3"
+      },
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 39,
+      "id": "PR_kwDOIykBHs5ZpN97",
+      "title": "Add VLAN to alias",
+      "url": "https://github.com/netmod-wg/enhanced-acl-netmod/pull/39",
+      "state": "MERGED",
+      "author": "boucadair",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [
+        "boucadair"
+      ],
+      "labels": [],
+      "body": "",
+      "createdAt": "2023-09-06T05:48:01Z",
+      "updatedAt": "2023-09-06T06:41:14Z",
+      "baseRepository": "netmod-wg/enhanced-acl-netmod",
+      "baseRefName": "main",
+      "baseRefOid": "efd7adeae325b956b7f50da0497dd73f49f181b3",
+      "headRepository": "netmod-wg/enhanced-acl-netmod",
+      "headRefName": "boucadair-patch-1",
+      "headRefOid": "9c6a78120d85642ef04748074d7b05422241c2d0",
+      "closedAt": "2023-09-06T06:41:13Z",
+      "mergedAt": "2023-09-06T06:41:13Z",
+      "mergedBy": "boucadair",
+      "mergeCommit": {
+        "oid": "15b959877359a1eed6a755dd2849bbb931b13dae"
+      },
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 40,
+      "id": "PR_kwDOIykBHs5Zpp7N",
+      "title": "Update IANA considerations",
+      "url": "https://github.com/netmod-wg/enhanced-acl-netmod/pull/40",
+      "state": "MERGED",
+      "author": "boucadair",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [
+        "boucadair"
+      ],
+      "labels": [],
+      "body": "",
+      "createdAt": "2023-09-06T07:20:39Z",
+      "updatedAt": "2023-09-06T07:24:59Z",
+      "baseRepository": "netmod-wg/enhanced-acl-netmod",
+      "baseRefName": "main",
+      "baseRefOid": "15b959877359a1eed6a755dd2849bbb931b13dae",
+      "headRepository": "netmod-wg/enhanced-acl-netmod",
+      "headRefName": "boucadair-patch-1",
+      "headRefOid": "480d7a2feaf695a4f4009b744d506682b4ddbdfb",
+      "closedAt": "2023-09-06T07:24:58Z",
+      "mergedAt": "2023-09-06T07:24:58Z",
+      "mergedBy": "boucadair",
+      "mergeCommit": {
+        "oid": "f11c34621a418ef2dd1580ab9a44fa0311271f22"
+      },
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 41,
+      "id": "PR_kwDOIykBHs5akTJj",
+      "title": "minor changes",
+      "url": "https://github.com/netmod-wg/enhanced-acl-netmod/pull/41",
+      "state": "MERGED",
+      "author": "sbarguil",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2023-09-18T13:04:23Z",
+      "updatedAt": "2023-09-18T15:21:28Z",
+      "baseRepository": "netmod-wg/enhanced-acl-netmod",
+      "baseRefName": "main",
+      "baseRefOid": "f11c34621a418ef2dd1580ab9a44fa0311271f22",
+      "headRepository": "netmod-wg/enhanced-acl-netmod",
+      "headRefName": "Suggestions-based-diff",
+      "headRefOid": "f39f3401a8a9473fccf005dd964c7a6a0573127b",
+      "closedAt": "2023-09-18T15:21:27Z",
+      "mergedAt": "2023-09-18T15:21:27Z",
+      "mergedBy": "boucadair",
+      "mergeCommit": {
+        "oid": "f387620d498bc4230f02120402ba19f22e92a828"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOIykBHs5hPDJY",
+          "commit": {
+            "abbreviatedOid": "f39f340"
+          },
+          "author": "boucadair",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2023-09-18T15:21:17Z",
+          "updatedAt": "2023-09-18T15:21:17Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 42,
+      "id": "PR_kwDOIykBHs5bix4B",
+      "title": "update tree",
+      "url": "https://github.com/netmod-wg/enhanced-acl-netmod/pull/42",
+      "state": "MERGED",
+      "author": "sbarguil",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [
+        "sbarguil"
+      ],
+      "labels": [],
+      "body": "#37 ",
+      "createdAt": "2023-09-29T14:32:28Z",
+      "updatedAt": "2023-09-29T18:30:45Z",
+      "baseRepository": "netmod-wg/enhanced-acl-netmod",
+      "baseRefName": "main",
+      "baseRefOid": "f387620d498bc4230f02120402ba19f22e92a828",
+      "headRepository": "netmod-wg/enhanced-acl-netmod",
+      "headRefName": "update_tree",
+      "headRefOid": "9758f2372ed07d097b5bb9049cbf8dfd4cda4e52",
+      "closedAt": "2023-09-29T18:30:44Z",
+      "mergedAt": "2023-09-29T18:30:44Z",
+      "mergedBy": "boucadair",
+      "mergeCommit": {
+        "oid": "aff5df4ea2caaa91c52d94df4d74042ac1de8210"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOIykBHs5ibNwm",
+          "commit": {
+            "abbreviatedOid": "9758f23"
+          },
+          "author": "boucadair",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2023-09-29T18:30:36Z",
+          "updatedAt": "2023-09-29T18:30:36Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 43,
+      "id": "PR_kwDOIykBHs5bqeHi",
+      "title": "First version of the IPv6 extension header types yang module and xsl",
+      "url": "https://github.com/netmod-wg/enhanced-acl-netmod/pull/43",
+      "state": "MERGED",
+      "author": "oscargdd",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "This PR contains the template and the yang module generated with it. I am working in paralel in the acompanying text. I would like to agree on some namings before uploading  updated md file. ",
+      "createdAt": "2023-10-02T11:32:40Z",
+      "updatedAt": "2023-10-05T07:40:58Z",
+      "baseRepository": "netmod-wg/enhanced-acl-netmod",
+      "baseRefName": "main",
+      "baseRefOid": "aff5df4ea2caaa91c52d94df4d74042ac1de8210",
+      "headRepository": "oscargdd/enhanced-acl-netmod",
+      "headRefName": "main",
+      "headRefOid": "def08a2084ba2760789f68b8ef40e8ade7a6d0a1",
+      "closedAt": "2023-10-05T07:40:58Z",
+      "mergedAt": "2023-10-05T07:40:58Z",
+      "mergedBy": "boucadair",
+      "mergeCommit": {
+        "oid": "61a5e1f4310f7f5e188afc31b18ea9680c96a592"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOIykBHs5igKTf",
+          "commit": {
+            "abbreviatedOid": "f2d67a5"
+          },
+          "author": "boucadair",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2023-10-02T11:57:13Z",
+          "updatedAt": "2023-10-02T11:57:14Z",
+          "comments": [
+            {
+              "originalPosition": 119,
+              "body": "I would add a filter to remove 253/254 as these are not supposed to be leaked outside.",
+              "createdAt": "2023-10-02T11:57:13Z",
+              "updatedAt": "2023-10-02T11:57:14Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIykBHs5i4xqG",
+          "commit": {
+            "abbreviatedOid": "7e3bdaa"
+          },
+          "author": "boucadair",
+          "authorAssociation": "COLLABORATOR",
+          "state": "CHANGES_REQUESTED",
+          "body": "Thanks @oscargdd. Please find some minor comments.",
+          "createdAt": "2023-10-05T07:19:08Z",
+          "updatedAt": "2023-10-05T07:22:18Z",
+          "comments": [
+            {
+              "originalPosition": 61,
+              "body": "```suggestion\r\nIANA is requested to add this note to the \"IPv6 Extension Header Types\" registry {{IANA-IPv6}}:\r\n```",
+              "createdAt": "2023-10-05T07:19:08Z",
+              "updatedAt": "2023-10-05T07:22:18Z"
+            },
+            {
+              "originalPosition": 70,
+              "body": "```suggestion\r\n: {{?RFC2780}}{{?RFC5237}}{{?RFC7045}}\r\n```",
+              "createdAt": "2023-10-05T07:19:56Z",
+              "updatedAt": "2023-10-05T07:22:18Z"
+            },
+            {
+              "originalPosition": 73,
+              "body": "```suggestion\r\n: {{?RFC2780}}{{?RFC5237}}{{?RFC7045}}[This_Document]\r\n```",
+              "createdAt": "2023-10-05T07:20:07Z",
+              "updatedAt": "2023-10-05T07:22:18Z"
+            },
+            {
+              "originalPosition": 98,
+              "body": "```suggestion\r\n<CODE BEGINS> file iana-ipv6-ext-types@2023-09-29.yang\r\n```",
+              "createdAt": "2023-10-05T07:21:09Z",
+              "updatedAt": "2023-10-05T07:22:18Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIykBHs5i49t-",
+          "commit": {
+            "abbreviatedOid": "def08a2"
+          },
+          "author": "boucadair",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2023-10-05T07:39:39Z",
+          "updatedAt": "2023-10-05T07:39:39Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 45,
+      "id": "PR_kwDOIykBHs5b-iR2",
+      "title": "point to the IPv6 EH + fix some nits",
+      "url": "https://github.com/netmod-wg/enhanced-acl-netmod/pull/45",
+      "state": "MERGED",
+      "author": "boucadair",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2023-10-05T08:08:11Z",
+      "updatedAt": "2023-10-05T08:09:06Z",
+      "baseRepository": "netmod-wg/enhanced-acl-netmod",
+      "baseRefName": "main",
+      "baseRefOid": "61a5e1f4310f7f5e188afc31b18ea9680c96a592",
+      "headRepository": "netmod-wg/enhanced-acl-netmod",
+      "headRefName": "boucadair-patch-1",
+      "headRefOid": "b0149c547f190caba752a405d70549b970e58c95",
+      "closedAt": "2023-10-05T08:09:05Z",
+      "mergedAt": "2023-10-05T08:09:05Z",
+      "mergedBy": "boucadair",
+      "mergeCommit": {
+        "oid": "12879f8f4314e8c18aab317ff2a60fd4e6cc4154"
+      },
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 46,
+      "id": "PR_kwDOIykBHs5b-k9w",
+      "title": "fix ipv4/ipv6 augment level",
+      "url": "https://github.com/netmod-wg/enhanced-acl-netmod/pull/46",
+      "state": "MERGED",
+      "author": "boucadair",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2023-10-05T08:15:06Z",
+      "updatedAt": "2023-10-05T12:24:56Z",
+      "baseRepository": "netmod-wg/enhanced-acl-netmod",
+      "baseRefName": "main",
+      "baseRefOid": "12879f8f4314e8c18aab317ff2a60fd4e6cc4154",
+      "headRepository": "netmod-wg/enhanced-acl-netmod",
+      "headRefName": "boucadair-patch-1",
+      "headRefOid": "281520dac9c66247aceebff1017bc5854847a4f4",
+      "closedAt": "2023-10-05T12:24:55Z",
+      "mergedAt": "2023-10-05T12:24:55Z",
+      "mergedBy": "boucadair",
+      "mergeCommit": {
+        "oid": "902047071db4e2ed417adb6992e9bafee8fa0bfb"
+      },
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 47,
+      "id": "PR_kwDOIykBHs5b-n3I",
+      "title": "Update yang.mk",
+      "url": "https://github.com/netmod-wg/enhanced-acl-netmod/pull/47",
+      "state": "MERGED",
+      "author": "boucadair",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2023-10-05T08:23:08Z",
+      "updatedAt": "2023-10-05T08:23:15Z",
+      "baseRepository": "netmod-wg/enhanced-acl-netmod",
+      "baseRefName": "main",
+      "baseRefOid": "12879f8f4314e8c18aab317ff2a60fd4e6cc4154",
+      "headRepository": "netmod-wg/enhanced-acl-netmod",
+      "headRefName": "boucadair-patch-2",
+      "headRefOid": "a27a2080169e6451efa61f79917c51f8cfd380ce",
+      "closedAt": "2023-10-05T08:23:14Z",
+      "mergedAt": "2023-10-05T08:23:14Z",
+      "mergedBy": "boucadair",
+      "mergeCommit": {
+        "oid": "2f6d7351f95cc82a3a523ae96800afd1430015d0"
+      },
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 48,
+      "id": "PR_kwDOIykBHs5cAO8_",
+      "title": "fix prefixes/names and other edits",
+      "url": "https://github.com/netmod-wg/enhanced-acl-netmod/pull/48",
+      "state": "MERGED",
+      "author": "boucadair",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2023-10-05T12:23:22Z",
+      "updatedAt": "2023-10-05T12:26:16Z",
+      "baseRepository": "netmod-wg/enhanced-acl-netmod",
+      "baseRefName": "main",
+      "baseRefOid": "2f6d7351f95cc82a3a523ae96800afd1430015d0",
+      "headRepository": "netmod-wg/enhanced-acl-netmod",
+      "headRefName": "boucadair-patch-2",
+      "headRefOid": "b47601439bd235d50c36ac9e676b69eb9fb4fd46",
+      "closedAt": "2023-10-05T12:26:15Z",
+      "mergedAt": "2023-10-05T12:26:15Z",
+      "mergedBy": "boucadair",
+      "mergeCommit": {
+        "oid": "6d77bc688cd383809a602a0bcf623523c7fbe55a"
+      },
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 49,
+      "id": "PR_kwDOIykBHs5c6MLo",
+      "title": "24 Consider Common Actions",
+      "url": "https://github.com/netmod-wg/enhanced-acl-netmod/pull/49",
+      "state": "MERGED",
+      "author": "sbarguil",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "#24 ",
+      "createdAt": "2023-10-16T14:45:32Z",
+      "updatedAt": "2023-10-17T09:34:03Z",
+      "baseRepository": "netmod-wg/enhanced-acl-netmod",
+      "baseRefName": "main",
+      "baseRefOid": "f0a8022eee2d64cb7a4c4b0324bf963f2ea2cd2a",
+      "headRepository": "netmod-wg/enhanced-acl-netmod",
+      "headRefName": "24-Consider-common-actions",
+      "headRefOid": "29da5708f12f389df9cb31072bed8ebb3b22d4ed",
+      "closedAt": "2023-10-17T09:34:02Z",
+      "mergedAt": "2023-10-17T09:34:02Z",
+      "mergedBy": "boucadair",
+      "mergeCommit": {
+        "oid": "a75f5b3413145cc93f02f6d08693aa72d26ddd97"
+      },
+      "comments": [
+        {
+          "author": "boucadair",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Thanks. Seems these are to be fixed:\r\n\r\n\r\n> yang/ietf-acl-enh.yang:673: error: RFC 8407: 4.14: statement \"list\" must have a \"description\" substatement\r\n> yang/ietf-acl-enh.yang:675: error: keyword \"when\" not in canonical order (see RFC 7950, Section 14)\r\n",
+          "createdAt": "2023-10-16T15:02:13Z",
+          "updatedAt": "2023-10-16T15:02:28Z"
+        }
+      ],
+      "reviews": [
+        {
+          "id": "PRR_kwDOIykBHs5kJnOp",
+          "commit": {
+            "abbreviatedOid": "84a71b7"
+          },
+          "author": "boucadair",
+          "authorAssociation": "COLLABORATOR",
+          "state": "CHANGES_REQUESTED",
+          "body": "",
+          "createdAt": "2023-10-16T15:04:00Z",
+          "updatedAt": "2023-10-16T15:07:28Z",
+          "comments": [
+            {
+              "originalPosition": 12,
+              "body": "```suggestion\r\n      \"A local log is used to record the ACL results.\";\r\n\r\n```",
+              "createdAt": "2023-10-16T15:04:00Z",
+              "updatedAt": "2023-10-16T15:07:28Z"
+            },
+            {
+              "originalPosition": 23,
+              "body": "```suggestion\r\n      \"Identity for counter name to be updated based on the ACL match actions.\";\r\n\r\n```",
+              "createdAt": "2023-10-16T15:05:52Z",
+              "updatedAt": "2023-10-16T15:07:28Z"
+            },
+            {
+              "originalPosition": 35,
+              "body": "```suggestion\r\n      \"Collection of complementary ACL actions.\";\r\n\r\n```",
+              "createdAt": "2023-10-16T15:06:18Z",
+              "updatedAt": "2023-10-16T15:07:28Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIykBHs5kJ08t",
+          "commit": {
+            "abbreviatedOid": "b4a2901"
+          },
+          "author": "boucadair",
+          "authorAssociation": "COLLABORATOR",
+          "state": "CHANGES_REQUESTED",
+          "body": "",
+          "createdAt": "2023-10-16T15:21:06Z",
+          "updatedAt": "2023-10-16T15:22:16Z",
+          "comments": [
+            {
+              "originalPosition": 16,
+              "body": "```suggestion\r\n  identity counter-type {\r\n\r\n```",
+              "createdAt": "2023-10-16T15:21:06Z",
+              "updatedAt": "2023-10-16T15:22:16Z"
+            },
+            {
+              "originalPosition": 73,
+              "body": "```suggestion\r\n      list counter-name {\r\n\r\n```",
+              "createdAt": "2023-10-16T15:21:53Z",
+              "updatedAt": "2023-10-16T15:22:16Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIykBHs5kPtXF",
+          "commit": {
+            "abbreviatedOid": "7239f83"
+          },
+          "author": "boucadair",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2023-10-17T09:33:19Z",
+          "updatedAt": "2023-10-17T09:33:20Z",
+          "comments": [
+            {
+              "originalPosition": 23,
+              "body": "```suggestion\r\n      \"Identity for counter name to be updated based on\r\n        the ACL match actions.\";\r\n\r\n```",
+              "createdAt": "2023-10-17T09:33:20Z",
+              "updatedAt": "2023-10-17T09:33:20Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOIykBHs5kPtqH",
+          "commit": {
+            "abbreviatedOid": "29da570"
+          },
+          "author": "boucadair",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2023-10-17T09:33:52Z",
+          "updatedAt": "2023-10-17T09:33:52Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 50,
+      "id": "PR_kwDOIykBHs5c_07d",
+      "title": "reorder the text",
+      "url": "https://github.com/netmod-wg/enhanced-acl-netmod/pull/50",
+      "state": "MERGED",
+      "author": "boucadair",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2023-10-17T10:07:12Z",
+      "updatedAt": "2023-10-17T10:07:25Z",
+      "baseRepository": "netmod-wg/enhanced-acl-netmod",
+      "baseRefName": "main",
+      "baseRefOid": "a75f5b3413145cc93f02f6d08693aa72d26ddd97",
+      "headRepository": "netmod-wg/enhanced-acl-netmod",
+      "headRefName": "boucadair-patch-1",
+      "headRefOid": "f1211b4014228433f2b6a580f77b9a32affba3bb",
+      "closedAt": "2023-10-17T10:07:24Z",
+      "mergedAt": "2023-10-17T10:07:24Z",
+      "mergedBy": "boucadair",
+      "mergeCommit": {
+        "oid": "9d4409c7a441958bffe9110008e4ac08e1bb5337"
+      },
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 51,
+      "id": "PR_kwDOIykBHs5dBniK",
+      "title": "fix some warnings",
+      "url": "https://github.com/netmod-wg/enhanced-acl-netmod/pull/51",
+      "state": "MERGED",
+      "author": "boucadair",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2023-10-17T14:27:08Z",
+      "updatedAt": "2023-10-17T14:28:08Z",
+      "baseRepository": "netmod-wg/enhanced-acl-netmod",
+      "baseRefName": "main",
+      "baseRefOid": "9d4409c7a441958bffe9110008e4ac08e1bb5337",
+      "headRepository": "netmod-wg/enhanced-acl-netmod",
+      "headRefName": "boucadair-patch-1",
+      "headRefOid": "7c1f7fd68e30a5dff53b1e5a8b4729b1762cce53",
+      "closedAt": "2023-10-17T14:28:06Z",
+      "mergedAt": "2023-10-17T14:28:06Z",
+      "mergedBy": "boucadair",
+      "mergeCommit": {
+        "oid": "6daa8e6eae83b5e1c1727d6dd88fd2b0f0aaf85e"
+      },
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 59,
+      "id": "PR_kwDOIykBHs5hrkr7",
+      "title": "RFC Editor Note",
+      "url": "https://github.com/netmod-wg/enhanced-acl-netmod/pull/59",
+      "state": "MERGED",
+      "author": "boucadair",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2023-12-11T13:11:32Z",
+      "updatedAt": "2023-12-19T07:06:06Z",
+      "baseRepository": "netmod-wg/enhanced-acl-netmod",
+      "baseRefName": "main",
+      "baseRefOid": "116fe637715966dbb977531b796f36d43c51a4a3",
+      "headRepository": "netmod-wg/enhanced-acl-netmod",
+      "headRefName": "boucadair-patch-1",
+      "headRefOid": "06473f27d065020e75cc57d8f0b1ac1034cb35ed",
+      "closedAt": "2023-12-19T07:06:06Z",
+      "mergedAt": "2023-12-19T07:06:05Z",
+      "mergedBy": "boucadair",
+      "mergeCommit": {
+        "oid": "820817e8bdc5610e02f9d2eed746371d3f4dccd3"
+      },
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 60,
+      "id": "PR_kwDOIykBHs5hrmgZ",
+      "title": "Fix date IANA ICMPv6",
+      "url": "https://github.com/netmod-wg/enhanced-acl-netmod/pull/60",
+      "state": "MERGED",
+      "author": "boucadair",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2023-12-11T13:15:40Z",
+      "updatedAt": "2023-12-19T07:05:13Z",
+      "baseRepository": "netmod-wg/enhanced-acl-netmod",
+      "baseRefName": "main",
+      "baseRefOid": "116fe637715966dbb977531b796f36d43c51a4a3",
+      "headRepository": "netmod-wg/enhanced-acl-netmod",
+      "headRefName": "boucadair-patch-2",
+      "headRefOid": "d44bc9920714837f05c1edcf279f2d9d2c616f8f",
+      "closedAt": "2023-12-19T07:05:13Z",
+      "mergedAt": "2023-12-19T07:05:13Z",
+      "mergedBy": "boucadair",
+      "mergeCommit": {
+        "oid": "8526e84575ff32925dc48815be95bedd4a2aaa38"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOIykBHs5pzkA4",
+          "commit": {
+            "abbreviatedOid": "f27489a"
+          },
+          "author": "boucadair",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2023-12-11T13:19:48Z",
+          "updatedAt": "2023-12-11T13:19:48Z",
+          "comments": [
+            {
+              "originalPosition": 5,
+              "body": "```suggestion\r\n  revision 2023-04-28 {\r\n```",
+              "createdAt": "2023-12-11T13:19:48Z",
+              "updatedAt": "2023-12-11T13:19:48Z"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "number": 61,
+      "id": "PR_kwDOIykBHs5hrnw_",
+      "title": "title-fix",
+      "url": "https://github.com/netmod-wg/enhanced-acl-netmod/pull/61",
+      "state": "MERGED",
+      "author": "boucadair",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2023-12-11T13:18:44Z",
+      "updatedAt": "2023-12-19T07:05:01Z",
+      "baseRepository": "netmod-wg/enhanced-acl-netmod",
+      "baseRefName": "main",
+      "baseRefOid": "116fe637715966dbb977531b796f36d43c51a4a3",
+      "headRepository": "netmod-wg/enhanced-acl-netmod",
+      "headRefName": "title",
+      "headRefOid": "48e7db4c2a2fc549985b4137c1045a5021d53785",
+      "closedAt": "2023-12-19T07:05:01Z",
+      "mergedAt": "2023-12-19T07:05:01Z",
+      "mergedBy": "boucadair",
+      "mergeCommit": {
+        "oid": "8865d0454d7c3a0cfb409e9b6d8a135fad762c80"
+      },
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 62,
+      "id": "PR_kwDOIykBHs5hrpmK",
+      "title": "initial version of IANA",
+      "url": "https://github.com/netmod-wg/enhanced-acl-netmod/pull/62",
+      "state": "MERGED",
+      "author": "boucadair",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [
+        "boucadair"
+      ],
+      "labels": [],
+      "body": "",
+      "createdAt": "2023-12-11T13:23:10Z",
+      "updatedAt": "2023-12-19T07:04:42Z",
+      "baseRepository": "netmod-wg/enhanced-acl-netmod",
+      "baseRefName": "main",
+      "baseRefOid": "116fe637715966dbb977531b796f36d43c51a4a3",
+      "headRepository": "netmod-wg/enhanced-acl-netmod",
+      "headRefName": "initial-version-note",
+      "headRefOid": "eea3a533cda50e664253f4a6eb34c8256d6675ae",
+      "closedAt": "2023-12-19T07:04:41Z",
+      "mergedAt": "2023-12-19T07:04:41Z",
+      "mergedBy": "boucadair",
+      "mergeCommit": {
+        "oid": "28afae9cc669e40295677263979387c725a7d574"
+      },
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 64,
+      "id": "PR_kwDOIykBHs5hrviq",
+      "title": "expand references",
+      "url": "https://github.com/netmod-wg/enhanced-acl-netmod/pull/64",
+      "state": "MERGED",
+      "author": "boucadair",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [
+        "boucadair"
+      ],
+      "labels": [],
+      "body": "",
+      "createdAt": "2023-12-11T13:36:50Z",
+      "updatedAt": "2023-12-19T07:04:31Z",
+      "baseRepository": "netmod-wg/enhanced-acl-netmod",
+      "baseRefName": "main",
+      "baseRefOid": "116fe637715966dbb977531b796f36d43c51a4a3",
+      "headRepository": "netmod-wg/enhanced-acl-netmod",
+      "headRefName": "boucadair-patch-3",
+      "headRefOid": "13010fee1fac3d273595f326b4719ceecd100d16",
+      "closedAt": "2023-12-19T07:04:30Z",
+      "mergedAt": "2023-12-19T07:04:30Z",
+      "mergedBy": "boucadair",
+      "mergeCommit": {
+        "oid": "63e8d3ac32719983e87a5908e4b9938228fd1b54"
+      },
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 65,
+      "id": "PR_kwDOIykBHs5hr2dD",
+      "title": "security cons",
+      "url": "https://github.com/netmod-wg/enhanced-acl-netmod/pull/65",
+      "state": "MERGED",
+      "author": "boucadair",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [
+        "boucadair"
+      ],
+      "labels": [],
+      "body": "",
+      "createdAt": "2023-12-11T13:53:03Z",
+      "updatedAt": "2023-12-19T07:04:12Z",
+      "baseRepository": "netmod-wg/enhanced-acl-netmod",
+      "baseRefName": "main",
+      "baseRefOid": "116fe637715966dbb977531b796f36d43c51a4a3",
+      "headRepository": "netmod-wg/enhanced-acl-netmod",
+      "headRefName": "boucadair-patch-4",
+      "headRefOid": "623224386fcbe3703a836c97aad6000c3ceb3bdf",
+      "closedAt": "2023-12-19T07:04:11Z",
+      "mergedAt": "2023-12-19T07:04:11Z",
+      "mergedBy": "boucadair",
+      "mergeCommit": {
+        "oid": "5c9b1101210d5fdc8c0e8839ce295c005cf52505"
+      },
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 66,
+      "id": "PR_kwDOIykBHs5iVwNx",
+      "title": "NMDA + clarify solely augments",
+      "url": "https://github.com/netmod-wg/enhanced-acl-netmod/pull/66",
+      "state": "MERGED",
+      "author": "boucadair",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [
+        "boucadair"
+      ],
+      "labels": [],
+      "body": "",
+      "createdAt": "2023-12-19T07:42:12Z",
+      "updatedAt": "2023-12-19T07:42:43Z",
+      "baseRepository": "netmod-wg/enhanced-acl-netmod",
+      "baseRefName": "main",
+      "baseRefOid": "820817e8bdc5610e02f9d2eed746371d3f4dccd3",
+      "headRepository": "netmod-wg/enhanced-acl-netmod",
+      "headRefName": "boucadair-patch-1",
+      "headRefOid": "86a67ad9e28ee6c3674f50b8d08ee3a7b6f81136",
+      "closedAt": "2023-12-19T07:42:42Z",
+      "mergedAt": "2023-12-19T07:42:42Z",
+      "mergedBy": "boucadair",
+      "mergeCommit": {
+        "oid": "75146585a6f04a54558b8b2818ed59af36f30610"
+      },
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 67,
+      "id": "PR_kwDOIykBHs5iVx7f",
+      "title": "use of derived-from-or-self",
+      "url": "https://github.com/netmod-wg/enhanced-acl-netmod/pull/67",
+      "state": "MERGED",
+      "author": "boucadair",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [
+        "boucadair"
+      ],
+      "labels": [],
+      "body": "",
+      "createdAt": "2023-12-19T07:48:15Z",
+      "updatedAt": "2023-12-19T07:49:17Z",
+      "baseRepository": "netmod-wg/enhanced-acl-netmod",
+      "baseRefName": "main",
+      "baseRefOid": "75146585a6f04a54558b8b2818ed59af36f30610",
+      "headRepository": "netmod-wg/enhanced-acl-netmod",
+      "headRefName": "boucadair-patch-1",
+      "headRefOid": "cdf2859cbd5b395cacd248d79d5444034c685b04",
+      "closedAt": "2023-12-19T07:49:17Z",
+      "mergedAt": "2023-12-19T07:49:17Z",
+      "mergedBy": "boucadair",
+      "mergeCommit": {
+        "oid": "3b58ecd4317447f5e4eac5a94aafac7a6c320ad2"
+      },
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 68,
+      "id": "PR_kwDOIykBHs5iV0QQ",
+      "title": "Update draft-ietf-netmod-acl-extensions.md",
+      "url": "https://github.com/netmod-wg/enhanced-acl-netmod/pull/68",
+      "state": "MERGED",
+      "author": "boucadair",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [
+        "boucadair"
+      ],
+      "labels": [],
+      "body": "",
+      "createdAt": "2023-12-19T07:56:37Z",
+      "updatedAt": "2023-12-19T08:01:31Z",
+      "baseRepository": "netmod-wg/enhanced-acl-netmod",
+      "baseRefName": "main",
+      "baseRefOid": "3b58ecd4317447f5e4eac5a94aafac7a6c320ad2",
+      "headRepository": "netmod-wg/enhanced-acl-netmod",
+      "headRefName": "fix-refs",
+      "headRefOid": "9ce529f3f56ae53f80b7bdda4159d616caedf96b",
+      "closedAt": "2023-12-19T08:01:30Z",
+      "mergedAt": "2023-12-19T08:01:30Z",
+      "mergedBy": "boucadair",
+      "mergeCommit": {
+        "oid": "8f4bb02409c9fd687d8db1e6e76f0714929112e2"
+      },
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 69,
+      "id": "PR_kwDOIykBHs5k2iq3",
+      "title": "control bitmask/flag in the same request",
+      "url": "https://github.com/netmod-wg/enhanced-acl-netmod/pull/69",
+      "state": "MERGED",
+      "author": "boucadair",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2024-01-23T15:41:11Z",
+      "updatedAt": "2024-01-23T15:48:26Z",
+      "baseRepository": "netmod-wg/enhanced-acl-netmod",
+      "baseRefName": "main",
+      "baseRefOid": "8f4bb02409c9fd687d8db1e6e76f0714929112e2",
+      "headRepository": "netmod-wg/enhanced-acl-netmod",
+      "headRefName": "boucadair-patch-1",
+      "headRefOid": "688284daa6d6c8e754831c340f9924048b27c0b0",
+      "closedAt": "2024-01-23T15:48:25Z",
+      "mergedAt": "2024-01-23T15:48:25Z",
+      "mergedBy": "boucadair",
+      "mergeCommit": {
+        "oid": "fbd8416c0ddf8f3f3b33b697f28ec663c469ef06"
+      },
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 70,
+      "id": "PR_kwDOIykBHs5k2mLq",
+      "title": "nits from Mahesh",
+      "url": "https://github.com/netmod-wg/enhanced-acl-netmod/pull/70",
+      "state": "MERGED",
+      "author": "boucadair",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2024-01-23T15:48:48Z",
+      "updatedAt": "2024-01-23T15:52:22Z",
+      "baseRepository": "netmod-wg/enhanced-acl-netmod",
+      "baseRefName": "main",
+      "baseRefOid": "fbd8416c0ddf8f3f3b33b697f28ec663c469ef06",
+      "headRepository": "netmod-wg/enhanced-acl-netmod",
+      "headRefName": "boucadair-patch-1",
+      "headRefOid": "7ba9ade01382aba50a8fcc4114874c76f0d87d77",
+      "closedAt": "2024-01-23T15:52:22Z",
+      "mergedAt": "2024-01-23T15:52:21Z",
+      "mergedBy": "boucadair",
+      "mergeCommit": {
+        "oid": "17e57c2daaff5dd5016e3e70aeb3b15ad6d1df39"
+      },
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 71,
+      "id": "PR_kwDOIykBHs5k9DHW",
+      "title": "Move the examples to an appendix",
+      "url": "https://github.com/netmod-wg/enhanced-acl-netmod/pull/71",
+      "state": "MERGED",
+      "author": "boucadair",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2024-01-24T13:39:27Z",
+      "updatedAt": "2024-01-24T13:56:39Z",
+      "baseRepository": "netmod-wg/enhanced-acl-netmod",
+      "baseRefName": "main",
+      "baseRefOid": "ab5e1f455ba58eb6d5be5af0c280178b9b349ea6",
+      "headRepository": "netmod-wg/enhanced-acl-netmod",
+      "headRefName": "boucadair-patch-1",
+      "headRefOid": "69d008814a7b8b8b6801d863822dabe80f5eabf4",
+      "closedAt": "2024-01-24T13:56:38Z",
+      "mergedAt": "2024-01-24T13:56:38Z",
+      "mergedBy": "boucadair",
+      "mergeCommit": {
+        "oid": "d38b8cca787e34ee7a4f534dbbadc00d0fb6810e"
+      },
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 72,
+      "id": "PR_kwDOIykBHs5k9Lra",
+      "title": "update ref",
+      "url": "https://github.com/netmod-wg/enhanced-acl-netmod/pull/72",
+      "state": "MERGED",
+      "author": "boucadair",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2024-01-24T13:59:35Z",
+      "updatedAt": "2024-01-24T14:00:14Z",
+      "baseRepository": "netmod-wg/enhanced-acl-netmod",
+      "baseRefName": "main",
+      "baseRefOid": "d38b8cca787e34ee7a4f534dbbadc00d0fb6810e",
+      "headRepository": "netmod-wg/enhanced-acl-netmod",
+      "headRefName": "boucadair-patch-1",
+      "headRefOid": "bb3f49ed59166a299dfc9e04ddd895d44988144d",
+      "closedAt": "2024-01-24T14:00:13Z",
+      "mergedAt": "2024-01-24T14:00:13Z",
+      "mergedBy": "boucadair",
+      "mergeCommit": {
+        "oid": "bc6fca3ec89e415b618974d6c2743ddc17cdcc41"
+      },
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 73,
+      "id": "PR_kwDOIykBHs5lanJK",
+      "title": "fix path",
+      "url": "https://github.com/netmod-wg/enhanced-acl-netmod/pull/73",
+      "state": "MERGED",
+      "author": "boucadair",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2024-01-30T08:02:17Z",
+      "updatedAt": "2024-01-30T08:31:46Z",
+      "baseRepository": "netmod-wg/enhanced-acl-netmod",
+      "baseRefName": "main",
+      "baseRefOid": "bc6fca3ec89e415b618974d6c2743ddc17cdcc41",
+      "headRepository": "netmod-wg/enhanced-acl-netmod",
+      "headRefName": "boucadair-patch-1",
+      "headRefOid": "ba42fa33b54f8532ac29d76ff13f57243e360133",
+      "closedAt": "2024-01-30T08:31:45Z",
+      "mergedAt": "2024-01-30T08:31:45Z",
+      "mergedBy": "boucadair",
+      "mergeCommit": {
+        "oid": "9e1f0c470e8902a8aa0c31eaeb6c9bdec1b22d60"
+      },
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 74,
+      "id": "PR_kwDOIykBHs5la0I1",
+      "title": "add groupings to the narrative text",
+      "url": "https://github.com/netmod-wg/enhanced-acl-netmod/pull/74",
+      "state": "MERGED",
+      "author": "boucadair",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2024-01-30T08:38:41Z",
+      "updatedAt": "2024-01-30T08:41:27Z",
+      "baseRepository": "netmod-wg/enhanced-acl-netmod",
+      "baseRefName": "main",
+      "baseRefOid": "9e1f0c470e8902a8aa0c31eaeb6c9bdec1b22d60",
+      "headRepository": "netmod-wg/enhanced-acl-netmod",
+      "headRefName": "boucadair-patch-1",
+      "headRefOid": "8077f2fc98495a16c3713858a76f3c0254f11d67",
+      "closedAt": "2024-01-30T08:41:26Z",
+      "mergedAt": "2024-01-30T08:41:26Z",
+      "mergedBy": "boucadair",
+      "mergeCommit": {
+        "oid": "05735c18a36765db9a0b631d68031ba7dc7dae95"
+      },
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 75,
+      "id": "PR_kwDOIykBHs5vaVNl",
+      "title": "Update ietf-acl-enh.yang",
+      "url": "https://github.com/netmod-wg/enhanced-acl-netmod/pull/75",
+      "state": "MERGED",
+      "author": "boucadair",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2024-05-14T14:30:06Z",
+      "updatedAt": "2024-05-14T14:35:06Z",
+      "baseRepository": "netmod-wg/enhanced-acl-netmod",
+      "baseRefName": "main",
+      "baseRefOid": "9d79385d373c748b3325845f7099c9905624c148",
+      "headRepository": "netmod-wg/enhanced-acl-netmod",
+      "headRefName": "boucadair-patch-1",
+      "headRefOid": "72740e7fdcf99fae7b90745e135bfa67c81ce43e",
+      "closedAt": "2024-05-14T14:35:05Z",
+      "mergedAt": "2024-05-14T14:35:05Z",
+      "mergedBy": "boucadair",
+      "mergeCommit": {
+        "oid": "82db0ca9db60136943dc13fb672f9fb837fe974c"
+      },
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 76,
+      "id": "PR_kwDOIykBHs5vaYVk",
+      "title": "Update ietf-acl-enh.yang",
+      "url": "https://github.com/netmod-wg/enhanced-acl-netmod/pull/76",
+      "state": "MERGED",
+      "author": "boucadair",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2024-05-14T14:34:55Z",
+      "updatedAt": "2024-05-14T14:36:04Z",
+      "baseRepository": "netmod-wg/enhanced-acl-netmod",
+      "baseRefName": "main",
+      "baseRefOid": "9d79385d373c748b3325845f7099c9905624c148",
+      "headRepository": "netmod-wg/enhanced-acl-netmod",
+      "headRefName": "boucadair-patch-2",
+      "headRefOid": "2d1faf953c07cf6f4c6848294a81ac8faa441dca",
+      "closedAt": "2024-05-14T14:36:03Z",
+      "mergedAt": "2024-05-14T14:36:03Z",
+      "mergedBy": "boucadair",
+      "mergeCommit": {
+        "oid": "a357f8aa0eae185c5d46824e2298d963f8383fb3"
+      },
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 77,
+      "id": "PR_kwDOIykBHs5vaeY7",
+      "title": "Update enh-tree.txt",
+      "url": "https://github.com/netmod-wg/enhanced-acl-netmod/pull/77",
+      "state": "MERGED",
+      "author": "boucadair",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2024-05-14T14:46:02Z",
+      "updatedAt": "2024-05-14T14:46:10Z",
+      "baseRepository": "netmod-wg/enhanced-acl-netmod",
+      "baseRefName": "main",
+      "baseRefOid": "8e865eef9f680098699e5e6354839d380f4b7e59",
+      "headRepository": "netmod-wg/enhanced-acl-netmod",
+      "headRefName": "boucadair-patch-2",
+      "headRefOid": "580dd1e3e454c774431a08f9282f7a5acc389a11",
+      "closedAt": "2024-05-14T14:46:09Z",
+      "mergedAt": "2024-05-14T14:46:09Z",
+      "mergedBy": "boucadair",
+      "mergeCommit": {
+        "oid": "f971e12e7703663df88e1ef960145a7dfa024a58"
+      },
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 78,
+      "id": "PR_kwDOIykBHs5vafNM",
+      "title": "Update groupings.txt",
+      "url": "https://github.com/netmod-wg/enhanced-acl-netmod/pull/78",
+      "state": "MERGED",
+      "author": "boucadair",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2024-05-14T14:47:46Z",
+      "updatedAt": "2024-05-14T14:47:56Z",
+      "baseRepository": "netmod-wg/enhanced-acl-netmod",
+      "baseRefName": "main",
+      "baseRefOid": "f971e12e7703663df88e1ef960145a7dfa024a58",
+      "headRepository": "netmod-wg/enhanced-acl-netmod",
+      "headRefName": "boucadair-patch-2",
+      "headRefOid": "463b32a51df5ea561e73f6c0c1602985528fdd3a",
+      "closedAt": "2024-05-14T14:47:55Z",
+      "mergedAt": "2024-05-14T14:47:55Z",
+      "mergedBy": "boucadair",
+      "mergeCommit": {
+        "oid": "daeb92ea36b3b25b7b7e7cb726efcf7fdd623c0a"
+      },
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 79,
+      "id": "PR_kwDOIykBHs5vbIe1",
+      "title": "Update ietf-acl-enh.yang",
+      "url": "https://github.com/netmod-wg/enhanced-acl-netmod/pull/79",
+      "state": "MERGED",
+      "author": "boucadair",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2024-05-14T16:16:17Z",
+      "updatedAt": "2024-05-14T16:17:57Z",
+      "baseRepository": "netmod-wg/enhanced-acl-netmod",
+      "baseRefName": "main",
+      "baseRefOid": "51a5ada78f4775a9698cfd30f91f3d8828d494cd",
+      "headRepository": "netmod-wg/enhanced-acl-netmod",
+      "headRefName": "boucadair-patch-2",
+      "headRefOid": "d81285ab7c2147c0e6bde1d90e19c8997aa46193",
+      "closedAt": "2024-05-14T16:17:56Z",
+      "mergedAt": "2024-05-14T16:17:56Z",
+      "mergedBy": "boucadair",
+      "mergeCommit": {
+        "oid": "285e9a533c593fbf1fadd9c507ac1c3013b3bfd7"
+      },
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 80,
+      "id": "PR_kwDOIykBHs5vbp18",
+      "title": "Update Samier contact",
+      "url": "https://github.com/netmod-wg/enhanced-acl-netmod/pull/80",
+      "state": "MERGED",
+      "author": "boucadair",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2024-05-14T17:46:00Z",
+      "updatedAt": "2024-05-14T17:47:02Z",
+      "baseRepository": "netmod-wg/enhanced-acl-netmod",
+      "baseRefName": "main",
+      "baseRefOid": "eb9fe75b3dcd5a54685f8d9cea193e6c85335ab6",
+      "headRepository": "netmod-wg/enhanced-acl-netmod",
+      "headRefName": "boucadair-patch-2",
+      "headRefOid": "6317a741f00742b00d9eb35f31dfc554557d6650",
+      "closedAt": "2024-05-14T17:47:02Z",
+      "mergedAt": "2024-05-14T17:47:02Z",
+      "mergedBy": "boucadair",
+      "mergeCommit": {
+        "oid": "577de1653a95fa1b66f13e9e794c1bf9e43a1ec2"
+      },
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 81,
+      "id": "PR_kwDOIykBHs5vb0GG",
+      "title": "More edits",
+      "url": "https://github.com/netmod-wg/enhanced-acl-netmod/pull/81",
+      "state": "MERGED",
+      "author": "boucadair",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2024-05-14T18:16:36Z",
+      "updatedAt": "2024-05-14T18:16:44Z",
+      "baseRepository": "netmod-wg/enhanced-acl-netmod",
+      "baseRefName": "main",
+      "baseRefOid": "3d71645d80844d86db34f42c7c51999834167d49",
+      "headRepository": "netmod-wg/enhanced-acl-netmod",
+      "headRefName": "boucadair-patch-2",
+      "headRefOid": "d825ba6f9756a93d833f8c0cc14e0c95945c2be6",
+      "closedAt": "2024-05-14T18:16:43Z",
+      "mergedAt": "2024-05-14T18:16:43Z",
+      "mergedBy": "boucadair",
+      "mergeCommit": {
+        "oid": "ddfebcc8985f0fde710aee135311745df9a4e02e"
+      },
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 82,
+      "id": "PR_kwDOIykBHs5vn5j0",
+      "title": "fix yanglint validation errors",
+      "url": "https://github.com/netmod-wg/enhanced-acl-netmod/pull/82",
+      "state": "MERGED",
+      "author": "QiufangMa",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Hi, I have just tested JSON examples with yanglint, and there seems still some errors. hope this would help.",
+      "createdAt": "2024-05-16T07:38:53Z",
+      "updatedAt": "2024-05-16T08:04:21Z",
+      "baseRepository": "netmod-wg/enhanced-acl-netmod",
+      "baseRefName": "main",
+      "baseRefOid": "ddfebcc8985f0fde710aee135311745df9a4e02e",
+      "headRepository": null,
+      "headRefName": "main",
+      "headRefOid": "2f7c5edf1b4ca9b4f13f944a5417307674953ab7",
+      "closedAt": "2024-05-16T08:04:21Z",
+      "mergedAt": "2024-05-16T08:04:21Z",
+      "mergedBy": "boucadair",
+      "mergeCommit": {
+        "oid": "611f5d431287aa7daf7b9eaa4428296132b06585"
+      },
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 83,
+      "id": "PR_kwDOIykBHs5voZfa",
+      "title": "fix bug in tcp flags",
+      "url": "https://github.com/netmod-wg/enhanced-acl-netmod/pull/83",
+      "state": "MERGED",
+      "author": "boucadair",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2024-05-16T08:39:49Z",
+      "updatedAt": "2024-05-16T09:12:09Z",
+      "baseRepository": "netmod-wg/enhanced-acl-netmod",
+      "baseRefName": "main",
+      "baseRefOid": "b4a336271e37eba1c97c25dbf5366b468cdeada6",
+      "headRepository": "netmod-wg/enhanced-acl-netmod",
+      "headRefName": "boucadair-patch-2",
+      "headRefOid": "bf6dc87fa5fe6731ed436ab99f542f992d289df2",
+      "closedAt": "2024-05-16T09:12:09Z",
+      "mergedAt": "2024-05-16T09:12:08Z",
+      "mergedBy": "boucadair",
+      "mergeCommit": {
+        "oid": "22614782c3891c7afe60eca2d2963ebc42669c15"
+      },
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 84,
+      "id": "PR_kwDOIykBHs5w4KLq",
+      "title": "Update ietf-acl-enh.yang",
+      "url": "https://github.com/netmod-wg/enhanced-acl-netmod/pull/84",
+      "state": "MERGED",
+      "author": "boucadair",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2024-05-29T12:14:06Z",
+      "updatedAt": "2024-05-29T12:14:50Z",
+      "baseRepository": "netmod-wg/enhanced-acl-netmod",
+      "baseRefName": "main",
+      "baseRefOid": "369270d360dbaa072f4aded8bdfe6ac85537d093",
+      "headRepository": "netmod-wg/enhanced-acl-netmod",
+      "headRefName": "boucadair-patch-3",
+      "headRefOid": "6384e32913ac50a4f885777b7e692632a59c18f9",
+      "closedAt": "2024-05-29T12:14:50Z",
+      "mergedAt": "2024-05-29T12:14:50Z",
+      "mergedBy": "boucadair",
+      "mergeCommit": {
+        "oid": "df67f9d6adb5e0bdd0f5a60a4428cf4893d8e32e"
+      },
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 85,
+      "id": "PR_kwDOIykBHs6A4eiR",
+      "title": "Update ietf-acl-enh.yang",
+      "url": "https://github.com/netmod-wg/enhanced-acl-netmod/pull/85",
+      "state": "MERGED",
+      "author": "boucadair",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2024-11-05T05:46:43Z",
+      "updatedAt": "2024-11-18T07:54:10Z",
+      "baseRepository": "netmod-wg/enhanced-acl-netmod",
+      "baseRefName": "main",
+      "baseRefOid": "a121239d5ac2c952ba981879a0eb694239c56204",
+      "headRepository": "netmod-wg/enhanced-acl-netmod",
+      "headRefName": "TSV-review",
+      "headRefOid": "a05c63a845dda745b6fb07c12a888ef46829aa61",
+      "closedAt": "2024-11-18T07:54:07Z",
+      "mergedAt": "2024-11-18T07:54:07Z",
+      "mergedBy": "boucadair",
+      "mergeCommit": {
+        "oid": "da1835b885f516dd009d4b2fa3c0c0234bd13d6a"
+      },
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 86,
+      "id": "PR_kwDOIykBHs6Bomtn",
+      "title": "bug-iana-and-example",
+      "url": "https://github.com/netmod-wg/enhanced-acl-netmod/pull/86",
+      "state": "MERGED",
+      "author": "boucadair",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2024-11-12T13:30:59Z",
+      "updatedAt": "2024-11-18T07:54:22Z",
+      "baseRepository": "netmod-wg/enhanced-acl-netmod",
+      "baseRefName": "main",
+      "baseRefOid": "a121239d5ac2c952ba981879a0eb694239c56204",
+      "headRepository": "netmod-wg/enhanced-acl-netmod",
+      "headRefName": "bug-iana-and-example",
+      "headRefOid": "23bde9ca71a832ef7aa9b1fdf6da44154df67827",
+      "closedAt": "2024-11-18T07:54:20Z",
+      "mergedAt": "2024-11-18T07:54:20Z",
+      "mergedBy": "boucadair",
+      "mergeCommit": {
+        "oid": "6368414a7fef0081364bc99b8103df91e9117d60"
+      },
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 87,
+      "id": "PR_kwDOIykBHs6Fu6np",
+      "title": "Per review",
+      "url": "https://github.com/netmod-wg/enhanced-acl-netmod/pull/87",
+      "state": "MERGED",
+      "author": "boucadair",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2024-12-19T06:38:27Z",
+      "updatedAt": "2024-12-19T12:30:27Z",
+      "baseRepository": "netmod-wg/enhanced-acl-netmod",
+      "baseRefName": "main",
+      "baseRefOid": "ff7e63e0e741038b98be4ef993217abe56541829",
+      "headRepository": "netmod-wg/enhanced-acl-netmod",
+      "headRefName": "Per-review",
+      "headRefOid": "164cf70d4998c4cd88221ee3e14de9ca684b9513",
+      "closedAt": "2024-12-19T12:30:25Z",
+      "mergedAt": "2024-12-19T12:30:25Z",
+      "mergedBy": "boucadair",
+      "mergeCommit": {
+        "oid": "c651cacfd2c0572eb0493463851400d2fdef8915"
+      },
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 88,
+      "id": "PR_kwDOIykBHs6Fv3ot",
+      "title": "align with 8407bis guidance",
+      "url": "https://github.com/netmod-wg/enhanced-acl-netmod/pull/88",
+      "state": "MERGED",
+      "author": "boucadair",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2024-12-19T09:04:17Z",
+      "updatedAt": "2024-12-19T12:25:47Z",
+      "baseRepository": "netmod-wg/enhanced-acl-netmod",
+      "baseRefName": "Per-review",
+      "baseRefOid": "a1c5e5cee0082b8d6457a9aa5845a90bd62f8645",
+      "headRepository": "netmod-wg/enhanced-acl-netmod",
+      "headRefName": "align-with-8407bis-guidance",
+      "headRefOid": "b02d9c595fdb852ab3f16e7753579e5b05d9869d",
+      "closedAt": "2024-12-19T12:25:44Z",
+      "mergedAt": "2024-12-19T12:25:44Z",
+      "mergedBy": "boucadair",
+      "mergeCommit": {
+        "oid": "164cf70d4998c4cd88221ee3e14de9ca684b9513"
+      },
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 89,
+      "id": "PR_kwDOIykBHs6Gpd9Y",
+      "title": "Fixing nits suggested by Mahesh",
+      "url": "https://github.com/netmod-wg/enhanced-acl-netmod/pull/89",
+      "state": "MERGED",
+      "author": "sbarguil",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "COMMENT:\r\n\r\n\"Abstract\", paragraph 2\r\n>    RFC 8519 defines a YANG data model for Access Control Lists (ACLs).\r\n>    This document discusses a set of extensions that fix many of the\r\n>    limitations of the ACL model as initially defined in RFC 8519.\r\n> \r\n>    The document also defines IANA-maintained modules for ICMP types and\r\n>    IPv6 extension headers.\r\n\r\nThis document provided important extensions to the base ACL YANG model defined in RFC8519.\r\n\r\nHowever, nowhere in the document does it mention that these extensions augment the base model, except in the model itself. Reading the abstract and the introduction, a reader would be left wondering whether this model is replacing RFC 8519 or augmenting it. Can that be made clear?\r\n\r\nSection 2, paragraph 4\r\n>    Defined set:  Refers to reusable description of one or multiple\r\n>       information elements (e.g., IP address, IP prefix, port number, or\r\n>       ICMP type).\r\n\r\nIs it just a description? A better way to define it would be to say:\r\n\r\nElements in a defined set typically share a logical purpose or function, such as IP address, IP prefixes, port number, or ICMP type.\r\n\r\nSimilarly definition of 'payload-based filtering' could be added to define the term or referenced if defined somewhere else.\r\n\r\nSection 3.5, paragraph 1\r\n>    The augmented ACL structure (Figure 1) includes new leafs\r\n>    'ipv4-fragment' and 'ipv6-fragment' to better handle fragments.\r\n\r\nThe document comments that RFC8519 does not do a good job of handling fragments and that this document addresses that issue. It would help to explain how the model defined in the document allows for better handling of fragments. For example, describe how the combination of operator and fragment type eases fragment handling.\r\n\r\nSection 4, paragraph 1\r\n>    This model imports types from [RFC6991], [RFC8519], and [RFC8294].\r\n\r\nThanks first of all to Per for providing YANG doctor review comments. I also tend to agree with him that as a practice reference to RFC 9293, 4443, 3032, 792, and IEEE 802.1Q, IEEE 802.1ah need to be added here, even if they are referenced or mentioned elsewhere.\r\n\r\n\"Appendix E.\", paragraph 1\r\n>    This section provides a few examples to illustrate the use of the\r\n>    enhanced ACL module (\"ietf-acl-enh\").\r\n\r\nThank you for providing examples along with the module. The added feature in this module is payload-based filtering. An example configuration reflecting that, say for HTTP headers, would greatly enhance the understanding of this module.\r\n\r\nNo reference entries found for these items, which were mentioned in the text:\r\n [RFC3692].\r\n\r\n-------------------------------------------------------------------------------\r\nNIT\r\n-------------------------------------------------------------------------------\r\n\r\nAll comments below are about very minor potential issues that you may choose to\r\naddress in some way - or ignore - as you see fit. Some were flagged by\r\nautomated tools (via https://github.com/larseggert/ietf-reviewtool) so there\r\nwill likely be some false positives. There is no need to let me know what you\r\ndid with these suggestions.\r\n\r\nSection 3.6, paragraph 2\r\n>    A new feature, called 'match-on-payload', is defined in the document.\r\n>    This can be used, for example, for QUIC [RFC9000] or for tunneling\r\n>    protocols.  This feature requires configuring a data offset, a\r\n>    length, and a binary pattern to macth data against using a specified\r\n>    operator.\r\n\r\ns/macth/match/\r\n\r\nSection 6.3.1, paragraph 15\r\n>    IANA is requested to updated the \"Reference\" in the \"ICMP Type\r\n>    Numbers\" registry as follows:\r\n\r\ns/updated/update/\r\n\r\nSection 6.3.2, paragraph 15\r\n>    IANA is requested to updated the \"Reference\" in the \"ICMPv6 \"type\"\r\n>    Numbers\" registry as follows:\r\n\r\ns/updated/update/\r\n\r\nSection 6.3.3, paragraph 15\r\n>    IANA is requested to updated the \"Reference\" in the \"IPv6 Extension\r\n>    Header Types\" registry as follows:\r\n\r\ns/updated/update/\r\n\r\nSection 1.1, paragraph 10\r\n> ixes, port number, or ICMP type. Similarly definition of 'payload-based filt\r\n>                                  ^^^^^^^^^\r\nA comma may be missing after the conjunctive/linking adverb \"Similarly\".\r\n\r\nSection 4, paragraph 3\r\n>  { base tcp-flag; description \"Acknowledgment TCP flag bit.\"; reference \"RFC\r\n>                                ^^^^^^^^^^^^^^\r\nDo not mix variants of the same word (\"acknowledgment\" and \"acknowledgement\")",
+      "createdAt": "2025-01-03T10:12:08Z",
+      "updatedAt": "2025-01-13T09:38:52Z",
+      "baseRepository": "netmod-wg/enhanced-acl-netmod",
+      "baseRefName": "main",
+      "baseRefOid": "533e1060b49395eb6a6647d2e5b933ee4a73d5d6",
+      "headRepository": "netmod-wg/enhanced-acl-netmod",
+      "headRefName": "Mahesh-comments",
+      "headRefOid": "c3daded4ca8c7532e446055ce2e8a8b30a3a8f33",
+      "closedAt": "2025-01-13T09:38:50Z",
+      "mergedAt": "2025-01-13T09:38:50Z",
+      "mergedBy": "boucadair",
+      "mergeCommit": {
+        "oid": "48945fe59ad9ab85f94d4009b9f3ca72d3630565"
+      },
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 90,
+      "id": "PR_kwDOIykBHs6Hh5Sg",
+      "title": "payload example",
+      "url": "https://github.com/netmod-wg/enhanced-acl-netmod/pull/90",
+      "state": "MERGED",
+      "author": "boucadair",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2025-01-13T13:14:48Z",
+      "updatedAt": "2025-01-30T09:18:43Z",
+      "baseRepository": "netmod-wg/enhanced-acl-netmod",
+      "baseRefName": "main",
+      "baseRefOid": "1f740934f823c984f50205fac779a27873d84f01",
+      "headRepository": "netmod-wg/enhanced-acl-netmod",
+      "headRefName": "payload-example",
+      "headRefOid": "3f36c93134115091e9679d10b96b9114678489ad",
+      "closedAt": "2025-01-30T09:18:41Z",
+      "mergedAt": "2025-01-30T09:18:41Z",
+      "mergedBy": "boucadair",
+      "mergeCommit": {
+        "oid": "77f5536c462acbc2ee82948603316655691fadb4"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOIykBHs6Y1N7k",
+          "commit": {
+            "abbreviatedOid": "15f8d44"
+          },
+          "author": "sbarguil",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-01-21T10:06:06Z",
+          "updatedAt": "2025-01-21T10:06:07Z",
+          "comments": [
+            {
+              "originalPosition": 6,
+              "body": "```suggestion\r\n{{example_p}} This rule focuses entirely on the TCP payload, ignoring other parts of the TCP segment (such as the TCP header or options). By using an offset at the payload, it allows targeting a specific portion of the payload that starts 20 bytes after the beginning of the data (skipping the first 20 bytes).\r\nThis approach might be useful for detecting specific patterns, signatures, or protocols encapsulated within the payload, such as when the inner source IP address is 2001:db8::1.\r\n```",
+              "createdAt": "2025-01-21T10:06:06Z",
+              "updatedAt": "2025-01-21T10:06:07Z"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "number": 91,
+      "id": "PR_kwDOIykBHs6JeFDZ",
+      "title": "sync with base",
+      "url": "https://github.com/netmod-wg/enhanced-acl-netmod/pull/91",
+      "state": "MERGED",
+      "author": "boucadair",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2025-01-30T09:03:25Z",
+      "updatedAt": "2025-01-30T09:03:34Z",
+      "baseRepository": "netmod-wg/enhanced-acl-netmod",
+      "baseRefName": "payload-example",
+      "baseRefOid": "f4806cd76c96b0330b4335063001a7395fce1f4a",
+      "headRepository": "netmod-wg/enhanced-acl-netmod",
+      "headRefName": "main",
+      "headRefOid": "1f740934f823c984f50205fac779a27873d84f01",
+      "closedAt": "2025-01-30T09:03:34Z",
+      "mergedAt": "2025-01-30T09:03:34Z",
+      "mergedBy": "boucadair",
+      "mergeCommit": {
+        "oid": "a9555c10e4dc01058ff6830bccb32638e9b286ec"
+      },
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 92,
+      "id": "PR_kwDOIykBHs6JeOZd",
+      "title": "deny-write",
+      "url": "https://github.com/netmod-wg/enhanced-acl-netmod/pull/92",
+      "state": "MERGED",
+      "author": "boucadair",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2025-01-30T09:24:00Z",
+      "updatedAt": "2025-01-30T09:28:02Z",
+      "baseRepository": "netmod-wg/enhanced-acl-netmod",
+      "baseRefName": "main",
+      "baseRefOid": "77f5536c462acbc2ee82948603316655691fadb4",
+      "headRepository": "netmod-wg/enhanced-acl-netmod",
+      "headRefName": "deny-write",
+      "headRefOid": "3964f65ab0b6aac0e472787053a08317813e3745",
+      "closedAt": "2025-01-30T09:27:59Z",
+      "mergedAt": "2025-01-30T09:27:59Z",
+      "mergedBy": "boucadair",
+      "mergeCommit": {
+        "oid": "f453b493977706463868a70a02216ac89221647c"
+      },
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 93,
+      "id": "PR_kwDOIykBHs6Mgix-",
+      "title": "update TLP",
+      "url": "https://github.com/netmod-wg/enhanced-acl-netmod/pull/93",
+      "state": "MERGED",
+      "author": "boucadair",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2025-02-25T17:25:02Z",
+      "updatedAt": "2025-02-25T18:25:33Z",
+      "baseRepository": "netmod-wg/enhanced-acl-netmod",
+      "baseRefName": "main",
+      "baseRefOid": "8426b24b66f7e6759d9f9bc41ea5fae5ab8958aa",
+      "headRepository": "netmod-wg/enhanced-acl-netmod",
+      "headRefName": "secdir-review",
+      "headRefOid": "91a179ed49cf3fe17aab339d83508b60319ddda1",
+      "closedAt": "2025-02-25T18:25:32Z",
+      "mergedAt": "2025-02-25T18:25:32Z",
+      "mergedBy": "boucadair",
+      "mergeCommit": {
+        "oid": "8154324ad5d63f288369324ff8e6e3783e44aef5"
+      },
       "comments": [],
       "reviews": []
     }
