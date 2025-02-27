@@ -178,7 +178,7 @@ In addition to the terms defined in {{!RFC8519}}, this document makes use of the
 Defined set:
 : Elements in a defined set typically share a logical purpose or function, such as IP address, IP prefixes, port number, or ICMP type.
 
-# Overall Structure of The Enhanced ACL Module
+# Overall Structure of the Enhanced ACL Module
 
 ## Tree Structure
 
@@ -212,11 +212,11 @@ Port sets:
 : The port numbers can be individual port numbers, a range of port numbers, and an operation.
 
 Protocol sets:
-: A protocol set contains a list of protocol values. Each protocol can be identified either by a number (e.g., 17) or a name (e.g., UDP).
+: A protocol set contains a list of protocol values. A protocol can be identified either by a number (e.g., 17) or a name (e.g., UDP).
 
 ICMP sets:
 : An ICMP set contains a list of ICMPv4 {{!RFC0792}} or ICMPv6 {{!RFC4443}} types, each of them identified by a type value, optionally the code and the rest of the header.
-: New IANA-maintained modules for ICMP types are defined in this document.
+: IANA-maintained modules for ICMP types are defined in this document.
 
 Aliases:
 : An alias is defined by a combination of various parameters (e.g., IP prefix, protocol, port number, or VLAN {{IEEE802.1Qcp}}). When only sets of one parameter (e.g., protocol) are handled, then the relevant parameter sets should be used (e.g., protocol set) rather than an alias.
@@ -228,17 +228,17 @@ Payload-based filtering:
 
 ## IPv6 Extension Headers
 
-The module can be used to manage ACLs that require matching against IPv6 extension headers {{!RFC8200}}. To that aim, a new IANA-maintained module for IPv6 extension header types "iana-ipv6-ext-types" is defined in this document.
+The enhanced ACL module can be used to manage ACLs that require matching against IPv6 extension headers {{!RFC8200}}. To that aim, a new IANA-maintained module for IPv6 extension header types "iana-ipv6-ext-types" is defined in this document.
 
 ## TCP Flags Handling
 
-The augmented ACL structure ({{enh-acl-tree}}) includes a new container 'flags-bitmask' to better handle TCP flags ({{Section 3.1 of !RFC9293}}). Assigned TCP flags are maintained in the "TCP Header Flags" registry under the "Transmission Control Protocol (TCP) Parameters" registry group {{IANA-TCP-FLAGS}}.
+The augmented ACL module includes a new container 'flags-bitmask' to better handle TCP flags ({{Section 3.1 of !RFC9293}}). Assigned TCP flags are maintained in the "TCP Header Flags" registry under the "Transmission Control Protocol (TCP) Parameters" registry group {{IANA-TCP-FLAGS}}.
 
 Clients that support both 'flags-bitmask' and 'flags' {{!RFC8519}} matching fields MUST NOT set these fields in the same request.
 
 ## Fragments Handling
 
-The augmented ACL structure ({{enh-acl-tree}}) includes new leafs 'ipv4-fragment' and 'ipv6-fragment' to better handle fragments.
+The augmented ACL module includes new leafs 'ipv4-fragment' and 'ipv6-fragment' to better handle fragments.
 
 Clients that support both 'ipv4-fragment' and 'flags' {{!RFC8519}} matching fields MUST NOT set these fields in the same request.
 
@@ -256,7 +256,7 @@ The enhanced ACL module ({{sec-module}}) can be used to create rules to match ag
 - Label Value: A 20-bit field that carries the actual value of the MPLS label.
 - TTL: A 8-bit field used to encode Time to Live (TTL) value.
 
-The augmented ACL structure ({{enh-acl-tree}}) allows an operator to configure ACLs that match based upon the following data nodes:
+The augmented ACL module can be used by an operator to configure ACLs that match based upon the following data nodes:
 
 * 'traffic-class'
 * 'label-position' (e.g., top or bottom)
@@ -349,8 +349,8 @@ subtrees and data nodes have particular sensitivities/vulnerabilities:
    an attacker to identify the actual resources that are bound
    to ACLs. Likewise, access to this information will help an attacker to
    better scope its attacks to target resources that are specific to a given network instead
-   of performing a random scan. Likewise, disclosing some of this information (e.g., IP addresses of core routers)
-   may nullify the effect of topology hiding strategies.
+   of performing random scans. Also, disclosing some of this information (e.g., IP addresses of core routers)
+   may nullify the effect of topology hiding strategies in some networks.
 
 The document defines a match policy based on a pattern that can be observed in a packet. For example, such a policy can be combined with header-based matches in the context of DDoS mitigation. Filtering based on a pattern match is deterministic for packets with unencrypted data. However, the efficiency for encrypted packets depend on the presence of an unvarying pattern. Readers may also refer to {{Section 11 of ?RFC8329}} for security considerations related to Network Security Functions (NSFs) that apply packet content matching.
 
@@ -601,7 +601,7 @@ NEW:
 
 # ICMPv4 Types
 
-## XSLT Template to Generate The ICMPv4 Types IANA-Maintained Module {#template}
+## XSLT Template to Generate the ICMPv4 Types IANA-Maintained Module {#template}
 
 ~~~
 <CODE BEGINS>
@@ -645,7 +645,7 @@ NEW:
 
 # IPv6 Extension Header Types
 
-## XSLT Template to Generate The IPv6 Extension Header Types IANA-Maintained Module {#iana-ipv6-ext-template}
+## XSLT Template to Generate the IPv6 Extension Header Types IANA-Maintained Module {#iana-ipv6-ext-template}
 
 ~~~
 <CODE BEGINS>
@@ -655,7 +655,7 @@ NEW:
 <CODE ENDS>
 ~~~
 
-## Initial Version of The IPv6 Extension Header Types IANA-Maintained Module {#iana-ipv6-ext}
+## Initial Version of the IPv6 Extension Header Types IANA-Maintained Module {#iana-ipv6-ext}
 
 ~~~
 <CODE BEGINS> file "iana-ipv6-ext-types@2023-09-29.yang"
@@ -665,7 +665,7 @@ NEW:
 <CODE ENDS>
 ~~~
 
-# Problem Statement & Gap Analysis {#ps}
+# Problem Statement and Gap Analysis {#ps}
 
 ## Suboptimal Configuration: Lack of Support for Lists of Prefixes {#ps-sets}
 
@@ -827,7 +827,7 @@ Defining a new IPv4/IPv6 matching field called 'fragment' is thus required to ef
 
 Some transport protocols use existing protocols (e.g., TCP or UDP) as substrate. The match criteria for such protocols may rely upon the 'protocol' under 'l3', TCP/UDP match criteria, part of the TCP/UDP payload, or a combination thereof. {{!RFC8519}} does not support matching based on the payload.
 
-Likewise, the current version of the ACL model does not support filtering of encapsulated traffic.
+Likewise, the ACL model defined in {{!RFC8519}} does not support filtering of encapsulated traffic.
 
 ## Reuse the ACLs Content Across Several Devices
 
@@ -850,7 +850,7 @@ requirements, e.g.:
 
 ## Match MPLS Headers
 
-The ACLs could be used to create rules to match MPLS fields on a packet. {{!RFC8519}} does not support such function.
+The ACLs can be used to create rules to match MPLS fields on a packet. {{!RFC8519}} does not support such function.
 
 # Examples {#sec-examples}
 
