@@ -131,20 +131,27 @@ module ietf-acl-enh {
   identity layer4 {
     base offset-type;
     description
-      "The offset start right after the IP header. This can be
-       typically the beginning of transport header (e.g., TCP
-       or UDP) or any encapsulation scheme over IP such as 
-       IP-in-IP.";
+      "The offset starts right after the IP header (including
+       any options or headers pertaining to that IP layer, e.g.,
+       IPv6 Extension Headers and the Authentication Header (AH)).
+
+       This can be typically the beginning of transport header
+       (e.g., UDP, TCP, SCTP, and DCCP) or any encapsulation
+       scheme over IP such as IP-in-IP.";
   }
 
   identity payload {
     base offset-type;
     description
-      "The offset start right after the end of the transport
-       payload. For example, this represents the beginning of the
+      "The offset starts right after the end of the transport
+       header. For example, this represents the beginning of the
        TCP data right after any TCP options or the beginning of
-       the UDP payload right after the UDP header.";
-  }
+       the UDP payload right after the UDP header.
+       
+       This type may be used for matches against any data in
+       the transport payload and/or any surplus area (if any,
+       such as in UDP).";
+  } 
 
   identity tcp-flag {
     description
@@ -437,7 +444,7 @@ module ietf-acl-enh {
     leaf type {
       type fragment-type;
       description
-        "What fragment type to look for.";
+        "Specifies what fragment type to look for.";
     }
   }
 
@@ -519,7 +526,7 @@ module ietf-acl-enh {
       type operator;
       default "match";
       description
-        "How to interpret the prefix match.";
+        "How to interpret the pattern match.";
     }
     leaf pattern {
       type binary;
