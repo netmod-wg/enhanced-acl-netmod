@@ -209,7 +209,7 @@ IPv6 prefix sets:
 
 Port sets:
 : A port set contains a list of port numbers to be used in transpot protocol entries (e.g., TCP and UDP).
-: The port numbers can be individual port numbers, a range of port numbers, and an operation.
+: A port number can be a port range or a single port number along with an operator (equal to, greater than or equal to, etc.).
 
 Protocol sets:
 : A protocol set contains a list of protocol values. A protocol can be identified either by a number (e.g., 17) or a name (e.g., UDP).
@@ -1154,7 +1154,7 @@ Thanks to Lou Berger for Shepherding the document.
 Thanks to David Black for the tsvart review, Tim Wicinski for the intdir review, Per Andersson for the yangdoctors review, Russ Housley
 for genart review, and Linda Dunbar and Sean Turner for the secdir reviews.
 
-Thanks to Erik Kline for the IESG review.
+Thanks to Erik Kline and Mike Bishop for the IESG review.
 
 The IANA-maintained modules were generated using an XSLT stylesheet from the 'iana-yang' project {{YANG-XSLT}}).
 
