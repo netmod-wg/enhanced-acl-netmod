@@ -5,12 +5,12 @@
 netmod                                                     O. G. D. Dios
 Internet-Draft                                                Telefonica
 Intended status: Standards Track                              S. Barguil
-Expires: 31 August 2025                                            Nokia
+Expires: 28 September 2025                                         Nokia
                                                             M. Boucadair
                                                                   Orange
                                                                    Q. Wu
                                                                   Huawei
-                                                        27 February 2025
+                                                           27 March 2025
 
 
         Extensions to the Access Control Lists (ACLs) YANG Model
@@ -53,7 +53,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 31 August 2025.
+   This Internet-Draft will expire on 28 September 2025.
 
 Copyright Notice
 
@@ -721,19 +721,26 @@ Table of Contents
      identity layer4 {
        base offset-type;
        description
-         "The offset start right after the IP header. This can be
-          typically the beginning of transport header (e.g., TCP
-          or UDP) or any encapsulation scheme over IP such as
-          IP-in-IP.";
+         "The offset starts right after the IP header (including
+          any options or headers pertaining to that IP layer, e.g.,
+          IPv6 Extension Headers and the Authentication Header (AH)).
+
+          This can be typically the beginning of transport header
+          (e.g., UDP, TCP, SCTP, and DCCP) or any encapsulation
+          scheme over IP such as IP-in-IP.";
      }
 
      identity payload {
        base offset-type;
        description
-         "The offset start right after the end of the transport
-          payload. For example, this represents the beginning of the
+         "The offset starts right after the end of the transport
+          header. For example, this represents the beginning of the
           TCP data right after any TCP options or the beginning of
-          the UDP payload right after the UDP header.";
+          the UDP payload right after the UDP header.
+
+          This type may be used for matches against any data in
+          the transport payload and/or any surplus area (if any,
+          such as in UDP).";
      }
 
      identity tcp-flag {
@@ -1027,7 +1034,7 @@ Table of Contents
        leaf type {
          type fragment-type;
          description
-           "What fragment type to look for.";
+           "Specifies what fragment type to look for.";
        }
      }
 
@@ -1109,7 +1116,7 @@ Table of Contents
          type operator;
          default "match";
          description
-           "How to interpret the prefix match.";
+           "How to interpret the pattern match.";
        }
        leaf pattern {
          type binary;
@@ -3939,6 +3946,8 @@ Acknowledgments
    intdir review, Per Andersson for the yangdoctors review, Russ Housley
    for genart review, and Linda Dunbar and Sean Turner for the secdir
    reviews.
+
+   Thanks to Erik Kline for the IESG review.
 
    The IANA-maintained modules were generated using an XSLT stylesheet
    from the 'iana-yang' project [YANG-XSLT]).
