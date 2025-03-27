@@ -209,7 +209,7 @@ IPv6 prefix sets:
 
 Port sets:
 : A port set contains a list of port numbers to be used in transpot protocol entries (e.g., TCP and UDP).
-: A port number can be port range or a single port number along with an operator (equal to, greater than or equal to, etc.).
+: A port number can be a port range or a single port number along with an operator (equal to, greater than or equal to, etc.).
 
 Protocol sets:
 : A protocol set contains a list of protocol values. A protocol can be identified either by a number (e.g., 17) or a name (e.g., UDP).
