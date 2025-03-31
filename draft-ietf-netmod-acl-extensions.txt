@@ -5,12 +5,12 @@
 netmod                                                     O. G. D. Dios
 Internet-Draft                                                Telefonica
 Intended status: Standards Track                              S. Barguil
-Expires: 28 September 2025                                         Nokia
+Expires: 2 October 2025                                            Nokia
                                                             M. Boucadair
                                                                   Orange
                                                                    Q. Wu
                                                                   Huawei
-                                                           27 March 2025
+                                                           31 March 2025
 
 
         Extensions to the Access Control Lists (ACLs) YANG Model
@@ -53,7 +53,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 28 September 2025.
+   This Internet-Draft will expire on 2 October 2025.
 
 Copyright Notice
 
@@ -443,8 +443,8 @@ Table of Contents
    Port sets:  A port set contains a list of port numbers to be used in
       transpot protocol entries (e.g., TCP and UDP).
 
-      The port numbers can be individual port numbers, a range of port
-      numbers, and an operation.
+      A port number can be a port range or a single port number along
+      with an operator (equal to, greater than or equal to, etc.).
 
    Protocol sets:  A protocol set contains a list of protocol values.  A
       protocol can be identified either by a number (e.g., 17) or a name
@@ -3947,7 +3947,7 @@ Acknowledgments
    for genart review, and Linda Dunbar and Sean Turner for the secdir
    reviews.
 
-   Thanks to Erik Kline for the IESG review.
+   Thanks to Erik Kline and Mike Bishop for the IESG review.
 
    The IANA-maintained modules were generated using an XSLT stylesheet
    from the 'iana-yang' project [YANG-XSLT]).
