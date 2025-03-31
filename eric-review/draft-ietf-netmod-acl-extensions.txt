@@ -1970,8 +1970,8 @@ Table of Contents
    module.  The "enum" statement, and sub-statements thereof, should be
    defined:
 
-   "enum":  Replicates the name from the registry with all spaces
-      striped.
+   "enum":  Replicates the name from the registry with all illegal
+      characters (e.g., spaces) are striped.
 
    "value":  Contains the decimal value of the IANA-assigned value.
 
@@ -2027,8 +2027,8 @@ Table of Contents
    module.  The "enum" statement, and sub-statements thereof, should be
    defined:
 
-   "enum":  Replicates the name from the registry with all spaces
-      striped.
+   "enum":  Replicates the name from the registry with all illegal
+      characters (e.g., spaces) striped.
 
    "value":  Contains the decimal value of the IANA-assigned value.
 
