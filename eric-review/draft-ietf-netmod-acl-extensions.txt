@@ -1701,10 +1701,10 @@ Table of Contents
            "A reference to a prefix list to match the destination
             address.";
        }
-       leaf next-header-set {
+       leaf protocol-set {
          type protocol-set-ref;
          description
-           "A reference to a protocol set to match the next-header
+           "A reference to a protocol set to match the protocol
             field.";
        }
      }
@@ -1732,7 +1732,8 @@ Table of Contents
        leaf protocol-set {
          type protocol-set-ref;
          description
-           "A reference to a protocol set to match the protocol field.";
+           "A reference to a protocol set to match the next-header
+            field.";
        }
        leaf extension-header {
          type iana-ipv6-ext-types:ipv6-extension-header-type;
