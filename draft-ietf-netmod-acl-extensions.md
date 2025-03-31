@@ -1022,6 +1022,9 @@ For the readers' convenience, the textual representation of the pattern is used 
             {
               "name": "pattern-1",
               "matches": {
+                "ipv6": {
+                  "protocol": 41
+                },
                 "ietf-acl-enh:pattern": {
                   "offset": "ietf-acl-enh:layer4",
                   "length": 20,
