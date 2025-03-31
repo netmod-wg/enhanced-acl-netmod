@@ -289,7 +289,7 @@ Table of Contents
        |  +---u fragment-fields
        +--rw source-ipv4-prefix-list?        ipv4-prefix-set-ref
        +--rw destination-ipv4-prefix-list?   ipv4-prefix-set-ref
-       +--rw next-header-set?                protocol-set-ref
+       +--rw protocol-set?                   protocol-set-ref
      augment /acl:acls/acl:acl/acl:aces/acl:ace/acl:matches/acl:l3
                /acl:ipv6/acl:ipv6:
        +--rw ipv6-fragment
