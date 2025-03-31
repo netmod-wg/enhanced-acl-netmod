@@ -33,14 +33,7 @@ author:
     organization: Huawei
     email: bill.wu@huawei.com
 
-informative:
-   IANA-YANG-PARAMETERS:
-              title: "YANG Parameters"
-              target: https://www.iana.org/assignments/yang-parameters
-
-   IANA-TCP-FLAGS:
-              title: "Transmission Control Protocol (TCP) Parameters"
-              target: https://www.iana.org/assignments/tcp-parameters/
+normative:
 
    IANA-ICMPv4:
               title: "ICMP Type Numbers"
@@ -53,6 +46,16 @@ informative:
    IANA-IPv6:
               title: "IPv6 Extension Header Types"
               target: https://www.iana.org/assignments/ipv6-parameters/ipv6-parameters.xhtml
+
+
+informative:
+   IANA-YANG-PARAMETERS:
+              title: "YANG Parameters"
+              target: https://www.iana.org/assignments/yang-parameters
+
+   IANA-TCP-FLAGS:
+              title: "Transmission Control Protocol (TCP) Parameters"
+              target: https://www.iana.org/assignments/tcp-parameters/
 
    IANA_ICMPv4_YANG_URL:
               title: "iana-icmpv6-types YANG Module"
@@ -89,7 +92,7 @@ informative:
 --- abstract
 
 RFC 8519 defines a YANG data model for Access Control Lists
-(ACLs). This document discusses a set of extensions that fix many of
+(ACLs). This document specifies a set of extensions that fix many of
 the limitations of the ACL model as initially defined in RFC 8519.
 Specifically, it introduces augmentations to the ACL base model to enhance its functionality and applicability.
 
@@ -131,12 +134,12 @@ level makes it easier to maintain by the security groups.
 
 Network operators maintain sets of IP prefixes that are related to each other,
 e.g., deny-lists or accept-lists that are associated with those provided by a
- VPN customer. These lists are maintained and manipulated by security expert teams.
+ VPN customer. These lists are maintained and manipulated by security expert teams of the network operators.
 
 Note that ACLs are used locally in devices but are triggered by other
 tools such as DDoS mitigation {{?RFC9132}} or BGP Flow Spec {{?RFC8955}}
-{{?RFC8956}}. Therefore, supporting means to easily map to the filtering rules conveyed in
-messages triggered by  these tools is valuable from a network operation standpoint.
+{{?RFC8956}}. Therefore, it is valuable from a network operation standpoint to support means to easily map to the filtering rules conveyed in
+messages triggered by these tools.
 
 The enhanced ACL module ({{sec-module}}) conforms to the Network
 Management Datastore Architecture (NMDA) defined in {{!RFC8342}}.
@@ -176,7 +179,7 @@ The meaning of the symbols in the tree diagrams is defined in
 In addition to the terms defined in {{!RFC8519}}, this document makes use of the following term:
 
 Defined set:
-: Elements in a defined set typically share a logical purpose or function, such as IP address, IP prefixes, port number, or ICMP type.
+: Elements in a defined set typically share a logical purpose or function, such as IP addresses, IP prefixes, port numbers, or ICMP types.
 
 # Overall Structure of the Enhanced ACL Module
 
@@ -208,7 +211,7 @@ IPv6 prefix sets:
 : An IPv6 prefix contains a list of IPv6 prefixes. A match will be considered if the IP address (source or destination, depending on the ACL entry) is contained in any of the prefixes in the set.
 
 Port sets:
-: A port set contains a list of port numbers to be used in transpot protocol entries (e.g., TCP and UDP).
+: A port set contains a list of port numbers to be used in transport protocol entries (e.g., TCP and UDP).
 : A port number can be a port range or a single port number along with an operator (equal to, greater than or equal to, etc.).
 
 Protocol sets:
@@ -224,7 +227,7 @@ Aliases:
 : Sets of aliases can be defined and referred to in ACL match criteria.
 
 Payload-based filtering:
-: Network traffic filtering technique that examines the data payload of packets, beyond just the header information, to identify, allow, or block traffic based on specific content or patterns within the payload.
+: Network traffic filtering technique that examines the data payload of packets, beyond just the header information, to identify, allow, or block traffic based on specific content or patterns within the payload. An offset type (e.g., layer 2 or layer 3) is used to indicates the position of the data in packet to use for the match.
 
 ## IPv6 Extension Headers
 
@@ -246,7 +249,7 @@ Clients that support both 'ipv4-fragment' and 'flags' {{!RFC8519}} matching fiel
 
 Some transport protocols use existing protocols (e.g., TCP or UDP) as substrate. The match criteria for such protocols may rely upon the 'protocol' under 'l3', TCP/UDP match criteria, part of the TCP/UDP payload, or a combination thereof.
 
-A new feature, called 'match-on-payload', is defined in the document. This can be used, for example, for QUIC {{?RFC9000}} or for tunneling protocols. This feature requires configuring a data offset, a length, and a binary pattern to match data against using a specified operator.
+A new feature, called 'match-on-payload', is defined in the document. This can be used, for example, for QUIC {{?RFC9000}} or for tunneling protocols. This feature requires configuring a data offset, a length, and a binary pattern to match data against using a specified operator. The data offset indicates the position to look at in a packet (e.g., starts at the beginning of the IP header or transport header).
 
 ## Match on MPLS Headers
 
@@ -1154,7 +1157,7 @@ Thanks to Lou Berger for Shepherding the document.
 Thanks to David Black for the tsvart review, Tim Wicinski for the intdir review, Per Andersson for the yangdoctors review, Russ Housley
 for genart review, and Linda Dunbar and Sean Turner for the secdir reviews.
 
-Thanks to Erik Kline and Mike Bishop for the IESG review.
+Thanks to Erik Kline, Mike Bishop, and Éric Vyncke for the IESG review.
 
 The IANA-maintained modules were generated using an XSLT stylesheet from the 'iana-yang' project {{YANG-XSLT}}).
 
