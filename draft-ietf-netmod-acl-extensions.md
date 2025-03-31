@@ -443,7 +443,7 @@ must be added to the "iana-icmpv4-types" YANG module.  The "enum" statement,
 and sub-statements thereof, should be defined:
 
 "enum":
-: Replicates the name from the registry with all spaces striped.
+: Replicates the name from the registry with all illegal characters (e.g., spaces) are striped.
 
 "value":
 : Contains the decimal value of the IANA-assigned value.
@@ -502,7 +502,7 @@ must be added to the "iana-icmpv6-types" YANG module.  The "enum" statement,
 and sub-statements thereof, should be defined:
 
 "enum":
-: Replicates the name from the registry with all spaces striped.
+: Replicates the name from the registry with all illegal characters (e.g., spaces) striped.
 
 "value":
 : Contains the decimal value of the IANA-assigned value.
