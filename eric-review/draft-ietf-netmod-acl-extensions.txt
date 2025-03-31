@@ -3959,7 +3959,7 @@ Acknowledgments
    review.
 
    The IANA-maintained modules were generated using an XSLT stylesheet
-   from the 'iana-yang' project [YANG-XSLT]).
+   from the 'iana-yang' project [YANG-XSLT].
 
    This work is partially supported by the European Commission under
    Horizon 2020 Secured autonomic traffic management for a Tera of SDN
