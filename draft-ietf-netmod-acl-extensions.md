@@ -337,8 +337,8 @@ have particular sensitivities/vulnerabilities:
  : These lists specify a set of IP addresses, port numbers, protocols, ICMP types, and aliases. Similar to {{!RFC8519}}, unauthorized write access to these
       lists can allow intruders to modify the entries so as to permit
       traffic that should not be permitted, or deny traffic that should
-      be permitted.  The former may result in a DoS attack, or
-      compromise a device.  The latter may result in a DoS attack.
+      be permitted. The former may result in a DoS attack, or
+      compromise a device.
  : These sets are defined with "nacm:default-deny-write" tagging.
 
 Some of the readable data nodes in this YANG module may be considered
@@ -1160,7 +1160,7 @@ Thanks to Lou Berger for Shepherding the document.
 Thanks to David Black for the tsvart review, Tim Wicinski for the intdir review, Per Andersson for the yangdoctors review, Russ Housley
 for genart review, and Linda Dunbar and Sean Turner for the secdir reviews.
 
-Thanks to Erik Kline, Mike Bishop, Éric Vyncke, and Roman Danyliw for the IESG review.
+Thanks to Erik Kline, Mike Bishop, Éric Vyncke, Roman Danyliw, and Deb Cooley for the IESG review.
 
 The IANA-maintained modules were generated using an XSLT stylesheet from the 'iana-yang' project {{YANG-XSLT}}.
 
