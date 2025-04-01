@@ -2064,9 +2064,18 @@ module ietf-acl-enh {
   identity cwr {
     base tcp-flag;
     description
-      "Congestion Window Reduced flag bit";
+      "Congestion Window Reduced flag bit.";
     reference
       "RFC 9293: Transmission Control Protocol (TCP), Section 3.1";
+  }
+
+  identity ae {
+    base tcp-flag;
+    description
+      "Accurate ECN.
+
+       Previously used as NS (Nonce Sum), which is now
+       historic.";
   }
 
   identity mpls-acl-type {
