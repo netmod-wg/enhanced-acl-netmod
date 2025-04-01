@@ -5,12 +5,12 @@
 netmod                                                     O. G. D. Dios
 Internet-Draft                                                Telefonica
 Intended status: Standards Track                              S. Barguil
-Expires: 2 October 2025                                            Nokia
+Expires: 3 October 2025                                            Nokia
                                                             M. Boucadair
                                                                   Orange
                                                                    Q. Wu
                                                                   Huawei
-                                                           31 March 2025
+                                                            1 April 2025
 
 
         Extensions to the Access Control Lists (ACLs) YANG Model
@@ -53,7 +53,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 2 October 2025.
+   This Internet-Draft will expire on 3 October 2025.
 
 Copyright Notice
 
@@ -811,9 +811,18 @@ Table of Contents
      identity cwr {
        base tcp-flag;
        description
-         "Congestion Window Reduced flag bit";
+         "Congestion Window Reduced flag bit.";
        reference
          "RFC 9293: Transmission Control Protocol (TCP), Section 3.1";
+     }
+
+     identity ae {
+       base tcp-flag;
+       description
+         "Accurate ECN.
+
+          Previously used as NS (Nonce Sum), which is now
+          historic.";
      }
 
      identity mpls-acl-type {
