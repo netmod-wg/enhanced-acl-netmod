@@ -1116,10 +1116,10 @@ module ietf-acl-enh {
         "A reference to a prefix list to match the destination
          address.";
     }
-    leaf next-header-set {
+    leaf protocol-set {
       type protocol-set-ref;
       description
-        "A reference to a protocol set to match the next-header
+        "A reference to a protocol set to match the protocol
          field.";
     }
   }
@@ -1147,7 +1147,8 @@ module ietf-acl-enh {
     leaf protocol-set {
       type protocol-set-ref;
       description
-        "A reference to a protocol set to match the protocol field.";
+        "A reference to a protocol set to match the next-header
+         field.";
     }
     leaf extension-header {
       type iana-ipv6-ext-types:ipv6-extension-header-type;
