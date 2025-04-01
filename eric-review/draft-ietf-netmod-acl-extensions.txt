@@ -5,12 +5,12 @@
 netmod                                                     O. G. D. Dios
 Internet-Draft                                                Telefonica
 Intended status: Standards Track                              S. Barguil
-Expires: 2 October 2025                                            Nokia
+Expires: 3 October 2025                                            Nokia
                                                             M. Boucadair
                                                                   Orange
                                                                    Q. Wu
                                                                   Huawei
-                                                           31 March 2025
+                                                            1 April 2025
 
 
         Extensions to the Access Control Lists (ACLs) YANG Model
@@ -53,7 +53,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 2 October 2025.
+   This Internet-Draft will expire on 3 October 2025.
 
 Copyright Notice
 
@@ -1854,7 +1854,6 @@ Table of Contents
       intruders to modify the entries so as to permit traffic that
       should not be permitted, or deny traffic that should be permitted.
       The former may result in a DoS attack, or compromise a device.
-      The latter may result in a DoS attack.
 
       These sets are defined with "nacm:default-deny-write" tagging.
 
@@ -3955,8 +3954,8 @@ Acknowledgments
    for genart review, and Linda Dunbar and Sean Turner for the secdir
    reviews.
 
-   Thanks to Erik Kline, Mike Bishop, Éric Vyncke, and Roman Danyliw for
-   the IESG review.
+   Thanks to Erik Kline, Mike Bishop, Éric Vyncke, Roman Danyliw, and
+   Deb Cooley for the IESG review.
 
    The IANA-maintained modules were generated using an XSLT stylesheet
    from the 'iana-yang' project [YANG-XSLT].
