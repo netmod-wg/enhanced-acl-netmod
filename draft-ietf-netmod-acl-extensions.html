@@ -11,7 +11,7 @@
 <meta content="Qin Wu" name="author">
 <meta content="
        RFC 8519 defines a YANG data model for Access Control Lists
-(ACLs). This document discusses a set of extensions that fix many of
+(ACLs). This document specifies a set of extensions that fix many of
 the limitations of the ACL model as initially defined in RFC 8519.
 Specifically, it introduces augmentations to the ACL base model to enhance its functionality and applicability. 
        The document also defines IANA-maintained modules for ICMP types and IPv6 extension headers. 
@@ -1099,7 +1099,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <section id="section-abstract">
       <h2 id="abstract"><a href="#abstract" class="selfRef">Abstract</a></h2>
 <p id="section-abstract-1">RFC 8519 defines a YANG data model for Access Control Lists
-(ACLs). This document discusses a set of extensions that fix many of
+(ACLs). This document specifies a set of extensions that fix many of
 the limitations of the ACL model as initially defined in RFC 8519.
 Specifically, it introduces augmentations to the ACL base model to enhance its functionality and applicability.<a href="#section-abstract-1" class="pilcrow">¶</a></p>
 <p id="section-abstract-2">The document also defines IANA-maintained modules for ICMP types and IPv6 extension headers.<a href="#section-abstract-2" class="pilcrow">¶</a></p>
@@ -1382,11 +1382,11 @@ network elements. For example, managing the IP prefix sets from a network
 level makes it easier to maintain by the security groups.<a href="#section-1-4" class="pilcrow">¶</a></p>
 <p id="section-1-5">Network operators maintain sets of IP prefixes that are related to each other,
 e.g., deny-lists or accept-lists that are associated with those provided by a
- VPN customer. These lists are maintained and manipulated by security expert teams.<a href="#section-1-5" class="pilcrow">¶</a></p>
+ VPN customer. These lists are maintained and manipulated by security expert teams of the network operators.<a href="#section-1-5" class="pilcrow">¶</a></p>
 <p id="section-1-6">Note that ACLs are used locally in devices but are triggered by other
 tools such as DDoS mitigation <span>[<a href="#RFC9132" class="cite xref">RFC9132</a>]</span> or BGP Flow Spec <span>[<a href="#RFC8955" class="cite xref">RFC8955</a>]</span>
-        <span>[<a href="#RFC8956" class="cite xref">RFC8956</a>]</span>. Therefore, supporting means to easily map to the filtering rules conveyed in
-messages triggered by  these tools is valuable from a network operation standpoint.<a href="#section-1-6" class="pilcrow">¶</a></p>
+        <span>[<a href="#RFC8956" class="cite xref">RFC8956</a>]</span>. Therefore, it is valuable from a network operation standpoint to support means to easily map to the filtering rules conveyed in
+messages triggered by these tools.<a href="#section-1-6" class="pilcrow">¶</a></p>
 <p id="section-1-7">The enhanced ACL module (<a href="#sec-module" class="auto internal xref">Section 4</a>) conforms to the Network
 Management Datastore Architecture (NMDA) defined in <span>[<a href="#RFC8342" class="cite xref">RFC8342</a>]</span>.<a href="#section-1-7" class="pilcrow">¶</a></p>
 <p id="section-1-8">A set of examples to illustrate the use of the enhanced ACL module are provided in <a href="#sec-examples" class="auto internal xref">Appendix E</a>.<a href="#section-1-8" class="pilcrow">¶</a></p>
@@ -1441,7 +1441,7 @@ The meaning of the symbols in the tree diagrams is defined in
 <span class="break"></span><dl class="dlParallel" id="section-2-4">
         <dt id="section-2-4.1">Defined set:</dt>
         <dd style="margin-left: 1.5em" id="section-2-4.2">
-          <p id="section-2-4.2.1">Elements in a defined set typically share a logical purpose or function, such as IP address, IP prefixes, port number, or ICMP type.<a href="#section-2-4.2.1" class="pilcrow">¶</a></p>
+          <p id="section-2-4.2.1">Elements in a defined set typically share a logical purpose or function, such as IP addresses, IP prefixes, port numbers, or ICMP types.<a href="#section-2-4.2.1" class="pilcrow">¶</a></p>
 </dd>
       <dd class="break"></dd>
 </dl>
@@ -1503,7 +1503,7 @@ module: ietf-acl-enh
     |  +---u fragment-fields
     +--rw source-ipv4-prefix-list?        ipv4-prefix-set-ref
     +--rw destination-ipv4-prefix-list?   ipv4-prefix-set-ref
-    +--rw next-header-set?                protocol-set-ref
+    +--rw protocol-set?                   protocol-set-ref
   augment /acl:acls/acl:acl/acl:aces/acl:ace/acl:matches/acl:l3
             /acl:ipv6/acl:ipv6:
     +--rw ipv6-fragment
@@ -1667,7 +1667,7 @@ Each set is uniquely identified by a name and can be called from the relevant en
           <dd class="break"></dd>
 <dt id="section-3.2-2.5">Port sets:</dt>
           <dd style="margin-left: 1.5em" id="section-3.2-2.6">
-            <p id="section-3.2-2.6.1">A port set contains a list of port numbers to be used in transpot protocol entries (e.g., TCP and UDP).<a href="#section-3.2-2.6.1" class="pilcrow">¶</a></p>
+            <p id="section-3.2-2.6.1">A port set contains a list of port numbers to be used in transport protocol entries (e.g., TCP and UDP).<a href="#section-3.2-2.6.1" class="pilcrow">¶</a></p>
 </dd>
           <dd class="break"></dd>
 <dt id="section-3.2-2.7"></dt>
@@ -1707,7 +1707,7 @@ Each set is uniquely identified by a name and can be called from the relevant en
           <dd class="break"></dd>
 <dt id="section-3.2-2.21">Payload-based filtering:</dt>
           <dd style="margin-left: 1.5em" id="section-3.2-2.22">
-            <p id="section-3.2-2.22.1">Network traffic filtering technique that examines the data payload of packets, beyond just the header information, to identify, allow, or block traffic based on specific content or patterns within the payload.<a href="#section-3.2-2.22.1" class="pilcrow">¶</a></p>
+            <p id="section-3.2-2.22.1">Network traffic filtering technique that examines the data payload of packets, beyond just the header information, to identify, allow, or block traffic based on specific content or patterns within the payload. An offset type (e.g., layer 2 or layer 3) is used to indicates the position of the data in packet to use for the match.<a href="#section-3.2-2.22.1" class="pilcrow">¶</a></p>
 </dd>
         <dd class="break"></dd>
 </dl>
@@ -1745,7 +1745,7 @@ Each set is uniquely identified by a name and can be called from the relevant en
 <a href="#section-3.6" class="section-number selfRef">3.6. </a><a href="#name-payload-based-filtering" class="section-name selfRef">Payload-based Filtering</a>
         </h3>
 <p id="section-3.6-1">Some transport protocols use existing protocols (e.g., TCP or UDP) as substrate. The match criteria for such protocols may rely upon the 'protocol' under 'l3', TCP/UDP match criteria, part of the TCP/UDP payload, or a combination thereof.<a href="#section-3.6-1" class="pilcrow">¶</a></p>
-<p id="section-3.6-2">A new feature, called 'match-on-payload', is defined in the document. This can be used, for example, for QUIC <span>[<a href="#RFC9000" class="cite xref">RFC9000</a>]</span> or for tunneling protocols. This feature requires configuring a data offset, a length, and a binary pattern to match data against using a specified operator.<a href="#section-3.6-2" class="pilcrow">¶</a></p>
+<p id="section-3.6-2">A new feature, called 'match-on-payload', is defined in the document. This can be used, for example, for QUIC <span>[<a href="#RFC9000" class="cite xref">RFC9000</a>]</span> or for tunneling protocols. This feature requires configuring a data offset, a length, and a binary pattern to match data against using a specified operator. The data offset indicates the position to look at in a packet (e.g., starts at the beginning of the IP header or transport header).<a href="#section-3.6-2" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="match-on-mpls-headers">
@@ -2959,10 +2959,10 @@ module ietf-acl-enh {
         "A reference to a prefix list to match the destination
          address.";
     }
-    leaf next-header-set {
+    leaf protocol-set {
       type protocol-set-ref;
       description
-        "A reference to a protocol set to match the next-header
+        "A reference to a protocol set to match the protocol
          field.";
     }
   }
@@ -2990,7 +2990,8 @@ module ietf-acl-enh {
     leaf protocol-set {
       type protocol-set-ref;
       description
-        "A reference to a protocol set to match the protocol field.";
+        "A reference to a protocol set to match the next-header
+         field.";
     }
     leaf extension-header {
       type iana-ipv6-ext-types:ipv6-extension-header-type;
@@ -3109,8 +3110,8 @@ have particular sensitivities/vulnerabilities:<a href="#section-5-4" class="pilc
           <p id="section-5-5.2.1">These lists specify a set of IP addresses, port numbers, protocols, ICMP types, and aliases. Similar to <span>[<a href="#RFC8519" class="cite xref">RFC8519</a>]</span>, unauthorized write access to these
    lists can allow intruders to modify the entries so as to permit
    traffic that should not be permitted, or deny traffic that should
-   be permitted.  The former may result in a DoS attack, or
-   compromise a device.  The latter may result in a DoS attack.<a href="#section-5-5.2.1" class="pilcrow">¶</a></p>
+   be permitted. The former may result in a DoS attack, or
+   compromise a device.<a href="#section-5-5.2.1" class="pilcrow">¶</a></p>
 </dd>
         <dd class="break"></dd>
 <dt id="section-5-5.3"></dt>
@@ -3244,7 +3245,7 @@ and sub-statements thereof, should be defined:<a href="#section-6.3.1-5" class="
 <span class="break"></span><dl class="dlParallel" id="section-6.3.1-6">
             <dt id="section-6.3.1-6.1">"enum":</dt>
             <dd style="margin-left: 1.5em" id="section-6.3.1-6.2">
-              <p id="section-6.3.1-6.2.1">Replicates the name from the registry with all spaces striped.<a href="#section-6.3.1-6.2.1" class="pilcrow">¶</a></p>
+              <p id="section-6.3.1-6.2.1">Replicates the name from the registry with all illegal characters (e.g., spaces) are striped.<a href="#section-6.3.1-6.2.1" class="pilcrow">¶</a></p>
 </dd>
             <dd class="break"></dd>
 <dt id="section-6.3.1-6.3">"value":</dt>
@@ -3324,7 +3325,7 @@ and sub-statements thereof, should be defined:<a href="#section-6.3.2-5" class="
 <span class="break"></span><dl class="dlParallel" id="section-6.3.2-6">
             <dt id="section-6.3.2-6.1">"enum":</dt>
             <dd style="margin-left: 1.5em" id="section-6.3.2-6.2">
-              <p id="section-6.3.2-6.2.1">Replicates the name from the registry with all spaces striped.<a href="#section-6.3.2-6.2.1" class="pilcrow">¶</a></p>
+              <p id="section-6.3.2-6.2.1">Replicates the name from the registry with all illegal characters (e.g., spaces) striped.<a href="#section-6.3.2-6.2.1" class="pilcrow">¶</a></p>
 </dd>
             <dd class="break"></dd>
 <dt id="section-6.3.2-6.3">"value":</dt>
@@ -3474,6 +3475,18 @@ as follows:<a href="#section-6.3.3-11" class="pilcrow">¶</a></p>
 <a href="#section-7.1" class="section-number selfRef">7.1. </a><a href="#name-normative-references" class="section-name selfRef">Normative References</a>
         </h3>
 <dl class="references">
+<dt id="IANA-ICMPv4">[IANA-ICMPv4]</dt>
+        <dd>
+<span class="refTitle">"ICMP Type Numbers"</span>, <span>n.d.</span>, <span>&lt;<a href="https://www.iana.org/assignments/icmp-parameters/icmp-parameters.xhtml">https://www.iana.org/assignments/icmp-parameters/icmp-parameters.xhtml</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="IANA-ICMPv6">[IANA-ICMPv6]</dt>
+        <dd>
+<span class="refTitle">"ICMPv6 type Numbers"</span>, <span>n.d.</span>, <span>&lt;<a href="https://www.iana.org/assignments/icmpv6-parameters/icmpv6-parameters.xhtml">https://www.iana.org/assignments/icmpv6-parameters/icmpv6-parameters.xhtml</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="IANA-IPv6">[IANA-IPv6]</dt>
+        <dd>
+<span class="refTitle">"IPv6 Extension Header Types"</span>, <span>n.d.</span>, <span>&lt;<a href="https://www.iana.org/assignments/ipv6-parameters/ipv6-parameters.xhtml">https://www.iana.org/assignments/ipv6-parameters/ipv6-parameters.xhtml</a>&gt;</span>. </dd>
+<dd class="break"></dd>
 <dt id="RFC0792">[RFC0792]</dt>
         <dd>
 <span class="refAuthor">Postel, J.</span>, <span class="refTitle">"Internet Control Message Protocol"</span>, <span class="seriesInfo">STD 5</span>, <span class="seriesInfo">RFC 792</span>, <span class="seriesInfo">DOI 10.17487/RFC0792</span>, <time datetime="1981-09" class="refDate">September 1981</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc792">https://www.rfc-editor.org/rfc/rfc792</a>&gt;</span>. </dd>
@@ -3550,18 +3563,6 @@ as follows:<a href="#section-6.3.3-11" class="pilcrow">¶</a></p>
 <dt id="I-D.ietf-netmod-rfc8407bis">[I-D.ietf-netmod-rfc8407bis]</dt>
         <dd>
 <span class="refAuthor">Bierman, A.</span>, <span class="refAuthor">Boucadair, M.</span>, and <span class="refAuthor">Q. Wu</span>, <span class="refTitle">"Guidelines for Authors and Reviewers of Documents Containing YANG Data Models"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-netmod-rfc8407bis-22</span>, <time datetime="2025-01-14" class="refDate">14 January 2025</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-netmod-rfc8407bis-22">https://datatracker.ietf.org/doc/html/draft-ietf-netmod-rfc8407bis-22</a>&gt;</span>. </dd>
-<dd class="break"></dd>
-<dt id="IANA-ICMPv4">[IANA-ICMPv4]</dt>
-        <dd>
-<span class="refTitle">"ICMP Type Numbers"</span>, <span>n.d.</span>, <span>&lt;<a href="https://www.iana.org/assignments/icmp-parameters/icmp-parameters.xhtml">https://www.iana.org/assignments/icmp-parameters/icmp-parameters.xhtml</a>&gt;</span>. </dd>
-<dd class="break"></dd>
-<dt id="IANA-ICMPv6">[IANA-ICMPv6]</dt>
-        <dd>
-<span class="refTitle">"ICMPv6 type Numbers"</span>, <span>n.d.</span>, <span>&lt;<a href="https://www.iana.org/assignments/icmpv6-parameters/icmpv6-parameters.xhtml">https://www.iana.org/assignments/icmpv6-parameters/icmpv6-parameters.xhtml</a>&gt;</span>. </dd>
-<dd class="break"></dd>
-<dt id="IANA-IPv6">[IANA-IPv6]</dt>
-        <dd>
-<span class="refTitle">"IPv6 Extension Header Types"</span>, <span>n.d.</span>, <span>&lt;<a href="https://www.iana.org/assignments/ipv6-parameters/ipv6-parameters.xhtml">https://www.iana.org/assignments/ipv6-parameters/ipv6-parameters.xhtml</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="IANA-TCP-FLAGS">[IANA-TCP-FLAGS]</dt>
         <dd>
@@ -5272,6 +5273,9 @@ packets.  The following ACEs are defined (in this order):<a href="#appendix-E.2-
             {
               "name": "pattern-1",
               "matches": {
+                "ipv6": {
+                  "protocol": 41
+                },
                 "ietf-acl-enh:pattern": {
                   "offset": "ietf-acl-enh:layer4",
                   "length": 20,
@@ -5441,8 +5445,8 @@ packets.  The following ACEs are defined (in this order):<a href="#appendix-E.2-
 <p id="appendix-F-3">Thanks to Lou Berger for Shepherding the document.<a href="#appendix-F-3" class="pilcrow">¶</a></p>
 <p id="appendix-F-4">Thanks to David Black for the tsvart review, Tim Wicinski for the intdir review, Per Andersson for the yangdoctors review, Russ Housley
 for genart review, and Linda Dunbar and Sean Turner for the secdir reviews.<a href="#appendix-F-4" class="pilcrow">¶</a></p>
-<p id="appendix-F-5">Thanks to Erik Kline and Mike Bishop for the IESG review.<a href="#appendix-F-5" class="pilcrow">¶</a></p>
-<p id="appendix-F-6">The IANA-maintained modules were generated using an XSLT stylesheet from the 'iana-yang' project <span>[<a href="#YANG-XSLT" class="cite xref">YANG-XSLT</a>]</span>).<a href="#appendix-F-6" class="pilcrow">¶</a></p>
+<p id="appendix-F-5">Thanks to Erik Kline, Mike Bishop, Éric Vyncke, Roman Danyliw, and Deb Cooley for the IESG review.<a href="#appendix-F-5" class="pilcrow">¶</a></p>
+<p id="appendix-F-6">The IANA-maintained modules were generated using an XSLT stylesheet from the 'iana-yang' project <span>[<a href="#YANG-XSLT" class="cite xref">YANG-XSLT</a>]</span>.<a href="#appendix-F-6" class="pilcrow">¶</a></p>
 <p id="appendix-F-7">This work is partially supported by the European Commission under   Horizon 2020 Secured autonomic traffic management for a Tera of SDN
 flows (Teraflow) project (grant agreement number 101015857).<a href="#appendix-F-7" class="pilcrow">¶</a></p>
 </section>
