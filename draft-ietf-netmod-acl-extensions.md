@@ -338,7 +338,7 @@ have particular sensitivities/vulnerabilities:
       lists can allow intruders to modify the entries so as to permit
       traffic that should not be permitted, or deny traffic that should
       be permitted. The former may result in a DoS attack, or
-      compromise a device.
+      compromise a device. The latter may result in a DoS attack.
  : These sets are defined with "nacm:default-deny-write" tagging.
 
 Some of the readable data nodes in this YANG module may be considered
