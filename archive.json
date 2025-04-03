@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-04-01T02:02:27.048442+00:00",
+  "timestamp": "2025-04-03T01:50:22.437092+00:00",
   "repo": "netmod-wg/enhanced-acl-netmod",
   "labels": [
     {
@@ -3294,24 +3294,26 @@
       "id": "PR_kwDOIykBHs6QyBir",
       "title": "eric-review",
       "url": "https://github.com/netmod-wg/enhanced-acl-netmod/pull/96",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "boucadair",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "",
       "createdAt": "2025-03-31T13:55:27Z",
-      "updatedAt": "2025-03-31T14:55:48Z",
+      "updatedAt": "2025-04-01T12:01:39Z",
       "baseRepository": "netmod-wg/enhanced-acl-netmod",
       "baseRefName": "main",
-      "baseRefOid": "0f256c89b006b90bc4a864476392be0fdc6f38f1",
+      "baseRefOid": "399dd5fec442761f6e6b7038575bc24e474f947b",
       "headRepository": "netmod-wg/enhanced-acl-netmod",
       "headRefName": "eric-review",
-      "headRefOid": "3f2c2ea296c31d107e8eb548ea869d3499cfc069",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "headRefOid": "fda99fab4f1ae11c7342d19362a7bab7263cc45b",
+      "closedAt": "2025-04-01T12:01:37Z",
+      "mergedAt": "2025-04-01T12:01:37Z",
+      "mergedBy": "boucadair",
+      "mergeCommit": {
+        "oid": "e0be8bb96154c4142347160cd810cbe3ffba15c9"
+      },
       "comments": [],
       "reviews": []
     }
