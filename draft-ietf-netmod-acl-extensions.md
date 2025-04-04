@@ -146,8 +146,7 @@ Management Datastore Architecture (NMDA) defined in {{!RFC8342}}.
 
 A set of examples to illustrate the use of the enhanced ACL module are provided in {{sec-examples}}.
 
-The document also defines IANA-maintained modules for ICMP types and IPv6 extension headers. The design of the modules adheres to the recommendations
-in {{Section 4.30.2 of ?I-D.ietf-netmod-rfc8407bis}}. The templates to generate the modules are available in {{template}}, {{v6-template}}, and {{iana-ipv6-ext-template}}. The templates use an XSLT stylesheet from the 'iana-yang' project {{YANG-XSLT}}. Readers should refer to the IANA websites {{IANA_ICMPv4_YANG_URL}}, {{IANA_ICMPv6_YANG_URL}}, and {{IANA_IPV6_YANG_URL}} to retrieve the latest version of these IANA-maintained modules.
+The document also defines IANA-maintained modules for ICMP types and IPv6 extension headers. The design of the modules adheres to the recommendations in {{Section 4.30.2 of ?I-D.ietf-netmod-rfc8407bis}}. Readers should refer to the IANA websites {{IANA_ICMPv4_YANG_URL}}, {{IANA_ICMPv6_YANG_URL}}, and {{IANA_IPV6_YANG_URL}} to retrieve the latest version of these IANA-maintained modules.
 
 ## Editorial Note (To be removed by RFC Editor)
 
@@ -424,11 +423,6 @@ reference: RFC XXXX
 
 ### ICMPv4 Types IANA Module
 
-IANA is requested to create and post
-the initial version of the "iana-icmpv4-types" YANG module by
-applying the XSLT stylesheet from {{template}} to the XML version of
-{{IANA-ICMPv4}}.
-
 This document defines the initial version of the IANA-maintained
 "iana-icmpv4-types" YANG module.  The most recent version of the YANG module
 is available from the "YANG Parameters" registry
@@ -483,13 +477,8 @@ NEW:
 
 ### ICMPv6 Types IANA Module
 
-IANA is requested to create and post
-the initial version of the "iana-icmpv6-types" YANG module by
-applying the XSLT stylesheet from {{v6-template}} to the XML version of
-{{IANA-ICMPv6}}.
-
 This document defines the initial version of the IANA-maintained
-"iana-icmpv6-types" YANG module.  The most recent version of the YANG module
+"iana-icmpv6-types" YANG module. The most recent version of the YANG module
 is available from the "YANG Parameters" registry
 {{IANA-YANG-PARAMETERS}}.
 
@@ -541,11 +530,6 @@ NEW:
 : {{?RFC4443}}[RFCXXXX]
 
 ### IPv6 Extension Header Types IANA Module
-
-IANA is requested to create and post
-the initial version of the "iana-ipv6-ext-types" YANG module by
-applying the XSLT stylesheet from {{iana-ipv6-ext-template}} to the XML version of
-{{IANA-IPv6}}.
 
 This document defines the initial version of the IANA-maintained
 "iana-ipv6-ext-types" YANG module.  The most recent version of the YANG module
@@ -602,19 +586,7 @@ NEW:
 
 --- back
 
-# ICMPv4 Types
-
-## XSLT Template to Generate the ICMPv4 Types IANA-Maintained Module {#template}
-
-~~~
-<CODE BEGINS>
-
-{::include-fold ./yang/iana-icmpv4-types.xsl}
-
-<CODE ENDS>
-~~~
-
-## Initial Version of the ICMPv4 Types IANA-Maintained Module {#iana-icmp}
+# Initial Version of the ICMPv4 Types IANA-Maintained Module {#iana-icmp}
 
 ~~~
 <CODE BEGINS> file "iana-icmpv4-types@2020-09-25.yang"
@@ -624,19 +596,7 @@ NEW:
 <CODE ENDS>
 ~~~
 
-# ICMPv6 Types
-
-## XSLT Template to Generate the ICMPv6 Types IANA-Maintained Module {#v6-template}
-
-~~~
-<CODE BEGINS>
-
-{::include-fold ./yang/iana-icmpv6-types.xsl}
-
-<CODE ENDS>
-~~~
-
-## Initial Version of the ICMPv6 Types IANA-Maintained Module {#iana-icmpv6}
+# Initial Version of the ICMPv6 Types IANA-Maintained Module {#iana-icmpv6}
 
 ~~~
 <CODE BEGINS> file "iana-icmpv6-types@2023-04-28.yang"
@@ -646,19 +606,7 @@ NEW:
 <CODE ENDS>
 ~~~
 
-# IPv6 Extension Header Types
-
-## XSLT Template to Generate the IPv6 Extension Header Types IANA-Maintained Module {#iana-ipv6-ext-template}
-
-~~~
-<CODE BEGINS>
-
-{::include-fold ./yang/iana-ipv6-ext-types.xsl}
-
-<CODE ENDS>
-~~~
-
-## Initial Version of the IPv6 Extension Header Types IANA-Maintained Module {#iana-ipv6-ext}
+# Initial Version of the IPv6 Extension Header Types IANA-Maintained Module {#iana-ipv6-ext}
 
 ~~~
 <CODE BEGINS> file "iana-ipv6-ext-types@2023-09-29.yang"
@@ -1164,5 +1112,5 @@ Thanks to Erik Kline, Mike Bishop, Éric Vyncke, Roman Danyliw, and Deb Cooley f
 
 The IANA-maintained modules were generated using an XSLT stylesheet from the 'iana-yang' project {{YANG-XSLT}}.
 
-This work is partially supported by the European Commission under   Horizon 2020 Secured autonomic traffic management for a Tera of SDN
+This work is partially supported by the European Commission under Horizon 2020 Secured autonomic traffic management for a Tera of SDN
 flows (Teraflow) project (grant agreement number 101015857).
