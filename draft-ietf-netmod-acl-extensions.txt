@@ -5,12 +5,12 @@
 netmod                                                     O. G. D. Dios
 Internet-Draft                                                Telefonica
 Intended status: Standards Track                              S. Barguil
-Expires: 4 October 2025                                            Nokia
+Expires: 6 October 2025                                            Nokia
                                                             M. Boucadair
                                                                   Orange
                                                                    Q. Wu
                                                                   Huawei
-                                                            2 April 2025
+                                                            4 April 2025
 
 
         Extensions to the Access Control Lists (ACLs) YANG Model
@@ -53,7 +53,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 4 October 2025.
+   This Internet-Draft will expire on 6 October 2025.
 
 Copyright Notice
 
@@ -97,18 +97,11 @@ Table of Contents
    7.  References
      7.1.  Normative References
      7.2.  Informative References
-   Appendix A.  ICMPv4 Types
-     A.1.  XSLT Template to Generate the ICMPv4 Types IANA-Maintained
+   Appendix A.  Initial Version of the ICMPv4 Types IANA-Maintained
            Module
-     A.2.  Initial Version of the ICMPv4 Types IANA-Maintained Module
-   Appendix B.  ICMPv6 Types
-     B.1.  XSLT Template to Generate the ICMPv6 Types IANA-Maintained
+   Appendix B.  Initial Version of the ICMPv6 Types IANA-Maintained
            Module
-     B.2.  Initial Version of the ICMPv6 Types IANA-Maintained Module
-   Appendix C.  IPv6 Extension Header Types
-     C.1.  XSLT Template to Generate the IPv6 Extension Header Types
-           IANA-Maintained Module
-     C.2.  Initial Version of the IPv6 Extension Header Types
+   Appendix C.  Initial Version of the IPv6 Extension Header Types
            IANA-Maintained Module
    Appendix D.  Problem Statement and Gap Analysis
      D.1.  Suboptimal Configuration: Lack of Support for Lists of
@@ -186,12 +179,9 @@ Table of Contents
    The document also defines IANA-maintained modules for ICMP types and
    IPv6 extension headers.  The design of the modules adheres to the
    recommendations in Section 4.30.2 of [I-D.ietf-netmod-rfc8407bis].
-   The templates to generate the modules are available in Appendix A.1,
-   Appendix B.1, and Appendix C.1.  The templates use an XSLT stylesheet
-   from the 'iana-yang' project [YANG-XSLT].  Readers should refer to
-   the IANA websites [IANA_ICMPv4_YANG_URL], [IANA_ICMPv6_YANG_URL], and
-   [IANA_IPV6_YANG_URL] to retrieve the latest version of these IANA-
-   maintained modules.
+   Readers should refer to the IANA websites [IANA_ICMPv4_YANG_URL],
+   [IANA_ICMPv6_YANG_URL], and [IANA_IPV6_YANG_URL] to retrieve the
+   latest version of these IANA-maintained modules.
 
 1.1.  Editorial Note (To be removed by RFC Editor)
 
@@ -208,8 +198,8 @@ Table of Contents
 
    *  2024-05-16 --> the actual date of the publication of this document
 
-   (2) The modules are provided in Appendix A.2, Appendix B.2, and
-   Appendix C.2 for the users convenience before publication as RFC.
+   (2) The modules are provided in Appendix A, Appendix B, and
+   Appendix C for the users convenience before publication as RFC.
    Please remove these appendices from the final RFC.
 
    (3) Please update the following references:
@@ -1959,10 +1949,6 @@ Table of Contents
 
 6.3.1.  ICMPv4 Types IANA Module
 
-   IANA is requested to create and post the initial version of the
-   "iana-icmpv4-types" YANG module by applying the XSLT stylesheet from
-   Appendix A.1 to the XML version of [IANA-ICMPv4].
-
    This document defines the initial version of the IANA-maintained
    "iana-icmpv4-types" YANG module.  The most recent version of the YANG
    module is available from the "YANG Parameters" registry
@@ -2016,10 +2002,6 @@ Table of Contents
 
 6.3.2.  ICMPv6 Types IANA Module
 
-   IANA is requested to create and post the initial version of the
-   "iana-icmpv6-types" YANG module by applying the XSLT stylesheet from
-   Appendix B.1 to the XML version of [IANA-ICMPv6].
-
    This document defines the initial version of the IANA-maintained
    "iana-icmpv6-types" YANG module.  The most recent version of the YANG
    module is available from the "YANG Parameters" registry
@@ -2072,10 +2054,6 @@ Table of Contents
    NEW:  [RFC4443][RFCXXXX]
 
 6.3.3.  IPv6 Extension Header Types IANA Module
-
-   IANA is requested to create and post the initial version of the
-   "iana-ipv6-ext-types" YANG module by applying the XSLT stylesheet
-   from Appendix C.1 to the XML version of [IANA-IPv6].
 
    This document defines the initial version of the IANA-maintained
    "iana-ipv6-ext-types" YANG module.  The most recent version of the
@@ -2341,92 +2319,7 @@ Table of Contents
    [YANG-XSLT]
               "iana-yang", n.d., <https://github.com/llhotka/iana-yang>.
 
-Appendix A.  ICMPv4 Types
-
-A.1.  XSLT Template to Generate the ICMPv4 Types IANA-Maintained Module
-
-   <CODE BEGINS>
-   <?xml version="1.0" encoding="utf-8"?>
-   <stylesheet
-       xmlns="http://www.w3.org/1999/XSL/Transform"
-       xmlns:html="http://www.w3.org/1999/xhtml"
-       xmlns:iana="http://www.iana.org/assignments"
-       xmlns:yin="urn:ietf:params:xml:ns:yang:yin:1"
-       version="1.0">
-     <import href="../../../xslt/iana-yinx.xsl"/>
-     <output method="xml" encoding="utf-8"/>
-     <strip-space elements="*"/>
-
-     <template match="iana:registry[@id='icmp-parameters-types']">
-       <element name="yin:typedef">
-         <attribute name="name">icmpv4-type-name</attribute>
-         <element name="yin:type">
-           <attribute name="name">enumeration</attribute>
-           <apply-templates
-             select="iana:record[not(iana:description = 'Unassigned' or
-                       starts-with(iana:description, 'Reserved') or
-                       starts-with(iana:description, 'RFC3692')) or
-                       contains(iana:description, 'experimental')]"/>
-         </element>
-         <element name="yin:description">
-           <element name="yin:text">
-             This enumeration type defines mnemonic names and
-             corresponding numeric values of ICMPv4 types.
-           </element>
-         </element>
-         <element name="yin:reference">
-           <element name="yin:text">
-             RFC 2708: IANA Allocation Guidelines For Values In
-                       the Internet Protocol and Related Headers
-           </element>
-         </element>
-       </element>
-       <element name="yin:typedef">
-         <attribute name="name">icmpv4-type</attribute>
-         <element name="yin:type">
-           <attribute name="name">union</attribute>
-           <element name="yin:type">
-             <attribute name="name">uint8</attribute>
-           </element>
-           <element name="yin:type">
-             <attribute name="name">icmpv4-type-name</attribute>
-           </element>
-         </element>
-         <element name="yin:description">
-           <element name="yin:text">
-             This type allows reference to an ICMPv4 type using either
-             the assigned mnemonic name or numeric value.
-           </element>
-         </element>
-       </element>
-     </template>
-
-     <template match="iana:record">
-       <call-template name="enum">
-         <with-param name="id">
-           <choose>
-             <when test="contains(iana:description, '(Deprecated)')">
-               <value-of select="translate(normalize-space(
-                     substring-before(iana:description,
-                     '(Deprecated)')),' ','')"/>
-             </when>
-             <otherwise>
-              <value-of select="substring-before(translate
-                     (normalize-space(iana:description),' ',''),
-                     'suchasSeamoby')"/>
-             </otherwise>
-           </choose>
-         </with-param>
-         <with-param name="deprecated"
-                     select="contains(iana:description,
-                     '(Deprecated)')"/>
-       </call-template>
-     </template>
-
-   </stylesheet>
-   <CODE ENDS>
-
-A.2.  Initial Version of the ICMPv4 Types IANA-Maintained Module
+Appendix A.  Initial Version of the ICMPv4 Types IANA-Maintained Module
 
    <CODE BEGINS> file "iana-icmpv4-types@2020-09-25.yang"
    module iana-icmpv4-types {
@@ -2750,94 +2643,7 @@ A.2.  Initial Version of the ICMPv4 Types IANA-Maintained Module
    }
    <CODE ENDS>
 
-Appendix B.  ICMPv6 Types
-
-B.1.  XSLT Template to Generate the ICMPv6 Types IANA-Maintained Module
-
-   <CODE BEGINS>
-   <?xml version="1.0" encoding="utf-8"?>
-   <stylesheet
-       xmlns="http://www.w3.org/1999/XSL/Transform"
-       xmlns:html="http://www.w3.org/1999/xhtml"
-       xmlns:iana="http://www.iana.org/assignments"
-       xmlns:yin="urn:ietf:params:xml:ns:yang:yin:1"
-       version="1.0">
-     <import href="../../../xslt/iana-yinx.xsl"/>
-     <output method="xml" encoding="utf-8"/>
-     <strip-space elements="*"/>
-
-     <template match="iana:registry[@id='icmpv6-parameters-2']">
-       <element name="yin:typedef">
-         <attribute name="name">icmpv6-type-name</attribute>
-         <element name="yin:type">
-           <attribute name="name">enumeration</attribute>
-           <apply-templates
-              select="iana:record[not(iana:name = 'Unassigned' or
-                       starts-with(iana:name, 'Reserved') or
-                       starts-with(iana:name, 'Private'))]"/>
-         </element>
-         <element name="yin:description">
-           <element name="yin:text">
-             This enumeration type defines mnemonic names and
-             corresponding numeric values of ICMPv6 types.
-           </element>
-         </element>
-         <element name="yin:reference">
-           <element name="yin:text">
-             RFC 2708: IANA Allocation Guidelines For Values In
-                       the Internet Protocol and Related Headers
-           </element>
-         </element>
-       </element>
-       <element name="yin:typedef">
-         <attribute name="name">icmpv6-type</attribute>
-         <element name="yin:type">
-           <attribute name="name">union</attribute>
-           <element name="yin:type">
-             <attribute name="name">uint8</attribute>
-           </element>
-           <element name="yin:type">
-             <attribute name="name">icmpv6-type-name</attribute>
-           </element>
-         </element>
-         <element name="yin:description">
-           <element name="yin:text">
-             This type allows reference to an ICMPv6 type using either
-             the assigned mnemonic name or numeric value.
-           </element>
-         </element>
-       </element>
-     </template>
-
-     <template match="iana:record">
-       <call-template name="enum">
-         <with-param name="id">
-           <choose>
-             <when test="contains(iana:name, '(Deprecated)')">
-               <value-of select="translate(normalize-space(
-                      substring-before(iana:name,
-                     '(Deprecated)')),' ','')"/>
-             </when>
-             <otherwise>
-              <value-of select="substring-before(translate
-                     (normalize-space(iana:description),' ',''),
-                      'suchasSeamoby')"/>
-             </otherwise>
-           </choose>
-         </with-param>
-         <with-param name="description">
-           <value-of select="concat(iana:name, '.')"/>
-         </with-param>
-         <with-param name="deprecated"
-                     select="contains(iana:name,
-                    '(Deprecated)')"/>
-       </call-template>
-     </template>
-
-   </stylesheet>
-   <CODE ENDS>
-
-B.2.  Initial Version of the ICMPv6 Types IANA-Maintained Module
+Appendix B.  Initial Version of the ICMPv6 Types IANA-Maintained Module
 
    <CODE BEGINS> file "iana-icmpv6-types@2023-04-28.yang"
    module iana-icmpv6-types {
@@ -3186,103 +2992,8 @@ B.2.  Initial Version of the ICMPv6 Types IANA-Maintained Module
    }
    <CODE ENDS>
 
-Appendix C.  IPv6 Extension Header Types
-
-C.1.  XSLT Template to Generate the IPv6 Extension Header Types IANA-
-      Maintained Module
-
-   <CODE BEGINS>
-   <?xml version="1.0" encoding="utf-8"?>
-   <stylesheet
-       xmlns="http://www.w3.org/1999/XSL/Transform"
-       xmlns:html="http://www.w3.org/1999/xhtml"
-       xmlns:iana="http://www.iana.org/assignments"
-       xmlns:yin="urn:ietf:params:xml:ns:yang:yin:1"
-       version="1.0">
-     <import href="../../../xslt/iana-yinx.xsl"/>
-     <output method="xml" encoding="utf-8"/>
-     <strip-space elements="*"/>
-
-     <template match="iana:registry[@id='extension-header']">
-       <element name="yin:typedef">
-         <attribute name="name">
-           ipv6-extension-header-type-name
-         </attribute>
-         <element name="yin:type">
-           <attribute name="name">enumeration</attribute>
-           <apply-templates
-            select="iana:record[not(iana:description = 'Unassigned' or
-                       starts-with(iana:description, 'Reserved') or
-                       starts-with(iana:description,
-                       'Use for experimentation and testing')) or
-                       contains(iana:description, 'experimental')]"/>
-         </element>
-         <element name="yin:description">
-           <element name="yin:text">
-             This enumeration type defines mnemonic names and
-             corresponding numeric values of IPv6 Extension header
-             types.
-           </element>
-         </element>
-         <element name="yin:reference">
-           <element name="yin:text">
-             RFC 2708: IANA Allocation Guidelines For Values In
-                       the Internet Protocol and Related Headers
-           </element>
-         </element>
-       </element>
-       <element name="yin:typedef">
-         <attribute name="name">
-           ipv6-extension-header-type
-         </attribute>
-         <element name="yin:type">
-           <attribute name="name">union</attribute>
-           <element name="yin:type">
-             <attribute name="name">uint8</attribute>
-           </element>
-           <element name="yin:type">
-             <attribute name="name">
-               ipv6-extension-header-type-name
-             </attribute>
-           </element>
-         </element>
-         <element name="yin:description">
-           <element name="yin:text">
-             This type allows reference to an IPv6 Extension
-             header type using either the assigned mnemonic
-             name or the numeric protocol number value.
-           </element>
-         </element>
-       </element>
-     </template>
-
-     <template match="iana:record">
-       <call-template name="enum">
-         <with-param name="id">
-           <choose>
-             <when test="contains(iana:description,
-                     '(Deprecated)')">
-               <value-of select="translate(normalize-space(
-                       substring-before(iana:description,
-                     '(Deprecated)')),' ','')"/>
-             </when>
-             <otherwise>
-               <value-of select="translate(\
-                   normalize-space(iana:description),' ','')"/>
-             </otherwise>
-           </choose>
-         </with-param>
-         <with-param name="deprecated"
-                     select="contains(iana:description,
-                     '(Deprecated)')"/>
-       </call-template>
-     </template>
-
-   </stylesheet>
-   <CODE ENDS>
-
-C.2.  Initial Version of the IPv6 Extension Header Types IANA-Maintained
-      Module
+Appendix C.  Initial Version of the IPv6 Extension Header Types IANA-
+             Maintained Module
 
    <CODE BEGINS> file "iana-ipv6-ext-types@2023-09-29.yang"
    module iana-ipv6-ext-types {
