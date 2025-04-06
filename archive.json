@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-04-03T01:50:22.437092+00:00",
+  "timestamp": "2025-04-06T01:56:26.481919+00:00",
   "repo": "netmod-wg/enhanced-acl-netmod",
   "labels": [
     {
@@ -3313,6 +3313,34 @@
       "mergedBy": "boucadair",
       "mergeCommit": {
         "oid": "e0be8bb96154c4142347160cd810cbe3ffba15c9"
+      },
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 97,
+      "id": "PR_kwDOIykBHs6RWPUa",
+      "title": "remove xls",
+      "url": "https://github.com/netmod-wg/enhanced-acl-netmod/pull/97",
+      "state": "MERGED",
+      "author": "boucadair",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2025-04-04T04:23:00Z",
+      "updatedAt": "2025-04-04T04:24:54Z",
+      "baseRepository": "netmod-wg/enhanced-acl-netmod",
+      "baseRefName": "main",
+      "baseRefOid": "b64a04ef9f9ba3ab12fb3f1d563ef974017d5bd9",
+      "headRepository": "netmod-wg/enhanced-acl-netmod",
+      "headRefName": "remove-xls",
+      "headRefOid": "eef435e2c3cde6fe281c20adc54905ef264ff74b",
+      "closedAt": "2025-04-04T04:24:52Z",
+      "mergedAt": "2025-04-04T04:24:52Z",
+      "mergedBy": "boucadair",
+      "mergeCommit": {
+        "oid": "9caae2c20289bcada2c3b8bfb64fd16d65ca227c"
       },
       "comments": [],
       "reviews": []
